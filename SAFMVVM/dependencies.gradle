@@ -41,6 +41,8 @@ ext {
 
             // 网络
             retrofit2                 : "com.squareup.retrofit2:retrofit:$Versions.retrofit2",
+            //retrofit协程的适配器
+            retrofit2KotlinCoroutinesAdapter  : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2",
             //网络请求返回数据处理       可以很好的解决错误的问题。
             networkResponseAdapter    : "com.github.haroldadmin:NetworkResponseAdapter:4.0.1",
 

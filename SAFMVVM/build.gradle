@@ -79,6 +79,7 @@ dependencies {
 
     // 网络，默认使用 gson 解析 json
     api Deps.retrofit2
+    api Deps.retrofit2KotlinCoroutinesAdapter
     api Deps.gson
     api Deps.gsonConverter
 
