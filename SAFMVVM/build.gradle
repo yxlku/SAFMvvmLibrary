@@ -1,0 +1,128 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion SysConfig.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion SysConfig.minSdkVersion
+        targetSdkVersion SysConfig.targetSdkVersion
+        versionCode SysConfig.versionCode
+        versionName SysConfig.versionName
+
+        //MultiDex分包方法
+        multiDexEnabled true
+
+        //混淆过滤
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            ext.enableCrashlytics = false
+            ext.alwaysUpdateBuildId = false
+            aaptOptions {
+                cruncherEnabled false
+            }
+        }
+        /**
+         * 建议提测用这个构建类型，并使用 BuildConfig.BUILD_TYPE 判断是否等于 beta，作为
+         * 开启动态修改 Url，动态打开日志等功能的标记。
+         */
+        beta {
+            initWith release
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "${JavaVersion.VERSION_1_8}"
+    }
+    //防止编译的时候oom、GC
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    //解决.9图问题
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+    sourceSets {
+        main {
+            java {
+                /*
+                 TODO 这里似乎无法根据配置来排除某些类，而是取决于是否使用了某类来自动排除
+                 */
+            }
+        }
+    }
+}
+
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+    // 这两个是创建项目默认就有的库
+    api Deps.kotlinStdLib
+    api Deps.kotlinKTX
+    // 兼容库
+    api Deps.appcompat
+    // 约束布局
+    api Deps.constraintLayout
+    // RecycylerView
+    api Deps.recyclerView
+    // material
+    api Deps.material
+
+    // 以下三个是为了使用最新的特性
+    api Deps.activity
+    api Deps.activityKTX
+    api Deps.fragment
+
+    // 在 Lifecycles 中使用协程，视图销毁则自动取消
+    api Deps.lifecycleRuntimeKTX
+    // 在 LiveData 中使用协程
+    api Deps.lifecycleLiveDataKTX
+    // 监控应用的生命周期
+    api Deps.lifecycleProcess
+    // 简化 Fragment 的 API 调用，同时通过 viewModels 扩展方法创建 vm 来的非常容易
+    api Deps.fragmentKTX
+    // 使用 Java8 替换 lifecycleCompiler，让 vm 可以感知 v 生命周期
+    api Deps.lifecycleJava8
+
+    // 内嵌的加载中库
+    api Deps.loadSir
+
+    // 数据库
+    api Deps.roomRuntime
+
+    // 网络，默认使用 gson 解析 json
+    api Deps.retrofit2
+    api Deps.gson
+    api Deps.gsonConverter
+
+    // 图片，使用 glide
+    api Deps.glide
+
+    // 权限申请
+    api Deps.livePermissions
+
+    //日志
+    api Deps.safLogCore
+    api Deps.safLogConverterGson
+    api Deps.safLogFile //存储到文件
+    api Deps.safLogDebugView //测试view
+
+    // debug 阶段内存泄露检测
+    debugImplementation Deps.leakCanary2
+
+
+}

@@ -1,0 +1,20 @@
+ext {
+    SysConfig = [
+            compileSdkVersion: 29,
+            minSdkVersion    : 21,      //5.0
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+}
+
+static def curDate() {
+    return new Date().format("yyyy-MM-dd")
+}
+
+static def curDateTime() {
+    return new Date().format("yyyy-MM-dd_HH-mm")
+}
+
+ext.curDate = this.&curDate
+ext.curDateTime = this.&curDateTime

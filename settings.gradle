@@ -1,0 +1,2 @@
+include ':SAFMVVM'
+rootProject.name = "SAFMVVM"

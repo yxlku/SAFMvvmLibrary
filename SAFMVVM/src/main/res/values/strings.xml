@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SAFMVVM</string>
+
+    <!-- LogUtil-->
+    <string name="log_already_open">Log 已打开并已保存到本地</string>
+    <string name="save_to_local">保存到本地</string>
+    <string name="please_input_pwd">请输入密码</string>
+    <string name="confirm">确定</string>
+    <string name="log_already_open2">Log 已打开</string>
+    <string name="wrong_pwd">密码错误</string>
+
+
+
+</resources>
