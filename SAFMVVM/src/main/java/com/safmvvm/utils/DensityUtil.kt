@@ -3,6 +3,9 @@ package com.safmvvm.utils
 import com.safmvvm.app.BaseApp
 
 
+/**
+ * 屏幕分辨率计算转换
+ */
 object DensityUtil {
 
     /**

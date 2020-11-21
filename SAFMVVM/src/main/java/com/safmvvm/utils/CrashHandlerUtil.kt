@@ -4,9 +4,10 @@ import android.os.Build
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.app.GlobalConfig
 import com.safmvvm.utils.AppUtil
-import com.safmvvm.utils.DateUtil
-import com.safmvvm.utils.FileUtil
-import java.io.*
+import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.currentTimeMills
+import java.io.PrintWriter
+import java.io.StringWriter
 import java.lang.Thread.UncaughtExceptionHandler
 import kotlin.system.exitProcess
 
@@ -14,15 +15,9 @@ import kotlin.system.exitProcess
  * 崩溃信息捕获，存储在 /sdcard/Android/data/xxx.xxx.xxx/cache/Log/crash/日期.log
  */
 internal object CrashHandlerUtil : UncaughtExceptionHandler {
-    private val CRASH_LOG_PATH = FileUtil.appLogDir + "crash/"
 
     fun init() {
         Thread.setDefaultUncaughtExceptionHandler(this)
-
-        val file = File(CRASH_LOG_PATH)
-        if (!file.exists()) {
-            file.mkdirs()
-        }
     }
 
     override fun uncaughtException(thread: Thread, ex: Throwable) {
@@ -39,7 +34,7 @@ internal object CrashHandlerUtil : UncaughtExceptionHandler {
         val lineSeparator = "\r\n"
 
         val sb = StringBuilder()
-        val logTime = "logTime:" + DateUtil.formatYMDHMS_()
+        val logTime = "logTime:" + currentTimeMills
 
         val exception = "exception:$ex"
 
@@ -71,19 +66,7 @@ internal object CrashHandlerUtil : UncaughtExceptionHandler {
     }
 
     private fun handleException(ex: Throwable) {
-        try {
-            FileOutputStream(
-                    CRASH_LOG_PATH + DateUtil.formatYMDHMS() + ".log", true).use { outputStream ->
-                outputStream.write(formatLogInfo(ex).toByteArray())
-                outputStream.write("\n".toByteArray())
-                outputStream.write("\n".toByteArray())
-                outputStream.flush()
-            }
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
+        //打印日志，日志工具自带保存到文件
+        LogUtil.e(formatLogInfo(ex))
     }
 }

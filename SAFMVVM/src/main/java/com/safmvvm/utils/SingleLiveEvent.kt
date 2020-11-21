@@ -4,7 +4,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.safmvvm.utils.temp.LogUtil
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**

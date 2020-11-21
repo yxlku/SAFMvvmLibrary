@@ -13,7 +13,6 @@ import android.net.Uri
 import android.provider.Settings
 import android.view.View
 import com.safmvvm.app.BaseApp
-import com.safmvvm.utils.temp.LogUtil
 
 
 object AppUtil {
@@ -120,7 +119,10 @@ object AppUtil {
                 ).toString()
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-                LogUtil.e(TAG, "getDefPackageInfo: " + e.message)
+                LogUtil.e(
+                    TAG,
+                    "getDefPackageInfo: " + e.message
+                )
             }
 
             return null
@@ -171,8 +173,9 @@ object AppUtil {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
 
         if (activityName == null) {
-            val info = launcherResolveInfo(packageName)
-            if (!Utils.isEmpty(info)) {
+            val info =
+                launcherResolveInfo(packageName)
+            if (info.isNotEmpty()) {
                 intent.component = ComponentName(packageName, info[0].activityInfo.name)
             } else {
                 return false

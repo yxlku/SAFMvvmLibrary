@@ -6,6 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.safmvvm.app.BaseApp
 
+/**
+ * EditText的键盘控制
+ */
 object InputMethodUtil {
 
     /**
@@ -43,6 +46,9 @@ object InputMethodUtil {
         }, 200)
     }
 
+    /**
+     * 获取焦点
+     */
     fun focusable(editText: EditText) {
         editText.postDelayed({
             editText.isFocusable = true

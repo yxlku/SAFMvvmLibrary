@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.safmvvm.utils.AppUtil
-import com.safmvvm.utils.temp.LogUtil
+import com.safmvvm.utils.LogUtil
 
 /**
  * 所有子Module都要继承此BaseApp
@@ -14,6 +14,9 @@ open class BaseApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        onMainPorcessInitBefore()
+
         initApp(this)
 
         val processName = AppUtil.currentProcessName
@@ -28,7 +31,11 @@ open class BaseApp: Application() {
                 onOtherProcessInit(it)
             }
         }
+        //日志初始化
+        LogUtil.initLog()
     }
+    /** initApp方法前调用，比如日志开启和DebugView*/
+    open fun onMainPorcessInitBefore(){}
 
     /**
      * 通常来说应用只有一个进程，进程名称是当前的包名，你需要针对这个进程做一些初始化。
@@ -50,8 +57,6 @@ open class BaseApp: Application() {
         @JvmStatic
         fun initApp(app: Application){
             Companion.app = app
-            //日志初始化
-            LogUtil.initLog()
         }
 
         private fun initResource(app: Application){

@@ -43,7 +43,10 @@ object ToastUtil {
     fun showShortToast(
             @StringRes
             stringResID: Int) {
-        showToast(stringResID, Toast.LENGTH_SHORT)
+        showToast(
+            stringResID,
+            Toast.LENGTH_SHORT
+        )
     }
 
     /**
@@ -63,7 +66,10 @@ object ToastUtil {
     fun showLongToast(
             @StringRes
             stringResID: Int) {
-        showToast(stringResID, Toast.LENGTH_LONG)
+        showToast(
+            stringResID,
+            Toast.LENGTH_LONG
+        )
     }
 
     /**
@@ -79,13 +85,19 @@ object ToastUtil {
         @StringRes
         stringResID: Int, duration: Int
     ) {
-        showToast(BaseApp.getInstance().getString(stringResID), duration)
+        showToast(
+            BaseApp.getInstance().getString(stringResID), duration
+        )
     }
 
     private fun showToast(msg: String, duration: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
-            toast.setGravity(mGravity, xOffset, yOffset)
+            toast.setGravity(
+                mGravity,
+                xOffset,
+                yOffset
+            )
             toast.show()
         }
     }
@@ -120,13 +132,20 @@ object ToastUtil {
             throw RuntimeException("必须初始化mCustomLayout和mCustomMsgId")
         }
         showCustomToast(
-            msg, mCustomLayout, mCustomMsgId, length,
-            mGravity, xOffset, yOffset
+            msg,
+            mCustomLayout,
+            mCustomMsgId,
+            length,
+            mGravity,
+            xOffset,
+            yOffset
         )
     }
 
     fun showCustomShortToast(msgRes: Int) {
-        showCustomToast(BaseApp.getInstance().getString(msgRes), Toast.LENGTH_SHORT)
+        showCustomToast(
+            BaseApp.getInstance().getString(msgRes), Toast.LENGTH_SHORT
+        )
     }
 
     fun showCustomShortToast(msg: String) {
@@ -136,7 +155,15 @@ object ToastUtil {
     fun showCustomLongToast(
             @LayoutRes
             layout: Int) {
-        showCustomToast(null, layout, 0, Toast.LENGTH_LONG, Gravity.CENTER, 0, 0)
+        showCustomToast(
+            null,
+            layout,
+            0,
+            Toast.LENGTH_LONG,
+            Gravity.CENTER,
+            0,
+            0
+        )
     }
 
     fun showCustomLongToast(msg: String,
@@ -144,7 +171,15 @@ object ToastUtil {
                             layout: Int,
                             @IdRes
                             msgId: Int) {
-        showCustomToast(msg, layout, msgId, Toast.LENGTH_LONG, Gravity.CENTER, 0, 0)
+        showCustomToast(
+            msg,
+            layout,
+            msgId,
+            Toast.LENGTH_LONG,
+            Gravity.CENTER,
+            0,
+            0
+        )
     }
 
     fun showCustomToast(msg: String?,

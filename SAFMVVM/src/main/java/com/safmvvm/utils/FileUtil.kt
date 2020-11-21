@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import com.safmvvm.app.BaseApp
-import com.safmvvm.utils.temp.LogUtil
 import org.json.JSONException
 import java.io.File
 import java.io.FileOutputStream
@@ -147,14 +146,22 @@ object FileUtil {
      * 保存字符串到内部的存储
      */
     fun saveStr2Internal(filePath: String, str: String, append: Boolean): Boolean {
-        return saveStrToLocal(filePath, str, append)
+        return saveStrToLocal(
+            filePath,
+            str,
+            append
+        )
     }
 
     /**
      * 保存字符串到外部存储
      */
     fun saveStr2External(filePath: String, str: String, append: Boolean): Boolean {
-        return isSDCardExists && saveStrToLocal(filePath, str, append)
+        return isSDCardExists && saveStrToLocal(
+            filePath,
+            str,
+            append
+        )
     }
 
     /**
@@ -175,7 +182,10 @@ object FileUtil {
      * /sdcard/org.sxisa.ui/Log/
      */
     fun getExternalDir(vararg dirName: Any): String {
-        return getDir(Environment.getExternalStorageDirectory().absolutePath, *dirName)
+        return getDir(
+            Environment.getExternalStorageDirectory().absolutePath,
+            *dirName
+        )
     }
 
     /**
@@ -183,7 +193,10 @@ object FileUtil {
      * /data/user/0/org.sxisa.ui/files/Log/
      */
     fun getInternalFilesDir(vararg dirName: Any): String {
-        return getDir(BaseApp.getInstance().filesDir.absolutePath, *dirName)
+        return getDir(
+            BaseApp.getInstance().filesDir.absolutePath,
+            *dirName
+        )
     }
 
     fun getFilePathFromUri(context: Context, uri: Uri?): String? {
@@ -209,7 +222,10 @@ object FileUtil {
                 cursor.close()
             }
         } else {
-            LogUtil.e("FileUtil", "getFilePathFromUri: $uri")
+            LogUtil.e(
+                "FileUtil",
+                "getFilePathFromUri: $uri"
+            )
         }
         return data
     }
@@ -268,7 +284,10 @@ object FileUtil {
             if (file.isFile) {
                 deleteFile(file.absolutePath)
             } else if (file.isDirectory) {
-                deleteDirectory(file.absolutePath, true)
+                deleteDirectory(
+                    file.absolutePath,
+                    true
+                )
             }// 删除子目录
         }
         // 删除当前目录

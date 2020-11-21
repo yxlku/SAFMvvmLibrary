@@ -2,10 +2,9 @@ package com.safmvvm.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.safmvvm.utils.temp.LogUtil
 
 object JsonUtil {
-    private const val TAG = "Utils"
+    private const val TAG = "JsonUtils"
 
     val GSON = Gson()
 
@@ -21,7 +20,10 @@ object JsonUtil {
         try {
             t = GSON.fromJson(jsonString, classT)
         } catch (e: Exception) {
-            LogUtil.e(TAG, "###JSON解析出错，类名：" + classT.name + "###，字符串是：" + jsonString)
+            LogUtil.e(
+                TAG,
+                "###JSON解析出错，类名：" + classT.name + "###，字符串是：" + jsonString
+            )
             e.printStackTrace()
         }
 
@@ -38,7 +40,10 @@ object JsonUtil {
 
             }.type)
         } catch (e: Exception) {
-            LogUtil.e(TAG, "###JSON数组解析出错，类名：" + classT.name + "###，字符串是：" + jsonString)
+            LogUtil.e(
+                TAG,
+                "###JSON数组解析出错，类名：" + classT.name + "###，字符串是：" + jsonString
+            )
             e.printStackTrace()
         }
 

@@ -1,10 +1,12 @@
 ext {
-    SysConfig = [
+    //android开发版本配置
+    AndroidApp = [
             compileSdkVersion: 29,
-            minSdkVersion    : 21,      //5.0
+            buildToolsVersion: "29.0.0",
+            minSdkVersion    : 21,              //5.0
             targetSdkVersion : 29,
             versionCode      : 1,
-            versionName      : "1.0"
+            versionName      : "1.0",
     ]
 }
 

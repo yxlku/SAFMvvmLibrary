@@ -4,19 +4,17 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion SysConfig.compileSdkVersion
+    compileSdkVersion AndroidApp.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion SysConfig.minSdkVersion
-        targetSdkVersion SysConfig.targetSdkVersion
-        versionCode SysConfig.versionCode
-        versionName SysConfig.versionName
+        minSdkVersion AndroidApp.minSdkVersion
+        targetSdkVersion AndroidApp.targetSdkVersion
+        versionCode AndroidApp.versionCode
+        versionName AndroidApp.versionName
 
         //MultiDex分包方法
         multiDexEnabled true
 
-        //混淆过滤
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -40,31 +38,6 @@ android {
             initWith release
         }
 
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "${JavaVersion.VERSION_1_8}"
-    }
-    //防止编译的时候oom、GC
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-    //解决.9图问题
-    aaptOptions {
-        cruncherEnabled = false
-        useNewCruncher = false
-    }
-    sourceSets {
-        main {
-            java {
-                /*
-                 TODO 这里似乎无法根据配置来排除某些类，而是取决于是否使用了某类来自动排除
-                 */
-            }
-        }
     }
 }
 

@@ -1,7 +1,7 @@
 package com.safmvvm.app
 
-import android.os.Build
-import com.safmvvm.BuildConfig
+import com.safmvvm.utils.FileUtil
+
 
 /**
  * 全局配置
@@ -9,20 +9,17 @@ import com.safmvvm.BuildConfig
  */
 object GlobalConfig {
 
-    var appName = "SAFMVVM"
-
-
-
+    const val appName = "SAFMVVM"
 
     /**  是否需要管理 Activity 堆栈 */
     var gIsNeedActivityManager = false
 
     /** 是否保存日志到文件中*/
     var gIsSaveLogToFile = false
-    /** 日志保存文件位置*/
-    var gLogSaveFileDir = ""
+    /** 日志保存文件位置 取得App的log目录：/sdcard/包名/Log，没有sd卡则是/data/data/包名/files/Log*/
+    var gLogSaveFileDir = FileUtil.appLogDir
     /** 日志基础名字*/
-    var gLogFileBaseName = ""
+    var gLogFileBaseName = "Log_"
     /** 是否开启logDebugView */
     var gIsShowLogDebugView = false
 

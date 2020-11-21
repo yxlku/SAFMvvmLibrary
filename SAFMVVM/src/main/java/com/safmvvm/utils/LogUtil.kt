@@ -1,4 +1,4 @@
-package com.safmvvm.utils.temp
+package com.safmvvm.utils
 
 import androidx.core.content.ContextCompat
 import com.safframework.log.L
@@ -12,11 +12,10 @@ import com.safframework.log.printer.file.name.FileNameGenerator
 import com.safmvvm.R
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfig
-import com.safmvvm.utils.DateUtil
 
 object LogUtil {
     //日志Tag
-    val TAG = GlobalConfig.appName
+    private val TAG: String = GlobalConfig.appName
 
     private lateinit var filePrinter:FilePrinter
 
@@ -41,7 +40,6 @@ object LogUtil {
             initDebugView()
         }
     }
-
     /**
      * 日志存储到本地初始化
      */
@@ -56,9 +54,10 @@ object LogUtil {
                     timestamp: Long,
                     lastFileName: String
                 ): String {
-                    return GlobalConfig.gLogFileBaseName + "_" + DateUtil.getDdHhMmSs(
-                        timestamp
-                    )
+                    return GlobalConfig.gLogFileBaseName +
+                            logLevel +
+                            "_" + timestamp.format2DateString(DefaultDateFormat.DATE_YMD)+
+                            ".log"
                 }
                 override fun isFileNameChangeable(): Boolean {
                     //日志名字是否可以改变
@@ -78,7 +77,7 @@ object LogUtil {
                 .viewWidth(250) /* the width of debug-view */
                 .bgColor(mDebugColorBg) /* the color of debug-view */
                 .alwaysShowOverlaySetting(true) /* the flag for always showing Overlay Setting */
-                .logMaxLines(50) /* the max lines of log */
+                .logMaxLines(150) /* the max lines of log */
         )
         DebugViewWrapper.show()
     }
@@ -88,7 +87,7 @@ object LogUtil {
     }
 
     fun e(content: String?){
-        e(content)
+        e(TAG, content)
     }
 
     fun w(tag: String, content: String?){
@@ -96,7 +95,7 @@ object LogUtil {
     }
 
     fun w(content: String?){
-        w(content)
+        w(TAG, content)
     }
 
     fun i(tag: String, content: String?){
@@ -104,7 +103,7 @@ object LogUtil {
     }
 
     fun i(content: String?){
-        i(content)
+        i(TAG, content)
     }
 
     fun d(tag: String, content: String?){
@@ -112,7 +111,7 @@ object LogUtil {
     }
 
     fun d(content: String?){
-        d(content)
+        d(TAG, content)
     }
 
     /**
