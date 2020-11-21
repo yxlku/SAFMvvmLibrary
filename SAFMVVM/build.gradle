@@ -94,6 +94,9 @@ dependencies {
     api Deps.safLogFile //存储到文件
     api Deps.safLogDebugView //测试view
 
+    //事件总线
+    api Deps.liveEventBus
+
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2
 

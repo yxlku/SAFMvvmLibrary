@@ -9,11 +9,6 @@ ext {
             versionCode      : 1,
             versionName      : "1.0",
     ]
-    //version配置
-    versions = [
-            "support-version": "27.0.2",
-            "junit-version"  : "4.12",
-    ]
     //依赖第三方配置
     dependencies = [
             //阿里路由框架

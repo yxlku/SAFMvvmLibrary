@@ -100,6 +100,9 @@ ext {
             safLogConverterGson     : "com.safframework.log:saf-log-converter-gson:2.5.3",
             safLogFile              : "com.safframework.log:saf-log-file:2.5.3",
             safLogDebugView         : "com.safframework.log:saf-log-debug-view:2.5.3",
+
+            //事件总线
+            liveEventBus            : "com.jeremyliao:live-event-bus-x:1.7.2",
     ]
 
     Hilt = [
