@@ -14,16 +14,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val tv: TextView = findViewById(R.id.tv)
 
-        tv.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(v: View?) {
-                var a: String? = null
-                if(TextUtils.isEmpty(a)){
-                    LogUtil.e("java  的是空的")
-                }
-                a?.let {
-                    LogUtil.e("kotlin  的是空的")
-                }
+        tv.setOnClickListener {
+            var a: String? = null
+            if(TextUtils.isEmpty(a)){
+                LogUtil.e("java  的是空的")
             }
-        })
+            a?.let {
+                LogUtil.e("kotlin  的是空的")
+            }
+        }
     }
 }

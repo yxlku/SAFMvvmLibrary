@@ -1,6 +1,7 @@
 package com.safmvvm.utils
 
 import androidx.core.content.ContextCompat
+import com.imyyq.mvvm.utils.CrashHandlerUtil
 import com.safframework.log.L
 import com.safframework.log.configL
 import com.safframework.log.converter.gson.GsonConverter
@@ -39,6 +40,8 @@ object LogUtil {
         if (GlobalConfig.gIsShowLogDebugView) {
             initDebugView()
         }
+        //开启全局日常捕获
+        CrashHandlerUtil.init()
     }
     /**
      * 日志存储到本地初始化
