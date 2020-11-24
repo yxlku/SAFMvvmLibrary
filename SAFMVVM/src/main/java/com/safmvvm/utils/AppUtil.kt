@@ -13,6 +13,7 @@ import android.net.Uri
 import android.provider.Settings
 import android.view.View
 import com.safmvvm.app.BaseApp
+import com.safmvvm.http.RetrofitClient
 
 
 object AppUtil {

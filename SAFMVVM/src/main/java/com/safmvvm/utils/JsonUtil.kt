@@ -8,6 +8,14 @@ object JsonUtil {
 
     val GSON = Gson()
 
+
+    /**
+     * 对象转json
+     */
+    fun toJson(any: Any): String{
+        return GSON.toJson(any)
+    }
+
     /**
      * 取得Json解析的结果
      *
@@ -29,9 +37,8 @@ object JsonUtil {
 
         return t
     }
-
     /**
-     * @return JSON数组解析
+     * @return JSON解析为数组
      */
     fun <T> getJsonParseArrayResult(jsonString: String, classT: Class<T>): List<T>? {
         var t: List<T>? = null
@@ -49,4 +56,24 @@ object JsonUtil {
 
         return t
     }
+    /**
+     * @return JSON解析为Map
+     */
+    fun getJsonParseMapResult(jsonString: String): Map<String, Any>? {
+        var rtMap: Map<String, Any>? = null
+        try {
+            rtMap= GSON.fromJson(jsonString, object : TypeToken<Map<String?, Any?>?>() {
+
+            }.type)
+        } catch (e: Exception) {
+            LogUtil.e(
+                TAG,
+                "###JSON数组解析出错###，字符串是：" + jsonString
+            )
+            e.printStackTrace()
+        }
+
+        return rtMap
+    }
+
 }

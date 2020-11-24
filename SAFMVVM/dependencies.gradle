@@ -97,6 +97,9 @@ ext {
             paletteKTX                : "androidx.palette:palette-ktx:1.0.0",
             collectionKTX             : "androidx.collection:collection-ktx:1.1.0",
 
+            //缓存MMKV
+            mmkvStatic                : "com.tencent:mmkv-static:1.2.5",
+
             //日志
             safLogCore              : "com.safframework.log:saf-log-core:2.5.3",
             safLogConverterGson     : "com.safframework.log:saf-log-converter-gson:2.5.3",

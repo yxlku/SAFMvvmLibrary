@@ -95,6 +95,9 @@ dependencies {
     api Deps.safLogFile //存储到文件
     api Deps.safLogDebugView //测试view
 
+    //mmkv 性能比sp好，替代sp
+    api Deps.mmkvStatic
+
     //事件总线
     api Deps.liveEventBus
 

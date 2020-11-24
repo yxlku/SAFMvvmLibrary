@@ -14,7 +14,6 @@ class AppApplication: BaseApp() {
      */
     override fun onMainProcessInit() {
         GlobalConfig.gIsSaveLogToFile = true
-        GlobalConfig.gIsShowLogDebugView = false
 
     }
 }

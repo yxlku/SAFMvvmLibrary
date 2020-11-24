@@ -11,6 +11,11 @@ object GlobalConfig {
 
     const val appName = "SAFMVVM"
 
+    /**
+     * 是否需要动态修改 BaseURL，如果需要，请设置为 true，并在合适的位置调用：[com.imyyq.mvvm.http.HttpRequest.multiClickToChangeBaseUrl]
+     */
+    var gIsNeedChangeBaseUrl = false
+
     /**  是否需要管理 Activity 堆栈 */
     var gIsNeedActivityManager = false
 
@@ -20,7 +25,6 @@ object GlobalConfig {
     var gLogSaveFileDir = FileUtil.appLogDir
     /** 日志基础名字*/
     var gLogFileBaseName = "Log_"
-    /** 是否开启logDebugView */
-    var gIsShowLogDebugView = false
+
 
 }
