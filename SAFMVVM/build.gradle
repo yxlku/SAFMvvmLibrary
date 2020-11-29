@@ -16,7 +16,9 @@ android {
         multiDexEnabled true
 
     }
-
+    buildFeatures{
+        dataBinding = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -90,10 +92,7 @@ dependencies {
     api Deps.livePermissions
 
     //日志
-    api Deps.safLogCore
-    api Deps.safLogConverterGson
-    api Deps.safLogFile //存储到文件
-    api Deps.safLogDebugView //测试view
+    api Deps.logger
 
     //mmkv 性能比sp好，替代sp
     api Deps.mmkvStatic

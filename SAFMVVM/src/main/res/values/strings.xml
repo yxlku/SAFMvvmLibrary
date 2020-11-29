@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">SAFMVVM</string>
 
+    <string name="net_not_init_success_code">请初始化配置[GlobalConfig.Request.SUCCESS_CODE]</string>
+    <string name="net_msg_entity_nullable">实体为 null</string>
+    <string name="net_msg_entity_code_nullable">实体状态码为 null</string>
+    <string name="net_msg_not_http_exception">网络请求发生错误，但错误不是 HttpException！</string>
+
     <!-- LogUtil-->
     <string name="log_already_open">Log 已打开并已保存到本地</string>
     <string name="save_to_local">保存到本地</string>

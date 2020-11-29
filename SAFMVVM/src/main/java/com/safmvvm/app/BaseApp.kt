@@ -61,7 +61,7 @@ open class BaseApp: Application() {
 
         private fun initResource(app: Application){
             // 监听所有 Activity 的创建和销毁
-            if (GlobalConfig.gIsNeedActivityManager) {
+            if (GlobalConfig.App.gIsNeedActivityManager) {
                 //开启
                 app.registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
                     override fun onActivityCreated(

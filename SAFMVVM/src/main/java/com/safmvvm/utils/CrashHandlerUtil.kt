@@ -24,7 +24,8 @@ internal object CrashHandlerUtil : UncaughtExceptionHandler {
         handleException(ex)
         ex.printStackTrace()
 
-        if (GlobalConfig.gIsNeedActivityManager) {
+        //TODO 出现异常后的处理操作
+        if (GlobalConfig.App.gIsNeedActivityManager) {
             AppActivityManager.finishAllActivity()
         }
         exitProcess(0)
@@ -67,6 +68,6 @@ internal object CrashHandlerUtil : UncaughtExceptionHandler {
 
     private fun handleException(ex: Throwable) {
         //打印日志，日志工具自带保存到文件
-        LogUtil.e(formatLogInfo(ex))
+        LogUtil.e("global", formatLogInfo(ex))
     }
 }

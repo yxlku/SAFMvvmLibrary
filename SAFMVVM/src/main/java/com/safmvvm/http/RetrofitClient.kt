@@ -2,13 +2,11 @@ package com.safmvvm.http
 
 import android.content.Context
 import androidx.collection.ArrayMap
-import com.safframework.log.LogLevel
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfig
 import com.safmvvm.http.cookie.CookieJarImpl
 import com.safmvvm.http.cookie.store.PersistentCookieStore
 import com.safmvvm.http.interceptor.HeaderInterceptor
-import com.safmvvm.http.interceptor.LoggingInterceptor
 import com.safmvvm.utils.KVCacheUtil
 import com.safmvvm.utils.LogUtil
 import okhttp3.*
@@ -25,16 +23,11 @@ import java.util.concurrent.TimeUnit
  *
  */
 class RetrofitClient private constructor(){
-    companion object{
+    companion object {
         //单例
-        val instance: RetrofitClient by lazy{RetrofitClient()}
+        val instance: RetrofitClient by lazy { RetrofitClient() }
     }
-    /** baseUrl */
-    lateinit var BASE_URL: String
-    /** 超时时间 */
-    val DEFAULT_TIMEOUT: Long = 20
-    /** 请求超时时间，秒为单位 */
-    var DEFAULT_TIME_OUT = 10
+
 
     /** 存储 baseUrl，以便可以动态更改 */
     private lateinit var mBaseUrlMap: ArrayMap<String, String>
@@ -60,7 +53,7 @@ class RetrofitClient private constructor(){
             var retrofitBuilder: Retrofit.Builder = initRetrofitBuilder(host, okHttpClient)
             //动态改变baseUrl 是否需要动态修改 BaseURL，如果需要，请设置GlobalConfig.gIsNeedChangeBaseUrl为true
             // ，并在合适的位置调用：[RetrofitClient.multiClickToChangeBaseUrl]
-            initDynamicChangeBaseUrl(host, okHttpClient, retrofitBuilder)
+//            initDynamicChangeBaseUrl(host, okHttpClient, retrofitBuilder)
 
             obj = retrofitBuilder.build().create(cls)
             mServiceMap[name] = obj
@@ -68,15 +61,18 @@ class RetrofitClient private constructor(){
         return obj as T
     }
     fun <T> getService(cls: Class<T>): T?{
-        if (!this::BASE_URL.isInitialized) {
+        if (GlobalConfig.Request.gBaseUrl.isBlank()) {
             throw RuntimeException("必须初始化 BASE_URL")
         }
+
+        //TODO 这里可以让子Module动态配置headers
         var headers = ArrayMap<String, String>()
-        return getService(cls, BASE_URL, headers, null)
+        return getService(cls, GlobalConfig.Request.gBaseUrl, headers, null)
     }
 
     /**
      * 头信息
+     * TODO 设计到子Module自定义才可以
      */
     fun initHeaders(otherHeaders: ArrayMap<String, String>?): ArrayMap<String, String>{
         var headers = ArrayMap<String, String>()
@@ -95,23 +91,24 @@ class RetrofitClient private constructor(){
     fun initOkHttpClient(headers: ArrayMap<String, String> , interceptors: MutableList<Interceptor>?): OkHttpClient{
         val okHttpClientBuilder = OkHttpClient.Builder()
         //超时时间
-        okHttpClientBuilder.connectTimeout(DEFAULT_TIME_OUT.toLong(), TimeUnit.SECONDS)
+        okHttpClientBuilder.connectTimeout(GlobalConfig.Request.DEFAULT_TIME_OUT.toLong(), TimeUnit.SECONDS)
 
         //添加从外部传来的拦截器
         interceptors?.forEach {
             okHttpClientBuilder.addInterceptor(it)
         }
         //日志拦截
-        okHttpClientBuilder.addInterceptor(
-            LoggingInterceptor.Builder()
-                .logLevel(LogLevel.INFO)
-                .build()
-        )
+//        okHttpClientBuilder.addInterceptor(
+//            LoggingInterceptor.Builder()
+//                .logLevel(LogLevel.INFO)
+//                .loggable(GlobalConfig.Cache.gIsSaveLogToFile)
+//                .build()
+//        )
         okHttpClientBuilder
             .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))
             .addInterceptor(HeaderInterceptor(headers))
-            .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间
-            .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)            //读取超时时间
+            .connectTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间
+            .writeTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)            //读取超时时间
             // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为15s
             .connectionPool(ConnectionPool(8, 15, TimeUnit.SECONDS))
         return okHttpClientBuilder.build()
@@ -129,7 +126,7 @@ class RetrofitClient private constructor(){
      * 初始化动态更改baseUrl
      */
     private fun initDynamicChangeBaseUrl(host: String, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) {
-        if (GlobalConfig.gIsNeedChangeBaseUrl) {
+        if (GlobalConfig.Request.gIsNeedChangeBaseUrl) {
             //支持动态改变baseUrl
             if (!this::mBaseUrlMap.isInitialized) {
                 mBaseUrlMap = ArrayMap()

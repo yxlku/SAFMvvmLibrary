@@ -49,8 +49,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled true
+    buildFeatures{
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +58,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "${JavaVersion.VERSION_1_8}"
+    }
+    kapt {
+        generateStubs = true
     }
     //防止编译的时候oom、GC
     dexOptions {
@@ -67,6 +70,11 @@ android {
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false
+    }
+    lintOptions {
+        //即使有lint报错也不停止打包
+        checkReleaseBuilds false
+        abortOnError false
     }
 
 }

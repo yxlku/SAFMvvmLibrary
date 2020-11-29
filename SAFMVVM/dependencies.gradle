@@ -101,10 +101,7 @@ ext {
             mmkvStatic                : "com.tencent:mmkv-static:1.2.5",
 
             //日志
-            safLogCore              : "com.safframework.log:saf-log-core:2.5.3",
-            safLogConverterGson     : "com.safframework.log:saf-log-converter-gson:2.5.3",
-            safLogFile              : "com.safframework.log:saf-log-file:2.5.3",
-            safLogDebugView         : "com.safframework.log:saf-log-debug-view:2.5.3",
+            logger                    :"com.orhanobut:logger:2.2.0",
 
             //事件总线
             liveEventBus            : "com.jeremyliao:live-event-bus-x:1.7.2",

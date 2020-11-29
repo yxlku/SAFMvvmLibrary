@@ -54,7 +54,7 @@ object ToastUtil {
      *
      * @param msg 消息内容
      */
-    fun showShortToast(msg: String) {
+    fun showShortToast(msg: String?) {
         showToast(msg, Toast.LENGTH_SHORT)
     }
 
@@ -90,7 +90,7 @@ object ToastUtil {
         )
     }
 
-    private fun showToast(msg: String, duration: Int) {
+    private fun showToast(msg: String?, duration: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
             toast.setGravity(
