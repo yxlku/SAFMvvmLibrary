@@ -18,7 +18,7 @@ object LogUtil {
         val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(true)  // 是否选择显示线程信息，默认为true
             .methodCount(2)         // 方法数显示多少行，默认2行
-            .methodOffset(7)        // 隐藏方法内部调用到偏移量，默认5
+            .methodOffset(5)        // 隐藏方法内部调用到偏移量，默认5
             .tag(GlobalConfig.Log.gLogTag) // 打印日志的策略，默认LogCat
             .build()
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
