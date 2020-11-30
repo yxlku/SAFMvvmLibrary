@@ -36,18 +36,24 @@ object GlobalConfig {
         var gIsNeedChangeBaseUrl = false
     }
 
-    /**
-     * 缓存
-     */
-    object Cache{
+    object Log{
         /** 全局日志tag，默认为app的名字*/
         var gLogTag = appName
+        /** 是否开启Log*/
+        var gIsOpenLog = false;
         /** 是否保存日志到文件中*/
         var gIsSaveLogToFile = false
         /** 日志保存文件位置 取得App的log目录：/sdcard/包名/Log，没有sd卡则是/data/data/包名/files/Log*/
         var gLogSaveFileDir = FileUtil.appLogDir
         /** 日志基础名字*/
         var gLogFileBaseName = "Log_"
+    }
+
+    /**
+     * 缓存
+     */
+    object Cache{
+
     }
 
 }
