@@ -1,13 +1,15 @@
 package com.safmvvm.http
 
 import android.content.Context
+import android.util.Log
 import androidx.collection.ArrayMap
+import com.ihsanbal.logging.Logger
+import com.ihsanbal.logging.LoggingInterceptor
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfig
 import com.safmvvm.http.cookie.CookieJarImpl
 import com.safmvvm.http.cookie.store.PersistentCookieStore
 import com.safmvvm.http.interceptor.HeaderInterceptor
-import com.safmvvm.utils.KVCacheUtil
 import com.safmvvm.utils.LogUtil
 import okhttp3.*
 import retrofit2.Retrofit
@@ -97,16 +99,10 @@ class RetrofitClient private constructor(){
         interceptors?.forEach {
             okHttpClientBuilder.addInterceptor(it)
         }
-        //日志拦截
-//        okHttpClientBuilder.addInterceptor(
-//            LoggingInterceptor.Builder()
-//                .logLevel(LogLevel.INFO)
-//                .loggable(GlobalConfig.Cache.gIsSaveLogToFile)
-//                .build()
-//        )
         okHttpClientBuilder
-            .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))
-            .addInterceptor(HeaderInterceptor(headers))
+            .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))  //TODO cookie信息，目前是用Sp来实现存储的
+            .addInterceptor(HeaderInterceptor(headers))     //头信息拦截器
+            .addNetworkInterceptor(LogUtil.configLogInterceptor()) //日志拦截器
             .connectTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间
             .writeTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)            //读取超时时间
             // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为15s
@@ -121,50 +117,6 @@ class RetrofitClient private constructor(){
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()) //gson解析
             .baseUrl(host)
-    }
-    /**
-     * 初始化动态更改baseUrl
-     */
-    private fun initDynamicChangeBaseUrl(host: String, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) {
-        if (GlobalConfig.Request.gIsNeedChangeBaseUrl) {
-            //支持动态改变baseUrl
-            if (!this::mBaseUrlMap.isInitialized) {
-                mBaseUrlMap = ArrayMap()
-            }
-            var isSave = KVCacheUtil.getBoolean(mKeyIsSave)
-            isSave?.let {
-                if (it) {
-                    mBaseUrlMap[host] = KVCacheUtil.getString(host)
-                } else {
-                    mBaseUrlMap[host] = ""
-                }
-            }
-            retrofitBuilder.callFactory {
-                LogUtil.i("HttpRequest", "getService: old ${it.url()}")
-                mBaseUrlMap.forEach { entry ->
-                    val key = entry.key
-                    var value = entry.value
-                    val url = it.url().toString()
-                    if (url.startsWith(key) && value.isNotEmpty()) {
-                        // 防止尾缀有问题
-                        if (key.endsWith("/") && !value.endsWith("/")) {
-                            value += "/"
-                        } else if (!key.endsWith("/") && value.endsWith("/")) {
-                            value = value.substring(0, value.length - 1)
-                        }
-                    }
-                    // 替换 url 并创建新的 call
-                    val newRequest: Request =
-                        it.newBuilder()
-                            .url(HttpUrl.get(url.replaceFirst(key, value)))
-                            .build()
-                    LogUtil.i("HttpRequest", "getService: new ${newRequest.url()}")
-                    //TODO Test 会将原有OkHttp拦截器覆盖掉吗？
-                    return@callFactory okHttpClient.newCall(newRequest)
-                }
-                okHttpClient.newCall(it)
-            }
-        }
     }
 
 }

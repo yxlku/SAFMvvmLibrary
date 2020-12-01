@@ -3,6 +3,7 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.imyyq.mvvm.utils.CrashHandlerUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -33,6 +34,8 @@ open class BaseApp: Application() {
         }
         //日志初始化
         LogUtil.initLog()
+        //开启全局日常捕获
+        CrashHandlerUtil.init()
     }
     /** initApp方法前调用，比如日志开启和DebugView*/
     open fun onMainPorcessInitBefore(){}
