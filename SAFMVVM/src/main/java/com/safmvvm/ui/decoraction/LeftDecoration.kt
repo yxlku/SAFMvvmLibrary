@@ -1,15 +1,15 @@
-package  me.pxq.utils.ui.decoration
+package  com.safmvvm.ui.decoraction
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Description: 上下左右边距Decoration
+ * Description: 左边距Decoration
  * Author : pxq
  * Date : 2020/7/31 8:02 PM
  */
-class MarginDecoration(val left : Int= 0, val top : Int = 0, val right : Int = 0, val bottom : Int = 0) : RecyclerView.ItemDecoration() {
+class LeftDecoration(private val left : Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -19,11 +19,15 @@ class MarginDecoration(val left : Int= 0, val top : Int = 0, val right : Int = 0
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)
-        if (position == 0) {
-            outRect.set(left, top, right, bottom)
-        } else {
-            outRect.set(left, 0, right, bottom)
+        val count = parent.adapter?.itemCount ?: 0
+        // 第一个、最后一个都不处理
+        when (position) {
+            0 ->    // 不设置边距
+                outRect.set(0, 0, 0, 0)
+            else -> // 设置左边距
+                outRect.set(left, 0, 0, 0)
         }
+
     }
 
 }

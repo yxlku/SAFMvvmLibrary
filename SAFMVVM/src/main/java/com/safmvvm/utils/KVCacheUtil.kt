@@ -41,7 +41,7 @@ object KVCacheUtil {
      * 存入没有序列号的对象
      */
     fun  putAny(key: String, any: Any){
-        any?.let {
+        any.let {
             var anyJson = JsonUtil.toJson(any)
             mmkv?.putString(key, anyJson)
         }
@@ -63,7 +63,7 @@ object KVCacheUtil {
     fun <K, V> put(key: String, map: Map<K, V>?) {
         map?.let {
             var mapJson: String = JsonUtil.toJson(it)
-            mapJson?.let {
+            mapJson.let {
                 put(key, it)
             }
         }
@@ -73,9 +73,9 @@ object KVCacheUtil {
      * 存入List集合
      */
     fun <T> put(key: String, list: List<T>) {
-        list?.let {
+        list.let {
             var listJson: String = JsonUtil.toJson(it)
-            listJson?.let {
+            listJson.let {
                 put(key, listJson)
             }
         }

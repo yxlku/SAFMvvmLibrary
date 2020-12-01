@@ -65,7 +65,7 @@ Date转换成天数
  */
 
 
-public object DefaultDateFormat {
+object DefaultDateFormat {
     const val DATE_YMD = "yyyy-MM-dd"
     private const val DEFAULT_DATE_STR = "yyyy-MM-dd HH:mm:ss"
     val DEFAULT_FORMAT = ThreadLocal<SimpleDateFormat>().apply { set(SimpleDateFormat(

@@ -11,13 +11,15 @@ import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.ToastUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
+import java.lang.StringBuilder
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -69,7 +71,7 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
     }
 
     /**
-     * TODO 替换成Flow的方式
+     * Old：无要求请求模式
      * 所有网络请求都在 mCoroutineScope 域中启动协程，当页面销毁时会自动取消
      */
     fun <T: Parcelable> launch(
@@ -94,6 +96,15 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
     }
 
     /**
+     * 1、在Model层处理好得到Flow数据
+     * 2、调用此方法即可得地请求统一封装操作
+     */
+    inline fun launchRequest(crossinline block: suspend CoroutineScope.()-> Unit){
+        viewModelScope.launch {
+            block()
+        }
+    }
+    /**
      * 发起协程，让协程和 UI 相关
      */
     fun launchUI(block: suspend CoroutineScope.() -> Unit) {
@@ -108,6 +119,7 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
             emit(block())
         }
     }
+
 
     /**
      * 使用 Retrofit 原生的请求方式

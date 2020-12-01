@@ -50,6 +50,11 @@ interface IView<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>: IArgument
     fun initData(){}
 
     /**
+     * 2.3 loadSir初始化
+     */
+    fun initLoadSir()
+
+    /**
      * 移除事件总线监听，避免内存泄露
      */
     fun removeLiveDataBus(owner: LifecycleOwner) {

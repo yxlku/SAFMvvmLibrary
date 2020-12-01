@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.imyyq.mvvm.utils.CrashHandlerUtil
+import com.kingja.loadsir.core.LoadSir
+import com.safmvvm.ui.load.loadsir.LoadSirConfig
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -34,6 +36,8 @@ open class BaseApp: Application() {
         }
         //日志初始化
         LogUtil.initLog()
+        //等待布局初始化
+        LoadSirConfig.initLoad()
         //开启全局日常捕获
         CrashHandlerUtil.init()
     }

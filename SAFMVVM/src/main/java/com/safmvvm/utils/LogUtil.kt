@@ -38,7 +38,7 @@ object LogUtil {
      * 通过子Base组件来控制统一配置开关
      */
     fun configLogInterceptor(): LoggingInterceptor {
-        var level = if(GlobalConfig.Log.gIsOpenLog) Level.BASIC else Level.NONE;
+        var level = if(GlobalConfig.Log.gIsOpenLog) Level.BASIC else Level.NONE
         return LoggingInterceptor.Builder()
             .tag(GlobalConfig.Log.gLogTag)
             .setLevel(level)
@@ -46,44 +46,26 @@ object LogUtil {
     }
 
 
-    fun v(tag: String, content: String) {
+    fun v(content: String, tag: String = GlobalConfig.Log.gLogTag) {
         Logger.t(tag).v(content)
     }
 
-    fun v(content: String) {
-        v(GlobalConfig.Log.gLogTag, content)
-    }
-
-    fun d(tag: String, content: String) {
+    fun d(content: String, tag: String = GlobalConfig.Log.gLogTag) {
         Logger.t(tag).d(content)
     }
 
-    fun d(content: String) {
-        d(GlobalConfig.Log.gLogTag, content)
-    }
-
-    fun i(tag: String, content: String) {
+    fun i(content: String, tag: String = GlobalConfig.Log.gLogTag) {
         Logger.t(tag).i(content)
     }
 
-    fun i(content: String) {
-        i(GlobalConfig.Log.gLogTag, content)
-    }
-
-    fun w(tag: String, content: String) {
+    fun w(content: String, tag: String = GlobalConfig.Log.gLogTag) {
         Logger.t(tag).w(content)
     }
 
-    fun w(content: String) {
-        w(GlobalConfig.Log.gLogTag, content)
-    }
-    fun e(tag: String, content: String) {
+    fun e(content: String, tag: String = GlobalConfig.Log.gLogTag) {
         Logger.t(tag).e(content)
     }
 
-    fun e(content: String) {
-        e(GlobalConfig.Log.gLogTag, content)
-    }
     /**
      * 日志json输出（全部对象类型的转行Json）
      */
@@ -94,7 +76,7 @@ object LogUtil {
     /**
      * 输出异常信息
      */
-    fun exception(msg: String, ex: Throwable){
+    fun exception(msg: String ="异常", ex: Throwable){
         Logger.e(msg, ex)
     }
 

@@ -1,4 +1,4 @@
-package com.safmvvm.utils;
+package com.safmvvm.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -29,7 +29,7 @@ class NetworkUtil private constructor() {
             val manager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val info = manager.activeNetworkInfo
-            return if (info != null && info.isAvailable) true else false
+            return info != null && info.isAvailable
         }
 
 
@@ -58,7 +58,7 @@ class NetworkUtil private constructor() {
                         "setDataEnabled",
                         Boolean::class.javaPrimitiveType
                     )
-                setMobileDataEnabledMethod?.invoke(tm, enabled)
+                setMobileDataEnabledMethod.invoke(tm, enabled)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -102,11 +102,11 @@ class NetworkUtil private constructor() {
             val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
             if (enabled) {
                 if (!wifiManager.isWifiEnabled) {
-                    wifiManager.setWifiEnabled(true);
+                    wifiManager.isWifiEnabled = true
                 }
             } else {
                 if (wifiManager.isWifiEnabled) {
-                    wifiManager.setWifiEnabled(false);
+                    wifiManager.isWifiEnabled = false
                 }
             }
         }
@@ -130,7 +130,7 @@ class NetworkUtil private constructor() {
          */
         fun getNetworkOperatorName(context: Context): String? {
             val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            return tm?.networkOperatorName
+            return tm.networkOperatorName
         }
 
         /**
@@ -255,7 +255,6 @@ class NetworkUtil private constructor() {
         fun isWifi(context: Context): Boolean {
             val connectivity =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                    ?: return false
             return connectivity.activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
         }
 

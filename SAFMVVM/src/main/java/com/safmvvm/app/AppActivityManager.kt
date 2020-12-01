@@ -70,7 +70,7 @@ object AppActivityManager {
      */
     fun finishActivity(activity: Activity){
         if (getActivity(activity.javaClass) != null) {
-            activity?.finish()
+            activity.finish()
             remove(activity)
         }
     }

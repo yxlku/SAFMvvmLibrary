@@ -26,9 +26,6 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
 
-    /** liveData接收统一处理*/
-    abstract override fun initUiChangeLiveData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //初始化Databinding，livedata和xml可以双向绑定
@@ -45,6 +42,8 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         initViewObservable()
         //初始化数据
         initData()
+        //初始化等待效果
+        initLoadSir()
         // 绑定 v 和 vm
         if (mViewModelId != null) {
             mBinding.setVariable(mViewModelId, mViewModel)

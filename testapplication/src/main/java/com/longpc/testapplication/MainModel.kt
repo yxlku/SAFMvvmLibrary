@@ -2,12 +2,13 @@ package com.longpc.testapplication
 
 import com.longpc.testapplication.base.BaseNetEntity
 import com.longpc.testapplication.datasource.TestApiService
+import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.utils.coroutines.flowOnIO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.Dispatcher
 
 class MainModel: BaseModel() {
     //网络请求数据源
@@ -25,5 +26,11 @@ class MainModel: BaseModel() {
             d?.data?.text = "Flow就是牛逼！！！"
             emit(d)
         }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun testInLineFolw(): Flow<BaseNetEntity<MainDataEntity?>?>{
+        return flowOnIO{
+            mHttpDataSource?.testApiService()
+        }
     }
 }

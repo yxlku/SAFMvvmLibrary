@@ -1,4 +1,4 @@
-package me.pxq.utils.ui.decoration
+package com.safmvvm.ui.decoraction
 
 import android.graphics.Rect
 import android.view.View

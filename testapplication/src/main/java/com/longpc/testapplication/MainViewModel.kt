@@ -8,13 +8,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.load.LoadingState
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
+import com.safmvvm.utils.coroutines.flowDataDeal
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import java.lang.StringBuilder
 
 @FlowPreview
@@ -53,32 +52,62 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 
         })
     }
-
-    suspend fun testFolw(){
-        mModel.testMainNetFolw()
-            .onStart {
-                LogUtil.d("我在用Flow请求了！")
-            }
-            .onCompletion {
-                LogUtil.d("我用Flow请求完事了！")
-            }
-            .collect {
-                var data = it?.data
-                ToastUtil.showShortToast(data?.text+"sss")
-                LogUtil.e(data?.text+"sss")
-                var sb = StringBuilder()
-                data?.datas?.forEach {
-                    sb.append(it.title)
-                    sb.append("\n")
+//    inline fun <T> launchRequest(a:Flow<BaseNetEntity<MainDataEntity?>?){
+    fun testFolw(a: Flow<*>){
+        viewModelScope.launch {
+            mModel.testMainNetFolw()
+                .onStart {
+                    LogUtil.d("我在用Flow请求了！")
                 }
-                text.set(sb.toString())
-            }
+                .onCompletion {
+                    LogUtil.d("我用Flow请求完事了！")
+                }
+                .collect {
+                    var data = it?.data
+                    ToastUtil.showShortToast(data?.text + "sss")
+                    LogUtil.e(data?.text + "sss")
+                    var sb = StringBuilder()
+                    data?.datas?.forEach {
+                        sb.append(it.title)
+                        sb.append("\n")
+                    }
+                    text.set(sb.toString())
+                }
 //            .collectLatest {result ->
 //
 //
 //            }
-
+        }
     }
+    fun testRequestFlow(){
+        launchRequest {
+            mModel.testMainNetFolw()
+                .flowDataDeal(
+                    onLoading = LoadingState.LOADING,
+                    onError = {
+
+                    },
+                    onSuccess = {
+                        it?.data?.text?.let { it1 -> LogUtil.e(it1 + "我擦，竟然可以了") }
+
+                        var data = it?.data
+                        ToastUtil.showShortToast(data?.text + "sss")
+                        LogUtil.e(data?.text + "sss")
+                        var sb = StringBuilder()
+                        data?.datas?.forEach {
+                            sb.append(it.title)
+                            sb.append("\n")
+                        }
+                        text.set(sb.toString())
+                    },
+                    onFaile = {code, msg->
+
+                    }
+                )
+
+        }
+    }
+
 
     fun tvClick(v: View){
         if (v is TextView) {
@@ -86,9 +115,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 //            var result = mModel.testMainNet("年轻人不讲武德，")
 //            ToastUtil.showShortToast(result)
 //            LogUtil.e(result)
-            viewModelScope.launch{
-                testFolw()
-            }
+            testRequestFlow()
 
 //            testFolw()
         }else{
