@@ -11,8 +11,4 @@ import com.safmvvm.R
 class DefaultErrorCallback: Callback() {
 
     override fun onCreateView(): Int = R.layout.layout_loadsir_default_error
-
-    override fun onReloadEvent(context: Context?, view: View?): Boolean {
-        return true
-    }
 }

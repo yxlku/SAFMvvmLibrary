@@ -5,22 +5,25 @@ import android.os.Parcelable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import com.orhanobut.logger.Logger
+import com.safmvvm.R
 import com.safmvvm.app.GlobalConfig
 import com.safmvvm.app.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
+import com.safmvvm.http.result.state.entityNullable
 import com.safmvvm.mvvm.model.BaseModel
-import com.safmvvm.ui.load.LoadingState
+import com.safmvvm.ui.load.LoadState
+import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.utils.ResUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
-import java.lang.StringBuilder
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -107,7 +110,7 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
      */
     suspend fun <T> Flow<T>.flowDataDeal(
         /** 等待状态 */
-        onLoading: LoadingState = LoadingState.LOADSIR,
+        loadingModel: LoadingModel = LoadingModel.LOADSIR,
         /** 成功状态 */
         onSuccess: (T)->Unit,
         /** 请求成功但是返回错误*/
@@ -118,25 +121,47 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
         //基类所有操作都是遵循：1、统一封装；2、调用回调函数到调用者返回去处理自定义操作
         this.onStart {
                 //等待处理
-                LogUtil.e("我是封装好的请求等待")
-                showStateLoading(onLoading)
-            }
-            .onCompletion {
-                //等待关闭
-                LogUtil.e("我是封装好的请求完成")
-                showStateSucess()
+                showLoadPageState(loadingModel, LoadState.LOADING)
             }
             .catch {
                 //异常处理
-                LogUtil.e("咋还出错了呢")
                 LogUtil.exception("请求异常", it)
                 onError(it)
+                showLoadPageState(loadingModel, LoadState.NET_ERROR, isModify = true, msg = "没有网别点了！", subMsg = "真没网")
             }
             .collect {
-                //返回处理处理成功与失败结果
+                //返回数据处理成功与失败结果
                 if (it is IBaseResponse<*>) {
-                    onSuccess(it)
+                    if (it == null) {
+                        //提示实体为空
+                        showLoadPageState(loadingModel, LoadState.EMPTY)
+                        return@collect
+                    }
+                    val code = it.code()
+                    val msg = it.msg()
+                    val data: T? = it.data() as T?
+                    if (code.isEmpty()) {
+                        //code为空
+                        showLoadPageState(loadingModel, LoadState.FAIL)
+                        return@collect
+                    }
+                    if (data == null) {
+                        //数据为空
+                        showLoadPageState(loadingModel, LoadState.EMPTY)
+                        return@collect
+                    }
+                    //结果正常处理
+                    if (code == GlobalConfig.Request.SUCCESS_CODE) {
+                        //返回成功
+                        showLoadPageState(loadingModel, LoadState.SUCCESS)
+                        onSuccess(data)
+                    }else{
+                        //请求成功但服务器返回错误
+                        showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = msg)
+                    }
                 }else{
+                    //数据异常
+                    showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = "数据异常")
                 }
             }
 

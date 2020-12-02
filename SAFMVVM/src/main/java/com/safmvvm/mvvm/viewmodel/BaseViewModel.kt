@@ -3,14 +3,18 @@ package com.safmvvm.mvvm.viewmodel
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.DrawableRes
 import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.callback.SuccessCallback
 import com.safmvvm.app.CheckUtil
+import com.safmvvm.app.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
+import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
 import com.safmvvm.mvvm.model.BaseModel
-import com.safmvvm.ui.load.LoadingState
-import com.safmvvm.ui.load.loadsir.callback.DefaultLoadingCallback
+import com.safmvvm.ui.load.LoadState
+import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.jetpack.SingleLiveEvent
 import com.safmvvm.utils.jetpack.putValue
 
@@ -44,25 +48,43 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseSuperViewModel
 
     override fun getArgumentsIntent(): Intent? = mIntent
 
-    /**
-     * 页面状态总控：请求时自动调用此方法 - 显示等待效果
-     */
-    override fun showStateLoading(state: LoadingState) {
-        when (state) {
-            LoadingState.LOADING -> showLoadDialogIsShow(true)      //等待弹窗
-            LoadingState.LOADSIR -> showLoadSir(DefaultLoadingCallback::class.java) //布局等待模式
+    override fun showLoadPageState(
+        model: LoadingModel,
+        state: LoadState,
+        isModify: Boolean,
+        code: String,
+        msg: String,
+        subMsg: String,
+        @DrawableRes icon: Int
+    ) {
+        when (model) {
+            LoadingModel.LOADING -> {
+                //弹窗模式 -- 只有在 loading的时候才会显示弹窗
+                var isShow = if(state == LoadState.LOADING) true else false
+                showLoadDialogIsShow(isShow)
+            }
+            LoadingModel.LOADSIR -> {
+                var clz: Class<out Callback>?
+                //页面模式
+                when (state) {
+                    LoadState.LOADING -> clz = GlobalConfig.Loading.CALLBACK_LOADING //布局等待状态
+                    LoadState.EMPTY -> clz = GlobalConfig.Loading.CALLBACK_EMPTY //空数据状态
+                    LoadState.NET_ERROR -> clz = GlobalConfig.Loading.CALLBACK_NET_ERROR //网络错误状态
+                    LoadState.FAIL -> clz = GlobalConfig.Loading.CALLBACK_NET_ERROR //请求错误状态
+                    else -> clz = SuccessCallback::class.java  //关闭LoadSir其他都是成功效果
+                }
+                //发送实体
+                var entity = LoadSirUpdateMsgEntity(
+                    clz,
+                    isModify,
+                    msg,
+                    subMsg,
+                    code,
+                    icon
+                )
+                showLoadSir(entity)
+            }
         }
-    }
-
-    /**
-     *  请求时自动调用此方法 - 显示成功效果
-     */
-    override fun showStateSucess() {
-        //不用判断，所有等待都给我关了，防止页面显示不出来
-        //关闭Loading窗体
-        showLoadDialogIsShow(false)
-        //关闭LoadSir
-        showLoadSir(null)
     }
 
     // 以下是等待加载中弹窗相关的 =========================================================
@@ -72,16 +94,17 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseSuperViewModel
     }
 
     // 以下是内嵌加载中布局相关的 =========================================================
-    fun showLoadSir(clz: Class<out Callback>?) {
+    fun showLoadSir(entity: LoadSirUpdateMsgEntity?) {
         CheckUtil.checkLoadSirEvent(mUiChangeLiveData.loadSirEvent)
-        mUiChangeLiveData.loadSirEvent?.putValue(clz)
+        mUiChangeLiveData.loadSirEvent?.putValue(entity)
     }
     /**
      * 发送到View层的LiveData的变量
      */
     class UiChangeLiveData {
         /** LoadSir */
-        var loadSirEvent: SingleLiveEvent<Class<out Callback>?>? = null
+        var loadSirEvent: SingleLiveEvent<LoadSirUpdateMsgEntity?>? = null
+        /** loading */
         var loadDialogEvent: SingleLiveEvent<Boolean>? = null
 
         /** 初始化异步操作状态页面*/

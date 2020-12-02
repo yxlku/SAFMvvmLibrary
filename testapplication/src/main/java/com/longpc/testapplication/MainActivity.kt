@@ -21,4 +21,8 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     override fun getLoadSirTarget(): Any? {
         return mBinding.layoutRoot2
     }
+
+    override fun onLoadSirReload() {
+        mViewModel.testRequestFlow()
+    }
 }

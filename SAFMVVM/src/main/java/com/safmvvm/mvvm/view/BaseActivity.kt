@@ -1,15 +1,21 @@
 package com.safmvvm.mvvm.view
 
+import android.content.Context
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import com.kingja.loadsir.core.Transport
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.R
 import com.safmvvm.app.GlobalConfig
+import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
@@ -41,7 +47,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         if (getLoadSirTarget() != null) {
             mLoadService = LoadSir.getDefault().register(
                 getLoadSirTarget()
-            ) {
+            ){
                 //如果出现错误页等需要重新加载的页面，可在此方法中接收回调
                 onLoadSirReload()
             }
@@ -50,14 +56,31 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             mViewModel.mUiChangeLiveData.initLoadSirEvent()
             mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
                 if (it == null) {
+                    //如果数据为空则直接不显示各种页面
+                    mLoadService.showSuccess()
+                    return@Observer
+                }
+                val callBack: Class<out Callback>? = it?.callBack
+                if (callBack == null) {
                     //成功页面 （默认为啥也不显示）
                     mLoadService.showSuccess()
-                    onLoadSirSuccess()
                 } else {
                     //其他
-                    mLoadService.showCallback(it)
-                    //通过子Module调用此方法来实现这里的逻辑，为空、错误。。。
-                    onLoadSirShowed(it)
+                    if (it.isModify == true) {
+                        mLoadService.setCallBack(callBack, object : Transport {
+                            override fun order(context: Context?, view: View?) {
+                                var iv_icon: ImageView? = view?.findViewById(R.id.iv_icon)
+                                var tv_msg: TextView? = view?.findViewById(R.id.tv_msg)
+                                var tv_sub_msg: TextView? = view?.findViewById(R.id.tv_sub_msg)
+                                tv_msg?.setText(it.msg)
+                                tv_sub_msg?.setText( it.subMsg)
+                                if (it.icon != 0) {
+                                    iv_icon?.setImageDrawable(ResUtil.getDrawable(it.icon))
+                                }
+                            }
+                        })
+                    }
+                    mLoadService.showCallback(callBack)
                 }
             })
         }

@@ -1,35 +1,28 @@
 package com.safmvvm.mvvm.viewmodel
 
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.DefaultLifecycleObserver
-import com.safmvvm.ui.load.LoadingState
+import com.safmvvm.ui.load.LoadState
+import com.safmvvm.ui.load.LoadingModel
 
 /**
  * ViewModel 层，让 vm 可以感知 v 的生命周期
  */
-interface IViewModel: DefaultLifecycleObserver{
+interface IViewModel : DefaultLifecycleObserver {
 
     /**
-     * 网络请求等待效果
-     * @param state 通过状态来判断
+     * 页面请求状态更新
      */
-    fun showStateLoading(state: LoadingState)
+    fun showLoadPageState(
+        model: LoadingModel,
+        state: LoadState,
+        /** 是否需要修改，false下面传的值不发生变化*/
+        isModify: Boolean = false,
+        code: String = "",
+        msg: String = "",
+        subMsg: String = "",
+        @DrawableRes icon: Int = 0
+    )
 
-    /**
-     * 成功后的操作，通常是隐藏所有等待效果，所以也不传入任何值了
-     */
-    fun showStateSucess(){}
-
-    /**
-     * 空布局
-     * @param state 通过状态来判断
-     */
-    fun showStateEmpty(state: LoadingState, tipMsg: String){}
-
-
-    /**
-     * 错误页面处理
-     * @param state 通过状态来判断
-     */
-    fun showStateFail(state: LoadingState, failMsg: String){}
 
 }

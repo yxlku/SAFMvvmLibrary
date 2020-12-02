@@ -1,8 +1,6 @@
-package com.imyyq.mvvm.utils
+package com.safmvvm.app
 
 import android.os.Build
-import com.safmvvm.app.AppActivityManager
-import com.safmvvm.app.GlobalConfig
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.currentTimeMills

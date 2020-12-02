@@ -77,7 +77,7 @@ object LogUtil {
      * 输出异常信息
      */
     fun exception(msg: String ="异常", ex: Throwable){
-        Logger.e(msg, ex)
+        Logger.e(ex.cause, msg)
     }
 
     /**

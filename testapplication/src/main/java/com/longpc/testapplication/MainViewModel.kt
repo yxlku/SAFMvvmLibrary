@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
-import com.safmvvm.ui.load.LoadingState
+import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import kotlinx.coroutines.*
@@ -83,7 +83,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
         launchRequest {
             mModel.testMainNetFolw()
                 .flowDataDeal(
-                    onLoading = LoadingState.LOADING,
+                    loadingModel = LoadingModel.LOADSIR,
                     onError = {
 
                     },

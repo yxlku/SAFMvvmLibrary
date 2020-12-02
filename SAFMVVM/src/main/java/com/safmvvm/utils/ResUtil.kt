@@ -1,7 +1,9 @@
 package com.safmvvm.utils
 
+import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.safmvvm.app.BaseApp
@@ -29,4 +31,10 @@ object ResUtil {
         return ContextCompat.getColor(BaseApp.getInstance(), colorId)
     }
 
+    /**
+     * 获取图片资源
+     */
+    fun getDrawable(@DrawableRes imgId: Int): Drawable?{
+        return ContextCompat.getDrawable(BaseApp.getInstance(), imgId)
+    }
 }

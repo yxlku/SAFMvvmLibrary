@@ -35,7 +35,6 @@ object HttpDeal {
         }
         listener?.let {
             //请求统一处理
-            //TODO 可以抛出一个接口让子Module 来自定义拦截操作
             if (entity == null) {
                 //提示实体为空
                 listener.onFailed(entityNullable.toString(), ResUtil.getString(R.string.net_msg_entity_nullable))
@@ -45,7 +44,7 @@ object HttpDeal {
             val msg = entity.msg()
             val data: T? = entity.data()
             Logger.d(data)
-            if (code == null) {
+            if (code.isEmpty()) {
                 listener.onFailed(entityNullable.toString(), ResUtil.getString(R.string.net_msg_entity_code_nullable))
                 return
             }

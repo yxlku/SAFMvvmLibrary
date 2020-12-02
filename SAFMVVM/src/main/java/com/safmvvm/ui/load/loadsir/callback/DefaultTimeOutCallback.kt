@@ -12,8 +12,4 @@ class DefaultTimeOutCallback: Callback() {
 
     override fun onCreateView(): Int = R.layout.layout_loadsir_default_timeout
 
-    override fun onReloadEvent(context: Context?, view: View?): Boolean {
-        return true
-    }
-
 }

@@ -3,7 +3,6 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.imyyq.mvvm.utils.CrashHandlerUtil
 import com.kingja.loadsir.callback.SuccessCallback
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
