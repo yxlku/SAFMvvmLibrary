@@ -11,7 +11,6 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingState
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
-import com.safmvvm.utils.coroutines.flowDataDeal
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.lang.StringBuilder
@@ -22,10 +21,11 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     var text = ObservableField<String>()
 
     override fun onResume(owner: LifecycleOwner) {
+        testRequestFlow()
     }
 
      fun test(){
-        launch({
+        launchNet({
             mModel.testMainNet()
         }, object : ResponseResultCallback<MainDataEntity>{
             override fun onLoading(lodingText: String) {

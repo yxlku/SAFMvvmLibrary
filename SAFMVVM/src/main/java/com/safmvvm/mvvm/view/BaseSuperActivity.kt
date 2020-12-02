@@ -44,12 +44,16 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         initData()
         //初始化等待效果
         initLoadSir()
+        //初始化等待弹窗
+        initLoadDialog()
+
         // 绑定 v 和 vm
         if (mViewModelId != null) {
             mBinding.setVariable(mViewModelId, mViewModel)
         }
         // 让 LiveData 和 xml 可以双向绑定
         mBinding.lifecycleOwner = this
+
     }
 
     /**

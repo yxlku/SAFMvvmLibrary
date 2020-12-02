@@ -4,8 +4,20 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 import java.util.concurrent.atomic.AtomicBoolean
+
+/**
+ * 设置Value，不用判断线程来选择方法了
+ */
+fun <T> SingleLiveEvent<T>.putValue(pValue: T){
+    if (AppUtil.isInMainThread()) {
+        this.value = pValue
+    }else{
+        this.postValue(pValue)
+    }
+}
 
 /**
  * 只有一个观察者能收到通知，并且只有明确调用了 setValue 的时候才会发出通知。

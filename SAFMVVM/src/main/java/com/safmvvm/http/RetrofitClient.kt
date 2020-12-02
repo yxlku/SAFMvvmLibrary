@@ -30,14 +30,9 @@ class RetrofitClient private constructor(){
         val instance: RetrofitClient by lazy { RetrofitClient() }
     }
 
-
-    /** 存储 baseUrl，以便可以动态更改 */
-    private lateinit var mBaseUrlMap: ArrayMap<String, String>
     private val mContext: Context = BaseApp.getInstance()
     // 缓存 service
     private val mServiceMap = ArrayMap<String, Any>()
-    /** host是否缓存*/
-    private val mKeyIsSave = "is_save"
 
     /**
      * 如果有不同的 baseURL，那么可以相同 baseURL 的接口都放在一个 Service 钟，通过此方法来获取

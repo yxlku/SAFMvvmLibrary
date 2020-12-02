@@ -11,6 +11,7 @@ import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.ui.load.LoadingState
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import kotlinx.coroutines.CoroutineScope
@@ -27,7 +28,7 @@ import java.lang.reflect.Type
  * viewModel基本基类父类，不带有UI方面的监听传递操作，需要UI赋能的继承BaseViewModel
  * 管理model的创建、缓存、声明周期
  */
-open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel(app), IViewModel{
+abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel(app), IViewModel{
 
     /**
      * 手动创建Model后传入
@@ -74,7 +75,7 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
      * Old：无要求请求模式
      * 所有网络请求都在 mCoroutineScope 域中启动协程，当页面销毁时会自动取消
      */
-    fun <T: Parcelable> launch(
+    fun <T: Parcelable> launchNet(
         block: suspend CoroutineScope.() -> IBaseResponse<T?>?,
         listener: ResponseResultCallback<T>?
     ): Job{
@@ -93,6 +94,52 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
                 listener?.onComplete()
             }
         }
+    }
+
+    /**
+     * New:
+     * 通常用在ViewModel层进行处理请求后的统一操作
+     * 异步操作
+     * 1、异步前操作
+     * 2、异步完成操作
+     * 3、成功后操作
+     * 4、失败后操作
+     */
+    suspend fun <T> Flow<T>.flowDataDeal(
+        /** 等待状态 */
+        onLoading: LoadingState = LoadingState.LOADSIR,
+        /** 成功状态 */
+        onSuccess: (T)->Unit,
+        /** 请求成功但是返回错误*/
+        onFaile: (code: String, msg: String) -> Unit,
+        /** 错误状态、不能成功请求（无网络） */
+        onError: (ex: Throwable) -> Unit?
+    ){
+        //基类所有操作都是遵循：1、统一封装；2、调用回调函数到调用者返回去处理自定义操作
+        this.onStart {
+                //等待处理
+                LogUtil.e("我是封装好的请求等待")
+                showStateLoading(onLoading)
+            }
+            .onCompletion {
+                //等待关闭
+                LogUtil.e("我是封装好的请求完成")
+                showStateSucess()
+            }
+            .catch {
+                //异常处理
+                LogUtil.e("咋还出错了呢")
+                LogUtil.exception("请求异常", it)
+                onError(it)
+            }
+            .collect {
+                //返回处理处理成功与失败结果
+                if (it is IBaseResponse<*>) {
+                    onSuccess(it)
+                }else{
+                }
+            }
+
     }
 
     /**
@@ -119,7 +166,6 @@ open class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewModel
             emit(block())
         }
     }
-
 
     /**
      * 使用 Retrofit 原生的请求方式

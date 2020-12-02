@@ -101,6 +101,10 @@ dependencies {
     //事件总线
     api Deps.liveEventBus
 
+    //通用弹窗
+    api Deps.XPopupDialog
+    api Deps.XPopupDialogExt //城市、时间选择
+
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2
 

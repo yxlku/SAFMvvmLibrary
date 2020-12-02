@@ -17,5 +17,6 @@
     <!-- LoadSir-->
     <string name="fine_no_data">fine, no data.</string>
     <string name="click_me_to_retry">click me to retry!</string>
+    <string name="load_sir_tips">必须复写 Activity/Fragment 的 getLoadSirTarget() 方法，且必须调用 GlobalConfig 的 initLoadSir 方法</string>
 
 </resources>

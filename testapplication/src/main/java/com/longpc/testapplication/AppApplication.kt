@@ -15,7 +15,9 @@ class AppApplication: BaseApp() {
 
         GlobalConfig.Request.SUCCESS_CODE = "0"
         GlobalConfig.Request.gBaseUrl = "https://www.wanandroid.com/"
-        GlobalConfig.Log.gIsOpenLog = BuildConfig.DEBUG
+        GlobalConfig.Log.gIsOpenLog = true
         GlobalConfig.Log.gIsSaveLogToFile = true
+
+//        GlobalConfig.Loading.LOADING_TEXT = "我在App中初始化了"
     }
 }

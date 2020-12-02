@@ -10,9 +10,11 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import com.safmvvm.app.BaseApp
+import com.safmvvm.utils.jetpack.SingleLiveEvent
 
 
 object AppUtil {
@@ -40,6 +42,12 @@ object AppUtil {
         return null
     }
 
+    /**
+     * 当前是否是主线程
+     */
+    fun isInMainThread(): Boolean{
+        return Looper.getMainLooper().thread == Thread.currentThread()
+    }
     /**
      * 获取当前进程的名称，默认进程名称是包名
      */

@@ -6,6 +6,7 @@ import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -24,6 +25,7 @@ class MainModel: BaseModel() {
         return flow {
             var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
             d?.data?.text = "Flow就是牛逼！！！"
+            delay(3000)
             emit(d)
         }.flowOn(Dispatchers.IO)
     }

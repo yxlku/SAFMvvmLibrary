@@ -2,27 +2,37 @@ package com.safmvvm.mvvm.view
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
+import com.safmvvm.R
+import com.safmvvm.app.GlobalConfig
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
+import com.safmvvm.utils.ResUtil
 import com.safmvvm.utils.jetpack.SingleLiveEvent
 
 /**
  * TODO 1、暂未实现基础 startActivity方法 ，我感觉可以搞个Util，不用这种基类的方式
  * TODO 传递参数不用putIntent和Bundle，封装一个LiveData
- * TODO 2、等待调试完基础操作后可以再添加等待效果
- * TODO 3、
  */
 abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
 ) : BaseSuperActivity<V, VM>(mLayoutId, mViewModelId), ILoad {
 
+    //状态：布局模式
     private lateinit var mLoadService: LoadService<*>
-
+    //状态：弹窗模式
+    private var dialogView: LoadingPopupView? = null
+    /** 等待弹窗自定义布局，默认为全局配置项，如果配置项不设置则使用控件自带的布局*/
+    private var  mLoadingLayoutId: Int = GlobalConfig.Loading.LOADING_LAYOUT_ID
+    /** 等待等待弹窗提示信息，默认为全局配置项，如果配置项不设置，则使用控件自带的文字*/
+    private var mLoadingTipText: String = GlobalConfig.Loading.LOADING_TEXT
     /**
      * 初始化LoadSir
      */
@@ -32,26 +42,70 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             mLoadService = LoadSir.getDefault().register(
                 getLoadSirTarget()
             ) {
-                reLoad()
+                //如果出现错误页等需要重新加载的页面，可在此方法中接收回调
+                onLoadSirReload()
             }
 
+            //初始化LoadSir事件
+            mViewModel.mUiChangeLiveData.initLoadSirEvent()
+            mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
+                if (it == null) {
+                    //成功页面 （默认为啥也不显示）
+                    mLoadService.showSuccess()
+                    onLoadSirSuccess()
+                } else {
+                    //其他
+                    mLoadService.showCallback(it)
+                    //通过子Module调用此方法来实现这里的逻辑，为空、错误。。。
+                    onLoadSirShowed(it)
+                }
+            })
         }
     }
 
     /**
-     * 基类需要的LiveData操作
+     * 初始化等待弹窗
      */
-    override fun initUiChangeLiveData() {
-        /**
-         * loadSir点击事件
-         */
-        var loadSirEvent: SingleLiveEvent<Class<out Callback>?>? = null
-
-        fun initLoadSir(){
-            loadSirEvent = SingleLiveEvent()
+    override fun initLoadDialog() {
+        //提示文字
+        var tipText: String = if(mLoadingTipText.isNotEmpty()) mLoadingTipText else ""
+        //布局选项 如果子Module没有配置则调用控件中的布局
+        var cusLayout: Int = if(mLoadingLayoutId != 0) mLoadingLayoutId else 0
+        if (dialogView == null) {
+            dialogView =
+                XPopup.Builder(this)
+                    .dismissOnBackPressed(false) //返回键不能关闭
+                    .asLoading(tipText, cusLayout)
         }
-
+        mViewModel.mUiChangeLiveData.initLoadDialogEvent()
+        mViewModel.mUiChangeLiveData.loadDialogEvent?.observe(this, Observer {
+            if (it == true) {
+                dialogView?.show()
+            } else {
+                dialogView?.dismiss()
+            }
+        })
     }
 
+    override fun initUiChangeLiveData() {
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dialogView?.destroy()
+    }
+
+    /**
+     * 设置自定义等待弹窗布局
+     * 1、传一个值则对应只设置一个内容
+     * 2、** 两个值都不传则使用框架中默认的等待效果  **
+     *
+     * @param layoutId: 自定义布局Id
+     * @param tipText： 自定义弹窗显示提示文字
+     */
+    fun setCustomDialog(@LayoutRes layoutId: Int = 0, tipText: String = ""){
+        mLoadingLayoutId = if(layoutId != 0) layoutId else GlobalConfig.Loading.LOADING_LAYOUT_ID
+        mLoadingTipText = if(tipText.isNotEmpty()) tipText else GlobalConfig.Loading.LOADING_TEXT
+    }
 
 }
