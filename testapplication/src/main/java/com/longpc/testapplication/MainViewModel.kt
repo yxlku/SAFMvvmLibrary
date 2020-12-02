@@ -21,7 +21,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     var text = ObservableField<String>()
 
     override fun onResume(owner: LifecycleOwner) {
-        testRequestFlow()
+//        testRequestFlow()
     }
 
      fun test(){

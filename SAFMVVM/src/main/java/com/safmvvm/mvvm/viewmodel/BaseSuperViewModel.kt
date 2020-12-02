@@ -108,7 +108,7 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
      * 3、成功后操作
      * 4、失败后操作
      */
-    suspend fun <T> Flow<T>.flowDataDeal(
+    suspend fun <T> Flow<out T>.flowDataDeal(
         /** 等待状态 */
         loadingModel: LoadingModel = LoadingModel.LOADSIR,
         /** 成功状态 */
@@ -139,10 +139,11 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
                     }
                     val code = it.code()
                     val msg = it.msg()
-                    val data: T? = it.data() as T?
+                    val data = it.data() as T
                     if (code.isEmpty()) {
                         //code为空
                         showLoadPageState(loadingModel, LoadState.FAIL)
+                        onFaile("-1", "")
                         return@collect
                     }
                     if (data == null) {
@@ -154,14 +155,16 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
                     if (code == GlobalConfig.Request.SUCCESS_CODE) {
                         //返回成功
                         showLoadPageState(loadingModel, LoadState.SUCCESS)
-                        onSuccess(data)
+                        onSuccess(it)
                     }else{
                         //请求成功但服务器返回错误
                         showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = msg)
+                        onFaile(code, msg)
                     }
                 }else{
                     //数据异常
                     showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = "数据异常")
+                    onFaile("-1", "数据异常")
                 }
             }
 
