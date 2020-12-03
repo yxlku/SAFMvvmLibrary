@@ -6,7 +6,7 @@ if (isBuildModule.toBoolean()) {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.AndroidApp.compileSdkVersion
@@ -56,9 +56,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "${JavaVersion.VERSION_1_8}"
-    }
+//    kotlinOptions {
+//        jvmTarget = "${JavaVersion.VERSION_1_7}"
+//    }
     kapt {
         generateStubs = true
     }

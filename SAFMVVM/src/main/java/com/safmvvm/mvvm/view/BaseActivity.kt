@@ -60,7 +60,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
                     mLoadService.showSuccess()
                     return@Observer
                 }
-                val callBack: Class<out Callback>? = it?.callBack
+                val callBack: Class<out Callback>? = it.callBack
                 if (callBack == null) {
                     //成功页面 （默认为啥也不显示）
                     mLoadService.showSuccess()
@@ -72,8 +72,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
                                 var iv_icon: ImageView? = view?.findViewById(R.id.iv_icon)
                                 var tv_msg: TextView? = view?.findViewById(R.id.tv_msg)
                                 var tv_sub_msg: TextView? = view?.findViewById(R.id.tv_sub_msg)
-                                tv_msg?.setText(it.msg)
-                                tv_sub_msg?.setText( it.subMsg)
+                                tv_msg?.text = it.msg
+                                tv_sub_msg?.text = it.subMsg
                                 if (it.icon != 0) {
                                     iv_icon?.setImageDrawable(ResUtil.getDrawable(it.icon))
                                 }

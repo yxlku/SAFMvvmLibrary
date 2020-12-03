@@ -60,7 +60,7 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseSuperViewModel
         when (model) {
             LoadingModel.LOADING -> {
                 //弹窗模式 -- 只有在 loading的时候才会显示弹窗
-                var isShow = if(state == LoadState.LOADING) true else false
+                var isShow = state == LoadState.LOADING
                 showLoadDialogIsShow(isShow)
             }
             LoadingModel.LOADSIR -> {

@@ -24,6 +24,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
+import java.io.Serializable
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -78,7 +79,7 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
      * Old：无要求请求模式
      * 所有网络请求都在 mCoroutineScope 域中启动协程，当页面销毁时会自动取消
      */
-    fun <T: Parcelable> launchNet(
+    fun <T: Serializable> launchNet(
         block: suspend CoroutineScope.() -> IBaseResponse<T?>?,
         listener: ResponseResultCallback<T>?
     ): Job{

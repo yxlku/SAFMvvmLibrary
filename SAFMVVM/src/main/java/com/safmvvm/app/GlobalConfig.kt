@@ -59,9 +59,7 @@ object GlobalConfig {
     /**
      * 缓存
      */
-    object Cache{
-
-    }
+    object Cache
 
     /**
      * 等待布局或弹窗配置属性

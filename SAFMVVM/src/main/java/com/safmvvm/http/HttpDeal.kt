@@ -11,6 +11,7 @@ import com.safmvvm.http.result.state.notHttpException
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ResUtil
 import retrofit2.HttpException
+import java.io.Serializable
 import java.lang.Exception
 import java.lang.RuntimeException
 
@@ -24,7 +25,7 @@ object HttpDeal {
      * @param entity 返回实体类
      * @param listener 请求状态监听 可以为空，为空则不做任何处理，只是单纯的请求
      */
-    fun <T: Parcelable> dealResult(
+    fun <T: Serializable> dealResult(
         entity: IBaseResponse<T?>?,
         listener: ResponseResultCallback<T>?
     ){
@@ -62,7 +63,7 @@ object HttpDeal {
     /**
      * 处理异常信息
      */
-    fun <T: Parcelable> dealException(
+    fun <T: Serializable> dealException(
         ex: Exception,      //异常
         listener: ResponseResultCallback<T>?
     ){

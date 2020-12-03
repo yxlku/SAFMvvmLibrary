@@ -5,9 +5,9 @@ buildscript {
     apply from: 'SAFMVVM/dependencies.gradle'
     //组件化时只初始化使用这个就行
     apply from: "config.gradle"
-    ext {
-        Versions.kotlinVersion = '1.3.72'
-    }
+//    ext {
+//        Versions.kotlinVersion = '1.3.72'
+//    }
 
     //远程仓库
     addRepository(repositories)

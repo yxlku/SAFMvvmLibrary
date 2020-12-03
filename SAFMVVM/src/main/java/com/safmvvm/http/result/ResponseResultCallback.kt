@@ -1,11 +1,12 @@
 package com.safmvvm.http.result
 
 import android.os.Parcelable
+import java.io.Serializable
 
 /**
  * 请求返回结果回调
  */
-interface ResponseResultCallback<T: Parcelable> {
+interface ResponseResultCallback<T: Serializable> {
     /**
      * 请求等待状态 等待窗。。
      */
