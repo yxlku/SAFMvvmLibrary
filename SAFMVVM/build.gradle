@@ -74,7 +74,7 @@ dependencies {
     api Deps.lifecycleJava8
 
     // 内嵌的加载中库
-    api Deps.loadSir
+    api Deps.MultiStatePage
 
     // 数据库
     api Deps.roomRuntime

@@ -1,6 +1,7 @@
 package com.safmvvm.ui.load
 
-import com.kingja.loadsir.callback.Callback
+import com.zy.multistatepage.MultiState
+
 
 /**
  * 所有等待模式的接口，方便统一调用
@@ -10,7 +11,7 @@ interface ILoad {
     /**
      * 加载失败，显示 LoadSir 的页面
      */
-    fun onLoadSirShowed(it: Class<out Callback>) {}
+    fun onLoadSirShowed(it: Class<out MultiState>) {}
 
     /**
      * 加载成功，LoadSir 消失，显示结果页

@@ -7,10 +7,6 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import com.kingja.loadsir.callback.Callback
-import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
-import com.kingja.loadsir.core.Transport
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.R
@@ -20,7 +16,12 @@ import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.utils.ResUtil
+import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.jetpack.SingleLiveEvent
+import com.zy.multistatepage.MultiState
+import com.zy.multistatepage.MultiStatePage.bindMultiState
+import com.zy.multistatepage.bindMultiState
+import com.zy.multistatepage.state.EmptyState
 
 /**
  * TODO 1、暂未实现基础 startActivity方法 ，我感觉可以搞个Util，不用这种基类的方式
@@ -31,8 +32,6 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     private val mViewModelId: Int? = null
 ) : BaseSuperActivity<V, VM>(mLayoutId, mViewModelId), ILoad {
 
-    //状态：布局模式
-    private lateinit var mLoadService: LoadService<*>
     //状态：弹窗模式
     private var dialogView: LoadingPopupView? = null
     /** 等待弹窗自定义布局，默认为全局配置项，如果配置项不设置则使用控件自带的布局*/
@@ -43,47 +42,22 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
      * 初始化LoadSir
      */
     override fun initLoadSir() {
-        // 只有目标不为空的情况才有实例化的必要
-        if (getLoadSirTarget() != null) {
-            mLoadService = LoadSir.getDefault().register(
-                getLoadSirTarget()
-            ){
-                //如果出现错误页等需要重新加载的页面，可在此方法中接收回调
-                onLoadSirReload()
-            }
-
-            //初始化LoadSir事件
-            mViewModel.mUiChangeLiveData.initLoadSirEvent()
-            mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
-                if (it == null) {
-                    //如果数据为空则直接不显示各种页面
-                    mLoadService.showSuccess()
-                    return@Observer
-                }
-                val callBack: Class<out Callback>? = it.callBack
-                if (callBack == null) {
-                    //成功页面 （默认为啥也不显示）
-                    mLoadService.showSuccess()
-                } else {
-                    //其他
-                    if (it.isModify == true) {
-                        mLoadService.setCallBack(callBack, object : Transport {
-                            override fun order(context: Context?, view: View?) {
-                                var iv_icon: ImageView? = view?.findViewById(R.id.iv_icon)
-                                var tv_msg: TextView? = view?.findViewById(R.id.tv_msg)
-                                var tv_sub_msg: TextView? = view?.findViewById(R.id.tv_sub_msg)
-                                tv_msg?.text = it.msg
-                                tv_sub_msg?.text = it.subMsg
-                                if (it.icon != 0) {
-                                    iv_icon?.setImageDrawable(ResUtil.getDrawable(it.icon))
-                                }
-                            }
-                        })
-                    }
-                    mLoadService.showCallback(callBack)
-                }
-            })
+        val multiStateContainer = bindMultiState(this){
+            //如果出现错误页等需要重新加载的页面，可在此方法中接收回调
+            onLoadSirReload()
         }
+        //初始化LoadSir事件
+        mViewModel.mUiChangeLiveData.initLoadSirEvent()
+        mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
+            if (it != null && it.state != null) {
+                multiStateContainer.show(it.state, {
+
+                })
+            }else{
+                //错误了，直接隐藏全部的遮盖
+                multiStateContainer.show(GlobalConfig.Loading.STATE_SUCCESS)
+            }
+        })
     }
 
     /**

@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
-import com.kingja.loadsir.callback.Callback
-import com.kingja.loadsir.callback.SuccessCallback
 import com.safmvvm.app.CheckUtil
 import com.safmvvm.app.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
@@ -17,6 +15,7 @@ import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.jetpack.SingleLiveEvent
 import com.safmvvm.utils.jetpack.putValue
+import com.zy.multistatepage.MultiState
 
 /**
  *
@@ -64,18 +63,18 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseSuperViewModel
                 showLoadDialogIsShow(isShow)
             }
             LoadingModel.LOADSIR -> {
-                var clz: Class<out Callback>?
+                var multiState: Class<out MultiState>
                 //页面模式
                 when (state) {
-                    LoadState.LOADING -> clz = GlobalConfig.Loading.CALLBACK_LOADING //布局等待状态
-                    LoadState.EMPTY -> clz = GlobalConfig.Loading.CALLBACK_EMPTY //空数据状态
-                    LoadState.NET_ERROR -> clz = GlobalConfig.Loading.CALLBACK_NET_ERROR //网络错误状态
-                    LoadState.FAIL -> clz = GlobalConfig.Loading.CALLBACK_NET_ERROR //请求错误状态
-                    else -> clz = SuccessCallback::class.java  //关闭LoadSir其他都是成功效果
+                    LoadState.LOADING -> multiState = GlobalConfig.Loading.STATE_LOADING //布局等待状态
+                    LoadState.EMPTY -> multiState = GlobalConfig.Loading.STATE_EMPTY  //空数据状态
+                    LoadState.NET_ERROR -> multiState = GlobalConfig.Loading.STATE_ERROR  //网络错误状态
+                    LoadState.FAIL -> multiState = GlobalConfig.Loading.STATE_ERROR  //请求错误状态
+                    else -> multiState = GlobalConfig.Loading.STATE_SUCCESS   //关闭LoadSir其他都是成功效果
                 }
                 //发送实体
                 var entity = LoadSirUpdateMsgEntity(
-                    clz,
+                    multiState,
                     isModify,
                     msg,
                     subMsg,

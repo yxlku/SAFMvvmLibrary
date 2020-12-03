@@ -1,15 +1,15 @@
 package com.safmvvm.mvvm.args
 
 import android.os.Parcelable
-import com.kingja.loadsir.callback.Callback
+import com.zy.multistatepage.MultiState
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /**
  * 嵌入页面需要的信息
  */
-@Parcelize
 data class LoadSirUpdateMsgEntity(
-    val callBack: Class<out Callback>?,
+    val state: Class<out MultiState>,
     /** 是否需要修改*/
     val isModify: Boolean,
     /** 修改信息*/
@@ -20,4 +20,4 @@ data class LoadSirUpdateMsgEntity(
     val code: String,
     /** 图标*/
     val icon: Int
-):Parcelable
+):Serializable

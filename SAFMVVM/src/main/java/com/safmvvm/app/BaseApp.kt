@@ -3,7 +3,6 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.kingja.loadsir.callback.SuccessCallback
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -11,7 +10,7 @@ import com.safmvvm.utils.LogUtil
  * 所有子Module都要继承此BaseApp
  * 所有统一初始化的工具都放到此处
  */
-open class BaseApp: Application() {
+open class BaseApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -26,7 +25,7 @@ open class BaseApp: Application() {
             initResource(this)
             //主进程操作
             onMainProcessInit()
-        }else{
+        } else {
             //其他进程 ?.let 相当于 != null
             processName?.let {
                 onOtherProcessInit(it)
@@ -35,12 +34,13 @@ open class BaseApp: Application() {
         //日志初始化
         LogUtil.initLog()
         //等待布局初始化
-        GlobalConfig.initLoadSir(SuccessCallback::class.java)
+        GlobalConfig.initMultiStateConfig()
         //开启全局日常捕获
         CrashHandlerUtil.init()
     }
+
     /** initApp方法前调用，比如日志开启和DebugView*/
-    open fun onMainPorcessInitBefore(){}
+    open fun onMainPorcessInitBefore() {}
 
     /**
      * 通常来说应用只有一个进程，进程名称是当前的包名，你需要针对这个进程做一些初始化。
@@ -56,35 +56,41 @@ open class BaseApp: Application() {
      */
     open fun onOtherProcessInit(processName: String) {}
 
-    companion object{
+    companion object {
         private lateinit var app: Application
 
         @JvmStatic
-        fun initApp(app: Application){
+        fun initApp(app: Application) {
             Companion.app = app
         }
 
-        private fun initResource(app: Application){
+        private fun initResource(app: Application) {
             // 监听所有 Activity 的创建和销毁
             if (GlobalConfig.App.gIsNeedActivityManager) {
                 //开启
-                app.registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
+                app.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
                     override fun onActivityCreated(
                         activity: Activity,
                         savedInstanceState: Bundle?
                     ) {
                         AppActivityManager.add(activity)
                     }
+
                     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
                     }
+
                     override fun onActivityStarted(activity: Activity) {
                     }
+
                     override fun onActivityResumed(activity: Activity) {
                     }
+
                     override fun onActivityPaused(activity: Activity) {
                     }
+
                     override fun onActivityStopped(activity: Activity) {
                     }
+
                     override fun onActivityDestroyed(activity: Activity) {
                         AppActivityManager.remove(activity)
                     }
@@ -93,7 +99,7 @@ open class BaseApp: Application() {
         }
 
         @JvmStatic
-        fun getInstance(): Application{
+        fun getInstance(): Application {
             return app
         }
     }

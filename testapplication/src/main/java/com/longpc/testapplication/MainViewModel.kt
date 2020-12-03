@@ -91,14 +91,15 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
                         it?.data?.text?.let { it1 -> LogUtil.e(it1 + "我擦，竟然可以了") }
 
                         var data = it?.data
-                        ToastUtil.showShortToast(data?.text + "sss")
+//                        ToastUtil.showShortToast(data?.text + "sss")
                         LogUtil.e(data?.text + "sss")
                         var sb = StringBuilder()
                         data?.datas?.forEach {
                             sb.append(it.title)
                             sb.append("\n")
                         }
-                        text.set(sb.toString())
+//                        text.set(sb.toString())
+                        text.set(data?.text + "sss")
                     },
                     onFaile = {code, msg->
 
