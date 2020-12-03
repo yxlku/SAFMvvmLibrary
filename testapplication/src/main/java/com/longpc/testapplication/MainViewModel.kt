@@ -81,7 +81,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     }
     fun testRequestFlow(){
         launchRequest {
-            mModel.testMainNetFolw()
+            mModel.testInLineFolw()
                 .flowDataDeal(
                     loadingModel = LoadingModel.LOADSIR,
                     onError = {
