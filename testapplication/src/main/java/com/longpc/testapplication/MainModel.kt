@@ -32,7 +32,11 @@ class MainModel: BaseModel() {
 
     suspend fun testInLineFolw(): Flow<BaseNetEntity<MainDataEntity?>?>{
         return flowOnIO{
-            mHttpDataSource?.testApiService()
+//            mHttpDataSource?.testApiService()
+            var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
+            d?.data?.text = "Flow就是牛逼！！！"
+            delay(5000)
+            return@flowOnIO d
         }
     }
 }

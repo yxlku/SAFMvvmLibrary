@@ -1,11 +1,11 @@
 package com.safmvvm.app
 
 import com.safmvvm.R
+import com.safmvvm.ui.load.state.*
 import com.safmvvm.utils.FileUtil
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateConfig
 import com.zy.multistatepage.MultiStatePage
-import com.zy.multistatepage.state.EmptyState
 import com.zy.multistatepage.state.ErrorState
 import com.zy.multistatepage.state.LoadingState
 import com.zy.multistatepage.state.SuccessState
@@ -74,6 +74,7 @@ object GlobalConfig {
         lateinit var STATE_EMPTY: Class<out MultiState>
         lateinit var STATE_LOADING: Class<out MultiState>
         lateinit var STATE_SUCCESS: Class<out MultiState>
+        lateinit var STATE_FAIL: Class<out MultiState>
         lateinit var STATE_ERROR: Class<out MultiState>
     }
     fun initMultiStateConfig(
@@ -89,16 +90,18 @@ object GlobalConfig {
         loadingMsg: String = "",
         /** 错误时的文字*/
         errorMsg: String = "",
-        /** 如果使用下面自定义布局，可以不填写以上内容*/
-        stateEmpty: Class<out MultiState> = EmptyState::class.java,
-        stateLoading:Class<out MultiState> = LoadingState::class.java,
-        stateSuccess:Class<out MultiState> = SuccessState::class.java,
-        stateError:Class<out MultiState> = ErrorState::class.java
+        /** 如果使用下面自定义布局，可以不填写以上内容，填写了就会更改原有的*/
+        pageStateEmpty: Class<out MultiState> = DefaultEmptyPageState::class.java,
+        pageStateLoading:Class<out MultiState> = DefaultLoadingPageState::class.java,
+        pageStateSuccess:Class<out MultiState> = SuccessState::class.java,
+        pageStateFail:Class<out MultiState> = DefaultFailPageState::class.java,
+        pageStateError:Class<out MultiState> = DefaultErrorPageState::class.java
     ){
-        Loading.STATE_EMPTY = stateEmpty
-        Loading.STATE_LOADING = stateLoading
-        Loading.STATE_SUCCESS = stateSuccess
-        Loading.STATE_ERROR = stateError
+        Loading.STATE_EMPTY = pageStateEmpty
+        Loading.STATE_LOADING = pageStateLoading
+        Loading.STATE_SUCCESS = pageStateSuccess
+        Loading.STATE_FAIL = pageStateFail
+        Loading.STATE_ERROR = pageStateError
         //基础配置
         val config = MultiStateConfig.Builder()
             .alphaDuration(alphaDuration)
@@ -110,46 +113,5 @@ object GlobalConfig {
             .build()
         MultiStatePage.config(config)
     }
-//
-//    /**
-//     * 初始化 LoadSir 的相关界面。
-//     * [defCallback] 默认的界面，通常是加载中页面，设置了后，默认打开开启了 LoadSir 的页面后就显示这里设置的页面。
-//     * [clazz] 其他的状态页，比如空页面，加载错误等。
-//     */
-//    fun initLoadSir(
-//        defCallback: Class<out Callback>?,
-//        //等待页面，如果不设置调用框架内等待页面
-//        loadingCallback: Class<out Callback> = DefaultLoadingCallback::class.java,
-//        //空布局
-//        emptyCallback: Class<out Callback> = DefaultEmptyCallback::class.java,
-//        //错误布局
-//        failCallback: Class<out Callback> = DefaultErrorCallback::class.java,
-//        //网络错误
-//        netErroyCallback: Class<out Callback> = DefaultTimeOutCallback::class.java,
-//        vararg clazz: Class<out Callback>
-//    ) {
-//        Loading.CALLBACK_LOADING = loadingCallback
-//        Loading.CALLBACK_EMPTY = emptyCallback
-//        Loading.CALLBACK_FAIL = failCallback
-//        Loading.CALLBACK_NET_ERROR = netErroyCallback
-//
-//        val builder = LoadSir.beginBuilder()
-//        clazz.forEach {
-//            builder.addCallback(it.newInstance())
-//        }
-//        builder
-//            //等待页面
-//            .addCallback(loadingCallback.newInstance())
-//            //空布局
-//            .addCallback(emptyCallback.newInstance())
-//            //请求成功但是服务器返回错误布局
-//            .addCallback(failCallback.newInstance())
-//            //网络请求错误布局
-//            .addCallback(netErroyCallback.newInstance())
-//            //设置默认状态页 如果传入为空，则显示成功页面
-//            .setDefaultCallback(if(defCallback == null) SuccessCallback::class.java else defCallback)
-//            .commit()
-//    }
-//
 
 }

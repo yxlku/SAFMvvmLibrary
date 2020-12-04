@@ -88,8 +88,6 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 
                     },
                     onSuccess = {
-                        it?.data?.text?.let { it1 -> LogUtil.e(it1 + "我擦，竟然可以了") }
-
                         var data = it?.data
 //                        ToastUtil.showShortToast(data?.text + "sss")
                         LogUtil.e(data?.text + "sss")

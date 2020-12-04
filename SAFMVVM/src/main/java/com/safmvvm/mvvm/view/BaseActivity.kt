@@ -15,11 +15,13 @@ import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
+import com.safmvvm.ui.load.state.ILoadPageState
 import com.safmvvm.utils.ResUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.jetpack.SingleLiveEvent
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStatePage.bindMultiState
+import com.zy.multistatepage.OnNotifyListener
 import com.zy.multistatepage.bindMultiState
 import com.zy.multistatepage.state.EmptyState
 
@@ -49,9 +51,13 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         //初始化LoadSir事件
         mViewModel.mUiChangeLiveData.initLoadSirEvent()
         mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
-            if (it != null && it.state != null) {
-                multiStateContainer.show(it.state, {
-
+            if (it?.state != null) {
+                multiStateContainer.show(it.state, OnNotifyListener {state ->
+                    if (it.isModify && state is ILoadPageState) {
+                        state.setMsg(it.msg)
+                        state.setSubMsg(it.subMsg)
+                        state.setIcon(it.icon)
+                    }
                 })
             }else{
                 //错误了，直接隐藏全部的遮盖

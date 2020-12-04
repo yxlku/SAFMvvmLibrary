@@ -1,5 +1,6 @@
 package com.longpc.testapplication
 
+import com.longpc.testapplication.loading.CusLoadStatePage
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfig
 import com.zy.multistatepage.state.EmptyState
@@ -20,6 +21,6 @@ class AppApplication: BaseApp() {
         GlobalConfig.Log.gIsSaveLogToFile = true
 
 //        GlobalConfig.Loading.LOADING_TEXT = "我在App中初始化了"
-        GlobalConfig.initMultiStateConfig()
+        GlobalConfig.initMultiStateConfig(pageStateLoading = CusLoadStatePage::class.java)
     }
 }

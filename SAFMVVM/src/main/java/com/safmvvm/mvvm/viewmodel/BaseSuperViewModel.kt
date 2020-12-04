@@ -141,7 +141,7 @@ abstract class  BaseSuperViewModel<M: BaseModel>(app: Application): AndroidViewM
                     val code = it.code()
                     val msg = it.msg()
                     val data = it.data() as T
-                    if (code.isEmpty()) {
+                    if (code.isBlank()) {
                         //code为空
                         showLoadPageState(loadingModel, LoadState.FAIL)
                         onFaile("-1", "")

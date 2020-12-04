@@ -103,15 +103,18 @@ ext {
             mmkvStatic                : "com.tencent:mmkv-static:1.2.5",
 
             //日志
-            logger                    :"com.orhanobut:logger:2.2.0",
+            logger                     :"com.orhanobut:logger:2.2.0",
 
             //事件总线
-            liveEventBus              : "com.jeremyliao:live-event-bus-x:1.7.2",
+            liveEventBus               : "com.jeremyliao:live-event-bus-x:1.7.2",
 
             //dialog
-            XPopupDialog              :"com.lxj:xpopup:2.2.5",
+            XPopupDialog               :"com.lxj:xpopup:2.2.5",
             //城市列表、时间选择：https://github.com/li-xiaojun/XPopupExt
-            XPopupDialogExt           :"com.lxj:xpopup-ext:0.0.3",
+            XPopupDialogExt            :"com.lxj:xpopup-ext:0.0.3",
+
+            //Adobe动画
+            lottie                     : "com.airbnb.android:lottie:3.5.0",
 
 
     ]

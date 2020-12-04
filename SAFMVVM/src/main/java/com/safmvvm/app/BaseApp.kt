@@ -31,12 +31,6 @@ open class BaseApp : Application() {
                 onOtherProcessInit(it)
             }
         }
-        //日志初始化
-        LogUtil.initLog()
-        //等待布局初始化
-        GlobalConfig.initMultiStateConfig()
-        //开启全局日常捕获
-        CrashHandlerUtil.init()
     }
 
     /** initApp方法前调用，比如日志开启和DebugView*/
@@ -62,6 +56,12 @@ open class BaseApp : Application() {
         @JvmStatic
         fun initApp(app: Application) {
             Companion.app = app
+            //日志初始化
+            LogUtil.initLog()
+            //等待布局初始化
+            GlobalConfig.initMultiStateConfig()
+            //开启全局日常捕获
+            CrashHandlerUtil.init()
         }
 
         private fun initResource(app: Application) {

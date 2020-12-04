@@ -105,6 +105,9 @@ dependencies {
     api Deps.XPopupDialog
     api Deps.XPopupDialogExt //城市、时间选择
 
+    //Adobe动画库
+    api Deps.lottie
+
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2
 
