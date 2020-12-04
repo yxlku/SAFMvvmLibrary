@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.safmvvm.app.config.GlobalConfig
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.MultiStatePage
@@ -27,8 +28,8 @@ class DefaultEmptyPageState : MultiState(), ILoadPageState {
         tvEmptyMsg = view.findViewById(R.id.tv_empty_msg)
         imgEmpty = view.findViewById(R.id.img_empty)
 
-        setMsg(MultiStatePage.config.emptyMsg)
-        setIcon(MultiStatePage.config.emptyIcon)
+        setMsg(GlobalConfig.Loading.LOADING_EMPTY_MSG)
+        setIcon(GlobalConfig.Loading.LOADING_EMPTY_ICON)
     }
 
     override fun enableReload(): Boolean = false

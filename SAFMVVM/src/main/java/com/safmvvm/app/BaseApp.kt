@@ -3,6 +3,8 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.config.GlobalConfigFun
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -59,43 +61,40 @@ open class BaseApp : Application() {
             //日志初始化
             LogUtil.initLog()
             //等待布局初始化
-            GlobalConfig.initMultiStateConfig()
+            GlobalConfigFun.initPageStateConfig()
             //开启全局日常捕获
             CrashHandlerUtil.init()
         }
 
         private fun initResource(app: Application) {
             // 监听所有 Activity 的创建和销毁
-            if (GlobalConfig.App.gIsNeedActivityManager) {
-                //开启
-                app.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-                    override fun onActivityCreated(
-                        activity: Activity,
-                        savedInstanceState: Bundle?
-                    ) {
-                        AppActivityManager.add(activity)
-                    }
+            app.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+                override fun onActivityCreated(
+                    activity: Activity,
+                    savedInstanceState: Bundle?
+                ) {
+                    AppActivityManager.add(activity)
+                }
 
-                    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-                    }
+                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                }
 
-                    override fun onActivityStarted(activity: Activity) {
-                    }
+                override fun onActivityStarted(activity: Activity) {
+                }
 
-                    override fun onActivityResumed(activity: Activity) {
-                    }
+                override fun onActivityResumed(activity: Activity) {
+                }
 
-                    override fun onActivityPaused(activity: Activity) {
-                    }
+                override fun onActivityPaused(activity: Activity) {
+                }
 
-                    override fun onActivityStopped(activity: Activity) {
-                    }
+                override fun onActivityStopped(activity: Activity) {
+                }
 
-                    override fun onActivityDestroyed(activity: Activity) {
-                        AppActivityManager.remove(activity)
-                    }
-                })
-            }
+                override fun onActivityDestroyed(activity: Activity) {
+                    AppActivityManager.remove(activity)
+                }
+            })
         }
 
         @JvmStatic

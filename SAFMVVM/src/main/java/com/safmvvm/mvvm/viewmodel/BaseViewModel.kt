@@ -3,7 +3,7 @@ package com.safmvvm.mvvm.viewmodel
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
-import com.safmvvm.app.GlobalConfig
+import com.safmvvm.app.config.GlobalConfig
 import com.safmvvm.app.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
@@ -79,7 +79,7 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseLiveViewModel<
     ): Job{
         return viewModelScope.launch {
             //请求时等待的操作
-            listener?.onLoading(GlobalConfig.Request.gLodingMsg)
+            listener?.onLoading(GlobalConfig.Loading.LOADING_TEXT)
             //处理结果
             try {
                 //处理请求结果
@@ -123,9 +123,10 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseLiveViewModel<
                 //异常处理
                 LogUtil.exception("请求异常", it)
                 onError(it)
-                showLoadPageState(loadingModel, LoadState.NET_ERROR, isModify = true, msg = "没有网别点了！", subMsg = "真没网")
+                showLoadPageState(loadingModel, LoadState.ERROR)
             }
             .collect {
+                //TODO 这里提取公用
                 //返回数据处理成功与失败结果
                 if (it is IBaseResponse<*>) {
                     if (it == null) {

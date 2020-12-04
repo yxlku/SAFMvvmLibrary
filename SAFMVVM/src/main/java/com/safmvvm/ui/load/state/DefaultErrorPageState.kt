@@ -4,18 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.safmvvm.app.config.GlobalConfig
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.MultiStatePage
 import com.zy.multistatepage.R
 
-/**
- * @ProjectName: MultiStatePage
- * @Author: 赵岩
- * @Email: 17635289240@163.com
- * @Description: TODO
- * @CreateDate: 2020/9/17 14:15
- */
 class DefaultErrorPageState : MultiState(), ILoadPageState {
 
     private lateinit var tvErrorMsg: TextView
@@ -35,8 +29,8 @@ class DefaultErrorPageState : MultiState(), ILoadPageState {
         imgError = view.findViewById(R.id.img_error)
         tvRetry = view.findViewById(R.id.tv_retry)
 
-        setMsg(MultiStatePage.config.errorMsg)
-        setIcon(MultiStatePage.config.errorIcon)
+        setMsg(GlobalConfig.Loading.LOADING_ERROR_MSG)
+        setIcon(GlobalConfig.Loading.LOADING_ERROR_ICON)
         setSubMsg(null)
     }
 

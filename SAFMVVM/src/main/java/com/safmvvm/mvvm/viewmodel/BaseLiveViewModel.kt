@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.AndroidViewModel
-import com.safmvvm.app.CheckUtil
-import com.safmvvm.app.GlobalConfig
+import com.safmvvm.app.config.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
@@ -73,8 +72,8 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
                 when (state) {
                     LoadState.LOADING -> multiState = GlobalConfig.Loading.STATE_LOADING //布局等待状态
                     LoadState.EMPTY -> multiState = GlobalConfig.Loading.STATE_EMPTY  //空数据状态
-                    LoadState.NET_ERROR -> multiState = GlobalConfig.Loading.STATE_FAIL  //网络错误状态
-                    LoadState.FAIL -> multiState = GlobalConfig.Loading.STATE_ERROR  //请求错误状态
+                    LoadState.ERROR -> multiState = GlobalConfig.Loading.STATE_ERROR  //网络错误状态
+                    LoadState.FAIL -> multiState = GlobalConfig.Loading.STATE_FAIL  //请求错误状态
                     else -> multiState = GlobalConfig.Loading.STATE_SUCCESS   //关闭LoadSir其他都是成功效果
                 }
                 //发送实体

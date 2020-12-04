@@ -14,7 +14,7 @@ enum class LoadState {
     /** 空数据*/
     EMPTY,
     /** 网络错误-例如没有网络*/
-    NET_ERROR,
+    ERROR,
 
 
 }

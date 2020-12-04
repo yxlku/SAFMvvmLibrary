@@ -1,6 +1,7 @@
 package com.safmvvm.app
 
 import android.os.Build
+import com.safmvvm.app.config.GlobalConfig
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.currentTimeMills
@@ -19,13 +20,17 @@ internal object CrashHandlerUtil : UncaughtExceptionHandler {
     }
 
     override fun uncaughtException(thread: Thread, ex: Throwable) {
+        //打印日志
         handleException(ex)
+        //系统输出错误信息
         ex.printStackTrace()
-        //TODO 出现异常后的处理操作
-//        if (GlobalConfig.App.gIsNeedActivityManager) {
-//            AppActivityManager.finishAllActivity()
-//        }
-//        exitProcess(0)
+        if (GlobalConfig.App.gGlobalConfigInitListener != null) {
+            GlobalConfig.App.gGlobalConfigInitListener?.initCrashHandlerDeal(thread, ex)
+        }else {
+            //如果不配置监听则默认退出App
+            AppActivityManager.finishAllActivity()
+            exitProcess(0)
+        }
     }
 
     private fun formatLogInfo(ex: Throwable): String {

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.safmvvm.app.config.GlobalConfig
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.MultiStatePage
@@ -29,8 +30,8 @@ class DefaultFailPageState : MultiState(), ILoadPageState {
         imgError = view.findViewById(R.id.img_error)
         tvRetry = view.findViewById(R.id.tv_retry)
 
-        setErrorMsg(MultiStatePage.config.errorMsg)
-        setErrorIcon(MultiStatePage.config.errorIcon)
+        setMsg(GlobalConfig.Loading.LOADING_FAIL_MSG)
+        setIcon(GlobalConfig.Loading.LOADING_FAIL_ICON)
         setSubMsg(null)
     }
 
@@ -38,14 +39,6 @@ class DefaultFailPageState : MultiState(), ILoadPageState {
 
     override fun bindRetryView(): View? {
         return tvRetry
-    }
-
-    fun setErrorMsg(errorMsg: String) {
-
-    }
-
-    fun setErrorIcon(@DrawableRes errorIcon: Int) {
-
     }
 
     override fun setMsg(msg: String?) {

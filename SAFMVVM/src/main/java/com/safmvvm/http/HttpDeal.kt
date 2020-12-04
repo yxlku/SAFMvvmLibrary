@@ -1,14 +1,12 @@
 package com.safmvvm.http
 
-import android.os.Parcelable
 import com.orhanobut.logger.Logger
 import com.safmvvm.R
-import com.safmvvm.app.GlobalConfig
+import com.safmvvm.app.config.GlobalConfig
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.http.result.state.entityNullable
 import com.safmvvm.http.result.state.notHttpException
-import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ResUtil
 import retrofit2.HttpException
 import java.io.Serializable
