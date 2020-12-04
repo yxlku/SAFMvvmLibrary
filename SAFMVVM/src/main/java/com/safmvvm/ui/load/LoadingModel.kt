@@ -9,5 +9,5 @@ enum class LoadingModel {
     /** 弹窗模式等待效果*/
     LOADING,
     /** 页面覆盖形式 */
-    LOADSIR
+    LOAD_PAGESATE
 }

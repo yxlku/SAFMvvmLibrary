@@ -23,10 +23,5 @@ interface ILoad {
      */
     fun onLoadSirReload() {}
 
-    /**
-     * 获取 LoadSir 的目标，通常是 Activity，或者是某个 view，LoadSir 的页面会挂在该 view 上
-     */
-    fun getLoadSirTarget(): Any? = null
-
 
 }

@@ -10,15 +10,14 @@ import com.safmvvm.app.BaseApp
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.model.BaseModel
-import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import java.util.zip.Inflater
 
 /**
  * View层接口
  */
-interface IView<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>: IArgumentsFromBundle {
+interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgumentsFromBundle {
 
     /**
      * 1.1 初始化databinding
@@ -76,7 +75,7 @@ interface IView<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>: IArgument
         var modelClass: Class<VM> = if (type is ParameterizedType) {
             type.actualTypeArguments[1] as Class<VM>
         }else{
-            BaseViewModel::class.java as Class<VM>
+            BaseLiveViewModel::class.java as Class<VM>
         }
         var vm: VM = ViewModelProvider(
             viewModelStoreOwner,

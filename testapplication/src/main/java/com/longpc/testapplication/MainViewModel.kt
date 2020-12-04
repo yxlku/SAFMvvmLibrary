@@ -83,7 +83,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
         launchRequest {
             mModel.testInLineFolw()
                 .flowDataDeal(
-                    loadingModel = LoadingModel.LOADSIR,
+                    loadingModel = LoadingModel.LOAD_PAGESATE,
                     onError = {
 
                     },

@@ -1,29 +1,18 @@
 package com.safmvvm.mvvm.view
 
-import android.content.Context
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
-import com.safmvvm.R
 import com.safmvvm.app.GlobalConfig
-import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
-import com.safmvvm.utils.ResUtil
-import com.safmvvm.utils.ToastUtil
-import com.safmvvm.utils.jetpack.SingleLiveEvent
-import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStatePage.bindMultiState
 import com.zy.multistatepage.OnNotifyListener
-import com.zy.multistatepage.bindMultiState
-import com.zy.multistatepage.state.EmptyState
 
 /**
  * TODO 1、暂未实现基础 startActivity方法 ，我感觉可以搞个Util，不用这种基类的方式
@@ -50,16 +39,16 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         }
         //初始化LoadSir事件
         mViewModel.mUiChangeLiveData.initLoadSirEvent()
-        mViewModel.mUiChangeLiveData.loadSirEvent?.observe(this, Observer {
+        mViewModel.mUiChangeLiveData.loadPageStateEvent?.observe(this, Observer {
             if (it?.state != null) {
-                multiStateContainer.show(it.state, OnNotifyListener {state ->
+                multiStateContainer.show(it.state, OnNotifyListener { state ->
                     if (it.isModify && state is ILoadPageState) {
                         state.setMsg(it.msg)
                         state.setSubMsg(it.subMsg)
                         state.setIcon(it.icon)
                     }
                 })
-            }else{
+            } else {
                 //错误了，直接隐藏全部的遮盖
                 multiStateContainer.show(GlobalConfig.Loading.STATE_SUCCESS)
             }
@@ -91,7 +80,22 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     }
 
     override fun initUiChangeLiveData() {
+
+        mViewModel.mUiChangeLiveData.initInputKeyBoard()
+        mViewModel.mUiChangeLiveData.inputKeyboard?.observe(this, Observer {
+            it?.let {
+                val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                if (it) {
+                    //显示
+                    imm.showSoftInput(mBinding.root, 0)
+                } else {
+                    //隐藏键盘
+                    imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
+                }
+            }
+        })
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

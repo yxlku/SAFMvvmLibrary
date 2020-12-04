@@ -14,6 +14,7 @@ import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 
 /**
  * 所有Activity的基类
@@ -76,7 +77,7 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     }
 
     /**
-     * 通过 [BaseViewModel.startActivity] 传递 bundle，在这里可以获取
+     * 通过 [BaseLiveViewModel.startActivity] 传递 bundle，在这里可以获取
      */
     override fun getBundle(): Bundle? {
         return intent.extras
