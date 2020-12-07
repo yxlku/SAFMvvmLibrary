@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.safmvvm.utils.LogUtil
 
 /**
- * Description: todo 水平滑动Banner间隔
+ * Description: 水平滑动Banner间隔
  * Author : pxq
  * Date : 2020/8/16 1:27 PM
  */

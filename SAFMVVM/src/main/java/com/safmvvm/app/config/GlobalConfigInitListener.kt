@@ -2,6 +2,7 @@ package com.safmvvm.app.config
 
 import androidx.collection.ArrayMap
 import okhttp3.Interceptor
+import java.lang.Exception
 
 /**
  * 初始化接口，配合一些库需要通过自定义方法来自定义初始化
@@ -22,4 +23,45 @@ interface GlobalConfigInitListener {
      * 全局异常捕获处理
      */
     fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?)
+
+    /**
+     * 网络请求解析
+     * @param isJson 是否是Json，具体操作自行处理即可
+     */
+    fun dateParseException(isJson: Boolean, msg: String, ex: Exception)
+
+    /**
+     * （Form表单方式）请求数据处理 -- ** 如果项目中不需要则不需要实现任何操作，返回空或者参数就可以**
+     * 例如：
+     *   1、可对单独数据进行加密
+     *   2、可以取出所有数据进行加密
+     *   3、可以封装通用参数
+     *
+     * @return 如果加密了，则直接通过在返回的Map中的key设置服务器需要的字段，对应的value设置加密后的数据
+     */
+    fun requestDataFormDeal(map: HashMap<String, Any>): HashMap<String, Any>
+
+    /**
+     * （Body方式）请求数据处理 - 会把明文参数转换为Json，处理时自行转换
+     * 例如：
+     *  1、加密；
+     *  2、统一参数封装；
+     *  3、.....
+     *
+     *  @return 返回处理后的结果
+     */
+    fun requestDataDeal(dataPlaintext: String?): String
+
+
+    /**
+     * 返回的数据处理
+     * 例如：
+     *  1、解密
+     *  2、数据统一处理
+     *  3、返回code处理
+     *  4、....
+     *
+     *  @return 返回处理后的请求结果
+     */
+    fun responseDataDeal(dataSouce: String?): String
 }

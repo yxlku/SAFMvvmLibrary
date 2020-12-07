@@ -2,18 +2,16 @@ package com.safmvvm.http
 
 import android.content.Context
 import androidx.collection.ArrayMap
-import androidx.collection.arrayMapOf
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.http.converter.SAFGsonConverterFactory
 import com.safmvvm.http.cookie.CookieJarImpl
 import com.safmvvm.http.cookie.store.PersistentCookieStore
-import com.safmvvm.http.interceptor.DataIntercept
+import com.safmvvm.http.interceptor.FormDataInterceptor
 import com.safmvvm.http.interceptor.HeaderInterceptor
 import com.safmvvm.utils.LogUtil
 import okhttp3.*
-import okhttp3.internal.http.CallServerInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
@@ -78,7 +76,6 @@ class RetrofitClient private constructor(){
      */
     fun initHeaders(otherHeaders: ArrayMap<String, String>?): ArrayMap<String, String>{
         var headers = ArrayMap<String, String>()
-        headers.put("testHeader", "OkHeader")
         //添加其他的头信息
         otherHeaders?.let {
             otherHeaders.forEach {
@@ -95,7 +92,8 @@ class RetrofitClient private constructor(){
         okHttpClientBuilder
             .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))  //TODO cookie信息，目前是用Sp来实现存储的
             .addInterceptor(HeaderInterceptor(headers))     //头信息拦截器
-            .addInterceptor(DataIntercept())     //解密
+            .addInterceptor(FormDataInterceptor())     //Form拦截
+//            .addInterceptor(DataIntercept())     //解密
             .addNetworkInterceptor(LogUtil.configLogInterceptor()) //日志拦截器
             .connectTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间
             .writeTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)            //读取超时时间
@@ -114,7 +112,7 @@ class RetrofitClient private constructor(){
     private fun initRetrofitBuilder(host: String, okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()) //gson解析
+            .addConverterFactory(SAFGsonConverterFactory.create()) //gson解析
             .baseUrl(host)
     }
 

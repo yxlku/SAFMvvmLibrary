@@ -16,8 +16,9 @@ class AppApplication: BaseApp() {
     override fun onMainProcessInit() {
 
         GlobalConfigCreateor()
-            .requestSuccessCode("0")
-            .requestBaseUrl("https://www.wanandroid.com/")
+            .requestSuccessCode("200")
+//            .requestBaseUrl("https://www.wanandroid.com/")
+            .requestBaseUrl("https://api.apiopen.top/")
             .logIsOpen(BuildConfig.DEBUG)
             .loadingLayoutText("我在App中初始化了")
             .pageStateLoading(CusLoadStatePage::class.java)

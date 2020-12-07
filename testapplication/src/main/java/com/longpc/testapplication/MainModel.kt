@@ -1,9 +1,11 @@
 package com.longpc.testapplication
 
 import com.longpc.testapplication.base.BaseNetEntity
+import com.longpc.testapplication.base.BaseNetEntityPost
 import com.longpc.testapplication.datasource.TestApiService
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowOnIO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -36,6 +38,19 @@ class MainModel: BaseModel() {
             var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
             d?.data?.text = "Flow就是牛逼！！！"
             delay(5000)
+            return@flowOnIO d
+        }
+    }
+
+    /**
+     * 测试post请求
+     */
+    suspend fun testPostFlow(): Flow<BaseNetEntityPost<ArrayList<MainPostEntity?>?>?>{
+        return flowOnIO {
+            var body = HashMap<String, String>()
+            body.put("page", "1")
+            body.put("count", "5")
+            var d: BaseNetEntityPost<ArrayList<MainPostEntity?>?>? = mHttpDataSource?.testPost("one", "two")
             return@flowOnIO d
         }
     }

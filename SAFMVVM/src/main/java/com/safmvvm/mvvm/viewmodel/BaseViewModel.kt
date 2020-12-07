@@ -3,6 +3,7 @@ package com.safmvvm.mvvm.viewmodel
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import com.google.gson.stream.MalformedJsonException
 import com.safmvvm.app.config.GlobalConfig
 import com.safmvvm.app.RepositoryManager
 import com.safmvvm.http.HttpDeal
@@ -119,9 +120,14 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseLiveViewModel<
                 controlInputKeyboard(false)     //请求时将键盘自动隐藏
                 showLoadPageState(loadingModel, LoadState.LOADING) //请求时显示等待效果
             }
-            .catch {
+            .catch {it ->
                 //异常处理
-                LogUtil.exception("请求异常", it)
+                when(it){
+                    is MalformedJsonException -> {
+                        LogUtil.exception("数据异常", it)
+                    }
+                }
+                //TODO 增加Msg字段，前台直接提示Msg
                 onError(it)
                 showLoadPageState(loadingModel, LoadState.ERROR)
             }

@@ -1,7 +1,10 @@
 package com.safmvvm.utils
 
 import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+
 
 object JsonUtil {
     private const val TAG = "JsonUtils"
@@ -15,6 +18,20 @@ object JsonUtil {
     fun toJson(any: Any): String{
         return GSON.toJson(any)
     }
+
+    fun validate(jsonStr: String?): Boolean {
+        val jsonElement: JsonElement?
+        jsonElement = try {
+            JsonParser.parseString(jsonStr)
+        } catch (e: java.lang.Exception) {
+            return false
+        }
+        if (jsonElement == null) {
+            return false
+        }
+        return jsonElement.isJsonObject
+    }
+
 
     /**
      * 取得Json解析的结果
@@ -59,10 +76,10 @@ object JsonUtil {
     /**
      * @return JSON解析为Map
      */
-    fun getJsonParseMapResult(jsonString: String): Map<String, Any>? {
-        var rtMap: Map<String, Any>? = null
+    fun getJsonParseMapResult(jsonString: String): HashMap<String, Any>? {
+        var rtMap: HashMap<String, Any>? = null
         try {
-            rtMap= GSON.fromJson(jsonString, object : TypeToken<Map<String?, Any?>?>() {
+            rtMap= GSON.fromJson(jsonString, object : TypeToken<HashMap<String?, Any?>?>() {
 
             }.type)
         } catch (e: Exception) {

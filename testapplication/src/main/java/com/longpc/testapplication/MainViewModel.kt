@@ -107,6 +107,33 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
         }
     }
 
+    fun testPostFlow(){
+        launchRequest {
+            mModel.testPostFlow()
+                .flowDataDeal(
+                    loadingModel = LoadingModel.LOAD_PAGESATE,
+                    onSuccess = {
+                        var data = it?.result
+//                        ToastUtil.showShortToast(data?.text + "sss")
+//                        LogUtil.e(data?.title + "sss")
+                        var sb = StringBuilder()
+                        data?.forEach {
+                            sb.append(it?.title)
+                            sb.append("\n")
+                        }
+//                        text.set(sb.toString())
+                        text.set(it?.message)
+                    },
+                    onFaile = {code, msg ->
+
+                    },
+                    onError = {
+
+                    }
+                )
+        }
+    }
+
 
     fun tvClick(v: View){
         if (v is TextView) {
@@ -114,8 +141,8 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 //            var result = mModel.testMainNet("年轻人不讲武德，")
 //            ToastUtil.showShortToast(result)
 //            LogUtil.e(result)
-            testRequestFlow()
-
+//            testRequestFlow()
+            testPostFlow()
 //            testFolw()
         }else{
             ToastUtil.showShortToast("擦：" + text.get())

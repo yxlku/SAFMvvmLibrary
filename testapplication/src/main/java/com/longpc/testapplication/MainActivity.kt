@@ -14,6 +14,6 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     }
 
     override fun onLoadSirReload() {
-        mViewModel.testRequestFlow()
+        mViewModel.testPostFlow()
     }
 }
