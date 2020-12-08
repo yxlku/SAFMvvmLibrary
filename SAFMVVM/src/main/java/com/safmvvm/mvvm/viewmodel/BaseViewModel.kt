@@ -160,8 +160,14 @@ abstract class BaseViewModel<M: BaseModel>(app: Application): BaseLiveViewModel<
                         showLoadPageState(loadingModel, LoadState.SUCCESS)
                         onSuccess(it)
                     }else{
-                        //请求成功但服务器返回错误
-                        showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = msg)
+                        //自定义处理
+                        showLoadPageState(loadingModel, LoadState.SUCCESS)
+                        if(GlobalConfig.App.gGlobalConfigInitListener == null
+                            || GlobalConfig.App.gGlobalConfigInitListener?.dealNetCode(code, msg) == false
+                        ){
+                            //请求成功但服务器返回错误
+                            showLoadPageState(loadingModel, LoadState.FAIL, isModify = true, msg = msg)
+                        }
                         onFaile(code, msg)
                     }
                 }else{

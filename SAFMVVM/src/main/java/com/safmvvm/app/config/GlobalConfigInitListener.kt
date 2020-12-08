@@ -73,4 +73,17 @@ interface GlobalConfigInitListener {
      *  @return 返回处理后的请求结果
      */
     fun responseDataDeal(dataSouce: String?): String
+
+    /**
+     * 服务器返回错误码统一处理，code 不等于 GlobalConfig.Request.SUCCESS_CODE
+     * 例如：
+     *  1、token失效，跳转到登录页面
+     *  2、指定错误码，打开webview，msg为url，防止功能不能正常使用
+     *
+     * @return true 显示错误状态页面 false，不显示状态页面
+     *
+     * 1、无论返回true和false都会隐藏等待状态页面
+     * 2、无论返回true和false都会回到onFaile()函数，具体方法可以自行在VM中处理
+     */
+    fun dealNetCode(code: String, msg: String?): Boolean
 }
