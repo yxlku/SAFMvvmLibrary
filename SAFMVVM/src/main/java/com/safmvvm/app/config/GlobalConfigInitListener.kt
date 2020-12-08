@@ -31,6 +31,15 @@ interface GlobalConfigInitListener {
     fun dateParseException(isJson: Boolean, msg: String, ex: Exception)
 
     /**
+     * （Get请求方式）请求数据处理 -- 如果不需要Get请求或不需要对Get请求处理，则直接返回参数即可
+     * 例如：(具体根据业务来定)
+     *   1、对可以对Key加密
+     *   2、可以对Value加密
+     *   3、追加默认统一参数
+     */
+    fun requestDataGetDeal(dataSouce: HashMap<String, String?>): HashMap<String, String?>
+
+    /**
      * （Form表单方式）请求数据处理 -- ** 如果项目中不需要则不需要实现任何操作，返回空或者参数就可以**
      * 例如：
      *   1、可对单独数据进行加密
@@ -50,7 +59,7 @@ interface GlobalConfigInitListener {
      *
      *  @return 返回处理后的结果
      */
-    fun requestDataDeal(dataPlaintext: String?): String
+    fun requestDataBodyDeal(dataPlaintext: String?): String
 
 
     /**

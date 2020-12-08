@@ -141,8 +141,8 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 //            var result = mModel.testMainNet("年轻人不讲武德，")
 //            ToastUtil.showShortToast(result)
 //            LogUtil.e(result)
-//            testRequestFlow()
-            testPostFlow()
+            testRequestFlow()
+//            testPostFlow()
 //            testFolw()
         }else{
             ToastUtil.showShortToast("擦：" + text.get())

@@ -2,6 +2,7 @@ package com.longpc.testapplication
 
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
+import com.longpc.testapplication.base.BaseNetEntity
 import com.longpc.testapplication.base.BaseNetEntityPost
 import com.safmvvm.app.config.GlobalConfigInitListener
 import com.safmvvm.utils.JsonUtil
@@ -48,6 +49,19 @@ class ProjectConfigListener: GlobalConfigInitListener {
     }
 
     /**
+     * Get请求处理
+     */
+    override fun requestDataGetDeal(dataSouce: HashMap<String, String?>): HashMap<String, String?> {
+        var newDataSouce = HashMap<String, String?>()
+        dataSouce.forEach { (key, value) ->
+            newDataSouce.put(key, value+"添加")
+        }
+        newDataSouce.put("ty1", "tyc1")
+        newDataSouce.put("ty2", "tyc2")
+        return newDataSouce
+    }
+
+    /**
      * Form表单提交
      * 1、可对单独数据进行加密
      * 2、可以取出所有数据进行加密
@@ -67,7 +81,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
      * 1、统一参数
      * 2、参数加密
      */
-    override fun requestDataDeal(dataPlaintext: String?): String {
+    override fun requestDataBodyDeal(dataPlaintext: String?): String {
         //请求统一处理
         dataPlaintext?.let {
             //通用参数、
@@ -85,9 +99,9 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun responseDataDeal(dataSouce: String?): String {
         //返回统一处理
         dataSouce?.let {
-            var b: BaseNetEntityPost<*>? = JsonUtil.getJsonParseResult(dataSouce, BaseNetEntityPost::class.java)
+            var b: BaseNetEntity<*>? = JsonUtil.getJsonParseResult(dataSouce, BaseNetEntity::class.java)
             b?.let {
-                b.message = "我擦，我解析成功了！！！！！！！"
+                b.errorMsg = "我擦，我解析成功了！！！！！！！"
                 return JsonUtil.toJson(b)
 //                return "我擦，啥情况啊！！！！！！"
             }

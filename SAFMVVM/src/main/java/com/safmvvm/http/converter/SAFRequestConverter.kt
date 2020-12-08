@@ -41,7 +41,7 @@ class SAFRequestConverter<T>(
         //公共接口对参数进行处理，如果不处理则直接用单独请求方式
         GlobalConfig.App.gGlobalConfigInitListener?.let {
             //防止将原数据清空
-            var dealData: String? = GlobalConfig.App.gGlobalConfigInitListener?.requestDataDeal(dataPlaintext)
+            var dealData: String? = GlobalConfig.App.gGlobalConfigInitListener?.requestDataBodyDeal(dataPlaintext)
             dealData?.let {
                 dataDealResult  = dealData
             }

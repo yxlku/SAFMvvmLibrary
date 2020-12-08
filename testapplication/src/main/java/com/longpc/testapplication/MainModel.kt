@@ -18,14 +18,14 @@ class MainModel: BaseModel() {
     var mHttpDataSource: TestApiService? = generateHttpDataSource(TestApiService::class.java)
 
     suspend fun testMainNet(): BaseNetEntity<MainDataEntity?>?{
-        var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
+        var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService("", "")
         d?.data?.text = "咋都是空的啊"
         return d
     }
 
     suspend fun testMainNetFolw(): Flow<BaseNetEntity<MainDataEntity?>?>{
         return flow {
-            var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
+            var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService("", "")
             d?.data?.text = "Flow就是牛逼！！！"
             delay(3000)
             emit(d)
@@ -35,9 +35,9 @@ class MainModel: BaseModel() {
     suspend fun testInLineFolw(): Flow<BaseNetEntity<MainDataEntity?>?>{
         return flowOnIO{
 //            mHttpDataSource?.testApiService()
-            var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService()
+            var d :BaseNetEntity<MainDataEntity?>? = mHttpDataSource?.testApiService("one", "two2")
             d?.data?.text = "Flow就是牛逼！！！"
-            delay(5000)
+//            delay(5000)
             return@flowOnIO d
         }
     }

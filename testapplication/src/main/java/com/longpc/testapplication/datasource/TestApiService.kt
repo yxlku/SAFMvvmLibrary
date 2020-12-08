@@ -10,7 +10,7 @@ import retrofit2.http.*
 interface TestApiService : IDataSource {
 
     @GET("article/list/0/json")
-    suspend fun testApiService(): BaseNetEntity<MainDataEntity?>
+    suspend fun testApiService(@Query("test1") one: String, @Query("test2") two: String): BaseNetEntity<MainDataEntity?>
 
 
     @FormUrlEncoded
