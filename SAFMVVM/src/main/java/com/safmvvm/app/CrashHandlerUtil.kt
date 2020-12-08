@@ -1,7 +1,7 @@
 package com.safmvvm.app
 
 import android.os.Build
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.currentTimeMills

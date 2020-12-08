@@ -2,7 +2,7 @@ package com.safmvvm.http
 
 import com.orhanobut.logger.Logger
 import com.safmvvm.R
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.http.result.state.entityNullable

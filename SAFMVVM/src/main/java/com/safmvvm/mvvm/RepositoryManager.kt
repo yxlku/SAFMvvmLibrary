@@ -1,4 +1,4 @@
-package com.safmvvm.app
+package com.safmvvm.mvvm
 
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf

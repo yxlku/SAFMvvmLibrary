@@ -2,15 +2,13 @@ package com.safmvvm.http.converter
 
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.utils.JsonUtil
-import com.safmvvm.utils.LogUtil
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Converter
-import java.lang.RuntimeException
 
 /**
  * 请求统一处理

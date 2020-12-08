@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
-import com.safmvvm.app.config.GlobalConfig
-import com.safmvvm.app.RepositoryManager
+import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.mvvm.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback

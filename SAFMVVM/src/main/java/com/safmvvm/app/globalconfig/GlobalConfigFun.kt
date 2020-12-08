@@ -1,6 +1,5 @@
-package com.safmvvm.app.config
+package com.safmvvm.app.globalconfig
 
-import com.safmvvm.R
 import com.zy.multistatepage.MultiStateConfig
 import com.zy.multistatepage.MultiStatePage
 

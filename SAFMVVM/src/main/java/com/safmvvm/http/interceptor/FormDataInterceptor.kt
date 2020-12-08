@@ -1,7 +1,6 @@
 package com.safmvvm.http.interceptor
 
-import com.safmvvm.app.config.GlobalConfig
-import com.safmvvm.utils.LogUtil
+import com.safmvvm.app.globalconfig.GlobalConfig
 import okhttp3.*
 
 /**

@@ -3,7 +3,7 @@ package com.safmvvm.http
 import android.content.Context
 import androidx.collection.ArrayMap
 import com.safmvvm.app.BaseApp
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.http.converter.SAFGsonConverterFactory
 import com.safmvvm.http.cookie.CookieJarImpl
 import com.safmvvm.http.cookie.store.PersistentCookieStore

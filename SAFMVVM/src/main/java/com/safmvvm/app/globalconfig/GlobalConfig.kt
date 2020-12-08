@@ -1,4 +1,4 @@
-package com.safmvvm.app.config
+package com.safmvvm.app.globalconfig
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
@@ -7,7 +7,6 @@ import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
 import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
-import com.safmvvm.utils.FileUtil
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 

@@ -3,7 +3,7 @@ package com.safmvvm.http.converter
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit

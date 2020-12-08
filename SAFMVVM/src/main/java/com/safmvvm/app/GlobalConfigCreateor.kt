@@ -2,10 +2,9 @@ package com.safmvvm.app
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
-import com.safmvvm.R
-import com.safmvvm.app.config.GlobalConfig
-import com.safmvvm.app.config.GlobalConfigFun
-import com.safmvvm.app.config.GlobalConfigInitListener
+import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfigFun
+import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.zy.multistatepage.MultiState
 
 /**

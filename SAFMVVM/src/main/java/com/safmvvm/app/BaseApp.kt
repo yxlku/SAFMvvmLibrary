@@ -3,8 +3,7 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.safmvvm.app.config.GlobalConfig
-import com.safmvvm.app.config.GlobalConfigFun
+import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 

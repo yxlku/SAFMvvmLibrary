@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
-import com.zy.multistatepage.MultiStatePage
 import com.zy.multistatepage.R
 
 class DefaultErrorPageState : MultiState(), ILoadPageState {

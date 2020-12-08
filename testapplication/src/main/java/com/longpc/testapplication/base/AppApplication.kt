@@ -1,9 +1,9 @@
-package com.longpc.testapplication
+package com.longpc.testapplication.base
 
+import com.longpc.testapplication.BuildConfig
 import com.longpc.testapplication.loading.CusLoadStatePage
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfigCreateor
-import com.safmvvm.ui.load.state.DefaultErrorPageState
 
 class AppApplication: BaseApp() {
 

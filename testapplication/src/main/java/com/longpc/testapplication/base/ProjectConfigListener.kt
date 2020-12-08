@@ -1,13 +1,13 @@
-package com.longpc.testapplication
+package com.longpc.testapplication.base
 
 import android.content.Intent
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
-import com.longpc.testapplication.base.BaseNetEntity
-import com.longpc.testapplication.base.BaseNetEntityPost
-import com.safmvvm.app.AppActivityManager
+import com.longpc.testapplication.BuildConfig
+import com.longpc.testapplication.DebugInterceptor
+import com.longpc.testapplication.MainActivity
 import com.safmvvm.app.BaseApp
-import com.safmvvm.app.config.GlobalConfigInitListener
+import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil

@@ -3,7 +3,7 @@ package com.safmvvm.utils
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.orhanobut.logger.*
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 
 
 /**

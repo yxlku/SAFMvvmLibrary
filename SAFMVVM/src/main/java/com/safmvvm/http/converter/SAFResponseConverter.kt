@@ -2,7 +2,7 @@ package com.safmvvm.http.converter
 
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
-import com.safmvvm.app.config.GlobalConfig
+import com.safmvvm.app.globalconfig.GlobalConfig
 import okhttp3.ResponseBody
 import okio.BufferedSource
 import retrofit2.Converter

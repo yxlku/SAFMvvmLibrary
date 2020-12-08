@@ -1,4 +1,4 @@
-package com.safmvvm.app.config
+package com.safmvvm.app.globalconfig
 
 import androidx.collection.ArrayMap
 import okhttp3.Interceptor
