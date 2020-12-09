@@ -10,6 +10,7 @@ import com.safmvvm.http.cookie.store.PersistentCookieStore
 import com.safmvvm.http.interceptor.FormDataInterceptor
 import com.safmvvm.http.interceptor.GetDataInterceptor
 import com.safmvvm.http.interceptor.HeaderInterceptor
+import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.LogUtil
 import okhttp3.*
 import retrofit2.Retrofit
@@ -89,11 +90,21 @@ class RetrofitClient private constructor(){
      * 初始化OkHttpClient
      */
     fun initOkHttpClient(headers: ArrayMap<String, String> , interceptors: ArrayList<Interceptor>?): OkHttpClient{
+        var sslParams: SSLFactory.SSLParams = SSLFactory.getSslSocketFactory()
+        //获取子Module自定义参数
+        var dealSslParams: SSLFactory.SSLParams? = GlobalConfig.App.gGlobalConfigInitListener?.initSSL()
+        dealSslParams?.let {
+            //配置不等于空则使用配置的，如果为空则不使用
+            sslParams = dealSslParams
+        }
+
         val okHttpClientBuilder = OkHttpClient.Builder()
         okHttpClientBuilder
+            .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager) //SSL认证配置
+            .hostnameVerifier(SSLFactory.getHostnameVerifier())
             .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))  //TODO cookie信息，目前是用Sp来实现存储的
             .addInterceptor(HeaderInterceptor(headers))     //头信息拦截器
-            .addInterceptor(FormDataInterceptor())     //Form拦截
+            .addInterceptor(FormDataInterceptor())     //Form请求拦截
             .addInterceptor(GetDataInterceptor())     //Get请求拦截
             .addNetworkInterceptor(LogUtil.configLogInterceptor()) //日志拦截器
             .connectTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间

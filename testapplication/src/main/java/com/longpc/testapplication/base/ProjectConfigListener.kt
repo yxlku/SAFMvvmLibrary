@@ -8,6 +8,7 @@ import com.longpc.testapplication.DebugInterceptor
 import com.longpc.testapplication.MainActivity
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
+import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
@@ -37,6 +38,16 @@ class ProjectConfigListener: GlobalConfigInitListener {
             interceptors.add(DebugInterceptor())
         }
         return interceptors
+    }
+    /**
+     * 自定义SSL认证，如果返回null，则框架内会使用过滤所有的认证，
+     *
+     * 使用SSLFactory类进行控制
+     *
+     * TODO 还没有尝试过，找个Https尝试下
+     */
+    override fun initSSL(): SSLFactory.SSLParams? {
+        return null
     }
 
     /**

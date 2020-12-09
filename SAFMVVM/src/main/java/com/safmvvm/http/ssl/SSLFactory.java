@@ -36,11 +36,26 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 
+/**
+ * SSL认证
+ */
 public class SSLFactory {
 
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;
         public X509TrustManager trustManager;
+    }
+    /**
+     * 获取HostnameVerifier
+     */
+    public static HostnameVerifier getHostnameVerifier() {
+        HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+            @Override
+            public boolean verify(String s, SSLSession sslSession) {
+                return true;
+            }
+        };
+        return hostnameVerifier;
     }
 
     public static SSLParams getSslSocketFactory() {

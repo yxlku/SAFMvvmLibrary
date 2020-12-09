@@ -1,6 +1,7 @@
 package com.safmvvm.app.globalconfig
 
 import androidx.collection.ArrayMap
+import com.safmvvm.http.ssl.SSLFactory
 import okhttp3.Interceptor
 import java.lang.Exception
 
@@ -18,6 +19,13 @@ interface GlobalConfigInitListener {
      * 动态添加拦截器
      */
     fun initInterceptor(): ArrayList<Interceptor>
+
+    /**
+     * 自定义SSL认证，如果返回null，则框架内会使用过滤所有的认证，
+     *
+     * 使用SSLFactory类进行控制
+     */
+    fun initSSL(): SSLFactory.SSLParams?
 
     /**
      * 全局异常捕获处理
