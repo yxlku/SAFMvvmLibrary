@@ -14,7 +14,12 @@ android {
 
         //MultiDex分包方法
         multiDexEnabled true
-
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildFeatures{
         dataBinding = true
@@ -78,6 +83,7 @@ dependencies {
 
     // 数据库
     api Deps.roomRuntime
+    api Deps.roomKTX
 
     // 网络，默认使用 gson 解析 json
     api Deps.retrofit2

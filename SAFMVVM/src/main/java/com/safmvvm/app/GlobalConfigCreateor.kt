@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
+import com.safmvvm.db.MigrationManager
 import com.zy.multistatepage.MultiState
 
 /**
@@ -69,6 +70,25 @@ class GlobalConfigCreateor {
      */
     fun logIsSaveLogToFile(isSaveLogToFile: Boolean): GlobalConfigCreateor{
         GlobalConfig.Log.gIsSaveLogToFile = isSaveLogToFile
+        return this
+    }
+
+    /********************************** 数据库初始化配置 *******************************************/
+    /**
+     * 1、设置数据库名称， 一个App只有一个DB，别整那么多数据库，操作表就行
+     *
+     * 2、如果实在想多个数据库就直接用RoomUtil
+     */
+    fun dbName(dbName: String): GlobalConfigCreateor{
+        GlobalConfig.DB.gDBName = dbName
+        return this
+    }
+
+    /**
+     * 管理数据库升级版本
+     */
+    fun dbConfigMigrationManager(migrationManager: MigrationManager): GlobalConfigCreateor{
+        GlobalConfig.DB.gMigrationManager = migrationManager
         return this
     }
 

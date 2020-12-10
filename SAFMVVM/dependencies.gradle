@@ -37,7 +37,7 @@ ext {
             // 数据库
             roomRuntime               : "androidx.room:room-runtime:$Versions.room",
             roomCompiler              : "androidx.room:room-compiler:$Versions.room",
-            roomRxJava2               : "androidx.room:room-rxjava2:$Versions.room",
+            roomKTX                   : "androidx.room:room-ktx:$Versions.room",
 
             // 网络
             retrofit2                 : "com.squareup.retrofit2:retrofit:$Versions.retrofit2",
@@ -92,9 +92,6 @@ ext {
             natigationRuntimeKTX      : "androidx.navigation:navigation-runtime-ktx:${Versions.navigation}",
             natigationFragmentKTX     : "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}",
 
-            // 可在 room 中使用协程
-            roomKTX                   : "androidx.room:room-ktx:$Versions.room",
-            sqliteKTX                 : "androidx.sqlite:sqlite-ktx:2.1.0",
             workKTX                   : "androidx.work:work-runtime-ktx:2.4.0",
             paletteKTX                : "androidx.palette:palette-ktx:1.0.0",
             collectionKTX             : "androidx.collection:collection-ktx:1.1.0",

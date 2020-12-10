@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.longpc.testroom.TestRoomViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <ScrollView
+            android:id="@+id/main_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/main_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/main_textview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.testData}" />
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/main_guideline"
+            app:layout_constraintVertical_bias="0.0">
+
+            <Button
+                android:onClick="@{viewModel::btAddFlow}"
+                android:id="@+id/main_bt_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="添加数据"
+                app:layout_constraintBottom_toBottomOf="@+id/main_bt_del"
+                app:layout_constraintEnd_toStartOf="@+id/main_bt_del"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_bt_del"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:onClick="@{viewModel::btGetTableEntity}"
+                android:id="@+id/main_bt_ref"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="刷新数据"
+                app:layout_constraintBottom_toBottomOf="@+id/main_bt_update"
+                app:layout_constraintEnd_toStartOf="@+id/main_bt_update"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_bt_update" />
+
+            <Button
+                android:id="@+id/main_bt_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改数据"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/main_bt_ref"
+                app:layout_constraintTop_toBottomOf="@+id/main_bt_del" />
+
+            <Button
+                android:id="@+id/main_bt_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除数据"
+                app:layout_constraintBottom_toTopOf="@+id/main_bt_update"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/main_bt_add"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

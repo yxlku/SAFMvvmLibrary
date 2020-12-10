@@ -3,6 +3,7 @@ package com.safmvvm.app.globalconfig
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.R
+import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
 import com.safmvvm.ui.load.state.DefaultFailPageState
@@ -49,6 +50,20 @@ internal object GlobalConfig {
         var DEFAULT_TIMEOUT: Long = 20
     }
 
+    /**
+     * 数据库配置
+     */
+    object DB{
+        /**
+         * 数据库名称 ，如果不设置则用app名字
+         */
+        var gDBName: String = appName
+
+        /**
+         * 版本升级文件
+         */
+        var gMigrationManager: MigrationManager? = null
+    }
     /**
      * 等待布局或弹窗配置属性
      */

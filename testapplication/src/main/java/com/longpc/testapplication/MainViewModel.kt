@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import com.longpc.testroom.TestRoomActivity
+import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
@@ -147,5 +149,9 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
         }else{
             ToastUtil.showShortToast("擦：" + text.get())
         }
+    }
+
+    fun roomClick(v: View){
+        LiveDataBus.send("???", TestRoomActivity::class.java)
     }
 }
