@@ -24,11 +24,8 @@ import java.util.concurrent.TimeUnit
  * 目的3：不同的接口，不同的缓存策略（？）
  *
  */
-class RetrofitClient private constructor(){
-    companion object {
-        //单例
-        val instance: RetrofitClient by lazy { RetrofitClient() }
-    }
+object RetrofitClient{
+    private val mOkHttpClient by lazy { OkHttpClient().newBuilder() }
 
     private val mContext: Context = BaseApp.getInstance()
     // 缓存 service
@@ -98,8 +95,7 @@ class RetrofitClient private constructor(){
             sslParams = dealSslParams
         }
 
-        val okHttpClientBuilder = OkHttpClient.Builder()
-        okHttpClientBuilder
+        mOkHttpClient
             .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager) //SSL认证配置
             .hostnameVerifier(SSLFactory.getHostnameVerifier())
             .cookieJar(CookieJarImpl(PersistentCookieStore(mContext)))  //TODO cookie信息，目前是用Sp来实现存储的
@@ -114,9 +110,9 @@ class RetrofitClient private constructor(){
             .connectionPool(ConnectionPool(8, 15, TimeUnit.SECONDS))
         //添加从外部传来的拦截器
         interceptors?.forEach {
-            okHttpClientBuilder.addInterceptor(it)
+            mOkHttpClient.addInterceptor(it)
         }
-        return okHttpClientBuilder.build()
+        return mOkHttpClient.build()
     }
     /**
      * 初始化RetrofitBuilder
