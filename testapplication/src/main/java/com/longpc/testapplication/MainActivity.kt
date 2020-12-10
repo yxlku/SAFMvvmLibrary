@@ -1,6 +1,7 @@
 package com.longpc.testapplication
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import androidx.collection.ArrayMap
 import androidx.lifecycle.Observer
@@ -8,8 +9,12 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.longpc.testapplication.databinding.MainActivityMainBinding
+import com.loper7.date_time_picker.DateTimeConfig
+import com.loper7.date_time_picker.StringUtils
+import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.utils.ResUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
 
@@ -55,6 +60,32 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
             },
             true
         )
+
+        LiveDataBus.observe(this, "timeDialog", Observer {
+            val displayList = mutableListOf<Int>()
+            displayList.add(DateTimeConfig.YEAR)
+            displayList.add(DateTimeConfig.MONTH)
+            displayList.add(DateTimeConfig.DAY)
+//            displayList.add(DateTimeConfig.HOUR)
+//            displayList.add(DateTimeConfig.MIN)
+//            displayList.add(DateTimeConfig.SECOND)
+            var model = CardDatePickerDialog.CARD
+            CardDatePickerDialog.builder(this)
+//                .setTitle("这个时间选择器牛逼，帅！")
+                .setDisplayType(displayList)
+                .setBackGroundModel(model)
+                .showBackNow(true)
+                .setDefaultTime(0)
+                .setWrapSelectorWheel(true)
+                .setThemeColor( 0)
+//                .showDateLabel(true)
+                .showFocusDateInfo(true)
+                .setOnChoose("选择") {
+                    mBinding.mainBtnTime.text =  "◉  ${StringUtils.conversionTime(it, "yyyy-MM-dd HH:mm:ss")}    ${StringUtils.getWeek(it)}"
+                }
+                .setOnCancel("关闭") {
+                }.build().show()
+        })
 
 
     }

@@ -111,6 +111,8 @@ ext {
             XPopupDialog               :"com.lxj:xpopup:2.2.5",
             //城市列表、时间选择：https://github.com/li-xiaojun/XPopupExt
             XPopupDialogExt            :"com.lxj:xpopup-ext:0.0.3",
+            //日期选择器
+            DateTimePicker            :"com.github.loperSeven:DateTimePicker:0.2.1",
 
             //Adobe动画
             lottie                     : "com.airbnb.android:lottie:3.5.0",

@@ -109,7 +109,8 @@ dependencies {
 
     //通用弹窗
     api Deps.XPopupDialog
-    api Deps.XPopupDialogExt //城市、时间选择
+    api Deps.XPopupDialogExt //城市
+    api Deps.DateTimePicker //时间选择
 
     //Adobe动画库
     api Deps.lottie

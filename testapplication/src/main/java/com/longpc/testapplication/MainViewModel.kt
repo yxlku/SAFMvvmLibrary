@@ -154,4 +154,8 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     fun roomClick(v: View){
         LiveDataBus.send("???", TestRoomActivity::class.java)
     }
+
+    fun timeClick(v: View){
+        LiveDataBus.send("timeDialog", Unit)
+    }
 }

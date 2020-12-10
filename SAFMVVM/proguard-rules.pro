@@ -99,3 +99,7 @@
 # ====================================================== XPopup
 -dontwarn com.lxj.xpopup.widget.**
 -keep class com.lxj.xpopup.widget.**{*;}
+
+# ====================================================== DateTimePicker
+-dontwarn com.loper7.date_time_picker.**
+-keep class com.loper7.date_time_picker.**{*;}
