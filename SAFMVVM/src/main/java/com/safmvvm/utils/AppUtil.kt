@@ -246,7 +246,7 @@ object AppUtil {
     }
 
     /**
-     * manifest 中的源数据
+     * manifest 中的源数据Z
      */
     private val mMetaData by lazy {
         BaseApp.getInstance().packageManager.getApplicationInfo(

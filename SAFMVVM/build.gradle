@@ -96,7 +96,7 @@ dependencies {
     api Deps.glide
 
     // 权限申请
-    api Deps.livePermissions
+    api Deps.xxpermissions
 
     //日志
     api Deps.logger

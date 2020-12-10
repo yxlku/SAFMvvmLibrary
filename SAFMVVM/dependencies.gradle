@@ -63,8 +63,8 @@ ext {
             kotlinPlugin              : "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}",
             kotlinKTX                 : "androidx.core:core-ktx:${Versions.kotlinKTX}",
 
-            // 权限申请
-            livePermissions           : 'com.ftd.livepermissions:livepermissions:1.0.2',
+            // 权限请求框架：https://github.com/getActivity/XXPermissions
+            xxpermissions             :"com.hjq:xxpermissions:9.5",
 
             // 内部加载中
             MultiStatePage            : 'com.github.Zhao-Yan-Yan:MultiStatePage:1.0.7',

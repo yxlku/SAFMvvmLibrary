@@ -12,6 +12,7 @@ import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
+import com.safmvvm.utils.UUIDUtil
 import okhttp3.Interceptor
 import java.lang.Exception
 
@@ -25,6 +26,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
         headers.put("test1", "我是测试Header1")
         headers.put("test2", "我是测试Header2")
         headers.put("test2", "我是测试Header3")
+        headers.put("UUID", UUIDUtil.getPhoneSign())
         headers.put("User-Agent", "CHrome111")
         return headers
     }
