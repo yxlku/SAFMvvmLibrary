@@ -2,6 +2,7 @@ package com.safmvvm.app.globalconfig
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.room.RoomDatabase
 import com.safmvvm.R
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
@@ -54,14 +55,9 @@ internal object GlobalConfig {
      * 数据库配置
      */
     object DB{
-        /**
-         * 数据库名称 ，如果不设置则用app名字
-         */
+        /** 数据库名称 ，如果不设置则用app名字 */
         var gDBName: String = appName
-
-        /**
-         * 版本升级文件
-         */
+        /** 版本升级文件 */
         var gMigrationManager: MigrationManager? = null
     }
     /**

@@ -12,7 +12,8 @@ import kotlinx.coroutines.flow.Flow
 
 class TestRoomModel: BaseModel() {
 
-    var db = RoomUtil.getDB(DataBase::class.java)
+    //数据源
+    var db = generateDBDataSource(DataBase::class.java)
     /**
      * 插入 使用Flow，可以在VM中进行插值监听
      */

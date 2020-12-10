@@ -2,6 +2,7 @@ package com.safmvvm.app
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.room.RoomDatabase
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
@@ -81,6 +82,14 @@ class GlobalConfigCreateor {
      */
     fun dbName(dbName: String): GlobalConfigCreateor{
         GlobalConfig.DB.gDBName = dbName
+        return this
+    }
+
+    /**
+     * 数据库文件
+     */
+    fun dbRoomDataBase(roomDatabase: Class<out RoomDatabase>): GlobalConfigCreateor{
+        GlobalConfig.DB.gRoomDataBase = roomDatabase
         return this
     }
 

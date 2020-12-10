@@ -12,11 +12,13 @@ import com.safmvvm.app.globalconfig.GlobalConfig
  * 便捷创建 room 实例的工具，通常来说只需要实例化一次即可，数据库也应该只有一个
  */
 object RoomUtil {
+    //多个数据库管理
     private val mDBEntityMap = ArrayMap<String, RoomDatabase>()
 
     @Synchronized
     fun <T : RoomDatabase> getDB(
-        cls: Class<T>, dbName: String = GlobalConfig.DB.gDBName,
+        cls: Class<T>,
+        dbName: String = GlobalConfig.DB.gDBName,
         callback: RoomDatabase.Callback? = null,
     ): T {
         val name = cls.name
