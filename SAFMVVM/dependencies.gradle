@@ -101,6 +101,8 @@ ext {
 
             //日志
             logger                     :"com.orhanobut:logger:2.2.0",
+            // 日志调试框架：https://github.com/getActivity/Logcat
+            appLogcat                  :"com.hjq:logcat:9.2",
 
             //事件总线
             liveEventBus               : "com.jeremyliao:live-event-bus-x:1.7.2",

@@ -116,6 +116,8 @@ dependencies {
 
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2
+    // debug log弹窗
+//    debugImplementation Deps.appLogcat
 
 
 }

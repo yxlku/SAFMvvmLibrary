@@ -86,14 +86,6 @@ class GlobalConfigCreateor {
     }
 
     /**
-     * 数据库文件
-     */
-    fun dbRoomDataBase(roomDatabase: Class<out RoomDatabase>): GlobalConfigCreateor{
-        GlobalConfig.DB.gRoomDataBase = roomDatabase
-        return this
-    }
-
-    /**
      * 管理数据库升级版本
      */
     fun dbConfigMigrationManager(migrationManager: MigrationManager): GlobalConfigCreateor{
