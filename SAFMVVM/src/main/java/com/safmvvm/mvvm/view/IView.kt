@@ -46,7 +46,7 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
     /**
      * 2.2 初始化页面需要的数据
      */
-    fun initData(){}
+    fun initData()
 
     /**
      * 2.3 loadSir初始化

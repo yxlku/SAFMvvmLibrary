@@ -18,4 +18,7 @@ class TestRoomActivity: BaseActivity<MainActivityTestRoomBinding, TestRoomViewMo
         })
     }
 
+    override fun initData() {
+    }
+
 }
