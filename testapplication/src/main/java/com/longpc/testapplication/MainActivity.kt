@@ -1,6 +1,7 @@
 package com.longpc.testapplication
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.collection.ArrayMap
@@ -22,7 +23,6 @@ import com.safmvvm.utils.Utils
 class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     R.layout.main_activity_main, BR.viewModel
 ){
-
     override fun initData() {
         //https://github.com/getActivity/XXPermissions
         XXPermissions.with(this)
@@ -69,17 +69,17 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
 //            displayList.add(DateTimeConfig.HOUR)
 //            displayList.add(DateTimeConfig.MIN)
 //            displayList.add(DateTimeConfig.SECOND)
-            var model = CardDatePickerDialog.CARD
+            var model = CardDatePickerDialog.STACK
             CardDatePickerDialog.builder(this)
-//                .setTitle("这个时间选择器牛逼，帅！")
+                .setTitle("这个时间选择器牛逼，帅！")
                 .setDisplayType(displayList)
-                .setBackGroundModel(model)
-                .showBackNow(true)
-                .setDefaultTime(0)
+//                .setBackGroundModel(model)
+                .showBackNow(false)
                 .setWrapSelectorWheel(true)
                 .setThemeColor( 0)
 //                .showDateLabel(true)
-                .showFocusDateInfo(true)
+                .showDateLabel(false)
+                .showFocusDateInfo(false)
                 .setOnChoose("选择") {
                     mBinding.mainBtnTime.text =  "◉  ${StringUtils.conversionTime(it, "yyyy-MM-dd HH:mm:ss")}    ${StringUtils.getWeek(it)}"
                 }
