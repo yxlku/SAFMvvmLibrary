@@ -3,6 +3,7 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
@@ -63,6 +64,8 @@ open class BaseApp : Application() {
             GlobalConfigFun.initPageStateConfig()
             //开启全局日常捕获
             CrashHandlerUtil.init()
+            //初始化下载器
+            AwesomeDownloader.init(app)
         }
 
         private fun initResource(app: Application) {

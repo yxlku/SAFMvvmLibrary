@@ -2,13 +2,16 @@ package com.safmvvm.app.globalconfig
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
-import androidx.room.RoomDatabase
 import com.safmvvm.R
+import com.safmvvm.app.BaseApp
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.file.update.dialog.IUpdateProgressDialog
+import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
 import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
+import com.safmvvm.utils.FileUtil
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 
@@ -59,6 +62,20 @@ internal object GlobalConfig {
         var gDBName: String = appName
         /** 版本升级文件 */
         var gMigrationManager: MigrationManager? = null
+    }
+
+    /**
+     * 下载配置项
+     */
+    object Update{
+        /** apk存放路径, 有sd卡 /sdcard/包名/File，没有sd卡则是/data/data/包名/files/File*/
+        var gApkFilePath: String? = FileUtil.appFileDir+"apk/"
+        /** 下载名称, 默认为应用名*/
+        var gApkName: String = appName
+        /** 等待样式，布局ID，控件Id要保持一致*/
+        @LayoutRes var gUpdateProgress: Int = R.layout.dialog_update_progress
+        /** 自定义 更新等待弹窗*/
+        var gUpdateProgressDialog: IUpdateProgressDialog = DefaultUpdateVersionProgressDialog(BaseApp.getInstance())
     }
     /**
      * 等待布局或弹窗配置属性

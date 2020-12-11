@@ -114,6 +114,13 @@ dependencies {
 
     //Adobe动画库
     api Deps.lottie
+    //下载库
+    api Deps.downloader
+    //版本更新库
+    api Deps.XUpdate
+    //进度条
+    api Deps.magicprogresswidget
+    api Deps.percentsmoothhandler
 
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2

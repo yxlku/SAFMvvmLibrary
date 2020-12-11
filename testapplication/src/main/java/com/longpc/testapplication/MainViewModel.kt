@@ -158,4 +158,8 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     fun timeClick(v: View){
         LiveDataBus.send("timeDialog", Unit)
     }
+
+    fun updateVersion(v: View){
+        LiveDataBus.send("updateVersion", Unit)
+    }
 }

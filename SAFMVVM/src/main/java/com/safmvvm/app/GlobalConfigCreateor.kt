@@ -3,10 +3,13 @@ package com.safmvvm.app
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.room.RoomDatabase
+import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.file.update.dialog.IUpdateProgressDialog
+import com.safmvvm.utils.FileUtil
 import com.zy.multistatepage.MultiState
 
 /**
@@ -90,6 +93,39 @@ class GlobalConfigCreateor {
      */
     fun dbConfigMigrationManager(migrationManager: MigrationManager): GlobalConfigCreateor{
         GlobalConfig.DB.gMigrationManager = migrationManager
+        return this
+    }
+
+    /********************************** 版本更新初始化配置 *******************************************/
+//    /** apk下载地址*/
+//    fun updateApkDownloadPath(downloadPath: String): GlobalConfigCreateor{
+//        GlobalConfig.Update.gApkDownloadPath = downloadPath
+//        return this
+//    }
+//    /** 版本号*/
+//    fun updateCurrentVersion(currentVersion: String): GlobalConfigCreateor{
+//        GlobalConfig.Update.gCurrentVersion = currentVersion
+//        return this
+//    }
+    /** apk存放路径, 有sd卡 /sdcard/包名/File，没有sd卡则是/data/data/包名/files/File*/
+    fun updateApkFilePath(apkFilePath: String): GlobalConfigCreateor{
+        GlobalConfig.Update.gApkFilePath = apkFilePath
+        return this
+    }
+    /** 下载名称, 默认为应用名*/
+    fun updateApkName(apkName: String): GlobalConfigCreateor{
+        GlobalConfig.Update.gApkName = apkName
+        return this
+    }
+
+    /** 等待样式，布局ID，控件Id要保持一致*/
+    fun updateUpdateProgress(@LayoutRes updateProgress: Int): GlobalConfigCreateor{
+        GlobalConfig.Update.gUpdateProgress = updateProgress
+        return this
+    }
+    /** 自定义更新等待弹窗*/
+    fun updateUpdateProgressDialog(updateProgressDialog: IUpdateProgressDialog): GlobalConfigCreateor{
+        GlobalConfig.Update.gUpdateProgressDialog = updateProgressDialog
         return this
     }
 
