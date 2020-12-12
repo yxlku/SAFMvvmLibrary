@@ -1,12 +1,11 @@
 package com.longpc.testapplication.base
 
-import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.longpc.testapplication.BuildConfig
 import com.longpc.testapplication.loading.CusLoadStatePage
 import com.safmvvm.app.BaseApp
-import com.safmvvm.app.GlobalConfigCreateor
+import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.db.MigrationManager
 
 class AppApplication : BaseApp() {
@@ -19,7 +18,7 @@ class AppApplication : BaseApp() {
      * 主进程初始化
      */
     override fun onMainProcessInit() {
-        GlobalConfigCreateor()
+        GlobalConfigCreator()
             .requestSuccessCode("0")
             .requestBaseUrl("https://www.wanandroid.com/")
 //            .requestBaseUrl("https://api.apiopen.top/")

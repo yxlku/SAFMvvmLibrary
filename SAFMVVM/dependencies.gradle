@@ -116,6 +116,8 @@ ext {
 
             //Adobe动画
             lottie                     : "com.airbnb.android:lottie:3.5.0",
+            //版本更新库
+            XUpdate                  :"com.github.xuexiangjys:XUpdate:2.0.4",
             //下载库(协程)
             downloader                 :"com.gitee.jiang_li_jie_j:awesome-downloader:v1.1.1",
             //进度条

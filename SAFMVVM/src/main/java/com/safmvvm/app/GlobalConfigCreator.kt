@@ -2,14 +2,11 @@ package com.safmvvm.app
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
-import androidx.room.RoomDatabase
-import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.file.update.dialog.IUpdateProgressDialog
-import com.safmvvm.utils.FileUtil
 import com.zy.multistatepage.MultiState
 
 /**
@@ -17,15 +14,15 @@ import com.zy.multistatepage.MultiState
  * 2、统一分配调用对象，不用子Module来想给谁分配
  * 3、赋值的时候可以增加一些限制
  *
-        fun method(): GlobalConfigBuiler{
+        fun method(): GlobalConfigCreateor{
             。。。。
             return this
         }
  */
-class GlobalConfigCreateor {
+class GlobalConfigCreator {
 
     /************************************ App全局性请求初始化配置 *******************************************/
-    fun setGlobalConfigInitListener(listener: GlobalConfigInitListener): GlobalConfigCreateor{
+    fun setGlobalConfigInitListener(listener: GlobalConfigInitListener): GlobalConfigCreator{
         GlobalConfig.App.gGlobalConfigInitListener = listener
         return this
     }
@@ -33,7 +30,7 @@ class GlobalConfigCreateor {
     /**
      * 全局统一BaseUrl
      */
-    fun requestBaseUrl(baseUrl: String): GlobalConfigCreateor{
+    fun requestBaseUrl(baseUrl: String): GlobalConfigCreator{
         GlobalConfig.Request.gBaseUrl = baseUrl
         return this
     }
@@ -41,7 +38,7 @@ class GlobalConfigCreateor {
     /**
      * 默认成功状态码
      */
-    fun requestSuccessCode(successCode: String): GlobalConfigCreateor{
+    fun requestSuccessCode(successCode: String): GlobalConfigCreator{
         GlobalConfig.Request.SUCCESS_CODE = successCode
         return this
     }
@@ -50,7 +47,7 @@ class GlobalConfigCreateor {
      * 默认请求超时时间
      * 单位：s秒
      */
-    fun requestTimeOut(timeout: Long): GlobalConfigCreateor{
+    fun requestTimeOut(timeout: Long): GlobalConfigCreator{
         GlobalConfig.Request.DEFAULT_TIMEOUT = timeout
         return this
     }
@@ -58,21 +55,21 @@ class GlobalConfigCreateor {
     /**
      * 日志是否开启
      */
-    fun logIsOpen(isOpen: Boolean): GlobalConfigCreateor{
+    fun logIsOpen(isOpen: Boolean): GlobalConfigCreator{
         GlobalConfig.Log.gIsOpenLog = isOpen
         return this
     }
     /**
      * 全局日志Log的Tag
      */
-    fun logTag(tag: String): GlobalConfigCreateor{
+    fun logTag(tag: String): GlobalConfigCreator{
         GlobalConfig.Log.gLogTag = tag
         return this
     }
     /**
      * 日志是否保存到文件中
      */
-    fun logIsSaveLogToFile(isSaveLogToFile: Boolean): GlobalConfigCreateor{
+    fun logIsSaveLogToFile(isSaveLogToFile: Boolean): GlobalConfigCreator{
         GlobalConfig.Log.gIsSaveLogToFile = isSaveLogToFile
         return this
     }
@@ -83,7 +80,7 @@ class GlobalConfigCreateor {
      *
      * 2、如果实在想多个数据库就直接用RoomUtil
      */
-    fun dbName(dbName: String): GlobalConfigCreateor{
+    fun dbName(dbName: String): GlobalConfigCreator{
         GlobalConfig.DB.gDBName = dbName
         return this
     }
@@ -91,7 +88,7 @@ class GlobalConfigCreateor {
     /**
      * 管理数据库升级版本
      */
-    fun dbConfigMigrationManager(migrationManager: MigrationManager): GlobalConfigCreateor{
+    fun dbConfigMigrationManager(migrationManager: MigrationManager): GlobalConfigCreator{
         GlobalConfig.DB.gMigrationManager = migrationManager
         return this
     }
@@ -108,23 +105,23 @@ class GlobalConfigCreateor {
 //        return this
 //    }
     /** apk存放路径, 有sd卡 /sdcard/包名/File，没有sd卡则是/data/data/包名/files/File*/
-    fun updateApkFilePath(apkFilePath: String): GlobalConfigCreateor{
+    fun updateApkFilePath(apkFilePath: String): GlobalConfigCreator{
         GlobalConfig.Update.gApkFilePath = apkFilePath
         return this
     }
     /** 下载名称, 默认为应用名*/
-    fun updateApkName(apkName: String): GlobalConfigCreateor{
+    fun updateApkName(apkName: String): GlobalConfigCreator{
         GlobalConfig.Update.gApkName = apkName
         return this
     }
 
     /** 等待样式，布局ID，控件Id要保持一致*/
-    fun updateUpdateProgress(@LayoutRes updateProgress: Int): GlobalConfigCreateor{
+    fun updateUpdateProgress(@LayoutRes updateProgress: Int): GlobalConfigCreator{
         GlobalConfig.Update.gUpdateProgress = updateProgress
         return this
     }
     /** 自定义更新等待弹窗*/
-    fun updateUpdateProgressDialog(updateProgressDialog: IUpdateProgressDialog): GlobalConfigCreateor{
+    fun updateUpdateProgressDialog(updateProgressDialog: IUpdateProgressDialog): GlobalConfigCreator{
         GlobalConfig.Update.gUpdateProgressDialog = updateProgressDialog
         return this
     }
@@ -135,7 +132,7 @@ class GlobalConfigCreateor {
      *
      * 这里需要传入自定义Layout的Id，则要求必须有id为tv_title的TextView，否则无任何要求
      */
-    fun loadingLayoutId(@LayoutRes layoutId: Int): GlobalConfigCreateor{
+    fun loadingLayoutId(@LayoutRes layoutId: Int): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_LAYOUT_ID = layoutId
         return this
     }
@@ -145,7 +142,7 @@ class GlobalConfigCreateor {
      * 1、等待弹窗的文字
      * 2、状态布局 - 等待时的显示的文字
      */
-    fun loadingLayoutText(loadingMsg: String): GlobalConfigCreateor{
+    fun loadingLayoutText(loadingMsg: String): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_TEXT = loadingMsg
         return this
     }
@@ -153,7 +150,7 @@ class GlobalConfigCreateor {
     /**
      * 页面状态：空布局
      */
-    fun pageStateEmpty(state: Class<out MultiState>): GlobalConfigCreateor{
+    fun pageStateEmpty(state: Class<out MultiState>): GlobalConfigCreator{
         GlobalConfig.Loading.STATE_EMPTY = state
         return this
     }
@@ -161,7 +158,7 @@ class GlobalConfigCreateor {
     /**
      * 页面状态：等待
      */
-    fun pageStateLoading(state: Class<out MultiState>): GlobalConfigCreateor{
+    fun pageStateLoading(state: Class<out MultiState>): GlobalConfigCreator{
         GlobalConfig.Loading.STATE_LOADING = state
         return this
     }
@@ -169,7 +166,7 @@ class GlobalConfigCreateor {
     /**
      * 页面状态：错误页面（请求成功-但返回错误）
      */
-    fun pageStateFail(state: Class<out MultiState>): GlobalConfigCreateor{
+    fun pageStateFail(state: Class<out MultiState>): GlobalConfigCreator{
         GlobalConfig.Loading.STATE_FAIL = state
         return this
     }
@@ -177,7 +174,7 @@ class GlobalConfigCreateor {
     /**
      * 页面状态：失败页面
      */
-    fun pageStateError(state: Class<out MultiState>): GlobalConfigCreateor{
+    fun pageStateError(state: Class<out MultiState>): GlobalConfigCreator{
         GlobalConfig.Loading.STATE_ERROR = state
         return this
     }
@@ -185,7 +182,7 @@ class GlobalConfigCreateor {
     /**
      * 显示隐藏动画时间 默认500毫秒
      */
-    fun pageStateDefAlphaDuration(duration: Long): GlobalConfigCreateor{
+    fun pageStateDefAlphaDuration(duration: Long): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_ALPHA_DURATION = duration
         return this
     }
@@ -193,42 +190,42 @@ class GlobalConfigCreateor {
     /**
      * 页面状态错误图片
      */
-    fun pageStateDefErrorIcon(@DrawableRes errorIcon: Int): GlobalConfigCreateor{
+    fun pageStateDefErrorIcon(@DrawableRes errorIcon: Int): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_ERROR_ICON = errorIcon
         return this
     }
     /**
      * 页面状态请求失败图片
      */
-    fun pageStateDefFailIcon(@DrawableRes failIcon: Int): GlobalConfigCreateor{
+    fun pageStateDefFailIcon(@DrawableRes failIcon: Int): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_FAIL_ICON = failIcon
         return this
     }
     /**
      * 页面状态 空布局时的图片
      */
-    fun pageStateDefEmptyIcon(@DrawableRes emptyIcon: Int): GlobalConfigCreateor{
+    fun pageStateDefEmptyIcon(@DrawableRes emptyIcon: Int): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_EMPTY_ICON = emptyIcon
         return this
     }
     /**
      * 页面状态 请求失败时的提示信息
      */
-    fun pageStateDefErrorMsg(errorMsg: String): GlobalConfigCreateor{
+    fun pageStateDefErrorMsg(errorMsg: String): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_ERROR_MSG = errorMsg
         return this
     }
     /**
      * 页面状态 请求错误时的提示信息
      */
-    fun pageStateDefFailMsg(failMsg: String): GlobalConfigCreateor{
+    fun pageStateDefFailMsg(failMsg: String): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_FAIL_MSG = failMsg
         return this
     }
     /**
      * 页面状态 空布局时的提示信息
      */
-    fun pageStateDefEmptyMsg(emptyMsg: String): GlobalConfigCreateor{
+    fun pageStateDefEmptyMsg(emptyMsg: String): GlobalConfigCreator{
         GlobalConfig.Loading.LOADING_EMPTY_MSG = emptyMsg
         return this
     }
