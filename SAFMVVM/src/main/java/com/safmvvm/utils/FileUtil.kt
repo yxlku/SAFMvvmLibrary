@@ -210,8 +210,10 @@ object FileUtil {
         } else if (ContentResolver.SCHEME_FILE == scheme) {
             data = uri.path
         } else if (ContentResolver.SCHEME_CONTENT == scheme) {
-            val cursor = context.contentResolver.query(uri,
-                    arrayOf(MediaStore.Images.ImageColumns.DATA), null, null, null)
+            val cursor = context.contentResolver.query(
+                uri,
+                arrayOf(MediaStore.Images.ImageColumns.DATA), null, null, null
+            )
             if (null != cursor) {
                 if (cursor.moveToFirst()) {
                     val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
@@ -293,4 +295,6 @@ object FileUtil {
         // 删除当前目录
         return isDeleteSelf && dirFile.delete()
     }
+
+
 }
