@@ -1,4 +1,3 @@
 package com.safmvvm.file
 
-class new {
-}
+class new

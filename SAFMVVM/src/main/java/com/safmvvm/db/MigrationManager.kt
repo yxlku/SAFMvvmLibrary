@@ -10,7 +10,7 @@ object MigrationManager {
     private val migrations: ArraySet<Migration> = ArraySet()
 
     fun addMigration(migration: Migration): MigrationManager{
-        migration?.let {
+        migration.let {
             migrations.add(migration)
         }
         return this

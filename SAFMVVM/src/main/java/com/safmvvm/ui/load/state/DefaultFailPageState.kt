@@ -47,7 +47,7 @@ class DefaultFailPageState : MultiState(), ILoadPageState {
 
     override fun setSubMsg(subMsg: String?) {
         subMsg?.let {
-            tvRetry.setText(subMsg)
+            tvRetry.text = subMsg
         }
     }
 

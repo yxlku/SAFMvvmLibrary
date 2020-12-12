@@ -118,6 +118,8 @@ ext {
             lottie                     : "com.airbnb.android:lottie:3.5.0",
             //下载库(协程)
             downloader                 :"com.gitee.jiang_li_jie_j:awesome-downloader:v1.1.1",
+            //更新库
+            MNUpdateAPK                :"com.github.maning0303:MNUpdateAPK:V2.0.3",
             //进度条
             magicprogresswidget        :"com.liulishuo.magicprogresswidget:library:1.1.1",
             percentsmoothhandler       :"cn.dreamtobe.percentsmoothhandler:library:0.1.1",

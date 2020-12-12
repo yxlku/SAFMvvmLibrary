@@ -106,7 +106,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
                 param.put("test", "ssss")
                 param.put("test1", "ssss2")
                 param.put("test3", "ssss3")
-                return JsonUtil.toJson(param!!)+"ssssss沙发上"
+                return JsonUtil.toJson(param)+"ssssss沙发上"
             }
         }
         return dataPlaintext+""

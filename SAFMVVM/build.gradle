@@ -116,6 +116,8 @@ dependencies {
     api Deps.lottie
     //下载库
     api Deps.downloader
+    //更新库
+    api Deps.MNUpdateAPK
     //进度条
     api Deps.magicprogresswidget
     api Deps.percentsmoothhandler

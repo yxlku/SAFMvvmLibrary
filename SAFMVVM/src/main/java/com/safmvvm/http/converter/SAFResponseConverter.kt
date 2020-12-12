@@ -27,7 +27,7 @@ class SAFResponseConverter<T>(
         //返回结果公共处理方法
         GlobalConfig.App.gGlobalConfigInitListener?.let {
             //防止将原数据清空
-            responseBodyStr?.let {
+            responseBodyStr.let {
                 decryptedData = GlobalConfig.App.gGlobalConfigInitListener?.responseDataDeal(responseBodyStr)
             }
         }
@@ -55,7 +55,7 @@ class SAFResponseConverter<T>(
                 }
             }
             //接口返回的加密数据
-            return buffer.clone().readString(charset);
+            return buffer.clone().readString(charset)
         }
         //responseBody 为空直接返回""
         return ""

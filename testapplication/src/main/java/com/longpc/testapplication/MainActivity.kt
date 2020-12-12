@@ -12,7 +12,13 @@ import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.StringUtils
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
+import com.lxj.xpopup.interfaces.OnCancelListener
+import com.lxj.xpopup.interfaces.OnConfirmListener
+import com.maning.updatelibrary.InstallUtils
+import com.maning.updatelibrary.InstallUtils.DownloadCallBack
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.utils.ToastUtil
@@ -63,12 +69,8 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
         )
 
         LiveDataBus.observe(this, "updateVersion", Observer {
-            XPopup.Builder(this)
-                .hasBlurBg(true) //高斯模糊
-                .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
-                .dismissOnTouchOutside(true) // 点击外部是否关闭弹窗，默认为true
-                .asCustom(DefaultUpdateVersionProgressDialog(this))
-                .show()
+            var path = "https://c64126c621520bcd43dc748afae8aa94.dlied1.cdntips.net/imtt.dd.qq.com/16891/apk/653E3126C75A4C8D0EC4292504F988CE.apk"
+            ApkDownInstaller.apkDownload(this, path, true)
         })
 
         LiveDataBus.observe(this, "timeDialog", Observer {
@@ -100,34 +102,6 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
         })
 
     }
-
-//    fun downLoad(){
-//        _XUpdate.startInstallApk(this, FileUtils.getFileByPath(PathUtils.getFilePathByUri(this, data.getData()))); //填写文件所在的路径
-//
-//        XUpdate.newBuild(this)
-////            .apkCacheDir(PathUtils.getExtDownloadsPath()) //设置下载缓存的根目录
-//            .build()
-//            .download(mDownloadUrl, object : OnFileDownloadListener{
-//                //设置下载的地址和下载的监听
-//                override fun onStart() {
-//                    HProgressDialogUtils.showHorizontalProgressDialog(getContext(), "下载进度", false)
-//                }
-//
-//                override fun onProgress(progress: Float, total: Long) {
-//                    HProgressDialogUtils.setProgress(Math.round(progress * 100))
-//                }
-//
-//                override fun onCompleted(file: File): Boolean {
-//                    HProgressDialogUtils.cancel()
-//                    ToastUtils.toast("apk下载完毕，文件路径：" + file.getPath())
-//                    return false
-//                }
-//
-//                override fun onError(throwable: Throwable?) {
-//                    HProgressDialogUtils.cancel()
-//                }
-//            })
-//    }
 
     fun startActivity(
         clz: Class<out Activity>?,

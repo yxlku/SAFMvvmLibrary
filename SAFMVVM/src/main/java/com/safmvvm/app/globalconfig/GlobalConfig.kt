@@ -75,7 +75,7 @@ internal object GlobalConfig {
         /** 等待样式，布局ID，控件Id要保持一致*/
         @LayoutRes var gUpdateProgress: Int = R.layout.dialog_update_progress
         /** 自定义 更新等待弹窗*/
-        var gUpdateProgressDialog: IUpdateProgressDialog = DefaultUpdateVersionProgressDialog(BaseApp.getInstance())
+        var gUpdateProgressDialog: IUpdateProgressDialog? = null
     }
     /**
      * 等待布局或弹窗配置属性

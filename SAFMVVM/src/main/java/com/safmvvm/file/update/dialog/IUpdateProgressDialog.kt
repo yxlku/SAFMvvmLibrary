@@ -20,12 +20,4 @@ interface IUpdateProgressDialog {
      */
     fun error()
 
-    /**
-     * 是否是强制更新
-     * 强制更新：
-     * 1、物理返回不能使用
-     * 2、屏幕点击不能取消弹窗
-     */
-    fun isForce(isForce: Boolean)
-
 }
