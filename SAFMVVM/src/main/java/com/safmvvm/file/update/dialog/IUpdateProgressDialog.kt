@@ -10,14 +10,5 @@ interface IUpdateProgressDialog {
      */
     fun progress(progress: Int)
 
-    /**
-     * 更新完成
-     */
-    fun success()
-
-    /**
-     * 更新终止，下载中发生错误
-     */
-    fun error()
 
 }

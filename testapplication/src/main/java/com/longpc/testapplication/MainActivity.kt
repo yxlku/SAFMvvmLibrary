@@ -1,6 +1,7 @@
 package com.longpc.testapplication
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.collection.ArrayMap
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
 
@@ -70,7 +72,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
 
         LiveDataBus.observe(this, "updateVersion", Observer {
             var path = "https://c64126c621520bcd43dc748afae8aa94.dlied1.cdntips.net/imtt.dd.qq.com/16891/apk/653E3126C75A4C8D0EC4292504F988CE.apk"
-            ApkDownInstaller.apkDownload(this, path, true)
+            ApkDownInstaller.apkDownload(this, path, false)
         })
 
         LiveDataBus.observe(this, "timeDialog", Observer {

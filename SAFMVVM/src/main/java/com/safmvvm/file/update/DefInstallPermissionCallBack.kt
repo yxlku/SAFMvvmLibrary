@@ -26,8 +26,8 @@ class DefInstallPermissionCallBack(
     }
 
     override fun onDenied() {
-        //未授权 TODO 统一写法，样式做到统一
-        XPopup.Builder(BaseApp.getInstance()).asConfirm(
+        //未授权 TODO 弹窗的统一写法，样式做到统一
+        XPopup.Builder(activity).asConfirm(
             "温馨提示", "必须授权才能安装APK，请设置允许安装",
             "取消", "确定",
             object : OnConfirmListener {

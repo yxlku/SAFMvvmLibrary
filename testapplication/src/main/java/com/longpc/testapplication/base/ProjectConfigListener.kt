@@ -6,6 +6,7 @@ import androidx.collection.arrayMapOf
 import com.longpc.testapplication.BuildConfig
 import com.longpc.testapplication.DebugInterceptor
 import com.longpc.testapplication.MainActivity
+import com.safmvvm.app.AppActivityManager
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.http.ssl.SSLFactory
@@ -57,6 +58,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?) {
         ToastUtil.showShortToast("我擦，我崩溃了！！错误原因：" + ex?.message )
+        AppActivityManager.finishAllActivity()
     }
 
     override fun dateParseException(isJson: Boolean, msg: String, ex: Exception) {
