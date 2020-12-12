@@ -3,7 +3,6 @@ package com.longpc.testapplication
 import android.app.Activity
 import android.os.Bundle
 import androidx.collection.ArrayMap
-import androidx.core.graphics.PathUtils
 import androidx.lifecycle.Observer
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -18,15 +17,11 @@ import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
-import com.xuexiang.xupdate.XUpdate
-import com.xuexiang.xupdate._XUpdate
-import com.xuexiang.xupdate.service.OnFileDownloadListener
-import com.xuexiang.xupdate.utils.FileUtils.getExtDownloadsPath
 
 
 class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     R.layout.main_activity_main, BR.viewModel
-){
+) {
     override fun initData() {
         //https://github.com/getActivity/XXPermissions
         XXPermissions.with(this)
@@ -51,6 +46,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
                 }
             })
     }
+
     override fun initViewObservable() {
         //设置自定义弹窗
 //        setCustomDialog(R.layout.main_dialog_cus_test, "")
