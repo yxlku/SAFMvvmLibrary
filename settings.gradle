@@ -1,3 +1,7 @@
-include ':testapplication'
-include ':SAFMVVM'
+include ':libs:Common_Res'
+include ':libs:Common_Base'
+include ':libs:SAFMVVM'
+include ':app'
+include ':modules:testapplication'
+include ':modules:ModuleTestA'
 rootProject.name = "SAFMvvmLibrary"
