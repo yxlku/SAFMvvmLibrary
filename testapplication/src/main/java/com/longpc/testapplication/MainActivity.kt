@@ -25,6 +25,7 @@ import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
+import java.lang.Exception
 
 
 class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
 //            .permission(Permission.Group.CALENDAR)
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: List<String>, all: Boolean) {
+                    //这里每次调用时都会提示
                     if (all) {
                         ToastUtil.showShortToast("获取拍照权限成功")
                     }
@@ -71,8 +73,18 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
         )
 
         LiveDataBus.observe(this, "updateVersion", Observer {
-            var path = "https://c64126c621520bcd43dc748afae8aa94.dlied1.cdntips.net/imtt.dd.qq.com/16891/apk/653E3126C75A4C8D0EC4292504F988CE.apk"
-            ApkDownInstaller.apkDownload(this, path, false)
+            var path = "https://fga1.market.xiaomi.com/download/AppStore/03fcb41660d98ef8d4f70586913fc0e8ccf41accb/mobi.detiplatform.apk"
+//            var path = ""
+            ApkDownInstaller.apkDownload(this, path, false, installCallBack = object :InstallUtils.InstallCallBack{
+                override fun onSuccess() {
+                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "不安装，去别的地方下载吧", false, path)
+                }
+
+                override fun onFail(e: Exception?) {
+                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "安装失败了，去别的地方下载吧", false, path)
+                }
+
+            })
         })
 
         LiveDataBus.observe(this, "timeDialog", Observer {

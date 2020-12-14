@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.liulishuo.magicprogresswidget.MagicProgressCircle
 import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.R
+import com.safmvvm.file.update.ApkDownInstaller
 
 
 /**
@@ -18,8 +19,7 @@ class DefaultUpdateVersionProgressDialog(
     //注意：自定义弹窗本质是一个自定义View，但是只需重写一个参数的构造，其他的不要重写，所有的自定义弹窗都是这样。
     var context: Activity,
     /** 是否强制更新*/
-    var isForce: Boolean,
-    var block: () -> Unit
+    var isForce: Boolean
 ): CenterPopupView(context), IUpdateProgressDialog {
     /** 等待进度条*/
     var mpc_progress: MagicProgressCircle? = null
@@ -40,7 +40,6 @@ class DefaultUpdateVersionProgressDialog(
         tv_progress = findViewById(R.id.tv_progress)
         tv_cancel?.setOnClickListener {
             dismiss()
-            block()
         }
         //是否强制更新
         if (isForce) {
@@ -50,6 +49,11 @@ class DefaultUpdateVersionProgressDialog(
             //非强制 限制取消按钮
             tv_cancel?.visibility = View.VISIBLE
         }
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        ApkDownInstaller.installCancel()
     }
 
     /**

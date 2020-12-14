@@ -94,35 +94,11 @@ class GlobalConfigCreator {
     }
 
     /********************************** 版本更新初始化配置 *******************************************/
-//    /** apk下载地址*/
-//    fun updateApkDownloadPath(downloadPath: String): GlobalConfigCreateor{
-//        GlobalConfig.Update.gApkDownloadPath = downloadPath
-//        return this
-//    }
-//    /** 版本号*/
-//    fun updateCurrentVersion(currentVersion: String): GlobalConfigCreateor{
-//        GlobalConfig.Update.gCurrentVersion = currentVersion
-//        return this
-//    }
-    /** apk存放路径, 有sd卡 /sdcard/包名/File，没有sd卡则是/data/data/包名/files/File*/
-    fun updateApkFilePath(apkFilePath: String): GlobalConfigCreator{
-        GlobalConfig.Update.gApkFilePath = apkFilePath
-        return this
-    }
-    /** 下载名称, 默认为应用名*/
-    fun updateApkName(apkName: String): GlobalConfigCreator{
-        GlobalConfig.Update.gApkName = apkName
-        return this
-    }
-
-    /** 等待样式，布局ID，控件Id要保持一致*/
-    fun updateUpdateProgress(@LayoutRes updateProgress: Int): GlobalConfigCreator{
-        GlobalConfig.Update.gUpdateProgress = updateProgress
-        return this
-    }
-    /** 自定义更新等待弹窗*/
-    fun updateUpdateProgressDialog(updateProgressDialog: IUpdateProgressDialog): GlobalConfigCreator{
-        GlobalConfig.Update.gUpdateProgressDialog = updateProgressDialog
+    /**
+     * 版本更新，如果接口没有返回地址时，如果不设置此字段，将会跳转到应用宝网页（可以将此字段作为应急操作，防止不能更新）
+     */
+    fun updateNoApkUrl(noApkUrl: String): GlobalConfigCreator{
+        GlobalConfig.Update.gNoApkUrl = noApkUrl
         return this
     }
 

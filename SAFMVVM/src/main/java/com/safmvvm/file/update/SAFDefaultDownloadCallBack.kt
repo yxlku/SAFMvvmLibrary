@@ -3,9 +3,10 @@ package com.safmvvm.file.update
 import android.app.Activity
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.interfaces.OnCancelListener
-import com.lxj.xpopup.interfaces.OnConfirmListener
+import com.lxj.xpopup.core.CenterPopupView
 import com.maning.updatelibrary.InstallUtils
+import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.file.update.dialog.IUpdateProgressDialog
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
@@ -21,19 +22,20 @@ class SAFDefaultDownloadCallBack(
     var basePopupView: BasePopupView,
     var progressDialog: IUpdateProgressDialog,
     /** 是否是强制更新*/
-    var isForce: Boolean
+    var isForce: Boolean,
+    /** 安装时回调函数*/
+    var installCallBack: InstallUtils.InstallCallBack  = ApkDownInstaller.defInstallCallBack(activity, isForce, apkPath)
 ) : InstallUtils.DownloadCallBack {
 
     override fun onStart() {
-
     }
 
-    override fun onComplete(path: String?) {
+    override fun onComplete(path: String) {
         //下载完成
         basePopupView.dismiss()
         progressDialog.progress(100)
         //权限检测，如果成功则直接安装，不成功则要执行弹窗提示，或者自行处理
-        var installPermissionCallBack = DefInstallPermissionCallBack(activity, path, isForce) //TODO
+        var installPermissionCallBack = DefInstallPermissionCallBack(activity, path, isForce, installCallBack)
         //权限检测
         InstallUtils.checkInstallPermission(activity, installPermissionCallBack)
     }
@@ -45,35 +47,23 @@ class SAFDefaultDownloadCallBack(
     override fun onFail(e: Exception) {
         LogUtil.exception("下载失败", e)
         basePopupView.dismiss()
-        if (e.message?.contains("SocketException")!!) {
+        if (e.message?.contains("SocketException")!! || e.message?.contains("stream was reset: CANCEL")!!) {
             ToastUtil.showShortToast("下载取消")
             return
         }
-        //下载失败, 强制则不自动点击按钮不关闭弹窗 TODO 弹窗的统一写法，样式做到统一
-        XPopup.Builder(activity)
-            .dismissOnBackPressed(!isForce) // 按返回键是否关闭弹窗，默认为true , 主要看是否强制更新
-            .dismissOnTouchOutside(!isForce) // 点击外部是否关闭弹窗，默认为true，主要看是否强制更新
-            .autoDismiss(!isForce)
-            .asConfirm(
-            "温馨提示", "下载失败，可以跳转到系统浏览器下载",
-            "取消", "确定",
-            object : OnConfirmListener {
-                override fun onConfirm() {
-                    InstallUtils.installAPKWithBrower(activity, apkPath)
-                }
-            },
-            object : OnCancelListener {
-                override fun onCancel() {
-                }
-            },
-            isForce //强制则不显示取消按钮，app内失败了，就要去浏览器下载
+        //下载失败, 强制则不自动点击按钮不关闭弹窗
+        ApkDownInstaller.tipAndToBrower(
+            activity,
+            "下载失败，可以跳转到系统浏览器下载",
+            isForce,
+            apkPath
         )
-            .show()
     }
 
     //取消下载，如果强制不能关闭
     override fun cancle() {
         basePopupView.dismiss()
+        ApkDownInstaller.installCancel()
         ToastUtil.showShortToast("下载取消！")
     }
 
