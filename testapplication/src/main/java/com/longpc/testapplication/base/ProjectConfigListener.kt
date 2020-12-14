@@ -117,6 +117,12 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun responseDataDeal(dataSouce: String?): String {
         //返回统一处理
         dataSouce?.let {
+            /**
+                // 公钥加密私钥解密
+                byte[] rsaPublic = RSAUtil.rsa(data, publicKey, RSAUtil.RSA_PUBLIC_ENCRYPT);
+                System.out.println("rsa公钥加密： " + new String(rsaPublic));
+                System.out.println("rsa私钥解密： " + new String(RSAUtil.rsa(rsaPublic, privateKey, RSAUtil.RSA_PRIVATE_DECRYPT)));
+             */
             var b: BaseNetEntity<*>? = JsonUtil.getJsonParseResult(dataSouce, BaseNetEntity::class.java)
             b?.let {
                 b.errorMsg = "我擦，我解析成功了！！！！！！！"
