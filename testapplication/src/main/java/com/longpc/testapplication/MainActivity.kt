@@ -73,15 +73,16 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
         )
 
         LiveDataBus.observe(this, "updateVersion", Observer {
+            var isForce: Boolean = true
             var path = "https://fga1.market.xiaomi.com/download/AppStore/03fcb41660d98ef8d4f70586913fc0e8ccf41accb/mobi.detiplatform.apk"
 //            var path = ""
-            ApkDownInstaller.apkDownload(this, path, false, installCallBack = object :InstallUtils.InstallCallBack{
+            ApkDownInstaller.apkDownload(this, path, isForce, installCallBack = object :InstallUtils.InstallCallBack{
                 override fun onSuccess() {
-                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "不安装，去别的地方下载吧", false, path)
+                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "不安装，去别的地方下载吧", isForce, path)
                 }
 
                 override fun onFail(e: Exception?) {
-                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "安装失败了，去别的地方下载吧", false, path)
+                    ApkDownInstaller.tipAndToBrower(this@MainActivity, "安装失败了，去别的地方下载吧", isForce, path)
                 }
 
             })
