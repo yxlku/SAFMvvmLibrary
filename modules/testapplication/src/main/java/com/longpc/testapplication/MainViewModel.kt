@@ -1,6 +1,7 @@
 package com.longpc.testapplication
 
 import android.app.Application
+import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
@@ -152,7 +153,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     }
 
     fun roomClick(v: View){
-        LiveDataBus.send("???", TestRoomActivity::class.java)
+        startActivityForResult(TestRoomActivity::class.java)
     }
 
     fun timeClick(v: View){
@@ -162,4 +163,14 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     fun updateVersion(v: View){
         LiveDataBus.send("updateVersion", Unit)
     }
+    override fun onActivityResultOk(intent: Intent) {
+        //返回结果
+        intent?.run {
+            var name = intent.getStringExtra("name")
+            var age = intent.getIntExtra("age", 20)
+            text.set("name: ${name}, age: $age")
+            LogUtil.d("name: ${name}, age: ${age}")
+        }
+    }
+
 }

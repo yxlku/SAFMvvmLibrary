@@ -1,9 +1,12 @@
 package com.safmvvm.mvvm.viewmodel
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
+import androidx.annotation.MainThread
+import androidx.collection.ArrayMap
 import androidx.lifecycle.AndroidViewModel
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
@@ -13,9 +16,11 @@ import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.utils.Utils
 import com.safmvvm.utils.jetpack.SingleLiveEvent
 import com.safmvvm.utils.jetpack.putValue
 import com.zy.multistatepage.MultiState
+import java.util.*
 
 /**
  *
@@ -102,7 +107,65 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     fun controlInputKeyboard(isShow: Boolean){
         mUiChangeLiveData.inputKeyboard?.putValue(isShow)
     }
+    // 以下是界面开启和结束相关的 =========================================================
+    @MainThread
+    fun setResult(
+        resultCode: Int,
+        map: ArrayMap<String, *>? = null,
+        bundle: Bundle? = null
+    ) {
+        setResult(resultCode, Utils.getIntentByMapOrBundle(map = map, bundle = bundle))
+    }
 
+    @MainThread
+    fun setResult(resultCode: Int, data: Intent? = null) {
+        LiveDataBus.send(mUiChangeLiveData.setResultEvent!!, Pair(resultCode, data))
+    }
+
+    @MainThread
+    fun finish(
+        resultCode: Int? = null,
+        map: ArrayMap<String, *>? = null,
+        bundle: Bundle? = null
+    ) {
+        finish(resultCode, Utils.getIntentByMapOrBundle(map = map, bundle = bundle))
+    }
+
+    @MainThread
+    fun finish(resultCode: Int? = null, data: Intent? = null) {
+        LiveDataBus.send(mUiChangeLiveData.finishEvent!!, Pair(resultCode, data))
+    }
+
+    fun startActivity(clazz: Class<out Activity>) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityEvent!!, clazz)
+    }
+
+    fun startActivity(clazz: Class<out Activity>, map: ArrayMap<String, *>) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityWithMapEvent!!, Pair(clazz, map))
+    }
+
+    fun startActivity(clazz: Class<out Activity>, bundle: Bundle?) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityEventWithBundle!!, Pair(clazz, bundle))
+    }
+
+    fun startActivityForResult(clazz: Class<out Activity>) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEvent!!, clazz)
+    }
+
+    fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle?) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventWithBundle!!, Pair(clazz, bundle))
+    }
+
+    fun startActivityForResult(clazz: Class<out Activity>, map: ArrayMap<String, *>) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventWithMap!!, Pair(clazz, map))
+    }
+
+
+    // ===================================================================================
+
+    /**
+     * 通用的 Ui 改变变量
+     */
     /** */
     /**
      * 发送到View层的LiveData的变量
@@ -115,6 +178,25 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         /** 键盘显示隐藏*/
         var inputKeyboard: SingleLiveEvent<Boolean>? = null
 
+        /** 打开Activity页面*/
+        var startActivityEvent: String? = null
+        /** 打开Activity页面 传递Map*/
+        var startActivityWithMapEvent: String? = null
+        /** 打开Activity页面 传递Bundle*/
+        var startActivityEventWithBundle: String? = null
+
+        /** 打开Activity页面 并带有回调功能*/
+        var startActivityForResultEvent: String? = null
+        /** 打开Activity页面 传递Map 并带有回调功能*/
+        var startActivityForResultEventWithMap: String? = null
+        /** 打开Activity页面 传递Bundle 并带有回调功能*/
+        var startActivityForResultEventWithBundle: String? = null
+
+        /** 关闭Activity*/
+        var finishEvent: String? = null
+        /** setResult直接关闭*/
+        var setResultEvent: String? = null
+
         /** 初始化异步操作状态页面*/
         fun initLoadSirEvent(){
             loadPageStateEvent = SingleLiveEvent()
@@ -126,6 +208,22 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         /** 初始化键盘控制*/
         fun initInputKeyBoard(){
             inputKeyboard = SingleLiveEvent()
+        }
+
+        /** 调用前初始化*/
+        fun initStartActivityForResultEvent() {
+            startActivityForResultEvent = UUID.randomUUID().toString()
+            startActivityForResultEventWithMap = UUID.randomUUID().toString()
+            startActivityForResultEventWithBundle = UUID.randomUUID().toString()
+        }
+
+        /** 调用前初始化*/
+        fun initStartAndFinishEvent() {
+            startActivityEvent = UUID.randomUUID().toString()
+            startActivityWithMapEvent = UUID.randomUUID().toString()
+            startActivityEventWithBundle = UUID.randomUUID().toString()
+            finishEvent = UUID.randomUUID().toString()
+            setResultEvent = UUID.randomUUID().toString()
         }
     }
 }

@@ -65,16 +65,6 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
 //        setCustomDialog(R.layout.main_dialog_cus_test, "")
         setCustomDialog()
 
-        // vm 可以启动界面
-        LiveDataBus.observe<Class<out Activity>>(
-            this,
-            "???",
-            Observer {
-                startActivity(it)
-            },
-            true
-        )
-
         LiveDataBus.observe(this, "updateVersion", Observer {
             var isForce: Boolean = true
             var path = "https://fga1.market.xiaomi.com/download/AppStore/03fcb41660d98ef8d4f70586913fc0e8ccf41accb/mobi.detiplatform.apk"
@@ -121,15 +111,8 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
 
     }
 
-    fun startActivity(
-        clz: Class<out Activity>?,
-        map: ArrayMap<String, *>? = null,
-        bundle: Bundle? = null
-    ) {
-        startActivity(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
-    }
-
     override fun onLoadSirReload() {
+        //重新加载
         mViewModel.testPostFlow()
     }
 }

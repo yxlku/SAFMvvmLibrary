@@ -1,12 +1,17 @@
 package com.safmvvm.mvvm.view
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.collection.ArrayMap
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
@@ -15,8 +20,7 @@ import com.zy.multistatepage.MultiStatePage.bindMultiState
 import com.zy.multistatepage.OnNotifyListener
 
 /**
- * TODO 1、暂未实现基础 startActivity方法 ，我感觉可以搞个Util，不用这种基类的方式
- * TODO 传递参数不用putIntent和Bundle，封装一个LiveData
+ * 所有Activity都继承此Activity
  */
 abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
@@ -79,21 +83,99 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         })
     }
 
+    /**
+     * 事件接收
+     */
     override fun initUiChangeLiveData() {
-
+        //软键盘显示隐藏
         mViewModel.mUiChangeLiveData.initInputKeyBoard()
-        mViewModel.mUiChangeLiveData.inputKeyboard?.observe(this, Observer {
-            it?.let {
-                val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                if (it) {
-                    //显示
-                    imm.showSoftInput(mBinding.root, 0)
-                } else {
-                    //隐藏键盘
-                    imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
+        LiveDataBus.observe<Boolean>(
+            this,
+            mViewModel.mUiChangeLiveData.inputKeyboard!!,
+            Observer {
+                it?.let {
+                    val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    if (it) {
+                        //显示
+                        imm.showSoftInput(mBinding.root, 0)
+                    } else {
+                        //隐藏键盘
+                        imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
+                    }
                 }
-            }
         })
+
+        //页面控制接收
+        mViewModel.mUiChangeLiveData.initStartAndFinishEvent()
+        // vm 可以结束界面
+        LiveDataBus.observe<Pair<Int?, Intent?>>(
+            this,
+            mViewModel.mUiChangeLiveData.finishEvent!!,
+            Observer {
+                setResult(it)
+                finish()
+            },
+            true
+        )
+        LiveDataBus.observe<Pair<Int?, Intent?>>(
+            this,
+            mViewModel.mUiChangeLiveData.setResultEvent!!,
+            Observer { setResult(it) },
+            true
+        )
+        // vm 可以启动界面
+        LiveDataBus.observe<Class<out Activity>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityEvent!!,
+            Observer {
+                startActivity(it)
+            },
+            true
+        )
+        LiveDataBus.observe<Pair<Class<out Activity>, ArrayMap<String, *>>>(this,
+            mViewModel.mUiChangeLiveData.startActivityWithMapEvent!!,
+            Observer {
+                startActivity(it?.first, it?.second)
+            },
+            true
+        )
+        // vm 可以启动界面，并携带 Bundle，接收方可调用 getBundle 获取
+        LiveDataBus.observe<Pair<Class<out Activity>, Bundle?>>(this,
+            mViewModel.mUiChangeLiveData.startActivityEventWithBundle!!,
+            Observer {
+                startActivity(it?.first, bundle = it?.second)
+            },
+            true
+        )
+
+        //开始页面并带返回结果
+        mViewModel.mUiChangeLiveData.initStartActivityForResultEvent()
+        // vm 可以启动界面
+        LiveDataBus.observe<Class<out Activity>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityForResultEvent!!,
+            Observer {
+                startActivityForResult(it)
+            },
+            true
+        )
+        // vm 可以启动界面，并携带 Bundle，接收方可调用 getBundle 获取
+        LiveDataBus.observe<Pair<Class<out Activity>, Bundle?>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityForResultEventWithBundle!!,
+            Observer {
+                startActivityForResult(it?.first, bundle = it?.second)
+            },
+            true
+        )
+        LiveDataBus.observe<Pair<Class<out Activity>, ArrayMap<String, *>>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityForResultEventWithMap!!,
+            Observer {
+                startActivityForResult(it?.first, it?.second)
+            },
+            true
+        )
     }
 
 

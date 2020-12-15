@@ -1,20 +1,26 @@
 package com.safmvvm.mvvm.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.ArrayMap
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
+import com.safmvvm.utils.Utils
 
 /**
  * 所有Activity的基类
@@ -22,10 +28,12 @@ import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
-): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle {
+): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
+
+    private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,5 +122,70 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
      */
     fun <T> observe(liveData: LiveData<T>, onChanged: ((t: T) -> Unit)) =
         liveData.observe(this, Observer { onChanged(it) })
+
+    /**
+     * 普通开启Activity ，可传参
+     */
+    fun startActivity(
+        clz: Class<out Activity>?,
+        map: ArrayMap<String, *>? = null,
+        bundle: Bundle? = null
+    ) {
+        startActivity(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
+    }
+
+    /**
+     * 开启Activity可回调，并附带参数
+     */
+    fun startActivityForResult(
+        clz: Class<out Activity>?,
+        map: ArrayMap<String, *>? = null,
+        bundle: Bundle? = null
+    ) {
+        initStartActivityForResult()
+        mStartActivityForResult.launch(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
+    }
+
+    fun setResult(pair: Pair<Int?, Intent?>) {
+        pair.first?.let { resultCode ->
+            val intent = pair.second
+            if (intent == null) {
+                setResult(resultCode)
+            } else {
+                setResult(resultCode, intent)
+            }
+        }
+    }
+
+    private fun initStartActivityForResult() {
+        if (!this::mStartActivityForResult.isInitialized) {
+            mStartActivityForResult =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    val data = it.data ?: Intent()
+                    when (it.resultCode) {
+                        Activity.RESULT_OK -> {
+                            onActivityResultOk(data)
+                            if (this::mViewModel.isInitialized) {
+                                //可以在ViewModel中操作返回结果
+                                mViewModel.onActivityResultOk(data)
+                            }
+                        }
+                        Activity.RESULT_CANCELED -> {
+                            onActivityResultCanceled(data)
+                            if (this::mViewModel.isInitialized) {
+                                mViewModel.onActivityResultCanceled(data)
+                            }
+                        }
+                        else -> {
+                            onActivityResult(it.resultCode, data)
+                            if (this::mViewModel.isInitialized) {
+                                mViewModel.onActivityResult(it.resultCode, data)
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
 
 }

@@ -1,6 +1,8 @@
 package com.longpc.testroom
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.view.View
 import androidx.lifecycle.LiveData
 import com.safmvvm.bus.LiveDataBus
@@ -20,6 +22,14 @@ import java.lang.StringBuilder
 class TestRoomViewModel(app: Application): BaseViewModel<TestRoomModel>(app) {
 
     var testData: SingleLiveEvent<String> = SingleLiveEvent()
+    fun btnClose(v: View){
+        var intent = Intent().apply {
+            putExtra("name", "longPc")
+            putExtra("age", 15)
+        }
+        //关闭并返回结果
+        finish(Activity.RESULT_OK, intent)
+    }
     /**
      * 添加 -- 没有返回值监听
      */

@@ -9,6 +9,7 @@ import com.safmvvm.mvvm.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
+import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
@@ -27,7 +28,9 @@ import java.lang.reflect.Type
  * viewModel基本基类父类，不带有UI方面的监听传递操作，需要UI赋能的继承BaseViewModel
  * 管理model的创建、缓存、声明周期
  */
-abstract class BaseViewModel<M: BaseModel>(app: Application): BaseLiveViewModel<M>(app), IViewModel{
+abstract class BaseViewModel<M: BaseModel>(
+    app: Application
+): BaseLiveViewModel<M>(app), IViewModel, IActivityResult {
 
     /**
      * 手动创建Model后传入
