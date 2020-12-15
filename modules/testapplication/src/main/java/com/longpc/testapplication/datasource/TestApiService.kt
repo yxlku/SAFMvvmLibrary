@@ -2,8 +2,8 @@ package com.longpc.testapplication.datasource
 
 import com.longpc.testapplication.MainDataEntity
 import com.longpc.testapplication.MainPostEntity
-import com.longpc.testapplication.base.BaseNetEntity
-import com.longpc.testapplication.base.BaseNetEntityPost
+import com.test.common.base.BaseNetEntity
+import com.test.common.base.BaseNetEntityPost
 import com.safmvvm.mvvm.model.datasource.IDataSource
 import retrofit2.http.*
 

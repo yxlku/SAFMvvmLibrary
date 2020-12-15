@@ -1,8 +1,6 @@
-package com.longpc.testapplication.base
+package com.test.common.base
 
-import android.os.Parcelable
 import com.safmvvm.http.entity.IBaseResponse
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 data class BaseNetEntityPost<T: Serializable?>(

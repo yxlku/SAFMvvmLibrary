@@ -169,7 +169,7 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
             var name = intent.getStringExtra("name")
             var age = intent.getIntExtra("age", 20)
             text.set("name: ${name}, age: $age")
-            LogUtil.d("name: ${name}, age: ${age}")
+            LogUtil.d("name: ${name}, age: $age")
         }
     }
 

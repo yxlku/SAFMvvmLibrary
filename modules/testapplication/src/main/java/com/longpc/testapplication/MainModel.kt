@@ -1,11 +1,9 @@
 package com.longpc.testapplication
 
-import com.longpc.testapplication.base.BaseNetEntity
-import com.longpc.testapplication.base.BaseNetEntityPost
+import com.test.common.base.BaseNetEntity
+import com.test.common.base.BaseNetEntityPost
 import com.longpc.testapplication.datasource.TestApiService
-import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.mvvm.model.BaseModel
-import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowOnIO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

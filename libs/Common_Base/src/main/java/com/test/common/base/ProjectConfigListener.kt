@@ -1,19 +1,14 @@
-package com.longpc.testapplication.base
+package com.test.common.base
 
-import android.content.Intent
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
-import com.longpc.testapplication.BuildConfig
-import com.longpc.testapplication.DebugInterceptor
-import com.longpc.testapplication.MainActivity
-import com.safmvvm.app.AppActivityManager
-import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.UUIDUtil
+import com.test.common.BuildConfig
 import okhttp3.Interceptor
 import java.lang.Exception
 
@@ -148,9 +143,9 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun dealNetCode(code: String, msg: String?): Boolean {
         if (code == "300") {
             ToastUtil.showShortToast(msg + "我擦，我退出登录了！！")
-            var intent = Intent(BaseApp.getInstance(), MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            BaseApp.getInstance().startActivity(intent)
+//            var intent = Intent(BaseApp.getInstance(), MainActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            BaseApp.getInstance().startActivity(intent)
             return true
         }else{
             return false

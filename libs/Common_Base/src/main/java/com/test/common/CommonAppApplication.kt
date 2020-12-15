@@ -2,13 +2,11 @@ package com.test.common
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.alibaba.android.arouter.launcher.ARouter
-import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.component.app.ComponentBaseApp
 import com.safmvvm.db.MigrationManager
-import com.safmvvm.utils.LogUtil
-import com.test.common.InitModuleNamesManager
+import com.test.common.base.ProjectConfigListener
+import com.test.common.loading.CusLoadStatePage
 
 open class CommonAppApplication: ComponentBaseApp() {
 
@@ -30,8 +28,8 @@ open class CommonAppApplication: ComponentBaseApp() {
             .updateNoApkUrl("https://app.mi.com/")
             .logIsOpen(BuildConfig.DEBUG)
             .loadingLayoutText("我在App中初始化了")
-//            .pageStateLoading(CusLoadStatePage::class.java)
-//            .setGlobalConfigInitListener(ProjectConfigListener())       //初始化方法
+            .pageStateLoading(CusLoadStatePage::class.java)
+            .setGlobalConfigInitListener(ProjectConfigListener())       //初始化方法
             .pageStateDefErrorMsg("Error了，肯定是手机有问题！代码没问题")
             .pageStateDefFailMsg("Fail了，肯定是手机有问题！代码没问题")
             .dbName("db_test") //数据库名称

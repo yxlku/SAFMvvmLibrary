@@ -1,4 +1,4 @@
-package com.longpc.testapplication
+package com.test.common.base
 
 import okhttp3.Interceptor
 import okhttp3.Request
