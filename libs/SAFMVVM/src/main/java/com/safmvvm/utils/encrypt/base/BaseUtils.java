@@ -29,7 +29,7 @@ public class BaseUtils {
      * @param buf 二进位组
      * @return 十六进制字符串
      */
-    public static String parseByte2HexStr(byte buf[]) {
+    public static String parseByte2HexStr(byte[] buf) {
         StringBuilder sb = new StringBuilder();
         for (byte b : buf) {
             String hex = Integer.toHexString(b & 0xFF);

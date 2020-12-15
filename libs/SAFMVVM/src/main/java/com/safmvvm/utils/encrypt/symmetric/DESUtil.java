@@ -27,6 +27,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.IntDef;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -66,14 +67,14 @@ public class DESUtil {
             cipher.init(type, keyFactory.generateSecret(desKey), random);
 
             if (type == Cipher.ENCRYPT_MODE) {
-                byte[] byteContent = content.getBytes("utf-8");
+                byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
                 return parseByte2HexStr(cipher.doFinal(byteContent));
             } else {
                 byte[] byteContent = parseHexStr2Byte(content);
                 return new String(cipher.doFinal(byteContent));
             }
         } catch (NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException |
-                UnsupportedEncodingException | InvalidKeyException | NoSuchPaddingException |
+                InvalidKeyException | NoSuchPaddingException |
                 InvalidKeySpecException e) {
             e.printStackTrace();
         }

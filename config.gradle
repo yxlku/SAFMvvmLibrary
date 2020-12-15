@@ -12,8 +12,8 @@ ext {
     //依赖第三方配置
     dependencies = [
             //阿里路由框架
-            "arouter-api"                          : "com.alibaba:arouter-api:1.4.1",
-            "arouter-compiler"                     : "com.alibaba:arouter-compiler:1.2.2",
+            "arouter-api"                          : "com.alibaba:arouter-api:1.5.1",
+            "arouter-compiler"                     : "com.alibaba:arouter-compiler:1.5.1",
     ]
 }
 

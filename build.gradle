@@ -4,9 +4,8 @@ buildscript {
     apply from: 'libs/SAFMVVM/config.gradle'
     apply from: 'libs/SAFMVVM/dependencies.gradle'
     //组件化时只初始化使用这个就行
-    apply from: "modules/config.gradle"
+    apply from: "config.gradle"
     ext {
-        Versions.kotlinVersion = '1.4.21'
         Versions.kotlinVersion = '1.4.21'
     }
 

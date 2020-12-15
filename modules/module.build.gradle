@@ -8,6 +8,12 @@ if (isBuildModule.toBoolean()) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
+//阿里路由框架配置
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
     compileSdkVersion rootProject.ext.AndroidApp.compileSdkVersion
     buildToolsVersion rootProject.ext.AndroidApp.buildToolsVersion
@@ -16,12 +22,8 @@ android {
         targetSdkVersion rootProject.ext.AndroidApp.targetSdkVersion
         versionCode rootProject.ext.AndroidApp.versionCode
         versionName rootProject.ext.AndroidApp.versionName
-        //阿里路由框架配置
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
+        //MultiDex分包方法
+        multiDexEnabled true
     }
     sourceSets {
         main {
@@ -76,7 +78,18 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        //组件依赖基础库
+        implementation project(':libs:Common_Base')
 
+        //组件中依赖阿里路由编译框架
+        implementation rootProject.ext.dependencies["arouter-api"]
+
+        kapt rootProject.ext.dependencies["arouter-compiler"]
+
+        kapt "androidx.room:room-compiler:2.2.5"
+    }
 }
 
 

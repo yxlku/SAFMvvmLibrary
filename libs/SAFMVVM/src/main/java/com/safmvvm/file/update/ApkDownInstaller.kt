@@ -36,7 +36,7 @@ object ApkDownInstaller {
         /** 安装时回调函数*/
         installCallBack: InstallUtils.InstallCallBack = defInstallCallBack(activity, isForce, apkPath)
     ){
-        if(apkPath == null || apkPath?.isBlank()){
+        if(apkPath == null || apkPath.isBlank()){
             tipAndToBrower(activity, "请下载更新最新版本", isForce, GlobalConfig.Update.gNoApkUrl)
             return
         }

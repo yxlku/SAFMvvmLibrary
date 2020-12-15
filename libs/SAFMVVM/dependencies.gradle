@@ -124,6 +124,8 @@ ext {
             magicprogresswidget        :"com.liulishuo.magicprogresswidget:library:1.1.1",
             percentsmoothhandler       :"cn.dreamtobe.percentsmoothhandler:library:0.1.1",
 
+            ARouter:"",
+
 
 
     ]

@@ -29,6 +29,7 @@ import androidx.annotation.IntDef;
 import com.safmvvm.utils.encrypt.base.CryptoProvider;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -85,14 +86,14 @@ public class AESUtil {
             cipher.init(type, key);
 
             if (type == Cipher.ENCRYPT_MODE) {
-                byte[] byteContent = content.getBytes("utf-8");
+                byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
                 return parseByte2HexStr(cipher.doFinal(byteContent));
             } else {
                 byte[] byteContent = parseHexStr2Byte(content);
                 return new String(cipher.doFinal(byteContent));
             }
         } catch (NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException |
-                UnsupportedEncodingException | InvalidKeyException | NoSuchPaddingException |
+                InvalidKeyException | NoSuchPaddingException |
                 NoSuchProviderException e) {
             e.printStackTrace();
         }

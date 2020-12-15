@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.collection.ArrayMap
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -25,9 +26,11 @@ import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
+import com.test.common.RouterActivityPath
 import java.lang.Exception
 
 
+@Route(path = RouterActivityPath.TestApplication.PAGE_MAIN)
 class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     R.layout.main_activity_main, BR.viewModel
 ) {

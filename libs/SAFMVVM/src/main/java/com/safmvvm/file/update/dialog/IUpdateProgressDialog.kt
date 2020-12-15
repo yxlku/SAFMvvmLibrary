@@ -8,7 +8,7 @@ interface IUpdateProgressDialog{
     /**
      * 进度更新
      */
-    open fun progress(progress: Int){}
+    fun progress(progress: Int){}
 
 
 }

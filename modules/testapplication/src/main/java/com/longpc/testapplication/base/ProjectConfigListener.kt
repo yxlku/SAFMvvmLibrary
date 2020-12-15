@@ -58,7 +58,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?) {
         ToastUtil.showShortToast("我擦，我崩溃了！！错误原因：" + ex?.message )
-        AppActivityManager.finishAllActivity()
+//        AppActivityManager.finishAllActivity()
     }
 
     override fun dateParseException(isJson: Boolean, msg: String, ex: Exception) {
