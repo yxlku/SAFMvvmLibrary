@@ -3,7 +3,7 @@ ext {
     AndroidApp = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.2",
-            applicationId    : "com.longpc.test",
+            applicationId    : "com.longpc.testApp",
             minSdkVersion    : 21,              //5.0
             targetSdkVersion : 29,
             versionCode      : 1,

@@ -1,11 +1,7 @@
 package com.longpc.testroom
 
-import androidx.room.Room
-import com.longpc.testapplication.base.AppApplication
 import com.longpc.testroom.db.DataBase
 import com.longpc.testroom.db.TableEntity
-import com.safmvvm.app.BaseApp
-import com.safmvvm.db.RoomUtil
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
 import kotlinx.coroutines.flow.Flow

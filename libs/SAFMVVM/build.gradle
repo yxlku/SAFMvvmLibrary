@@ -122,6 +122,9 @@ dependencies {
     api Deps.magicprogresswidget
     api Deps.percentsmoothhandler
 
+
+    //组件中依赖阿里路由编译框架
+    api Deps.arouterApi
     // debug 阶段内存泄露检测
     debugImplementation Deps.leakCanary2
     // debug log弹窗

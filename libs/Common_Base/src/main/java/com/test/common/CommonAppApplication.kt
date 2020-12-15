@@ -1,26 +1,31 @@
-package com.longpc.testapplication.base
+package com.test.common
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.alibaba.android.arouter.launcher.ARouter
-import com.longpc.testapplication.BuildConfig
-import com.longpc.testapplication.loading.CusLoadStatePage
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.GlobalConfigCreator
+import com.safmvvm.component.app.ComponentBaseApp
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.utils.LogUtil
+import com.test.common.InitModuleNamesManager
 
-class AppApplication : BaseApp() {
-
-    override fun onMainPorcessInitBefore() {
-
-    }
+open class CommonAppApplication: ComponentBaseApp() {
 
     /**
-     * 主进程初始化
+     * 获取自定义配置的子Module初始化类
      */
-    override fun onMainProcessInit() {
+    override fun configModuleNames(): ArrayList<String> {
+        return InitModuleNamesManager.configNames()
+    }
 
-        //初始化阿里路由框架
+    override fun onMainPorcessInitBefore() {
+        super.onMainPorcessInitBefore()
+    }
+
+    override fun onMainProcessInit() {
+        super.onMainProcessInit()
+
         //初始化阿里路由框架
         if (BuildConfig.DEBUG) {
             ARouter.openLog() // 打印日志
@@ -36,8 +41,8 @@ class AppApplication : BaseApp() {
             .updateNoApkUrl("https://app.mi.com/")
             .logIsOpen(BuildConfig.DEBUG)
             .loadingLayoutText("我在App中初始化了")
-            .pageStateLoading(CusLoadStatePage::class.java)
-            .setGlobalConfigInitListener(ProjectConfigListener())       //初始化方法
+//            .pageStateLoading(CusLoadStatePage::class.java)
+//            .setGlobalConfigInitListener(ProjectConfigListener())       //初始化方法
             .pageStateDefErrorMsg("Error了，肯定是手机有问题！代码没问题")
             .pageStateDefFailMsg("Fail了，肯定是手机有问题！代码没问题")
             .dbName("db_test") //数据库名称

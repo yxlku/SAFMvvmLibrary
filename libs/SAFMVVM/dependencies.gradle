@@ -124,9 +124,9 @@ ext {
             magicprogresswidget        :"com.liulishuo.magicprogresswidget:library:1.1.1",
             percentsmoothhandler       :"cn.dreamtobe.percentsmoothhandler:library:0.1.1",
 
-            ARouter:"",
-
-
+            //阿里路由框架
+            "arouterApi"              : "com.alibaba:arouter-api:1.5.1",
+            "arouterCompiler"         : "com.alibaba:arouter-compiler:1.5.1",
 
     ]
 
