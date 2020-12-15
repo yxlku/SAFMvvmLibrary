@@ -24,6 +24,8 @@ internal object GlobalConfig {
     object App{
         /** 子Module初始化方法*/
         var gGlobalConfigInitListener: GlobalConfigInitListener? = null
+        /** 是否开启路由*/
+        var gIsOpenArouter: Boolean = true
     }
 
     /**

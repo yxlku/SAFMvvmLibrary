@@ -1,5 +1,8 @@
 package com.safmvvm.app.globalconfig
 
+import android.app.Application
+import com.alibaba.android.arouter.launcher.ARouter
+import com.safmvvm.app.BaseApp
 import com.zy.multistatepage.MultiStateConfig
 import com.zy.multistatepage.MultiStatePage
 

@@ -26,6 +26,15 @@ class GlobalConfigCreator {
         GlobalConfig.App.gGlobalConfigInitListener = listener
         return this
     }
+
+    /**
+     * 设置是否使用ARouter，如果项目中使用了Arouter，但是这里设置为false，则调用ARouter时会崩溃
+     */
+    fun appIsOpenRouter(isOpenRouter: Boolean): GlobalConfigCreator{
+        GlobalConfig.App.gIsOpenArouter = isOpenRouter
+        return this
+    }
+
     /************************************ Request请求初始化配置 *******************************************/
     /**
      * 全局统一BaseUrl

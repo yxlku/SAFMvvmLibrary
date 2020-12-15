@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.Bundle
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.app.globalconfig.GlobalConfigFun
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -58,6 +59,8 @@ open class BaseApp : Application() {
         @JvmStatic
         fun initApp(app: Application) {
             Companion.app = app
+            //初始化路由框架
+            RouterUtil.initARouter(app)
             //日志初始化
             LogUtil.initLog()
             //等待布局初始化
