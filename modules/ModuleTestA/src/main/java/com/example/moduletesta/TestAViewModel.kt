@@ -47,6 +47,7 @@ class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
             return@startActivityRouterPostcard it.withString("routerUtils", "我传值过来了2")
                 .withString("test", "2222我成功了！！！")
         }
+
     }
 
     override fun onActivityResultOk(intent: Intent) {

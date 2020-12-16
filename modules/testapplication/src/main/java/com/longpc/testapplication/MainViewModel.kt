@@ -158,7 +158,8 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     }
 
     fun roomClick(v: View){
-        startActivityForResult(TestRoomActivity::class.java)
+//        startActivityForResult(TestRoomActivity::class.java)
+        startActivity(TestRoomActivity::class.java)
     }
 
     fun timeClick(v: View){

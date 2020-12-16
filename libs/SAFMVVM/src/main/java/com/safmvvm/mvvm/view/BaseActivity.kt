@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
+import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.model.BaseModel

@@ -16,6 +16,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
+import com.safmvvm.R
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
@@ -137,6 +138,8 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         bundle: Bundle? = null
     ) {
         startActivity(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
+        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
+//        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
 
     /**
@@ -149,6 +152,7 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     ) {
         initStartActivityForResult()
         mStartActivityForResult.launch(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
+        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
     }
 
     /**
@@ -187,6 +191,11 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
                 setResult(resultCode, intent)
             }
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.activity_close_in_anim, R.anim.activity_close_out_anim)
     }
 
     @SuppressLint("MissingSuperCall")
