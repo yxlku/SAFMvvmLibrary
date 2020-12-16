@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse

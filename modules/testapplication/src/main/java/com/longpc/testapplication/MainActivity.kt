@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.collection.ArrayMap
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -34,7 +35,20 @@ import java.lang.Exception
 class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     R.layout.main_activity_main, BR.viewModel
 ) {
+
+    //ARouter，除了使用注解@Autowired（必须在activity或fragment中获取），
+    // 也可以使用普通传参方式，在ViewModel中接收借口
+    //必须使用@JvmField
+    @JvmField
+    @Autowired(name = "routerUtils")
+    var routerUtils = ""
+    @JvmField
+    @Autowired(name = "test")
+    var test = ""
+
     override fun initData() {
+        mViewModel.text.set(test+"ssss2")
+//        LogUtil.d(routerUtils)
         //https://github.com/getActivity/XXPermissions
         XXPermissions.with(this)
             .permission(Permission.CAMERA)
@@ -44,7 +58,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
                 override fun onGranted(permissions: List<String>, all: Boolean) {
                     //这里每次调用时都会提示
                     if (all) {
-                        ToastUtil.showShortToast("获取拍照权限成功")
+//                        ToastUtil.showShortToast("获取拍照权限成功")
                     }
                 }
 
@@ -59,14 +73,13 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
                 }
             })
     }
-
     override fun initViewObservable() {
         //设置自定义弹窗
 //        setCustomDialog(R.layout.main_dialog_cus_test, "")
         setCustomDialog()
 
         LiveDataBus.observe(this, "updateVersion", Observer {
-            var isForce: Boolean = true
+            var isForce: Boolean = false
             var path = "https://fga1.market.xiaomi.com/download/AppStore/03fcb41660d98ef8d4f70586913fc0e8ccf41accb/mobi.detiplatform.apk"
 //            var path = ""
             ApkDownInstaller.apkDownload(this, path, isForce, installCallBack = object :InstallUtils.InstallCallBack{

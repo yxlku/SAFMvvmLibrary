@@ -1,5 +1,6 @@
 package com.safmvvm.mvvm.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +15,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.Postcard
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
@@ -37,6 +40,8 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Router注入初始化
+        RouterUtil.inject(this)
         //初始化Databinding，livedata和xml可以双向绑定
         initDatabinding(layoutInflater, null)
         //初始化view
@@ -146,6 +151,33 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         mStartActivityForResult.launch(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
     }
 
+    /**
+     * ARouter开启Activity ，可传参
+     */
+    fun startActivityRouter(
+        activityPath: String,
+        block: (postcard: Postcard) -> Postcard
+    ) {
+        RouterUtil.startActivity(activityPath){
+            block(it)
+        }
+    }
+    /**
+     * ARouter开启ActivityForResult ，可传参
+     */
+    fun startActivityForResultRouter(
+        /** 使用startForResult功能的需要传入此值*/
+        activity: Activity,
+        /** 使用startForResult功能的需要传入此值*/
+        requestCode: Int = 0,
+        activityPath: String,
+        block: (postcard: Postcard) -> Postcard
+    ) {
+        RouterUtil.startActivityForResult(activity, requestCode, activityPath){
+            block(it)
+        }
+    }
+
     fun setResult(pair: Pair<Int?, Intent?>) {
         pair.first?.let { resultCode ->
             val intent = pair.second
@@ -153,6 +185,32 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
                 setResult(resultCode)
             } else {
                 setResult(resultCode, intent)
+            }
+        }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        var data = intent ?: Intent()
+        when (resultCode) {
+            Activity.RESULT_OK -> {
+                onActivityResultOk(data)
+                if (this::mViewModel.isInitialized) {
+                    //可以在ViewModel中操作返回结果
+                    mViewModel.onActivityResultOk(data)
+                }
+            }
+            Activity.RESULT_CANCELED -> {
+                onActivityResultCanceled(data)
+                if (this::mViewModel.isInitialized) {
+                    mViewModel.onActivityResultCanceled(data)
+                }
+            }
+            else -> {
+                onActivityResult(resultCode, data)
+                if (this::mViewModel.isInitialized) {
+                    mViewModel.onActivityResult(resultCode, data)
+                }
             }
         }
     }

@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.collection.ArrayMap
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.facade.Postcard
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.app.globalconfig.GlobalConfig
@@ -16,6 +17,7 @@ import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
+import com.safmvvm.utils.LogUtil
 import com.zy.multistatepage.MultiStatePage.bindMultiState
 import com.zy.multistatepage.OnNotifyListener
 
@@ -176,6 +178,60 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             },
             true
         )
+
+        /** 开启Router跳转模式*/
+        mViewModel.mUiChangeLiveData.initRouterStartActivityEvent()
+        //Router跳转不带返回参数
+        LiveDataBus.observe<String>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityEventRouter!!,
+            Observer {
+                it?.let{
+                    startActivityRouter(it){
+                        return@startActivityRouter it
+                    }
+                }
+            },
+            true
+        )
+        //Router跳转带返回参数
+        LiveDataBus.observe<Pair<String, (postcard: Postcard)->Postcard>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityEventRouterPostcard!!,
+            Observer {
+                it?.let{
+                    startActivityRouter(it?.first, it?.second)
+                }
+            },
+            true
+        )
+        //Router跳转带返回参数
+        LiveDataBus.observe<Pair<String, Int>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityForResultEventRouter!!,
+            Observer {
+                it?.let{
+                    LogUtil.d("`````requestCode`````: ${it?.second}")
+                    startActivityForResultRouter(this, it?.second, it?.first){
+                        return@startActivityForResultRouter it
+                    }
+                }
+            },
+            true
+        )
+        //Router跳转带返回参数
+        LiveDataBus.observe<Triple<String, Int, (postcard: Postcard)->Postcard>>(
+            this,
+            mViewModel.mUiChangeLiveData.startActivityForResultEventRouterPostcard!!,
+            Observer {
+                it?.let{
+                    LogUtil.d("`````requestCode`````: ${it?.second}")
+                    startActivityForResultRouter(this, it?.second, it?.first, it?.third)
+                }
+            },
+            true
+        )
+
     }
 
 

@@ -8,8 +8,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.MainThread
 import androidx.collection.ArrayMap
 import androidx.lifecycle.AndroidViewModel
+import com.alibaba.android.arouter.facade.Postcard
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
 import com.safmvvm.mvvm.args.LoadSirUpdateMsgEntity
@@ -107,7 +109,7 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     fun controlInputKeyboard(isShow: Boolean){
         mUiChangeLiveData.inputKeyboard?.putValue(isShow)
     }
-    // 以下是界面开启和结束相关的 =========================================================
+    // 以下是原生界面开启和结束相关的 =========================================================
     @MainThread
     fun setResult(
         resultCode: Int,
@@ -159,6 +161,20 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     fun startActivityForResult(clazz: Class<out Activity>, map: ArrayMap<String, *>) {
         LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventWithMap!!, Pair(clazz, map))
     }
+    // Router方式跳转===================================================================================
+    fun startActivityRouter(routerPath: String) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityEventRouter!!, routerPath)
+    }
+    fun startActivityRouterPostcard(routerPath: String, block: (postcard: Postcard)->Postcard) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityEventRouterPostcard!!, Pair(routerPath, block))
+    }
+
+    fun startActivityForResultRouter(routerPath: String, requestCode: Int) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventRouter!!, Pair(routerPath, requestCode))
+    }
+    fun startActivityForResultRouterPostcard(routerPath: String, requestCode: Int, block: (postcard: Postcard)->Postcard) {
+        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventRouterPostcard!!, Triple(routerPath, requestCode, block))
+    }
 
 
     // ===================================================================================
@@ -192,6 +208,16 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         /** 打开Activity页面 传递Bundle 并带有回调功能*/
         var startActivityForResultEventWithBundle: String? = null
 
+        /** Router打开Activity页面*/
+        var startActivityEventRouter: String? = null
+        /** Router打开Activity页面 传递自定义参数*/
+        var startActivityEventRouterPostcard: String? = null
+
+        /** Router打开Activity页面 并带有回调功能*/
+        var startActivityForResultEventRouter: String? = null
+        /** Router打开Activity页面 传递Map 并带有回调功能*/
+        var startActivityForResultEventRouterPostcard: String? = null
+
         /** 关闭Activity*/
         var finishEvent: String? = null
         /** setResult直接关闭*/
@@ -210,14 +236,14 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
             inputKeyboard = SingleLiveEvent()
         }
 
-        /** 调用前初始化*/
+        /** 原生跳转调用前初始化*/
         fun initStartActivityForResultEvent() {
             startActivityForResultEvent = UUID.randomUUID().toString()
             startActivityForResultEventWithMap = UUID.randomUUID().toString()
             startActivityForResultEventWithBundle = UUID.randomUUID().toString()
         }
 
-        /** 调用前初始化*/
+        /** 原生调用带返回值前初始化*/
         fun initStartAndFinishEvent() {
             startActivityEvent = UUID.randomUUID().toString()
             startActivityWithMapEvent = UUID.randomUUID().toString()
@@ -225,5 +251,15 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
             finishEvent = UUID.randomUUID().toString()
             setResultEvent = UUID.randomUUID().toString()
         }
+
+        /** Router调用前初始化*/
+        fun initRouterStartActivityEvent() {
+            startActivityEventRouter = UUID.randomUUID().toString()
+            startActivityEventRouterPostcard = UUID.randomUUID().toString()
+
+            startActivityForResultEventRouter = UUID.randomUUID().toString()
+            startActivityForResultEventRouterPostcard = UUID.randomUUID().toString()
+        }
+
     }
 }

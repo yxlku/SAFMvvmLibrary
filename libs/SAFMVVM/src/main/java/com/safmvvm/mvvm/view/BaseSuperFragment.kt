@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 
@@ -32,6 +33,8 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Router注入初始化
+        RouterUtil.inject(this)
         mBinding = DataBindingUtil.inflate(inflater, mLayoutId, container, false)
         // 绑定 v 和 vm
         if (mViewModelId != null) {

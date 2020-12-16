@@ -1,5 +1,6 @@
 package com.longpc.testapplication
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.longpc.testroom.TestRoomActivity
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.http.result.ResponseResultCallback
@@ -25,6 +27,9 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
 
     override fun onResume(owner: LifecycleOwner) {
 //        testRequestFlow()
+        //ARouter，除了使用注解@Autowired，也可以使用普通传参方式
+//        text.set(getArgumentsIntent()?.getStringExtra("routerUtil"))
+//        text.set(routerUtils)
     }
 
      fun test(){
@@ -171,6 +176,12 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
             text.set("name: ${name}, age: $age")
             LogUtil.d("name: ${name}, age: $age")
         }
+    }
+
+    fun btFinish(v: View){
+        var intent = Intent()
+        intent.putExtra("ca", "我是返回值")
+        finish(Activity.RESULT_OK, intent)
     }
 
 }
