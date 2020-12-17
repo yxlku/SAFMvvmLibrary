@@ -42,6 +42,7 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme_NoActionBar)
         //Router注入初始化
         RouterUtil.inject(this)
         //初始化Databinding，livedata和xml可以双向绑定
