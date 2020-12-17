@@ -3,9 +3,11 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.jaredrummler.cyanea.Cyanea
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.component.RouterUtil
+import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
 
@@ -61,6 +63,8 @@ open class BaseApp : Application() {
             Companion.app = app
             //初始化路由框架
             RouterUtil.initARouter(app)
+            //主题初始化
+            ThemeUtil.init(app)
             //日志初始化
             LogUtil.initLog()
             //等待布局初始化

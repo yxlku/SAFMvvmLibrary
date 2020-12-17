@@ -16,6 +16,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
+import com.jaredrummler.cyanea.app.CyaneaAppCompatActivity
 import com.safmvvm.R
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IActivityResult
@@ -32,7 +33,7 @@ import com.safmvvm.utils.Utils
 abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
-): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
+): CyaneaAppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
@@ -165,6 +166,7 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         RouterUtil.startActivity(activityPath){
             block(it)
         }
+        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
     }
     /**
      * ARouter开启ActivityForResult ，可传参
@@ -180,6 +182,7 @@ abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         RouterUtil.startActivityForResult(activity, requestCode, activityPath){
             block(it)
         }
+        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
     }
 
     fun setResult(pair: Pair<Int?, Intent?>) {

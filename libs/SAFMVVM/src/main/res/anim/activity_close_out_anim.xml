@@ -4,7 +4,7 @@
     tools:ignore="MissingDefaultResource">
     <translate
 
-        android:duration="14000"
+        android:duration="1500"
 
         android:fromXDelta="0"
 

@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.jaredrummler.cyanea.prefs.CyaneaTheme
 import com.longpc.testapplication.databinding.MainActivityMainBinding
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.StringUtils
@@ -24,6 +25,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.Utils
@@ -77,6 +79,11 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
         //设置自定义弹窗
 //        setCustomDialog(R.layout.main_dialog_cus_test, "")
         setCustomDialog()
+
+        LiveDataBus.observe<CyaneaTheme>(this, "theme", Observer {
+            //主题切换
+            ThemeUtil.applyTheme(this, cyanea, it)
+        }, false)
 
         LiveDataBus.observe(this, "updateVersion", Observer {
             var isForce: Boolean = false

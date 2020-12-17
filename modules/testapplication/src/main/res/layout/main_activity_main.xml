@@ -82,5 +82,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeCloseDrawable" />
+
+        <Button
+            android:onClick="@{viewModel.btTheme}"
+            android:id="@+id/main_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="换个主题"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

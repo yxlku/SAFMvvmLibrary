@@ -121,6 +121,8 @@ dependencies {
     //进度条
     api Deps.magicprogresswidget
     api Deps.percentsmoothhandler
+    //主题库
+    api Deps.themeCyanea
 
 
     //组件中依赖阿里路由编译框架

@@ -9,11 +9,15 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.jaredrummler.cyanea.prefs.CyaneaTheme
+import com.jaredrummler.cyanea.prefs.CyaneaThemePickerAdapter
 import com.longpc.testroom.TestRoomActivity
+import com.safmvvm.app.BaseApp
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import kotlinx.coroutines.*
@@ -184,5 +188,9 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
         intent.putExtra("ca", "我是返回值")
         finish(Activity.RESULT_OK, intent)
     }
-
+    fun btTheme(v: View){
+        ThemeUtil.getTheme(10)?.let {
+            LiveDataBus.send("theme", it)
+        }
+    }
 }
