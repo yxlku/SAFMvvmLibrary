@@ -122,7 +122,10 @@ dependencies {
     api Deps.magicprogresswidget
     api Deps.percentsmoothhandler
     //主题库
-    api Deps.themeCyanea
+//    api Deps.themeCyanea
+    //沉浸式状态栏
+    api Deps.immersionbar
+    api Deps.immersionbarKtx
 
 
     //组件中依赖阿里路由编译框架

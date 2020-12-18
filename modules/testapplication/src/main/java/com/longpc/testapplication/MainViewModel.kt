@@ -8,10 +8,6 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.jaredrummler.cyanea.prefs.CyaneaSettingsActivity
-import com.jaredrummler.cyanea.prefs.CyaneaTheme
-import com.jaredrummler.cyanea.prefs.CyaneaThemePickerAdapter
 import com.longpc.testroom.TestRoomActivity
 import com.safmvvm.app.BaseApp
 import com.safmvvm.bus.LiveDataBus
@@ -191,11 +187,11 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     }
     fun btTheme(v: View){
         //自定义主题
-//        ThemeUtil.getTheme(10)?.let {
+//        ThemeUtil.getTheme(0)?.let {
 //            LiveDataBus.send("theme", it)
 //        }
 
-        //选择主题
-        startActivity(CyaneaSettingsActivity::class.java)
+//        //选择主题
+//        startActivity(CyaneaSettingsActivity::class.java)
     }
 }

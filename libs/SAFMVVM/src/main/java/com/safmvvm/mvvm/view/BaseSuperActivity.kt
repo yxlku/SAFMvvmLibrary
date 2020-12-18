@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,39 +17,66 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
-import com.jaredrummler.cyanea.app.CyaneaAppCompatActivity
 import com.safmvvm.R
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
 import com.safmvvm.mvvm.model.BaseModel
-import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
+import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.theme.StatusBarUtil
+import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
 
 /**
  * 所有Activity的基类
  */
-abstract class BaseSuperActivity<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>(
+abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
-): CyaneaAppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
+): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
 
     private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
 
+    var mTitleBar: TitleBar? = null
+    fun obtainTitleBar(group: View): TitleBar? {
+        if (group is ViewGroup) {
+            for (i in 0 until group.childCount) {
+                val view = group.getChildAt(i)
+                if (view is TitleBar) {
+                    return view
+                } else if (view is ViewGroup) {
+                    val titleBar = obtainTitleBar(view)
+                    if (titleBar != null) {
+                        return titleBar
+                    }
+                }
+            }
+        }
+        return null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme_NoActionBar)
         //Router注入初始化
         RouterUtil.inject(this)
         //初始化Databinding，livedata和xml可以双向绑定
         initDatabinding(layoutInflater, null)
         //初始化view
         setContentView(mBinding.root)
+
+        //初始化状态栏
+        StatusBarUtil.init(this)
+        if (mTitleBar == null) {
+            mTitleBar = obtainTitleBar(window.decorView)
+        }
+        mTitleBar?.let {
+            StatusBarUtil.immersionPageView(this, it)
+        }
+
         //初始化viewModel
         initViewModel()
         //接收的参数

@@ -125,6 +125,9 @@ ext {
             percentsmoothhandler       :"cn.dreamtobe.percentsmoothhandler:library:0.1.1",
             //主题库
             themeCyanea                :"com.jaredrummler:cyanea:1.0.2",
+            //沉浸式状态栏
+            immersionbar               :"com.gyf.immersionbar:immersionbar:3.0.0",
+            immersionbarKtx            :"com.gyf.immersionbar:immersionbar-ktx:3.0.0",
 
             //阿里路由框架
             "arouterApi"              : "com.alibaba:arouter-api:1.5.1",

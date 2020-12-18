@@ -3,7 +3,6 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.jaredrummler.cyanea.Cyanea
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.component.RouterUtil
