@@ -22,6 +22,7 @@ open class CommonAppApplication: ComponentBaseApp() {
 
         GlobalConfigCreator()
             .appIsOpenRouter(true)
+            .animIsOpen(true)
             .requestSuccessCode("0")
             .requestBaseUrl("https://www.wanandroid.com/")
 //            .requestBaseUrl("https://api.apiopen.top/")

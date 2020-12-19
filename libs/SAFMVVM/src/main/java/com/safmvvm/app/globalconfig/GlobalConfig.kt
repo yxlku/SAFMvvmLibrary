@@ -1,5 +1,6 @@
 package com.safmvvm.app.globalconfig
 
+import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.R
@@ -26,6 +27,21 @@ internal object GlobalConfig {
         var gGlobalConfigInitListener: GlobalConfigInitListener? = null
         /** 是否开启路由*/
         var gIsOpenArouter: Boolean = true
+    }
+
+    /**
+     * 动画
+     */
+    object Anim{
+        /** 是否开启页面动画*/
+        var gIsOpenPageAnim: Boolean = true;
+        /** 页面打开动画*/
+        @AnimRes var gPageOpenIn: Int = R.anim.activity_open_in_anim
+        @AnimRes var gPageOpenOut: Int = R.anim.activity_open_out_anim
+        /** 页面关闭动画，默认和打开动画一样，也可以自行配置*/
+        @AnimRes var gPageCloseIn: Int = gPageOpenIn
+        @AnimRes var gPageCloseOut: Int = gPageOpenOut
+
     }
 
     /**

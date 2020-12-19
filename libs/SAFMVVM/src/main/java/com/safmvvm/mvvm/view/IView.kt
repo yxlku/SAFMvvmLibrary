@@ -2,11 +2,13 @@ package com.safmvvm.mvvm.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.AnimRes
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.safmvvm.app.BaseApp
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.model.BaseModel
@@ -57,6 +59,16 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
      * 2.4 等待弹窗初始化
      */
     fun initLoadDialog()
+
+    /**
+     * 3.1 开启页面动画（注意：这里是在开启下个Activity时调用的，）
+     */
+    fun startPageAnim()
+
+    /**
+     * 3.2 关闭页面动画
+     */
+    fun finishPageAnim()
 
     /**
      * 移除事件总线监听，避免内存泄露

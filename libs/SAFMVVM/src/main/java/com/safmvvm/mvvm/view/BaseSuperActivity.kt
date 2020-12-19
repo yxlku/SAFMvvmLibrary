@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.AnimRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
@@ -18,6 +19,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
 import com.safmvvm.R
+import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IActivityResult
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
@@ -43,22 +45,7 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
 
     var mTitleBar: TitleBar? = null
-    fun obtainTitleBar(group: View): TitleBar? {
-        if (group is ViewGroup) {
-            for (i in 0 until group.childCount) {
-                val view = group.getChildAt(i)
-                if (view is TitleBar) {
-                    return view
-                } else if (view is ViewGroup) {
-                    val titleBar = obtainTitleBar(view)
-                    if (titleBar != null) {
-                        return titleBar
-                    }
-                }
-            }
-        }
-        return null
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Router注入初始化
@@ -67,16 +54,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         initDatabinding(layoutInflater, null)
         //初始化view
         setContentView(mBinding.root)
-
-        //初始化状态栏
-        StatusBarUtil.init(this)
-        if (mTitleBar == null) {
-            mTitleBar = obtainTitleBar(window.decorView)
-        }
-        mTitleBar?.let {
-            StatusBarUtil.immersionPageView(this, it)
-        }
-
+        //初始化标题栏，支持沉浸式
+        initTitleBar()
         //初始化viewModel
         initViewModel()
         //接收的参数
@@ -99,6 +78,15 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         // 让 LiveData 和 xml 可以双向绑定
         mBinding.lifecycleOwner = this
 
+    }
+
+    /** 初始化状态栏 */
+    private fun initTitleBar(){
+        StatusBarUtil.init(this)
+        if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(window.decorView)
+        mTitleBar?.let {
+            StatusBarUtil.immersionPageView(this, it)
+        }
     }
 
     /**
@@ -168,8 +156,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         bundle: Bundle? = null
     ) {
         startActivity(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
-        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
-//        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+        //动画
+        startPageAnim()
     }
 
     /**
@@ -182,7 +170,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     ) {
         initStartActivityForResult()
         mStartActivityForResult.launch(Utils.getIntentByMapOrBundle(this, clz, map, bundle))
-        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
+        //动画
+        startPageAnim()
     }
 
     /**
@@ -195,7 +184,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         RouterUtil.startActivity(activityPath){
             block(it)
         }
-        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
+        //动画
+        startPageAnim()
     }
     /**
      * ARouter开启ActivityForResult ，可传参
@@ -211,9 +201,9 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         RouterUtil.startActivityForResult(activity, requestCode, activityPath){
             block(it)
         }
-        overridePendingTransition(R.anim.activity_open_in_anim, R.anim.activity_open_out_anim)
+        //动画
+        startPageAnim()
     }
-
     fun setResult(pair: Pair<Int?, Intent?>) {
         pair.first?.let { resultCode ->
             val intent = pair.second
@@ -227,7 +217,21 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.activity_close_in_anim, R.anim.activity_close_out_anim)
+        //动画
+        finishPageAnim()
+    }
+
+    /** 页面跳转动画：打开动画*/
+    override fun startPageAnim(){
+        if (GlobalConfig.Anim.gIsOpenPageAnim) {
+            overridePendingTransition(GlobalConfig.Anim.gPageOpenIn, GlobalConfig.Anim.gPageOpenOut)
+        }
+    }
+    /** 页面跳转动画： 关闭动画*/
+    override fun finishPageAnim(){
+        if (GlobalConfig.Anim.gIsOpenPageAnim) {
+            overridePendingTransition(GlobalConfig.Anim.gPageCloseIn, GlobalConfig.Anim.gPageCloseOut)
+        }
     }
 
     @SuppressLint("MissingSuperCall")

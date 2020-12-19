@@ -31,6 +31,13 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     R.layout.main_activity_main, BR.viewModel
 ) {
 
+    /**
+     * 开启下个页面的动画
+     */
+    override fun startPageAnim(){
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
     //ARouter，除了使用注解@Autowired（必须在activity或fragment中获取），
     // 也可以使用普通传参方式，在ViewModel中接收借口
     //必须使用@JvmField

@@ -13,6 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/main_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftTint="#F44336"
+            app:title="Room"
+            app:titleColor="#040403"
+            app:titleStyle="bold|italic" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/main_guideline"
             android:layout_width="wrap_content"
@@ -28,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_titlebar"
             app:layout_constraintVertical_bias="0.0">
 
             <TextView

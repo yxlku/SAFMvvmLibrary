@@ -2,9 +2,11 @@ package com.safmvvm.ui.theme
 
 import android.app.Activity
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
+import com.safmvvm.ui.titlebar.TitleBar
 
 /**
  * 状态栏工具
@@ -35,6 +37,23 @@ object StatusBarUtil {
     /** 获取状态栏高度*/
     fun getStatusBarHeight(fragment: Fragment): Int = ImmersionBar.getStatusBarHeight(fragment)
 
+
+    fun obtainTitleBar(group: View?): TitleBar? {
+        if (group!= null && group is ViewGroup) {
+            for (i in 0 until group.childCount) {
+                val view = group.getChildAt(i)
+                if (view is TitleBar) {
+                    return view
+                } else if (view is ViewGroup) {
+                    val titleBar = obtainTitleBar(view)
+                    if (titleBar != null) {
+                        return titleBar
+                    }
+                }
+            }
+        }
+        return null
+    }
 
 
 }

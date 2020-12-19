@@ -1,5 +1,6 @@
 package com.safmvvm.app
 
+import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.app.globalconfig.GlobalConfig
@@ -32,6 +33,43 @@ class GlobalConfigCreator {
      */
     fun appIsOpenRouter(isOpenRouter: Boolean): GlobalConfigCreator{
         GlobalConfig.App.gIsOpenArouter = isOpenRouter
+        return this
+    }
+
+    /************************************ Anim请求初始化配置 *******************************************/
+    /**
+     * 是否使用跳转动画
+     */
+    fun animIsOpen(isOpenPageAnim: Boolean): GlobalConfigCreator{
+        GlobalConfig.Anim.gIsOpenPageAnim = isOpenPageAnim
+        return this
+    }
+    /**
+     * 页面开启动画 ： 每次配置后，需要卸载app才会生效
+     */
+    fun animPageOpenIn(@AnimRes pageOpenIn: Int): GlobalConfigCreator{
+        GlobalConfig.Anim.gPageOpenIn = pageOpenIn
+        return this
+    }
+    /**
+     * 页面开启离开动画：每次配置后，需要卸载app才会生效
+     */
+    fun animPageOpenOut(@AnimRes pageOpenOut: Int): GlobalConfigCreator{
+        GlobalConfig.Anim.gPageOpenOut = pageOpenOut
+        return this
+    }
+    /**
+     * 页面关闭进入动画：每次配置后，需要卸载app才会生效
+     */
+    fun animPageCloseIn(@AnimRes pageCloseIn: Int): GlobalConfigCreator{
+        GlobalConfig.Anim.gPageCloseIn = pageCloseIn
+        return this
+    }
+    /**
+     * 页面关闭离开动画：每次配置后，需要卸载app才会生效
+     */
+    fun animPageCloseOut(@AnimRes pageCloseOut: Int): GlobalConfigCreator{
+        GlobalConfig.Anim.gPageCloseOut = pageCloseOut
         return this
     }
 
