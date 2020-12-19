@@ -81,7 +81,7 @@ public abstract class BaseBarInitializer implements ITitleBarInitializer {
 
     @Override
     public int getVerticalPadding(Context context) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, context.getResources().getDisplayMetrics());
     }
 
     public abstract Drawable getBackIcon(Context context);
