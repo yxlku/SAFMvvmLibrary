@@ -3,6 +3,7 @@ package com.safmvvm.mvvm.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,9 @@ import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.TitleBar
+import com.safmvvm.utils.DensityUtil
 import com.safmvvm.utils.Utils
+import me.jessyan.autosize.internal.CustomAdapt
 
 /**
  * 所有Activity的基类
@@ -37,7 +40,7 @@ import com.safmvvm.utils.Utils
 abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
-): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult {
+): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IActivityResult{
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM

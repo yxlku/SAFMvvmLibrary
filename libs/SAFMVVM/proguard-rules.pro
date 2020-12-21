@@ -126,3 +126,7 @@
 
 # ====================================================== 标题栏
  -keep class com.hjq.bar.** {*;}
+
+ # ====================================================== autuSize屏幕适配
+ -keep class me.jessyan.autosize.** { *; }
+ -keep interface me.jessyan.autosize.** { *; }

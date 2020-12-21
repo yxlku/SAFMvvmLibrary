@@ -21,6 +21,7 @@ open class CommonAppApplication: ComponentBaseApp() {
         super.onMainPorcessInitBefore()
 
         GlobalConfigCreator()
+            .autoSizeDesignSize(750f, 1344f)
             .appIsOpenRouter(true)
             .animIsOpen(true)
             .requestSuccessCode("0")

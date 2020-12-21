@@ -75,6 +75,28 @@ class GlobalConfigCreator {
 
     /************************************ Request请求初始化配置 *******************************************/
     /**
+     * 是否开启屏幕适配功能，默认开启
+     */
+    fun autoSizeIsOpenAutoSize(isOpenAutoSize: Boolean): GlobalConfigCreator{
+        GlobalConfig.AutoSize.gIsOpenAutoSize = isOpenAutoSize
+        return this
+    }
+    /**
+     * 指定设计稿的宽高
+     */
+    fun autoSizeDesignSize(width: Float, height: Float): GlobalConfigCreator{
+        GlobalConfig.AutoSize.gDesignSize = Pair(width, height)
+        return this
+    }
+    /**
+     * 自定义控件页面或View单独设置尺寸
+     */
+    fun autoSizeCustomAdapter(triple: List<Triple<Class<*>, Boolean, Float>>): GlobalConfigCreator{
+        GlobalConfig.AutoSize.gCustomAdapter = triple
+        return this
+    }
+    /************************************ Request请求初始化配置 *******************************************/
+    /**
      * 全局统一BaseUrl
      */
     fun requestBaseUrl(baseUrl: String): GlobalConfigCreator{

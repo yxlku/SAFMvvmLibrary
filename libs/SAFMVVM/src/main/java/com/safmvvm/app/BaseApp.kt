@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.component.RouterUtil
+import com.safmvvm.ui.autosize.AutoSizeUtil
 import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
@@ -60,6 +61,8 @@ open class BaseApp : Application() {
         @JvmStatic
         fun initApp(app: Application) {
             Companion.app = app
+            //屏幕适配
+            AutoSizeUtil.init()
             //初始化路由框架
             RouterUtil.initARouter(app)
             //主题初始化

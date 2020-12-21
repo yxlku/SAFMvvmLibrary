@@ -41,9 +41,31 @@ internal object GlobalConfig {
         /** 页面关闭动画，默认和打开动画一样，也可以自行配置*/
         @AnimRes var gPageCloseIn: Int = gPageOpenIn
         @AnimRes var gPageCloseOut: Int = gPageOpenOut
-
     }
 
+    /**
+     * 屏幕适配
+     */
+    object AutoSize{
+        /**
+         * 是否开启自动适配功能
+         */
+        var gIsOpenAutoSize: Boolean = true
+        /**
+         * 设计稿尺寸
+         * first 宽
+         * second 高
+         */
+        var gDesignSize: Pair<Float, Float> = Pair(750f, 1344f)
+        /**
+         * 自定义尺寸view
+         * class<*> Activity class, Fragment class
+         * Boolean  是否按照宽度进行等比例适配 (为了保证在高宽比不同的屏幕上也能正常适配, 所以只能在宽度和高度之中选一个作为基准进行适配)
+         *          {@code true} 为按照宽度适配, {@code false} 为按照高度适配
+         * Int      自定义规范尺寸
+         */
+        var gCustomAdapter: List<Triple<Class<*>, Boolean, Float>>? = null
+    }
     /**
      * 日志
      */
