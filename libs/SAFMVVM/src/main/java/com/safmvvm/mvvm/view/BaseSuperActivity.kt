@@ -3,6 +3,7 @@ package com.safmvvm.mvvm.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,6 +52,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //添加setRequestedOrientation方法实现锁定横屏（portrait为保持竖屏，landscape为保持横屏）
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         //Router注入初始化
         RouterUtil.inject(this)
         //初始化Databinding，livedata和xml可以双向绑定

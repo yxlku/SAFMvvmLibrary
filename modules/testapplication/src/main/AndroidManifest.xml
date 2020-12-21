@@ -3,7 +3,7 @@
     package="com.longpc.testapplication">
 
     <application>
-        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.longpc.testroom.TestRoomActivity"/>
     </application>
 
