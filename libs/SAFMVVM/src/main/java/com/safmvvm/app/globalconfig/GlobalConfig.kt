@@ -34,7 +34,8 @@ internal object GlobalConfig {
      */
     object Anim{
         /** 是否开启页面动画*/
-        var gIsOpenPageAnim: Boolean = true;
+        var gIsOpenPageAnim: Boolean = true
+
         /** 页面打开动画*/
         @AnimRes var gPageOpenIn: Int = R.anim.activity_open_in_anim
         @AnimRes var gPageOpenOut: Int = R.anim.activity_open_out_anim

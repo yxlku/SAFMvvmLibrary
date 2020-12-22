@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.annotation.MainThread
 import androidx.collection.ArrayMap
+import androidx.collection.arrayMapOf
 import androidx.lifecycle.AndroidViewModel
 import com.alibaba.android.arouter.facade.Postcard
 import com.safmvvm.app.globalconfig.GlobalConfig
@@ -23,6 +24,7 @@ import com.safmvvm.utils.jetpack.SingleLiveEvent
 import com.safmvvm.utils.jetpack.putValue
 import com.zy.multistatepage.MultiState
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  *
@@ -40,11 +42,15 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
 
     internal var mBundle: Bundle? = null
     internal var mIntent: Intent? = null
+    /** 存放跳转的tag*/
+    var tagMap = hashMapOf<String, String>()
 
-    internal val mUiChangeLiveData by lazy { UiChangeLiveData() }
+    val mUiChangeLiveData by lazy { UiChangeLiveData() }
 
     override fun onCleared() {
         super.onCleared()
+        //清空所有tag
+        tagMap.clear()
         //livewDataBus取消监听
         LiveDataBus.removeObserve(this)
         LiveDataBus.removeStickyObserver(this)
@@ -111,31 +117,13 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     }
     // 以下是原生界面开启和结束相关的 =========================================================
     @MainThread
-    fun setResult(
-        resultCode: Int,
-        map: ArrayMap<String, *>? = null,
-        bundle: Bundle? = null
-    ) {
-        setResult(resultCode, Utils.getIntentByMapOrBundle(map = map, bundle = bundle))
+    fun resultFinish(tag: String, resultCode: Int, data: Intent? = null) {
+        LiveDataBus.send(mUiChangeLiveData.resultFinish!!, Triple(tag, resultCode, data))
     }
 
     @MainThread
-    fun setResult(resultCode: Int, data: Intent? = null) {
-        LiveDataBus.send(mUiChangeLiveData.setResultEvent!!, Pair(resultCode, data))
-    }
-
-    @MainThread
-    fun finish(
-        resultCode: Int? = null,
-        map: ArrayMap<String, *>? = null,
-        bundle: Bundle? = null
-    ) {
-        finish(resultCode, Utils.getIntentByMapOrBundle(map = map, bundle = bundle))
-    }
-
-    @MainThread
-    fun finish(resultCode: Int? = null, data: Intent? = null) {
-        LiveDataBus.send(mUiChangeLiveData.finishEvent!!, Pair(resultCode, data))
+    fun finish() {
+        LiveDataBus.send(mUiChangeLiveData.finishEvent!!, Unit)
     }
 
     fun startActivity(clazz: Class<out Activity>) {
@@ -150,17 +138,6 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         LiveDataBus.send(mUiChangeLiveData.startActivityEventWithBundle!!, Pair(clazz, bundle))
     }
 
-    fun startActivityForResult(clazz: Class<out Activity>) {
-        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEvent!!, clazz)
-    }
-
-    fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle?) {
-        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventWithBundle!!, Pair(clazz, bundle))
-    }
-
-    fun startActivityForResult(clazz: Class<out Activity>, map: ArrayMap<String, *>) {
-        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventWithMap!!, Pair(clazz, map))
-    }
     // Router方式跳转===================================================================================
     fun startActivityRouter(routerPath: String) {
         LiveDataBus.send(mUiChangeLiveData.startActivityEventRouter!!, routerPath)
@@ -168,14 +145,6 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     fun startActivityRouterPostcard(routerPath: String, block: (postcard: Postcard)->Postcard) {
         LiveDataBus.send(mUiChangeLiveData.startActivityEventRouterPostcard!!, Pair(routerPath, block))
     }
-
-    fun startActivityForResultRouter(routerPath: String, requestCode: Int) {
-        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventRouter!!, Pair(routerPath, requestCode))
-    }
-    fun startActivityForResultRouterPostcard(routerPath: String, requestCode: Int, block: (postcard: Postcard)->Postcard) {
-        LiveDataBus.send(mUiChangeLiveData.startActivityForResultEventRouterPostcard!!, Triple(routerPath, requestCode, block))
-    }
-
 
     // ===================================================================================
 
@@ -201,27 +170,15 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         /** 打开Activity页面 传递Bundle*/
         var startActivityEventWithBundle: String? = null
 
-        /** 打开Activity页面 并带有回调功能*/
-        var startActivityForResultEvent: String? = null
-        /** 打开Activity页面 传递Map 并带有回调功能*/
-        var startActivityForResultEventWithMap: String? = null
-        /** 打开Activity页面 传递Bundle 并带有回调功能*/
-        var startActivityForResultEventWithBundle: String? = null
-
         /** Router打开Activity页面*/
         var startActivityEventRouter: String? = null
         /** Router打开Activity页面 传递自定义参数*/
         var startActivityEventRouterPostcard: String? = null
 
-        /** Router打开Activity页面 并带有回调功能*/
-        var startActivityForResultEventRouter: String? = null
-        /** Router打开Activity页面 传递Map 并带有回调功能*/
-        var startActivityForResultEventRouterPostcard: String? = null
-
+        /** 页面关闭并带有回调功能*/
+        var resultFinish: String? = null
         /** 关闭Activity*/
         var finishEvent: String? = null
-        /** setResult直接关闭*/
-        var setResultEvent: String? = null
 
         /** 初始化异步操作状态页面*/
         fun initLoadSirEvent(){
@@ -236,29 +193,17 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
             inputKeyboard = SingleLiveEvent()
         }
 
-        /** 原生跳转调用前初始化*/
-        fun initStartActivityForResultEvent() {
-            startActivityForResultEvent = UUID.randomUUID().toString()
-            startActivityForResultEventWithMap = UUID.randomUUID().toString()
-            startActivityForResultEventWithBundle = UUID.randomUUID().toString()
-        }
-
-        /** 原生调用带返回值前初始化*/
+        /** 原生调用前初始化*/
         fun initStartAndFinishEvent() {
             startActivityEvent = UUID.randomUUID().toString()
             startActivityWithMapEvent = UUID.randomUUID().toString()
             startActivityEventWithBundle = UUID.randomUUID().toString()
-            finishEvent = UUID.randomUUID().toString()
-            setResultEvent = UUID.randomUUID().toString()
-        }
 
-        /** Router调用前初始化*/
-        fun initRouterStartActivityEvent() {
             startActivityEventRouter = UUID.randomUUID().toString()
             startActivityEventRouterPostcard = UUID.randomUUID().toString()
 
-            startActivityForResultEventRouter = UUID.randomUUID().toString()
-            startActivityForResultEventRouterPostcard = UUID.randomUUID().toString()
+            finishEvent = UUID.randomUUID().toString()
+            resultFinish = UUID.randomUUID().toString()
         }
 
     }

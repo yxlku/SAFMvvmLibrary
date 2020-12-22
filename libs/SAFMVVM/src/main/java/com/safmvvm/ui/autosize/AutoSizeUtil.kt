@@ -24,7 +24,7 @@ object AutoSizeUtil {
         var manager = AutoSizeConfig
             .getInstance()
             .unitsManager
-        GlobalConfig.AutoSize.gDesignSize?.let {
+        GlobalConfig.AutoSize.gDesignSize.let {
             manager.setDesignSize(it.first, it.second)
         }
         manager.setSupportDP(true)

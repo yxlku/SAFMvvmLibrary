@@ -55,7 +55,8 @@ public class TitleBar extends FrameLayout
     private final View mLineView;
 
     /** 控件内间距 */
-    private int mHorizontalPadding, mVerticalPadding;
+    private final int mHorizontalPadding;
+    private final int mVerticalPadding;
 
     /** 图标显示大小 */
     private int mDrawableSize = -1;

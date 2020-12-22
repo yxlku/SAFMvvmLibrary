@@ -28,7 +28,7 @@ class TestRoomViewModel(app: Application): BaseViewModel<TestRoomModel>(app) {
             putExtra("age", 15)
         }
         //关闭并返回结果
-        finish(Activity.RESULT_OK, intent)
+        resultFinish("testRoom", Activity.RESULT_OK, intent)
     }
     /**
      * 添加 -- 没有返回值监听

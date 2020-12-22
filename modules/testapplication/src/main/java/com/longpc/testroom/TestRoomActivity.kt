@@ -2,8 +2,6 @@ package com.longpc.testroom
 
 import android.widget.ScrollView
 import androidx.lifecycle.Observer
-import com.gyf.immersionbar.ImmersionBar
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.longpc.testapplication.R
 import com.longpc.testapplication.BR
 import com.longpc.testapplication.databinding.MainActivityTestRoomBinding

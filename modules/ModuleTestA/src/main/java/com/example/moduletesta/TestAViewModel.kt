@@ -16,10 +16,6 @@ import com.test.common.RouterActivityPath
 class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
     var text = SingleLiveEvent<String>()
 
-    override fun onResume(owner: LifecycleOwner) {
-        super.onResume(owner)
-    }
-
     fun toTestAppliactionApp(v: View){
         // 1. 应用内简单的跳转(通过URL跳转在'进阶用法'中)
 //        ARouter.getInstance().build(RouterActivityPath.TestApplication.PAGE_MAIN).navigation();
@@ -50,8 +46,4 @@ class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
 
     }
 
-    override fun onActivityResultOk(intent: Intent) {
-        var s = intent?.getStringExtra("ca")
-        text.putValue(s)
-    }
 }

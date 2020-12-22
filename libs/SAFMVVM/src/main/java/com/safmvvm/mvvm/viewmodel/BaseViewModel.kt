@@ -5,12 +5,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.google.gson.stream.MalformedJsonException
 import com.safmvvm.app.globalconfig.GlobalConfig
-import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.RepositoryManager
 import com.safmvvm.http.HttpDeal
 import com.safmvvm.http.entity.IBaseResponse
 import com.safmvvm.http.result.ResponseResultCallback
-import com.safmvvm.mvvm.args.IActivityResult
+import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
@@ -31,7 +30,7 @@ import java.lang.reflect.Type
  */
 abstract class BaseViewModel<M: BaseModel>(
     app: Application
-): BaseLiveViewModel<M>(app), IViewModel, IActivityResult {
+): BaseLiveViewModel<M>(app), IViewModel,  IResultFinishCallback{
 
     /**
      * 手动创建Model后传入

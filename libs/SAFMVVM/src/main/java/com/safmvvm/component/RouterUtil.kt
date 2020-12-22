@@ -35,16 +35,6 @@ object RouterUtil {
         ARouter.getInstance().inject(activityOrFragmentClass)
     }
 
-//    /**
-//     * 通用配置
-//     * TODO 转场动画，原生跳转也一并修改，在GlobalConfig中配置
-//     */
-//    private fun commonInit(path: String): Postcard {
-//        return ARouter.getInstance()
-//            .build(path)
-//    }
-
-
     fun startActivity(
         path: String,
         block: (postcard: Postcard) -> Postcard
@@ -53,17 +43,6 @@ object RouterUtil {
             block(this)
         }.navigation()
     }
-    fun startActivityForResult(
-        /** 使用startForResult功能的需要传入此值，必须传Activity*/
-        activity: Activity,
-        /** 使用startForResult功能的需要传入此值*/
-        requestCode: Int = 0,
-        path: String,
-        block: (postcard: Postcard) -> Postcard
-    ) {
-        ARouter.getInstance().build(path).run {
-            block(this)
-        }.navigation(activity, requestCode)
-    }
+
 
 }

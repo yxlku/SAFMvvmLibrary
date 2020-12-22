@@ -33,7 +33,7 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
     /**
      * 1.3、初始化界面观察者
      */
-    fun initViewObservable()
+    fun initViewObservable(){}
 
     /**
      * 1.3 初始化通用的 UI 改变事件，基类应该在初始化后设为 final
@@ -48,7 +48,7 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
     /**
      * 2.2 初始化页面需要的数据
      */
-    fun initData()
+    fun initData(){}
 
     /**
      * 2.3 loadSir初始化

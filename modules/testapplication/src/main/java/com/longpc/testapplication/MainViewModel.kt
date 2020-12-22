@@ -8,13 +8,12 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import com.longpc.testfragment.TestFragmentActivity
 import com.longpc.testroom.TestRoomActivity
-import com.safmvvm.app.BaseApp
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
-import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import kotlinx.coroutines.*
@@ -170,28 +169,31 @@ class MainViewModel(app: Application): BaseViewModel<MainModel>(app) {
     fun updateVersion(v: View){
         LiveDataBus.send("updateVersion", Unit)
     }
-    override fun onActivityResultOk(intent: Intent) {
-        //返回结果
-        intent?.run {
-            var name = intent.getStringExtra("name")
-            var age = intent.getIntExtra("age", 20)
-            text.set("name: ${name}, age: $age")
-            LogUtil.d("name: ${name}, age: $age")
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        onPageResult("testRoom"){resultCode, intent ->
+            intent?.run {
+                var name = intent.getStringExtra("name")
+                var age = intent.getIntExtra("age", 20)
+                text.set("name: ${name}, age: $age")
+                LogUtil.d("name: ${name}, age: $age")
+            }
         }
     }
-
     fun btFinish(v: View){
         var intent = Intent()
         intent.putExtra("ca", "我是返回值")
-        finish(Activity.RESULT_OK, intent)
+//        LiveDataBus.send("finishResult", intent)
+        resultFinish("mainViewModel", Activity.RESULT_OK, intent)
     }
-    fun btTheme(v: View){
-        //自定义主题
-//        ThemeUtil.getTheme(0)?.let {
-//            LiveDataBus.send("theme", it)
-//        }
-
-//        //选择主题
-//        startActivity(CyaneaSettingsActivity::class.java)
+    fun btFinish2(v: View){
+        var intent = Intent()
+        intent.putExtra("ca", "我是返回值222222222222")
+//        LiveDataBus.send("finishResult", intent)
+        resultFinish("mainViewModel2", Activity.RESULT_OK, intent)
+    }
+    fun btToFragment(v: View){
+        startActivity(TestFragmentActivity::class.java)
     }
 }

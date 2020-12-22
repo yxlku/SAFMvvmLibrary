@@ -4,7 +4,6 @@ import android.app.Application
 import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.component.app.IModuleInit
 import com.safmvvm.utils.LogUtil
-import me.jessyan.autosize.AutoSizeConfig
 
 class InitModule: IModuleInit {
     override fun onInitAhead(app: Application) {

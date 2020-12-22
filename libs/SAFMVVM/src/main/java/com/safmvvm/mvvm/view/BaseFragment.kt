@@ -3,8 +3,11 @@ package com.safmvvm.mvvm.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -18,16 +21,13 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
 import com.safmvvm.utils.LogUtil
-import com.zy.multistatepage.MultiStatePage.bindMultiState
+import com.zy.multistatepage.MultiStatePage
 import com.zy.multistatepage.OnNotifyListener
 
-/**
- * 所有Activity都继承此Activity
- */
-abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
-    private val mViewModelId: Int? = null
-) : BaseSuperActivity<V, VM>(mLayoutId, mViewModelId), ILoad {
+    val mViewModelId: Int? = null
+) : BaseSuperFragment<V, VM>(mLayoutId, mViewModelId), ILoad{
 
     //状态：弹窗模式
     private var dialogView: LoadingPopupView? = null
@@ -36,10 +36,33 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     /** 等待等待弹窗提示信息，默认为全局配置项，如果配置项不设置，则使用控件自带的文字*/
     private var mLoadingTipText: String = GlobalConfig.Loading.LOADING_TEXT
     /**
+     * 初始化等待弹窗
+     */
+    override fun initLoadDialog() {
+        //提示文字
+        var tipText: String = if(mLoadingTipText.isNotEmpty()) mLoadingTipText else ""
+        //布局选项 如果子Module没有配置则调用控件中的布局
+        var cusLayout: Int = if(mLoadingLayoutId != 0) mLoadingLayoutId else 0
+        if (dialogView == null) {
+            dialogView =
+                XPopup.Builder(context)
+                    .dismissOnBackPressed(false) //返回键不能关闭
+                    .asLoading(tipText, cusLayout)
+        }
+        mViewModel.mUiChangeLiveData.initLoadDialogEvent()
+        mViewModel.mUiChangeLiveData.loadDialogEvent?.observe(this, Observer {
+            if (it == true) {
+                dialogView?.show()
+            } else {
+                dialogView?.dismiss()
+            }
+        })
+    }
+    /**
      * 初始化LoadSir
      */
     override fun initLoadSir() {
-        val multiStateContainer = bindMultiState(this){
+        val multiStateContainer = MultiStatePage.bindMultiState(mBinding.root) {
             //如果出现错误页等需要重新加载的页面，可在此方法中接收回调
             onLoadSirReload()
         }
@@ -60,31 +83,6 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             }
         })
     }
-
-    /**
-     * 初始化等待弹窗
-     */
-    override fun initLoadDialog() {
-        //提示文字
-        var tipText: String = if(mLoadingTipText.isNotEmpty()) mLoadingTipText else ""
-        //布局选项 如果子Module没有配置则调用控件中的布局
-        var cusLayout: Int = if(mLoadingLayoutId != 0) mLoadingLayoutId else 0
-        if (dialogView == null) {
-            dialogView =
-                XPopup.Builder(this)
-                    .dismissOnBackPressed(false) //返回键不能关闭
-                    .asLoading(tipText, cusLayout)
-        }
-        mViewModel.mUiChangeLiveData.initLoadDialogEvent()
-        mViewModel.mUiChangeLiveData.loadDialogEvent?.observe(this, Observer {
-            if (it == true) {
-                dialogView?.show()
-            } else {
-                dialogView?.dismiss()
-            }
-        })
-    }
-
     /**
      * 事件接收
      */
@@ -96,7 +94,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             mViewModel.mUiChangeLiveData.inputKeyboard!!,
             Observer {
                 it?.let {
-                    val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    val imm: InputMethodManager = context?.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
                     if (it) {
                         //显示
                         imm.showSoftInput(mBinding.root, 0)
@@ -105,7 +103,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
                         imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
                     }
                 }
-        })
+            })
 
         //页面控制接收
         mViewModel.mUiChangeLiveData.initStartAndFinishEvent()
@@ -128,6 +126,14 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             },
             true
         )
+//        LiveDataBus.observe<Pair<Int?, Intent?>>(
+//            this,
+//            mViewModel.mUiChangeLiveData.resultFinishCallback!!,
+//            Observer {
+//                resultFinishCallback(it)
+//            },
+//            true
+//        )
         // vm 可以启动界面
         LiveDataBus.observe<Class<out Activity>>(
             this,
@@ -167,7 +173,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             true
         )
         //Router跳转带返回参数
-        LiveDataBus.observe<Pair<String, (postcard: Postcard)->Postcard>>(
+        LiveDataBus.observe<Pair<String, (postcard: Postcard)-> Postcard>>(
             this,
             mViewModel.mUiChangeLiveData.startActivityEventRouterPostcard!!,
             Observer {
@@ -179,12 +185,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         dialogView?.destroy()
     }
 
@@ -200,5 +202,4 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         mLoadingLayoutId = if(layoutId != 0) layoutId else GlobalConfig.Loading.LOADING_LAYOUT_ID
         mLoadingTipText = if(tipText.isNotEmpty()) tipText else GlobalConfig.Loading.LOADING_TEXT
     }
-
 }

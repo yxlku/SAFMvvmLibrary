@@ -1,9 +1,5 @@
 package com.longpc.testapplication
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Bundle
-import androidx.collection.ArrayMap
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -18,10 +14,7 @@ import com.maning.updatelibrary.InstallUtils
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.mvvm.view.BaseActivity
-import com.safmvvm.ui.theme.ThemeUtil
-import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
-import com.safmvvm.utils.Utils
 import com.test.common.RouterActivityPath
 import java.lang.Exception
 

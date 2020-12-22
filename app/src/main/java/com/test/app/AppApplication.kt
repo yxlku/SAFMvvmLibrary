@@ -11,10 +11,6 @@ import me.jessyan.autosize.external.ExternalAdaptInfo
 class AppApplication: CommonAppApplication() {
 
 
-    override fun onMainPorcessInitBefore() {
-        super.onMainPorcessInitBefore()
-    }
-
     override fun onMainProcessInit() {
         super.onMainProcessInit()
         AutoSizeUtil.init()

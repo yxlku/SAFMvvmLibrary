@@ -5,6 +5,7 @@
     <application>
         <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.longpc.testroom.TestRoomActivity"/>
+        <activity android:name="com.longpc.testfragment.TestFragmentActivity" />
     </application>
 
 </manifest>

@@ -50,11 +50,4 @@ open class CommonAppApplication: ComponentBaseApp() {
             .build()
     }
 
-    override fun onMainProcessInit() {
-        super.onMainProcessInit()
-
-
-
-
-    }
 }
