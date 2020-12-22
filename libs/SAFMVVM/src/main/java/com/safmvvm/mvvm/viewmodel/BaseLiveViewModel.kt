@@ -42,15 +42,11 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
 
     internal var mBundle: Bundle? = null
     internal var mIntent: Intent? = null
-    /** 存放跳转的tag*/
-    var tagMap = hashMapOf<String, String>()
 
     val mUiChangeLiveData by lazy { UiChangeLiveData() }
 
     override fun onCleared() {
         super.onCleared()
-        //清空所有tag
-        tagMap.clear()
         //livewDataBus取消监听
         LiveDataBus.removeObserve(this)
         LiveDataBus.removeStickyObserver(this)

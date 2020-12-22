@@ -233,6 +233,7 @@ abstract class BaseViewModel<M: BaseModel>(
      * viewmodel不在使用时调用，取消一切订阅操作
      */
     override fun onCleared() {
+        super.onCleared()
         //可能 mModel 是未初始化的
         if (this::mModel.isInitialized) {
             //model执行取消绑定的声明周期
