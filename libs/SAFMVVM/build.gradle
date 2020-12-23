@@ -126,6 +126,12 @@ dependencies {
     //沉浸式状态栏
     api Deps.immersionbar
     api Deps.immersionbarKtx
+    //刷新库
+    api Deps.refreshLayout
+    api Deps.refreshLayoutHeaderClassics
+    api Deps.refreshLayoutFooterClassics
+    //列表库
+    api Deps.adapter
 
 
     //组件中依赖阿里路由编译框架

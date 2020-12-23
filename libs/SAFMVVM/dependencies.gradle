@@ -10,6 +10,7 @@ ext {
             navigation    : "2.3.0",
             hilt          : "2.29.1-alpha",
             lifecycle     : "2.2.0",
+            refreshLayout : "2.0.1",
     ]
 
     Deps = [
@@ -128,6 +129,12 @@ ext {
             //沉浸式状态栏
             immersionbar               :"com.gyf.immersionbar:immersionbar:3.0.0",
             immersionbarKtx            :"com.gyf.immersionbar:immersionbar-ktx:3.0.0",
+            //下拉刷新
+            refreshLayout              :"com.scwang.smart:refresh-layout-kernel:${Versions.refreshLayout}",
+            refreshLayoutHeaderClassics:"com.scwang.smart:refresh-header-classics:${Versions.refreshLayout}",
+            refreshLayoutFooterClassics:"com.scwang.smart:refresh-footer-classics:${Versions.refreshLayout}",
+            //列表适配器
+            adapter                    :"com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
 
             //阿里路由框架
             "arouterApi"              : "com.alibaba:arouter-api:1.5.1",
