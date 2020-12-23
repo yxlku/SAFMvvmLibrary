@@ -47,7 +47,6 @@ open class CommonAppApplication: ComponentBaseApp() {
                         }
                     })
             )
-            .build()
     }
 
 }

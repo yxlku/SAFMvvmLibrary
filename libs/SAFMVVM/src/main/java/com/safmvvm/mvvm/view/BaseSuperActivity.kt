@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,6 +27,7 @@ import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
+import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
 
@@ -79,6 +81,17 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(window.decorView)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)
+            it.setOnTitleBarListener(object : OnTitleBarListener {
+                override fun onLeftClick(v: View?) {
+                    if (titleBackFinish()) finish()
+                }
+
+                override fun onTitleClick(v: View?) {
+                }
+
+                override fun onRightClick(v: View?) {
+                }
+            })
         }
     }
 

@@ -21,6 +21,8 @@ import java.lang.reflect.Type
  */
 interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgumentsFromBundle {
 
+    fun titleBackFinish(): Boolean = true
+
     /**
      * 1.1 初始化databinding
      */

@@ -22,6 +22,7 @@ import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
+import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
 
@@ -96,6 +97,17 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(view)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)
+            it.setOnTitleBarListener(object : OnTitleBarListener {
+                override fun onLeftClick(v: View?) {
+                    if (titleBackFinish()) finish()
+                }
+
+                override fun onTitleClick(v: View?) {
+                }
+
+                override fun onRightClick(v: View?) {
+                }
+            })
         }
     }
 
