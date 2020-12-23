@@ -44,7 +44,7 @@ class DialogUtil(
      */
     fun confirmAndCancelDialog(
         /** 标题文字*/
-        title: String = "",
+        title: String = "温馨提示",
         /** 提示内容文字*/
         content: String = "",
         /** 取消按钮文字*/

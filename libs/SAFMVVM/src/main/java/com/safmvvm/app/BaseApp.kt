@@ -4,9 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
-import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.ui.autosize.AutoSizeUtil
+import com.safmvvm.ui.load.LoadSirUtil
 import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
@@ -70,7 +70,7 @@ open class BaseApp : Application() {
             //日志初始化
             LogUtil.initLog()
             //等待布局初始化
-            GlobalConfigFun.initPageStateConfig()
+            LoadSirUtil.init()
             //开启全局日常捕获
             CrashHandlerUtil.init()
             //初始化下载器

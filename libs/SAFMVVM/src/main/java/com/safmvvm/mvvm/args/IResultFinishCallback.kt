@@ -3,7 +3,6 @@ package com.safmvvm.mvvm.args
 import android.content.Intent
 import androidx.lifecycle.Observer
 import com.safmvvm.bus.LiveDataBus
-import com.safmvvm.utils.jetpack.putValue
 
 /**
  * 封装 ActivityResult 的回调接口，让回调在界面和 vm 中都可以收到。

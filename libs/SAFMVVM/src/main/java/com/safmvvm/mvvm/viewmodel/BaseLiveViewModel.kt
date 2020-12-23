@@ -12,6 +12,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.alibaba.android.arouter.facade.Postcard
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.SingleLiveEvent
+import com.safmvvm.bus.putValue
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
@@ -20,8 +22,6 @@ import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.Utils
-import com.safmvvm.utils.jetpack.SingleLiveEvent
-import com.safmvvm.utils.jetpack.putValue
 import com.zy.multistatepage.MultiState
 import java.util.*
 import kotlin.collections.HashMap

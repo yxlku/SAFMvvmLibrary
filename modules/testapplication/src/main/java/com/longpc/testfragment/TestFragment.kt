@@ -7,7 +7,6 @@ import com.longpc.testapplication.R
 import com.longpc.testapplication.databinding.MainFragmentTestBinding
 import com.safmvvm.mvvm.view.BaseFragment
 import com.longpc.testapplication.BR
-import com.safmvvm.utils.jetpack.putValue
 
 class TestFragment : BaseFragment<MainFragmentTestBinding, TestViewModel>(
     R.layout.main_fragment_test,

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:windowIsTranslucent">true</item>
         <!-- 窗口背景颜色 -->
         <item name="android:windowBackground">@color/background</item>
         <!-- 应用的主要色调，ActionBar Toolbar 默认使用该颜色 -->

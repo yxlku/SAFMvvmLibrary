@@ -4,10 +4,8 @@ import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.app.globalconfig.GlobalConfig
-import com.safmvvm.app.globalconfig.GlobalConfigFun
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
-import com.safmvvm.file.update.dialog.IUpdateProgressDialog
 import com.zy.multistatepage.MultiState
 
 /**
@@ -274,16 +272,44 @@ class GlobalConfigCreator {
         GlobalConfig.Loading.LOADING_EMPTY_MSG = emptyMsg
         return this
     }
+    /********************************** Image初始化配置 *******************************************/
     /**
-     * 主要是分配到具体的配置项
-     * 1、GlobalConfig               -> 属性
-     * 2、GlobalConfigFun            -> 方法
-     * 3、GlobalConfigInitListener   -> 初始化自定义函数
+     * 全局图片占位图
      */
-    fun build(){
-        //初始化状态页
-        GlobalConfigFun.initPageStateConfig(
-            GlobalConfig.Loading.LOADING_ALPHA_DURATION,
-        )
+    fun imageResPlaceholder(@DrawableRes imageResPlaceholder: Int): GlobalConfigCreator{
+        GlobalConfig.ImageView.gImageResPlaceholder = imageResPlaceholder
+        return this
+    }
+
+    /**
+     * 全局图片错误图
+     */
+    fun imageResError(@DrawableRes imageResError: Int): GlobalConfigCreator{
+        GlobalConfig.ImageView.gImageResError = imageResError
+        return this
+    }
+
+    /********************************** 点击事件初始化配置 *******************************************/
+
+    /**
+     * 在 xml 配置点击事件，可配置的属性如下：
+     * onClickCommand 点击事件
+     * isInterval 是否开启防止点击过快
+     * intervalMilliseconds 防止点击过快的间隔时间，毫秒为单位
+     *
+     * 这里可全局设置是否开启防止点击事件过快的功能，局部可单独开启或关闭。
+     *
+     * 如果关闭，那么和 setOnClickListener 没啥区别
+     */
+    fun clickIsInterval(isClickInterval: Boolean): GlobalConfigCreator{
+        GlobalConfig.Click.gIsClickInterval = isClickInterval
+        return this
+    }
+    /**
+     * 点击事件时间间隔
+     */
+    fun clickIntervalMilliseconds(time: Int): GlobalConfigCreator{
+        GlobalConfig.Click.gClickIntervalMilliseconds = time
+        return this
     }
 }

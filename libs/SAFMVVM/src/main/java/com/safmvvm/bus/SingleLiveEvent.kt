@@ -1,4 +1,4 @@
-package com.safmvvm.utils.jetpack
+package com.safmvvm.bus
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

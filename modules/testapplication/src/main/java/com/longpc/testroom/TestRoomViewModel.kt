@@ -6,11 +6,11 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.LiveData
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.SingleLiveEvent
+import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
-import com.safmvvm.utils.jetpack.SingleLiveEvent
-import com.safmvvm.utils.jetpack.putValue
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart

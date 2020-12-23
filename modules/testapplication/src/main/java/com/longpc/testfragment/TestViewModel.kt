@@ -7,10 +7,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.longpc.testapplication.MainActivity
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.SingleLiveEvent
+import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.jetpack.SingleLiveEvent
-import com.safmvvm.utils.jetpack.putValue
 
 class TestViewModel(app: Application): BaseViewModel<TestModel>(app){
 
