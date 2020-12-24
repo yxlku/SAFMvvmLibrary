@@ -10,14 +10,15 @@
             type="com.example.moduletesta.TestAViewModel" />
     </data>
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableLoadMore="false"
-        app:srlEnableOverScrollDrag="true"
-        app:srlEnableRefresh="false">
+<!--    <com.scwang.smart.refresh.layout.SmartRefreshLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:srlEnableLoadMore="false"-->
+<!--        app:srlEnableOverScrollDrag="true"-->
+<!--        app:srlEnableRefresh="false">-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:isDamp="@{true}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -42,5 +43,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+<!--    </com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
 </layout>

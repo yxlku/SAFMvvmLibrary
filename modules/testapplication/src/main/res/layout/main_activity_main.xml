@@ -15,24 +15,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            isElasticity="true"
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="MainActivity标题栏" />
+
+        <ScrollView
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_title"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                app:isDamp="@{true}"
                 android:id="@+id/layout_root3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <com.safmvvm.ui.titlebar.TitleBar
-                    android:id="@+id/tb_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:title="MainActivity标题栏" />
 
                 <TextView
                     android:onClick="@{viewModel.btFinish}"
@@ -97,7 +101,7 @@
                     android:textSize="32mm"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tb_title" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <Button
                     android:id="@+id/main_btn_time"
@@ -133,7 +137,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.014"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tb_title"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
