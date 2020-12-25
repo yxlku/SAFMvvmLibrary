@@ -11,7 +11,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:isDamp2="@{true}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:leftTint="#F44336"
@@ -20,18 +19,18 @@
         app:titleColor="#040403"
         app:titleStyle="bold|italic">
 
-                <com.safmvvm.ui.titlebar.TitleBar
-                    android:id="@+id/main_titlebar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:leftTint="#F44336"
-                    app:title="Room"
-                    app:titleColor="#040403"
-                    app:titleStyle="bold|italic" />
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/main_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftTint="#F44336"
+            app:title="Room"
+            app:titleColor="#040403"
+            app:titleStyle="bold|italic" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/main_guideline"
@@ -41,23 +40,23 @@
             app:layout_constraintGuide_percent="0.7" />
 
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/main_scrollview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/main_guideline"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_titlebar"
-                app:layout_constraintVertical_bias="0.0">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/main_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/main_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_titlebar"
+            app:layout_constraintVertical_bias="0.0">
 
-                <TextView
-                    android:id="@+id/main_textview2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.testData}" />
-            </androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/main_textview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.testData}" />
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
