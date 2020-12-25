@@ -179,10 +179,6 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
     override fun onDestroy() {
         super.onDestroy()
         dialogView?.destroy()

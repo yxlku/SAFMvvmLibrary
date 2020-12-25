@@ -12,6 +12,7 @@ import com.safmvvm.utils.UUIDUtil
 import com.test.common.BuildConfig
 import okhttp3.Interceptor
 import java.lang.Exception
+import kotlin.system.exitProcess
 
 class ProjectConfigListener: GlobalConfigInitListener {
 
@@ -55,6 +56,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?) {
         ToastUtil.showShortToast("我擦，我崩溃了！！错误原因：" + ex?.message )
         AppActivityManager.finishAllActivity()
+        exitProcess(0)
     }
 
     override fun dateParseException(isJson: Boolean, msg: String, ex: Exception) {

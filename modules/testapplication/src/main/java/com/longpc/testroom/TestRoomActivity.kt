@@ -14,7 +14,7 @@ class TestRoomActivity: BaseActivity<MainActivityTestRoomBinding, TestRoomViewMo
 ) {
     override fun initViewObservable() {
         LiveDataBus.observe<Unit>(this, "scd", Observer {
-            mBinding.mainScrollview.fullScroll(ScrollView.FOCUS_DOWN) //滑到底部
+//            mBinding.mainScrollview.fullScroll(ScrollView.FOCUS_DOWN) //滑到底部
         })
     }
 

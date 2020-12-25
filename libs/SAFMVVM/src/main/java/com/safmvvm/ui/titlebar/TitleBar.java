@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 
 import com.safmvvm.R;
@@ -194,6 +195,9 @@ public class TitleBar extends FrameLayout
         }
 
         // 背景设置
+        if (array.hasValue(R.styleable.TitleBar_titleBarBackground)) {
+            setBackground(array.getDrawable(R.styleable.TitleBar_titleBarBackground));
+        }
         if (array.hasValue(R.styleable.TitleBar_leftBackground)) {
             setLeftBackground(array.getDrawable(R.styleable.TitleBar_leftBackground));
         }

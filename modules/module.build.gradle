@@ -89,6 +89,7 @@ android {
         kapt "androidx.room:room-compiler:2.2.5"
 
         kapt  "com.android.databinding:compiler:4.1.1"
+
     }
 }
 

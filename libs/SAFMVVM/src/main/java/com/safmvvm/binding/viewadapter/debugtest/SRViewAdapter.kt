@@ -1,15 +1,9 @@
-package com.safmvvm.binding.viewadapter
+package com.safmvvm.binding.viewadapter.debugtest
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.safmvvm.R
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
@@ -26,7 +20,7 @@ object SRViewAdapter {
                 var srView: ViewGroup = LayoutInflater.from(view.context).inflate(R.layout.rv,null) as ViewGroup
                 var parent: ViewGroup = view.parent as ViewGroup
                 var smartRefreshLayout: SmartRefreshLayout = srView.findViewById(R.id.dataBinding_srl_layout)
-                parent?.let{
+                parent.let{
                     it.removeView(view)
                 }
                 smartRefreshLayout.addView(view)

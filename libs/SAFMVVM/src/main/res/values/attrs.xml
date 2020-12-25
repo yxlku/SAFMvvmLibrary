@@ -62,5 +62,7 @@
         <attr name="android:paddingVertical" />
         <!-- 控件垂直内间距（可用于调整标题栏自适应的高度） -->
         <attr name="android:paddingHorizontal" />
+        <!-- 标题栏颜色-->
+        <attr name="titleBarBackground" format="reference|color"/>
     </declare-styleable>
 </resources>

@@ -83,5 +83,6 @@ dependencies {
         //TestA模块
         implementation project(':modules:ModuleTestA')
         implementation project(':modules:testapplication')
+        implementation project(':modules:ModuleBasis')
     }
 }
