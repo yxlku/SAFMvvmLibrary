@@ -10,7 +10,4 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
     BR.viewModel
 ) {
 
-    override fun initData() {
-        super.initData()
-    }
 }

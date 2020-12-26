@@ -112,16 +112,6 @@ class DividerLine(context: Context) : ItemDecoration() {
         }
     }
 
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        //        outRect.bottom = getDividerSize() == 0 ? dip2px(mContext, DEFAULT_DIVIDER_SIZE) : getDividerSize();
-    }
-
     companion object {
         //默认分隔线厚度为2dp
         private const val DEFAULT_DIVIDER_SIZE = 1

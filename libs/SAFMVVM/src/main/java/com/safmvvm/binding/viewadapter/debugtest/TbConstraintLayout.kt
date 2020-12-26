@@ -46,7 +46,7 @@ class TbConstraintLayout: ConstraintLayout {
         var parent = parent as ViewGroup
         var child: View? = null
         var thisViewIndex = 0
-        parent?.let {
+        parent.let {
             for (i in 0 until parent.childCount ){
                 if (parent.getChildAt(i) == this) {
                     child = parent.getChildAt(i)

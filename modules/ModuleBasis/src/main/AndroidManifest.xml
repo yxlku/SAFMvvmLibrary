@@ -5,7 +5,7 @@
     <application>
 
         <activity android:name="com.deti.basis.splash.SplashActivity"/>
-        <activity android:name="com.deti.basis.login.LoginAcitivty"/>
+        <activity android:name="com.deti.basis.login.LoginActivity"/>
     </application>
 
 </manifest>

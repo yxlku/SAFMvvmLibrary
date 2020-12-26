@@ -10,8 +10,7 @@ class SplashActivity: BaseActivity<BasisActivitySplashBinding, SplashViewModel>(
     R.layout.basis_activity_splash,
     BR.viewModel
 ) {
-
-    override fun initData() {
-        super.initData()
+    override fun startPageAnim() {
+//        super.startPageAnim()
     }
 }

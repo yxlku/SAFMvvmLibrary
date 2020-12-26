@@ -27,7 +27,7 @@ object SRViewAdapter {
                 smartRefreshLayout.setEnableOverScrollDrag(true)
                 smartRefreshLayout.setEnableNestedScroll(true)
 
-                parent?.let{
+                parent.let{
                     it.removeView(view)
                 }
                 smartRefreshLayout.addView(view)

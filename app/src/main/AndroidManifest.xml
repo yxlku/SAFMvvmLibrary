@@ -10,9 +10,9 @@
         android:name=".AppApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--        <activity android:name="com.deti.basis.splash.SplashActivity"-->
-        <activity android:name="com.example.moduletesta.TestAMainActivity"
-            android:screenOrientation="portrait"
+        <!--        <activity android:name="com.example.moduletesta.TestAMainActivity"-->
+                <activity android:name="com.deti.basis.splash.SplashActivity"
+        android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
