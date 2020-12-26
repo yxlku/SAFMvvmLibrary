@@ -4,12 +4,14 @@ import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
+import com.safmvvm.component.RouterUtil
 import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ToastUtil
 import com.safmvvm.utils.UUIDUtil
 import com.test.common.BuildConfig
+import com.test.common.RouterActivityPath
 import okhttp3.Interceptor
 import java.lang.Exception
 import kotlin.system.exitProcess
@@ -146,9 +148,10 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun dealNetCode(code: String, msg: String?): Boolean {
         if (code == "300") {
             ToastUtil.showShortToast(msg + "我擦，我退出登录了！！")
-//            var intent = Intent(BaseApp.getInstance(), MainActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            BaseApp.getInstance().startActivity(intent)
+            //清空内存
+            //.....
+            //退出登录
+            RouterUtil.startActivity(RouterActivityPath.ModuleBasis.PAGE_LOGIN)
             return true
         }else{
             return false

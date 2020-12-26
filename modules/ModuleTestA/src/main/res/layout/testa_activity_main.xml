@@ -37,11 +37,22 @@
                 android:id="@+id/tv_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="50mm"
                 android:text="@={viewModel.text}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:onClick="@{viewModel.btnLogout}"
+                android:id="@+id/test_a_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50mm"
+                android:text="退出登录"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bt_arouter" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 <!--    </com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
 </layout>

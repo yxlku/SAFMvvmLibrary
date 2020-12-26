@@ -1,10 +1,13 @@
 package com.example.moduletesta
 
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.moduletesta.databinding.TestaActivityMainBinding
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.ui.dialog.DialogUtil
+import com.test.common.RouterActivityPath
 
+@Route(path = RouterActivityPath.ModuleTestA.PAGE_TESTA)
 class TestAMainActivity : BaseActivity<TestaActivityMainBinding, TestAViewModel>(
     R.layout.testa_activity_main,
     BR.viewModel

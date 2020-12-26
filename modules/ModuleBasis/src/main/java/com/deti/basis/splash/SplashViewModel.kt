@@ -21,7 +21,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 
 class SplashViewModel(app: Application) : BaseViewModel<SplashModel>(app) {
-    private val initTime: Long = 3000
+    private val initTime: Long = 3
     var timeText = SingleLiveEvent<Long>()
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -29,7 +29,6 @@ class SplashViewModel(app: Application) : BaseViewModel<SplashModel>(app) {
         launchUI {
             flowCountDownDeal(
                 initTime,
-                TimeUnit.MICROSECONDS,
                 dealBeforeBlock = {
                     timeText.putValue(initTime)
                     LogUtil.d("倒计时开始")

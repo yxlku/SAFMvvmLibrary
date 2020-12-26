@@ -38,6 +38,13 @@ object AppActivityManager {
     }
 
     /**
+     * 获取Activity数量
+     */
+    fun countActivity(): Int{
+        return mActivityStack.size
+    }
+
+    /**
      * 获取当前显示Activity
      * 原理：栈顶的Activity-也就是栈中最后加入的Activity
      */

@@ -1,5 +1,6 @@
 package com.example.moduletesta
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
+import com.safmvvm.app.AppActivityManager
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
@@ -46,6 +48,12 @@ class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
                 .withString("test", "2222我成功了！！！")
         }
 
+    }
+
+    fun btnLogout(v: View){
+        //清理用户信息内存
+        //跳转到登录页面 -- 不用杀死当前页面
+        startActivityRouter(RouterActivityPath.ModuleBasis.PAGE_LOGIN)
     }
 
 }

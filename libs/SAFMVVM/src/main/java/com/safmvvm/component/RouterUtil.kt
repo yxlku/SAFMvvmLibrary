@@ -36,6 +36,13 @@ object RouterUtil {
     }
 
     fun startActivity(
+        path: String
+    ) {
+        ARouter.getInstance().build(path).navigation()
+    }
+
+
+    fun startActivity(
         path: String,
         block: (postcard: Postcard) -> Postcard
     ) {
