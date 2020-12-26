@@ -3,6 +3,7 @@ package com.safmvvm.mvvm.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.collection.ArrayMap
@@ -18,6 +19,7 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
 import com.safmvvm.utils.LogUtil
+import com.zy.multistatepage.MultiStatePage
 import com.zy.multistatepage.MultiStatePage.bindMultiState
 import com.zy.multistatepage.OnNotifyListener
 

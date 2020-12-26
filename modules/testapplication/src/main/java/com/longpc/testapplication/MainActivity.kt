@@ -16,6 +16,7 @@ import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.utils.ToastUtil
 import com.test.common.RouterActivityPath
+import com.zy.multistatepage.MultiStatePage
 import java.lang.Exception
 
 
@@ -42,6 +43,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     var test = ""
 
     override fun initData() {
+
         mViewModel.text.set(test+"ssss2")
 //        LogUtil.d(routerUtils)
         //https://github.com/getActivity/XXPermissions

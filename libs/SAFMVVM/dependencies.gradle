@@ -68,7 +68,7 @@ ext {
             xxpermissions             :"com.hjq:xxpermissions:9.5",
 
             // 内部加载中
-            MultiStatePage            : 'com.github.Zhao-Yan-Yan:MultiStatePage:1.0.7',
+            MultiStatePage            : 'com.github.Zhao-Yan-Yan:MultiStatePage:1.0.9',
 
             // ktx
             // 在 LiveData 中使用协程
