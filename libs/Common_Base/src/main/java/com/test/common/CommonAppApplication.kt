@@ -23,6 +23,7 @@ open class CommonAppApplication: ComponentBaseApp() {
         GlobalConfigCreator()
             .autoSizeDesignSize(750f, 1344f)
             .appIsOpenRouter(true)
+            .appIsOpenSwipeback(true)
             .animIsOpen(false)
             .requestSuccessCode("0")
             .requestBaseUrl("https://www.wanandroid.com/")

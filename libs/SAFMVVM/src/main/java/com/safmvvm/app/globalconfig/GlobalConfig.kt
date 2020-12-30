@@ -27,6 +27,8 @@ internal object GlobalConfig {
         var gGlobalConfigInitListener: GlobalConfigInitListener? = null
         /** 是否开启路由*/
         var gIsOpenArouter: Boolean = true
+        /** 是否开启侧滑功能*/
+        var gIsOpenSwipeback: Boolean = true
     }
 
     /**

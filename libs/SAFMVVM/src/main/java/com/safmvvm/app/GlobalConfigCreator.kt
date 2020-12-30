@@ -34,6 +34,13 @@ class GlobalConfigCreator {
         return this
     }
 
+    /**
+     * 是否开启
+     */
+    fun appIsOpenSwipeback(isOpenSwipeback: Boolean): GlobalConfigCreator{
+        GlobalConfig.App.gIsOpenSwipeback = isOpenSwipeback
+        return this
+    }
     /************************************ Anim请求初始化配置 *******************************************/
     /**
      * 是否使用跳转动画

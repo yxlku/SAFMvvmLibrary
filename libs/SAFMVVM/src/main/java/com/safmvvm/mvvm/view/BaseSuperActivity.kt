@@ -88,11 +88,13 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     }
 
     override fun initSwipeBack() {
-        mSwipeConsumer = SmartSwipe.wrap(this)
-            .removeAllConsumers()
-            .addConsumer(ActivitySlidingBackConsumer(this))
-            .setRelativeMoveFactor(0.5f)
-            .enableLeft()
+        if (GlobalConfig.App.gIsOpenSwipeback) {
+            mSwipeConsumer = SmartSwipe.wrap(this)
+                .removeAllConsumers()
+                .addConsumer(ActivitySlidingBackConsumer(this))
+                .setRelativeMoveFactor(0.5f)
+                .enableLeft()
+        }
     }
 
     /** 初始化状态栏 */
