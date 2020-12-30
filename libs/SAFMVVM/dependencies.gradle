@@ -129,6 +129,8 @@ ext {
             //沉浸式状态栏
             immersionbar               :"com.gyf.immersionbar:immersionbar:3.0.0",
             immersionbarKtx            :"com.gyf.immersionbar:immersionbar-ktx:3.0.0",
+            //侧滑关闭
+            swipebacklayout            :"com.billy.android:smart-swipe:1.1.2",
             //下拉刷新
             refreshLayout              :"com.scwang.smart:refresh-layout-kernel:${Versions.refreshLayout}",
             refreshLayoutHeaderClassics:"com.scwang.smart:refresh-header-classics:${Versions.refreshLayout}",

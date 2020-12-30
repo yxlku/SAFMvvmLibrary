@@ -73,6 +73,11 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
     fun finishPageAnim()
 
     /**
+     * 3.3 侧滑关闭
+     */
+    fun initSwipeBack(){}
+
+    /**
      * 移除事件总线监听，避免内存泄露
      */
     fun removeLiveDataBus(owner: LifecycleOwner) {

@@ -12,6 +12,8 @@ class TestAMainActivity : BaseActivity<TestaActivityMainBinding, TestAViewModel>
     R.layout.testa_activity_main,
     BR.viewModel
 ) {
+
+
     override fun initViewObservable() {
     }
 

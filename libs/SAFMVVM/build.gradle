@@ -126,6 +126,8 @@ dependencies {
     //沉浸式状态栏
     api Deps.immersionbar
     api Deps.immersionbarKtx
+    //侧滑关闭
+    api Deps.swipebacklayout
     //刷新库
     api Deps.refreshLayout
     api Deps.refreshLayoutHeaderClassics

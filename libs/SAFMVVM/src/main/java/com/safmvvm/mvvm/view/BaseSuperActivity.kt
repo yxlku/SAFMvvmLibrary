@@ -1,6 +1,5 @@
 package com.safmvvm.mvvm.view
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
@@ -18,17 +16,27 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
+import com.billy.android.swipe.SmartSwipe
+import com.billy.android.swipe.SmartSwipeBack
+import com.billy.android.swipe.SmartSwipeWrapper
+import com.billy.android.swipe.SwipeConsumer
+import com.billy.android.swipe.consumer.ActivitySlidingBackConsumer
+import com.billy.android.swipe.listener.SimpleSwipeListener
+import com.billy.android.swipe.listener.SwipeListener
+import com.safmvvm.R
+import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.component.RouterUtil
-import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.args.IArgumentsFromBundle
 import com.safmvvm.mvvm.args.IArgumentsFromIntent
+import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseLiveViewModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.Utils
 
 /**
@@ -46,6 +54,9 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     var mTitleBar: TitleBar? = null
 
+    /** 侧滑*/
+    var mSwipeConsumer: SwipeConsumer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //添加setRequestedOrientation方法实现锁定横屏（portrait为保持竖屏，landscape为保持横屏）
@@ -56,6 +67,7 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         initDatabinding(layoutInflater, null)
         //初始化view
         setContentView(mBinding.root)
+        initSwipeBack()
         //初始化viewModel
         initViewModel()
         //初始化标题栏，支持沉浸式
@@ -73,6 +85,14 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         //初始化等待弹窗
         initLoadDialog()
 
+    }
+
+    override fun initSwipeBack() {
+        mSwipeConsumer = SmartSwipe.wrap(this)
+            .removeAllConsumers()
+            .addConsumer(ActivitySlidingBackConsumer(this))
+            .setRelativeMoveFactor(0.5f)
+            .enableLeft()
     }
 
     /** 初始化状态栏 */
@@ -168,7 +188,10 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     /** 页面跳转动画： 关闭动画*/
     override fun finishPageAnim(){
         if (GlobalConfig.Anim.gIsOpenPageAnim) {
-            overridePendingTransition(GlobalConfig.Anim.gPageCloseIn, GlobalConfig.Anim.gPageCloseOut)
+            overridePendingTransition(
+                GlobalConfig.Anim.gPageCloseIn,
+                GlobalConfig.Anim.gPageCloseOut
+            )
         }
     }
 
@@ -205,6 +228,34 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         //动画
         finishPageAnim()
     }
+    override fun onBackPressed() {
+        val wrapper = SmartSwipe.peekWrapperFor(this)
+        if (wrapper != null) {
+            val consumers = wrapper.allConsumers
+            if (consumers.isNotEmpty()) {
+                for (consumer in consumers) {
+                    if (consumer != null) {
+                        if (consumer.isLeftEnable) {
+                            consumer.smoothLeftOpen()
+                            return
+                        } else if (consumer.isTopEnable) {
+                            consumer.smoothTopOpen()
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        super.onBackPressed()
+    }
 
-
+    /**
+     * 取消侧滑
+     */
+    fun cleanSwipeback(){
+        mSwipeConsumer?.let {
+            //关闭返回时调用此处，也就意味着不能
+            it.disableLeft()
+        }
+    }
 }

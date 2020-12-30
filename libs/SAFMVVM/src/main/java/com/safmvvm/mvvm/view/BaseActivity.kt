@@ -128,7 +128,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
                 LiveDataBus.send(it.first, Pair(it.second, it.third))
                 finish()
             },
-            true
+            false
         )
         // vm 可以启动界面
         LiveDataBus.observe<Class<out Activity>>(

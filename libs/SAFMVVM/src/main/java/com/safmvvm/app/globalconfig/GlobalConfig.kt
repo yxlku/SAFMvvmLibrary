@@ -40,8 +40,8 @@ internal object GlobalConfig {
         @AnimRes var gPageOpenIn: Int = R.anim.activity_open_in_anim
         @AnimRes var gPageOpenOut: Int = R.anim.activity_open_out_anim
         /** 页面关闭动画，默认和打开动画一样，也可以自行配置*/
-        @AnimRes var gPageCloseIn: Int = gPageOpenIn
-        @AnimRes var gPageCloseOut: Int = gPageOpenOut
+        @AnimRes var gPageCloseIn: Int = R.anim.activity_close_in_anim
+        @AnimRes var gPageCloseOut: Int = R.anim.activity_close_out_anim
     }
 
     /**

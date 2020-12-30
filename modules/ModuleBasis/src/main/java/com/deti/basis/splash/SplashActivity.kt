@@ -13,4 +13,8 @@ class SplashActivity: BaseActivity<BasisActivitySplashBinding, SplashViewModel>(
     override fun startPageAnim() {
 //        super.startPageAnim()
     }
+
+    override fun finishPageAnim() {
+
+    }
 }

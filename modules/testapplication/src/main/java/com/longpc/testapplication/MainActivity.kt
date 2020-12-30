@@ -29,7 +29,10 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
      * 开启下个页面的动画
      */
     override fun startPageAnim(){
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        //无论是否开启动画，都会使用当前方法
+//        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        //瞬间开启无动画
+//        overridePendingTransition(0,0)
     }
 
     //ARouter，除了使用注解@Autowired（必须在activity或fragment中获取），
@@ -43,6 +46,7 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(
     var test = ""
 
     override fun initData() {
+        cleanSwipeback()
 
         mViewModel.text.set(test+"ssss2")
 //        LogUtil.d(routerUtils)

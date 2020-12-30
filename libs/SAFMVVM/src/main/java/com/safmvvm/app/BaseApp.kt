@@ -7,6 +7,7 @@ import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.ui.autosize.AutoSizeUtil
 import com.safmvvm.ui.load.LoadSirUtil
+import com.safmvvm.ui.swipebacklayout.SwipebacklayoutUtil
 import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.LogUtil
@@ -67,6 +68,8 @@ open class BaseApp : Application() {
             RouterUtil.initARouter(app)
             //主题初始化
             ThemeUtil.init(app)
+            //滑动返回
+            SwipebacklayoutUtil.init(app)
             //日志初始化
             LogUtil.initLog()
             //等待布局初始化
