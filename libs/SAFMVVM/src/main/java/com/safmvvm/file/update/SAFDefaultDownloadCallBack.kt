@@ -1,17 +1,12 @@
 package com.safmvvm.file.update
 
 import android.app.Activity
-import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.core.CenterPopupView
 import com.maning.updatelibrary.InstallUtils
-import com.safmvvm.app.globalconfig.GlobalConfig
-import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.file.update.dialog.IUpdateProgressDialog
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 import java.lang.Exception
-import java.net.SocketException
 
 /**
  * 默认下载回调，不想用默认的，可以在初始化的时候换个

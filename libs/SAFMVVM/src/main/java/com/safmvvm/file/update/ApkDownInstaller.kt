@@ -1,11 +1,7 @@
 package com.safmvvm.file.update
 
 import android.app.Activity
-import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.core.CenterPopupView
-import com.lxj.xpopup.interfaces.OnCancelListener
-import com.lxj.xpopup.interfaces.OnConfirmListener
 import com.maning.updatelibrary.InstallUtils
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfig
@@ -13,7 +9,7 @@ import com.safmvvm.file.update.dialog.DefaultUpdateVersionProgressDialog
 import com.safmvvm.file.update.dialog.IUpdateProgressDialog
 import com.safmvvm.ui.dialog.DialogUtil
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 
 /**
  * Apk下载及安装

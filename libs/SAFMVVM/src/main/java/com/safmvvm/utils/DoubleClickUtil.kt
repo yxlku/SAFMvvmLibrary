@@ -1,6 +1,7 @@
 package com.safmvvm.utils
 
 import android.os.SystemClock
+import com.safmvvm.ui.toast.ToastUtil
 
 /**
  * 双击事件

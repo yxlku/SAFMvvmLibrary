@@ -8,7 +8,7 @@ import com.safmvvm.component.RouterUtil
 import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.UUIDUtil
 import com.test.common.BuildConfig
 import com.test.common.RouterActivityPath

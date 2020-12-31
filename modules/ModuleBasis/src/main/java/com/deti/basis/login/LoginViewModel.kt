@@ -4,6 +4,7 @@ import android.app.Application
 import android.view.View
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.RouterActivityPath
 
 class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
@@ -15,6 +16,10 @@ class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
             startActivityRouter(RouterActivityPath.ModuleTestA.PAGE_TESTA)
         }
         finish()
+    }
+
+    fun clickShowToast(view: View){
+        ToastUtil.showShortToast("我擦，密码输入错误！！！！")
     }
 
 

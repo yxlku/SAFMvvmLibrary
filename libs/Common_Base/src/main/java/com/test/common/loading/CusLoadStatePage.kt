@@ -16,7 +16,7 @@ class CusLoadStatePage: MultiState(), ILoadPageState {
         inflater: LayoutInflater,
         container: MultiStateContainer
     ): View {
-        return inflater.inflate(R.layout.commonbase_load_state_page_loading, container, false)
+        return inflater.inflate(R.layout.base_load_state_page_loading, container, false)
     }
 
     override fun onMultiStateViewCreate(view: View) {

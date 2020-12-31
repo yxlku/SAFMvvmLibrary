@@ -1,17 +1,22 @@
-package com.safmvvm.utils
+package com.safmvvm.ui.toast
 
+import android.R
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import com.safmvvm.app.BaseApp
+import com.safmvvm.app.globalconfig.GlobalConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 /**
  * 吐司提示类，可设置位置，偏移量，默认是系统自带的位置和偏移量。
@@ -29,7 +34,7 @@ object ToastUtil {
         GlobalScope.launch(Dispatchers.Main) {
             @SuppressLint("ShowToast")
             val toast = Toast.makeText(BaseApp.getInstance(), "", Toast.LENGTH_SHORT)
-            mGravity = toast.gravity
+            mGravity = GlobalConfig.Toast.gCustomToastGravity
             xOffset = toast.xOffset
             yOffset = toast.yOffset
         }
@@ -41,11 +46,14 @@ object ToastUtil {
      * @param stringResID 消息内容
      */
     fun showShortToast(
-            @StringRes
-            stringResID: Int) {
+        @StringRes
+        stringResID: Int,
+        isGlobalCustom: Boolean = true,
+    ) {
         showToast(
             stringResID,
-            Toast.LENGTH_SHORT
+            Toast.LENGTH_SHORT,
+            isGlobalCustom
         )
     }
 
@@ -64,11 +72,14 @@ object ToastUtil {
      * @param stringResID 消息内容
      */
     fun showLongToast(
-            @StringRes
-            stringResID: Int) {
+        @StringRes
+        stringResID: Int,
+        isGlobalCustom: Boolean = true,
+    ) {
         showToast(
             stringResID,
-            Toast.LENGTH_LONG
+            Toast.LENGTH_LONG,
+            isGlobalCustom
         )
     }
 
@@ -77,28 +88,66 @@ object ToastUtil {
      *
      * @param msg 消息内容
      */
-    fun showLongToast(msg: String) {
-        showToast(msg, Toast.LENGTH_LONG)
+    fun showLongToast(
+        msg: String,
+        isGlobalCustom: Boolean = true,
+    ) {
+        showToast(msg, Toast.LENGTH_LONG, isGlobalCustom)
     }
 
     private fun showToast(
         @StringRes
-        stringResID: Int, duration: Int
+        stringResID: Int,
+        duration: Int,
+        isGlobalCustom: Boolean = true,
     ) {
         showToast(
-            BaseApp.getInstance().getString(stringResID), duration
+            BaseApp.getInstance().getString(stringResID), duration, isGlobalCustom
         )
     }
+    fun setDrawableImg(tv: TextView, @DrawableRes drawableId: Int){
+        val drawable: Drawable = BaseApp.getInstance().resources.getDrawable(drawableId)
+        drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
+        tv.setCompoundDrawables(drawable, null, null, null) //画在右边
 
-    private fun showToast(msg: String?, duration: Int) {
+    }
+    private fun showToast(msg: String?, duration: Int, isGlobalCustom: Boolean = true) {
         GlobalScope.launch(Dispatchers.Main) {
-            val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
-            toast.setGravity(
-                mGravity,
-                xOffset,
-                yOffset
-            )
-            toast.show()
+            if (GlobalConfig.Toast.gCustomLayoutId != 0 && isGlobalCustom) {
+                val toast = Toast(BaseApp.getInstance())
+                if (GlobalConfig.Toast.gCustomMsgId == 0) {
+                    throw RuntimeException("自定义Toast样式了，文字赋值到哪里呢？请设置CustomMsgId!")
+                }
+                var customView = LayoutInflater.from(BaseApp.getInstance()).inflate(GlobalConfig.Toast.gCustomLayoutId, null)
+                var tvMsg = customView.findViewById<TextView>(GlobalConfig.Toast.gCustomMsgId)
+                tvMsg?.let {
+                    tvMsg.text = msg
+                    if (GlobalConfig.Toast.gCustomIconId != 0) {
+                        setDrawableImg(tvMsg, GlobalConfig.Toast.gCustomIconId)
+                    }
+                }
+                //自定义样式
+                toast.view = customView
+                //显示时间
+                toast.duration = duration
+                //显示位置
+                toast.setGravity(
+                    GlobalConfig.Toast.gCustomToastGravity,
+                    0,
+                    0
+                )
+                toast.show()
+            }else{
+                //系统Toast
+                val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
+                //位置
+                toast.setGravity(
+                    mGravity,
+                    xOffset,
+                    yOffset
+                )
+                toast.show()
+            }
         }
     }
 
@@ -153,8 +202,9 @@ object ToastUtil {
     }
 
     fun showCustomLongToast(
-            @LayoutRes
-            layout: Int) {
+        @LayoutRes
+        layout: Int,
+    ) {
         showCustomToast(
             null,
             layout,
@@ -166,11 +216,13 @@ object ToastUtil {
         )
     }
 
-    fun showCustomLongToast(msg: String,
-                            @LayoutRes
-                            layout: Int,
-                            @IdRes
-                            msgId: Int) {
+    fun showCustomLongToast(
+        msg: String,
+        @LayoutRes
+        layout: Int,
+        @IdRes
+        msgId: Int,
+    ) {
         showCustomToast(
             msg,
             layout,
@@ -182,12 +234,15 @@ object ToastUtil {
         )
     }
 
-    fun showCustomToast(msg: String?,
-                        @LayoutRes
-                        layout: Int,
-                        @IdRes
-                        msgId: Int, duration: Int, gravity: Int, xOffset: Int,
-                        yOffset: Int) {
+    fun showCustomToast(
+        msg: String?,
+        @LayoutRes
+        layout: Int,
+        @IdRes
+        msgId: Int,
+        duration: Int, gravity: Int, xOffset: Int,
+        yOffset: Int,
+    ) {
         GlobalScope.launch(Dispatchers.Main) {
             val toast = Toast(BaseApp.getInstance())
             val view = LayoutInflater.from(BaseApp.getInstance()).inflate(layout, null)

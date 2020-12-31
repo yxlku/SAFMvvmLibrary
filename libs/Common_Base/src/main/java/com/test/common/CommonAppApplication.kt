@@ -1,5 +1,6 @@
 package com.test.common
 
+import android.view.Gravity
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.safmvvm.app.GlobalConfigCreator
@@ -8,7 +9,7 @@ import com.safmvvm.db.MigrationManager
 import com.test.common.base.ProjectConfigListener
 import com.test.common.loading.CusLoadStatePage
 
-open class CommonAppApplication: ComponentBaseApp() {
+open class CommonAppApplication : ComponentBaseApp() {
 
     /**
      * 获取自定义配置的子Module初始化类
@@ -20,7 +21,7 @@ open class CommonAppApplication: ComponentBaseApp() {
     override fun onMainPorcessInitBefore() {
         super.onMainPorcessInitBefore()
         GlobalConfigCreator()
-                //是否开启日志功能
+            //是否开启日志功能
             .logIsOpen(BuildConfig.DEBUG)
             //统一设计稿尺寸
             .autoSizeDesignSize(375F, 812F)
@@ -39,6 +40,14 @@ open class CommonAppApplication: ComponentBaseApp() {
             .updateNoApkUrl("https://app.mi.com/")
             //初始化函数配置
             .setGlobalConfigInitListener(ProjectConfigListener())
+            //Toast自定义布局
+            .toastCustomLayoutId(R.layout.base_toast_layout)
+            //自定义Toast文字控件Id
+            .toastCustomMsgId(R.id.toast_msg_id)
+            //自定义Toast图标
+            .toastCustomIconId(R.drawable.base_toast_fail)
+            //自定义Toast显示位置
+            .toastCustomToastGravity(Gravity.CENTER)
 
             .loadingLayoutText("等待中。。。")
             .pageStateLoading(CusLoadStatePage::class.java)

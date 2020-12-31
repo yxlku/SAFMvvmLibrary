@@ -4,16 +4,14 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.view.View
-import androidx.lifecycle.LiveData
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
 import java.lang.StringBuilder
 
 /**

@@ -2,6 +2,7 @@ package com.safmvvm.app
 
 import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
@@ -41,6 +42,47 @@ class GlobalConfigCreator {
         GlobalConfig.App.gIsOpenSwipeback = isOpenSwipeback
         return this
     }
+    /************************************ Toast初始化配置 *******************************************/
+
+    /**
+     * Toast全局自定义布局，这里不设置其他地方设置也没用
+     *
+     * @Tip: 如果某处不想使用全局的布局，可以在调用的时候设置为isGlobalCustom = false即可
+     */
+    fun toastCustomLayoutId(@LayoutRes customLayoutId: Int): GlobalConfigCreator{
+        GlobalConfig.Toast.gCustomLayoutId = customLayoutId
+        return this
+    }
+
+    /**
+     * 自定义布局中显示文字的控件Id（TextView）
+     *
+     * @Tip: 1、如果不设置布局toastCustomLayoutId，这个方法设置也没用
+     *       2、如果不设置这个，设置图片gCustomIconId也不会显示
+     */
+    fun toastCustomMsgId(@IdRes msgTvId: Int): GlobalConfigCreator{
+        GlobalConfig.Toast.gCustomMsgId = msgTvId
+        return this
+    }
+
+    /**
+     * Toast显示的位置，这个值也关系到系统默认样式弹窗的位置
+     *
+     * @Tip：如果不设置默认在屏幕下方
+     */
+    fun toastCustomToastGravity(gravity: Int): GlobalConfigCreator{
+        GlobalConfig.Toast.gCustomToastGravity = gravity
+        return this
+    }
+
+    /**
+     * Toast文字带的图标
+     */
+    fun toastCustomIconId(@DrawableRes customIconId: Int): GlobalConfigCreator{
+        GlobalConfig.Toast.gCustomIconId = customIconId
+        return this
+    }
+
     /************************************ Anim请求初始化配置 *******************************************/
     /**
      * 是否使用跳转动画

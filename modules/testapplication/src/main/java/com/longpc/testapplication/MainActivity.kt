@@ -14,9 +14,8 @@ import com.maning.updatelibrary.InstallUtils
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.file.update.ApkDownInstaller
 import com.safmvvm.mvvm.view.BaseActivity
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.RouterActivityPath
-import com.zy.multistatepage.MultiStatePage
 import java.lang.Exception
 
 

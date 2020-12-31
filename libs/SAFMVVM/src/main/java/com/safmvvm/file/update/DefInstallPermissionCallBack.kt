@@ -1,13 +1,7 @@
 package com.safmvvm.file.update
 
 import android.app.Activity
-import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.interfaces.OnCancelListener
-import com.lxj.xpopup.interfaces.OnConfirmListener
 import com.maning.updatelibrary.InstallUtils
-import com.safmvvm.app.BaseApp
-import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
 
 /**
  * 默认安装权限检测

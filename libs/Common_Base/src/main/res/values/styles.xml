@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DetiAppTheme" parent="AppTheme">
+        <!-- 默认文字大小-->
+        <item name="android:textSize">14mm</item>
+    </style>
+
+</resources>

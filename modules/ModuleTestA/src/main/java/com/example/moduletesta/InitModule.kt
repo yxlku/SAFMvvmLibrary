@@ -3,7 +3,7 @@ package com.example.moduletesta
 import android.app.Application
 import com.safmvvm.component.app.IModuleInit
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 
 class InitModule: IModuleInit {
     override fun onInitAhead(app: Application) {

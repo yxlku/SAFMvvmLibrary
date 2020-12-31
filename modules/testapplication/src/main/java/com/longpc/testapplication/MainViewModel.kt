@@ -15,7 +15,7 @@ import com.safmvvm.http.result.ResponseResultCallback
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.lang.StringBuilder

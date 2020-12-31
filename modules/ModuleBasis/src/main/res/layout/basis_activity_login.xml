@@ -16,5 +16,15 @@
         android:layout_height="match_parent">
 
 
+        <Button
+            android:onClick="@{viewModel.clickShowToast}"
+            android:id="@+id/basis_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示Toast"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

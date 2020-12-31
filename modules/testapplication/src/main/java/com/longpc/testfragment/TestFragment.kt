@@ -1,16 +1,12 @@
 package com.longpc.testfragment
 
-import android.content.Intent
-import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.View
 import com.longpc.testapplication.R
 import com.longpc.testapplication.databinding.MainFragmentTestBinding
 import com.safmvvm.mvvm.view.BaseFragment
 import com.longpc.testapplication.BR
 import com.safmvvm.ui.titlebar.OnTitleBarListener
-import com.safmvvm.utils.ToastUtil
+import com.safmvvm.ui.toast.ToastUtil
 
 class TestFragment : BaseFragment<MainFragmentTestBinding, TestViewModel>(
     R.layout.main_fragment_test,

@@ -1,7 +1,9 @@
 package com.safmvvm.app.globalconfig
 
+import android.view.Gravity
 import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.safmvvm.R
 import com.safmvvm.db.MigrationManager
@@ -29,6 +31,20 @@ internal object GlobalConfig {
         var gIsOpenArouter: Boolean = true
         /** 是否开启侧滑功能*/
         var gIsOpenSwipeback: Boolean = true
+    }
+
+    /**
+     * 弹窗
+     */
+    object Toast{
+        /** 自定义Toast布局Id， 等于0时使用系统默认的*/
+        @LayoutRes var gCustomLayoutId: Int = 0
+        /** 自定义弹窗中msg的id，不写则会报错*/
+        @IdRes var gCustomMsgId: Int = 0
+        /** Toast位置*/
+        var gCustomToastGravity: Int = Gravity.BOTTOM
+        /** 自定义图标id*/
+        @DrawableRes var gCustomIconId: Int = 0
     }
 
     /**
