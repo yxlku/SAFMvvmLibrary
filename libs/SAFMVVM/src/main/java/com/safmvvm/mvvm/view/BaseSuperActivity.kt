@@ -54,9 +54,6 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     var mTitleBar: TitleBar? = null
 
-    /** 侧滑*/
-    var mSwipeConsumer: SwipeConsumer? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //添加setRequestedOrientation方法实现锁定横屏（portrait为保持竖屏，landscape为保持横屏）
@@ -85,16 +82,6 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         //初始化等待弹窗
         initLoadDialog()
 
-    }
-
-    override fun initSwipeBack() {
-        if (GlobalConfig.App.gIsOpenSwipeback) {
-            mSwipeConsumer = SmartSwipe.wrap(this)
-                .removeAllConsumers()
-                .addConsumer(ActivitySlidingBackConsumer(this))
-                .setRelativeMoveFactor(0.5f)
-                .enableLeft()
-        }
     }
 
     /** 初始化状态栏 */
@@ -255,9 +242,9 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
      * 取消侧滑
      */
     fun cleanSwipeback(){
-        mSwipeConsumer?.let {
-            //关闭返回时调用此处，也就意味着不能
-            it.disableLeft()
-        }
+        SmartSwipe.wrap(this)
+            .removeAllConsumers()
+            .addConsumer(ActivitySlidingBackConsumer(this))
+            .disableAllDirections()
     }
 }

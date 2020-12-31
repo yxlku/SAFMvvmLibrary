@@ -22,7 +22,6 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
         cleanSwipeback()
     }
 
-
     override fun onBackPressed() {
         //B端App必须登录，如果不登录，则直接退出，如果弹出此页面也就意味着不登录进不了其他页面，返回理应退出app
         AppActivityManager.finishAllActivity()
@@ -32,13 +31,5 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
 
     }
 
-    override fun initSwipeBack() {
-//        SmartSwipe.wrap(this)
-//            .removeAllConsumers()
-//            .addConsumer(ActivitySlidingBackConsumer(this))
-//            .setRelativeMoveFactor(0f)
-//            .enableTop()
-//            .`as`(ActivitySlidingBackConsumer::class.java)
-    }
 
 }
