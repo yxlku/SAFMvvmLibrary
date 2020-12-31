@@ -16,14 +16,5 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:onClick="@{viewModel.btToMainA}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:url='@{"https://upload-images.jianshu.io/upload_images/2579123-89e7c652e204abdc.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/516/format/webp"}'/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -19,20 +19,30 @@ open class CommonAppApplication: ComponentBaseApp() {
 
     override fun onMainPorcessInitBefore() {
         super.onMainPorcessInitBefore()
-
         GlobalConfigCreator()
-            .autoSizeDesignSize(750f, 1344f)
-            .appIsOpenRouter(true)
-            .appIsOpenSwipeback(true)
-            .animIsOpen(false)
-            .requestSuccessCode("0")
-            .requestBaseUrl("https://www.wanandroid.com/")
-//            .requestBaseUrl("https://api.apiopen.top/")
-            .updateNoApkUrl("https://app.mi.com/")
+                //是否开启日志功能
             .logIsOpen(BuildConfig.DEBUG)
-            .loadingLayoutText("我在App中初始化了")
+            //统一设计稿尺寸
+            .autoSizeDesignSize(375F, 812F)
+            //开启路由器
+            .appIsOpenRouter(true)
+            //支持侧滑关闭功能
+            .appIsOpenSwipeback(true)
+            //关闭-默认打开、关闭页面动画
+            .animIsOpen(false)
+            //请求host
+            .requestBaseUrl("https://www.wanandroid.com/")
+            //请求成功code
+            .requestSuccessCode("0")
+//            .requestBaseUrl("https://api.apiopen.top/")
+            //应急版本更新地址 - 防止app下载不好用或者不适配机型导致无法应用内更新跳转到的页面
+            .updateNoApkUrl("https://app.mi.com/")
+            //初始化函数配置
+            .setGlobalConfigInitListener(ProjectConfigListener())
+
+            .loadingLayoutText("等待中。。。")
             .pageStateLoading(CusLoadStatePage::class.java)
-            .setGlobalConfigInitListener(ProjectConfigListener())       //初始化方法
+
             .pageStateDefErrorMsg("Error了，肯定是手机有问题！代码没问题")
             .pageStateDefFailMsg("Fail了，肯定是手机有问题！代码没问题")
             .dbName("db_test") //数据库名称
@@ -48,6 +58,7 @@ open class CommonAppApplication: ComponentBaseApp() {
                         }
                     })
             )
+
     }
 
 }
