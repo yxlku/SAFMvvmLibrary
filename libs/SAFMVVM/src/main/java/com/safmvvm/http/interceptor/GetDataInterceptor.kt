@@ -1,7 +1,7 @@
 package com.safmvvm.http.interceptor
 
 import com.safmvvm.app.globalconfig.GlobalConfig
-import com.safmvvm.utils.EncodeUtil
+import com.safmvvm.utils.encrypt.encode.EncodeUtil
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request

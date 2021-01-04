@@ -6,8 +6,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.component.app.ComponentBaseApp
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.utils.DensityUtil
+import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.test.common.base.ProjectConfigListener
 import com.test.common.loading.CusLoadStatePage
+import me.jessyan.autosize.AutoSize
 
 open class CommonAppApplication : ComponentBaseApp() {
 
@@ -20,6 +23,7 @@ open class CommonAppApplication : ComponentBaseApp() {
 
     override fun onMainPorcessInitBefore() {
         super.onMainPorcessInitBefore()
+
         GlobalConfigCreator()
             //是否开启日志功能
             .logIsOpen(BuildConfig.DEBUG)
@@ -44,8 +48,6 @@ open class CommonAppApplication : ComponentBaseApp() {
             .toastCustomLayoutId(R.layout.base_toast_layout)
             //自定义Toast文字控件Id
             .toastCustomMsgId(R.id.toast_msg_id)
-            //自定义Toast图标
-            .toastCustomIconId(R.drawable.base_toast_fail)
             //自定义Toast显示位置
             .toastCustomToastGravity(Gravity.CENTER)
 

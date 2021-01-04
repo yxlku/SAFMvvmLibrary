@@ -1,5 +1,6 @@
 package com.safmvvm.utils
 
+import android.app.Application
 import com.safmvvm.app.BaseApp
 
 
@@ -12,7 +13,11 @@ object DensityUtil {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     fun dp2px(dpValue: Float): Int {
-        val scale = BaseApp.getInstance().resources.displayMetrics.density
+        return dp2px(BaseApp.getInstance(), dpValue)
+    }
+
+    fun dp2px(app: Application, dpValue: Float): Int {
+        val scale = app.resources.displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()
     }
 
@@ -20,7 +25,14 @@ object DensityUtil {
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
     fun px2dp(pxValue: Float): Int {
-        val scale = BaseApp.getInstance().resources.displayMetrics.density
+        return px2dp(BaseApp.getInstance(), pxValue)
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    fun px2dp(app: Application, pxValue: Float): Int {
+        val scale = app.resources.displayMetrics.density
         return (pxValue / scale + 0.5f).toInt()
     }
 

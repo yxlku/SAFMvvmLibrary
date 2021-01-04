@@ -11,6 +11,10 @@ import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
 import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
+import com.safmvvm.ui.toast.DefToastEnumInterface
+import com.safmvvm.ui.toast.ToastEnumInterface
+import com.safmvvm.utils.DensityUtil
+import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 
@@ -43,8 +47,8 @@ internal object GlobalConfig {
         @IdRes var gCustomMsgId: Int = 0
         /** Toast位置*/
         var gCustomToastGravity: Int = Gravity.BOTTOM
-        /** 自定义图标id*/
-        @DrawableRes var gCustomIconId: Int = 0
+        /** Toast文字图标显示类型*/
+        var gCustomToastEnum: ToastEnumInterface = DefToastEnumInterface()
     }
 
     /**

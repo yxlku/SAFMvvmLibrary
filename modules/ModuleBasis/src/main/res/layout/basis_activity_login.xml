@@ -17,11 +17,36 @@
 
 
         <Button
-            android:onClick="@{viewModel.clickShowToast}"
+            android:textSize="14mm"
             android:id="@+id/basis_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="显示Toast"
+            android:onClick="@{viewModel.clickShowToastLeft}"
+            android:text="显示左侧Icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:textSize="14mm"
+            android:id="@+id/basis_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{viewModel.clickShowToastRight}"
+            android:text="显示右侧Icon"
+            app:layout_constraintBottom_toBottomOf="@+id/basis_button2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/basis_button2"
+            app:layout_constraintTop_toTopOf="@+id/basis_button2"
+             />
+
+        <Button
+            android:textSize="14mm"
+            android:onClick="@{viewModel.clickShowToast}"
+            android:id="@+id/basis_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不显示图标"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

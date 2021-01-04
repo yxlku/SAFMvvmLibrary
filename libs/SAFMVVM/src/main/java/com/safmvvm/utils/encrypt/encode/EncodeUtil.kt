@@ -1,4 +1,4 @@
-package com.safmvvm.utils
+package com.safmvvm.utils.encrypt.encode
 import android.os.Build
 import android.text.Html
 import android.util.Base64

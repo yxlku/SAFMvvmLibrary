@@ -13,6 +13,8 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfig
+import com.safmvvm.utils.weight.TextViewDrawableEnum
+import com.safmvvm.utils.weight.TextViewUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,6 +32,7 @@ object ToastUtil {
     private var xOffset = 0
     private var yOffset = 0
 
+
     init {
         GlobalScope.launch(Dispatchers.Main) {
             @SuppressLint("ShowToast")
@@ -44,16 +47,20 @@ object ToastUtil {
      * 系统自带的短消息提示
      *
      * @param stringResID 消息内容
+     * @param isGlobalCustom 是否显示自定义布局
+     * @param toastEnumInterface 自定义文字图标位置
      */
     fun showShortToast(
         @StringRes
         stringResID: Int,
         isGlobalCustom: Boolean = true,
-    ) {
-        showToast(
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        return showToast(
             stringResID,
             Toast.LENGTH_SHORT,
-            isGlobalCustom
+            isGlobalCustom,
+            toastEnumInterface
         )
     }
 
@@ -62,8 +69,17 @@ object ToastUtil {
      *
      * @param msg 消息内容
      */
-    fun showShortToast(msg: String?) {
-        showToast(msg, Toast.LENGTH_SHORT)
+    fun showShortToast(
+        msg: String?,
+        isGlobalCustom: Boolean = true,
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        return showToast(
+            msg,
+            Toast.LENGTH_SHORT,
+            isGlobalCustom,
+            toastEnumInterface
+        )
     }
 
     /**
@@ -75,11 +91,13 @@ object ToastUtil {
         @StringRes
         stringResID: Int,
         isGlobalCustom: Boolean = true,
-    ) {
-        showToast(
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        return showToast(
             stringResID,
             Toast.LENGTH_LONG,
-            isGlobalCustom
+            isGlobalCustom,
+            toastEnumInterface
         )
     }
 
@@ -91,8 +109,9 @@ object ToastUtil {
     fun showLongToast(
         msg: String,
         isGlobalCustom: Boolean = true,
-    ) {
-        showToast(msg, Toast.LENGTH_LONG, isGlobalCustom)
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        return showToast(msg, Toast.LENGTH_LONG, isGlobalCustom, toastEnumInterface)
     }
 
     private fun showToast(
@@ -100,30 +119,38 @@ object ToastUtil {
         stringResID: Int,
         duration: Int,
         isGlobalCustom: Boolean = true,
-    ) {
-        showToast(
-            BaseApp.getInstance().getString(stringResID), duration, isGlobalCustom
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        return showToast(
+            BaseApp.getInstance().getString(stringResID), duration, isGlobalCustom, toastEnumInterface
         )
     }
-    fun setDrawableImg(tv: TextView, @DrawableRes drawableId: Int){
-        val drawable: Drawable = BaseApp.getInstance().resources.getDrawable(drawableId)
-        drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight) //设置边界
-        tv.setCompoundDrawables(drawable, null, null, null) //画在右边
 
-    }
-    private fun showToast(msg: String?, duration: Int, isGlobalCustom: Boolean = true) {
+    private fun showToast(
+        msg: String?,
+        duration: Int,
+        isGlobalCustom: Boolean = true,
+        toastEnumInterface: ToastEnumInterface = GlobalConfig.Toast.gCustomToastEnum,
+    ): Toast {
+        var toast = Toast(BaseApp.getInstance())
         GlobalScope.launch(Dispatchers.Main) {
             if (GlobalConfig.Toast.gCustomLayoutId != 0 && isGlobalCustom) {
-                val toast = Toast(BaseApp.getInstance())
                 if (GlobalConfig.Toast.gCustomMsgId == 0) {
                     throw RuntimeException("自定义Toast样式了，文字赋值到哪里呢？请设置CustomMsgId!")
                 }
-                var customView = LayoutInflater.from(BaseApp.getInstance()).inflate(GlobalConfig.Toast.gCustomLayoutId, null)
+                var customView = LayoutInflater.from(BaseApp.getInstance())
+                    .inflate(GlobalConfig.Toast.gCustomLayoutId, null)
                 var tvMsg = customView.findViewById<TextView>(GlobalConfig.Toast.gCustomMsgId)
                 tvMsg?.let {
                     tvMsg.text = msg
-                    if (GlobalConfig.Toast.gCustomIconId != 0) {
-                        setDrawableImg(tvMsg, GlobalConfig.Toast.gCustomIconId)
+                    if (toastEnumInterface.iconId() != 0) {
+                        //设置文字drawable图片
+                        TextViewUtil.setDrawableImg(
+                            tvMsg,              //控件
+                            toastEnumInterface.iconId(),            //图片id
+                            toastEnumInterface.drawablePadding(),   //图片与文字间距
+                            toastEnumInterface.drawableDirection()  //方向
+                        )
                     }
                 }
                 //自定义样式
@@ -137,9 +164,9 @@ object ToastUtil {
                     0
                 )
                 toast.show()
-            }else{
+            } else {
                 //系统Toast
-                val toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
+                toast = Toast.makeText(BaseApp.getInstance(), msg, duration)
                 //位置
                 toast.setGravity(
                     mGravity,
@@ -149,6 +176,7 @@ object ToastUtil {
                 toast.show()
             }
         }
+        return toast
     }
 
     fun setCustomLayout(mCustomLayout: Int) {

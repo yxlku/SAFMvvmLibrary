@@ -7,6 +7,8 @@ import androidx.annotation.LayoutRes
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.ui.toast.ToastEnumInterface
+import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.zy.multistatepage.MultiState
 
 /**
@@ -76,12 +78,15 @@ class GlobalConfigCreator {
     }
 
     /**
-     * Toast文字带的图标
+     * Toast 显示图标类型
+     *
+     * @param customToastEnum  实现类： 枚举、普通类都可以，只会获取接口中的函数对应的值，其他值无用
      */
-    fun toastCustomIconId(@DrawableRes customIconId: Int): GlobalConfigCreator{
-        GlobalConfig.Toast.gCustomIconId = customIconId
+    fun toastCustomToastEnum(customToastEnum: ToastEnumInterface): GlobalConfigCreator{
+        GlobalConfig.Toast.gCustomToastEnum = customToastEnum
         return this
     }
+
 
     /************************************ Anim请求初始化配置 *******************************************/
     /**

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/base_toast_bg"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/toast_msg_id"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="22mm"
-        android:text="ToastMsgText"
-        android:textColor="#FFFFFF"
-        android:textSize="14mm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20mm"
+        android:layout_marginRight="20mm"
+        android:background="@drawable/base_toast_bg"
+        android:elevation="3dp">
+
+        <TextView
+            android:id="@+id/toast_msg_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="22mm"
+            android:layout_marginBottom="22mm"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingLeft="20mm"
+            android:paddingRight="20mm"
+            android:textColor="#FFFFFF"
+            android:textSize="14mm" />
+    </RelativeLayout>
+</RelativeLayout>

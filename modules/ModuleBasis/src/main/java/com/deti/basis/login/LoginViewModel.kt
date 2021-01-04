@@ -5,7 +5,9 @@ import android.view.View
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.test.common.RouterActivityPath
+import com.test.common.ui.ToastDrawableEnum
 
 class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
 
@@ -18,9 +20,16 @@ class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
         finish()
     }
 
-    fun clickShowToast(view: View){
-        ToastUtil.showShortToast("我擦，密码输入错误！！！！")
+    fun clickShowToastLeft(view: View){
+//        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
+        ToastUtil.showShortToast("显示左侧", toastEnumInterface = ToastDrawableEnum.FAIL)
     }
 
-
+    fun clickShowToast(view: View){
+        ToastUtil.showShortToast("不显示", true)
+    }
+    fun clickShowToastRight(view: View){
+//        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
+        ToastUtil.showShortToast("显示右侧", true, ToastDrawableEnum.RIGHT)
+    }
 }

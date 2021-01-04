@@ -1,7 +1,7 @@
 package com.safmvvm.http.interceptor
 
 import androidx.collection.ArrayMap
-import com.safmvvm.utils.EncodeUtil
+import com.safmvvm.utils.encrypt.encode.EncodeUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 
