@@ -6,6 +6,7 @@
 
         <activity android:name="com.deti.basis.splash.SplashActivity"/>
         <activity android:name="com.deti.basis.login.LoginActivity"/>
+        <activity android:name="com.deti.basis.register.RegisterAcitivty"/>
     </application>
 
 </manifest>

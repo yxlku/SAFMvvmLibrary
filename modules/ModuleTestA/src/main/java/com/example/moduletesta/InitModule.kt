@@ -8,7 +8,6 @@ import com.safmvvm.ui.toast.ToastUtil
 class InitModule: IModuleInit {
     override fun onInitAhead(app: Application) {
         LogUtil.d("我在ModuleTestA中初始化了")
-        ToastUtil.showShortToast("我是MainTestAActivity,我初始化了！！！onInitAhead")
     }
 
     override fun onInitLow(app: Application) {

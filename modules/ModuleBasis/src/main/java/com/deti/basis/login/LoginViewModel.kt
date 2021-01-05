@@ -2,6 +2,7 @@ package com.deti.basis.login
 
 import android.app.Application
 import android.view.View
+import com.deti.basis.register.RegisterAcitivty
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.toast.ToastUtil
@@ -19,5 +20,6 @@ class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
         }
         finish()
     }
+
 
 }

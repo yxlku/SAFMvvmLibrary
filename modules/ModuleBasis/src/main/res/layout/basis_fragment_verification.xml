@@ -1,24 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.deti.basis.login.verification.VerificationViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="30mm"
+        android:paddingRight="30mm">
 
-        <TextView
-            android:id="@+id/basis_textview"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_phone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Verification"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20mm"
+            android:background="@drawable/base_edit_gray_bg"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="12mm"
+                android:text="+86"
+                android:textColor="#333333" />
+
+            <View
+                android:layout_width="2mm"
+                android:layout_height="14mm"
+                android:layout_gravity="center_vertical"
+                android:background="#B3B3B3" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:maxLines="2"
+                android:padding="12mm"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/basis_et_verification"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15mm"
+            android:background="@drawable/base_edit_gray_bg"
+            android:hint="请输入验证码"
+            android:padding="12mm"
+            app:layout_constraintEnd_toStartOf="@id/basis_tv_verification_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_phone" />
+
+        <TextView
+            android:id="@+id/basis_tv_verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="0mm"
+            android:layout_marginStart="10mm"
+            android:background="@drawable/basis_verificaion_code_bg"
+            android:gravity="center"
+            android:paddingLeft="20mm"
+            android:paddingTop="12mm"
+            android:paddingRight="20mm"
+            android:paddingBottom="12mm"
+            android:text="获取验证码"
+            android:textColor="#1B2643"
+            app:layout_constraintBottom_toBottomOf="@+id/basis_et_verification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/basis_et_verification"
+            app:layout_constraintTop_toTopOf="@+id/basis_et_verification" />
+
+        <LinearLayout
+            android:id="@+id/basis_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15mm"
+            android:background="@drawable/base_edit_gray_bg"
+            android:orientation="horizontal"
+            android:padding="12mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/basis_et_verification">
+
+            <TextView
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="品牌商"
+                android:inputType="phone"
+                android:maxLines="2"
+                android:textColor="#333333"
+                android:textSize="14mm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/basis_arrow_right"
+                android:drawablePadding="10mm"
+                android:text="请选择"
+                android:textColor="#CCCCCC" />
+
+        </LinearLayout>
+
+        <TextView
+            android:onClick="@{viewModel.clickToPageRegister}"
+            android:id="@+id/basis_tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10mm"
+            android:text="立即注册"
+            android:textColor="#333333"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/basis_linearlayout" />
+
+        <TextView
+            android:textSize="18mm"
+            android:textColor="#1B2643"
+            android:background="@drawable/base_btn_yellow_bg"
+            android:padding="12mm"
+            android:gravity="center"
+            android:id="@+id/basis_tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50mm"
+            android:text="登录"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/basis_tv_register" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
