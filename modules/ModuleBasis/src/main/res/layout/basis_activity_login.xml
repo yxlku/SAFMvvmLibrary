@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.deti.basis.login.LoginViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        app:isDamp="@{true}"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <Button
-            android:textSize="14mm"
-            android:id="@+id/basis_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{viewModel.clickShowToastLeft}"
-            android:text="显示左侧Icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isDamp="@{false}">
 
-        <Button
-            android:textSize="14mm"
-            android:id="@+id/basis_button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{viewModel.clickShowToastRight}"
-            android:text="显示右侧Icon"
-            app:layout_constraintBottom_toBottomOf="@+id/basis_button2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/basis_button2"
-            app:layout_constraintTop_toTopOf="@+id/basis_button2"
-             />
+            <ImageView
+                android:id="@+id/basis_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="125mm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/basis_login_icon" />
 
-        <Button
-            android:textSize="14mm"
-            android:onClick="@{viewModel.clickShowToast}"
-            android:id="@+id/basis_button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="不显示图标"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/basis_mi_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="40mm"
+                android:layout_marginTop="60mm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/basis_logo" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/basis_vp_content"
+                android:layout_width="match_parent"
+                android:layout_height="0mm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/basis_mi_tab" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion AndroidApp.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion AndroidApp.minSdkVersion
+        targetSdkVersion AndroidApp.targetSdkVersion
+        versionCode AndroidApp.versionCode
+        versionName AndroidApp.versionName
+
+        //MultiDex分包方法
+        multiDexEnabled true
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildFeatures{
+        dataBinding = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            ext.enableCrashlytics = false
+            ext.alwaysUpdateBuildId = false
+            aaptOptions {
+                cruncherEnabled false
+            }
+        }
+        /**
+         * 建议提测用这个构建类型，并使用 BuildConfig.BUILD_TYPE 判断是否等于 beta，作为
+         * 开启动态修改 Url，动态打开日志等功能的标记。
+         */
+        beta {
+            initWith release
+        }
+
+    }
+}
+
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+    // 这两个是创建项目默认就有的库
+    implementation project(':libs:SAFMVVM')
+
+    api 'com.github.hackware1993:MagicIndicator:1.7.0'
+
+}

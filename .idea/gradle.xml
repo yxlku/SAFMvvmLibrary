@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/libs/Common_Base" />
             <option value="$PROJECT_DIR$/libs/Common_Res" />
             <option value="$PROJECT_DIR$/libs/SAFMVVM" />
+            <option value="$PROJECT_DIR$/libs/SAFMVVM_EXT_UI" />
             <option value="$PROJECT_DIR$/modules" />
             <option value="$PROJECT_DIR$/modules/ModuleBasis" />
             <option value="$PROJECT_DIR$/modules/ModuleTestA" />

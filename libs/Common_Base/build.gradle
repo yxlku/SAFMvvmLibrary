@@ -41,6 +41,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':libs:SAFMVVM')
+    api project(':libs:SAFMVVM_EXT_UI')
     api project(':libs:Common_Res')
 
 }

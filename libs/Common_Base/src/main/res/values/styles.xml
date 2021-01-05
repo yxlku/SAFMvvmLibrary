@@ -3,6 +3,8 @@
     <style name="DetiAppTheme" parent="AppTheme">
         <!-- 默认文字大小-->
         <item name="android:textSize">14mm</item>
+        <!-- 窗口背景颜色 -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
 </resources>

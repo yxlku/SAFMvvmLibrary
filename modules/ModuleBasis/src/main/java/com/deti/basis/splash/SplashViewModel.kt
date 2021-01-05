@@ -14,6 +14,7 @@ import com.safmvvm.utils.coroutines.flowCountDownDeal
 import com.safmvvm.utils.coroutines.flowCountdown
 import com.safmvvm.utils.format2DateString
 import com.safmvvm.utils.formatAgoStyleForWeibo
+import com.test.common.RouterActivityPath
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -21,7 +22,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 
 class SplashViewModel(app: Application) : BaseViewModel<SplashModel>(app) {
-    private val initTime: Long = 3
+    private val initTime: Long = 0
     var timeText = SingleLiveEvent<Long>()
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -40,6 +41,7 @@ class SplashViewModel(app: Application) : BaseViewModel<SplashModel>(app) {
                 dealFinishedBlock = {
                     LogUtil.d("倒计时结束")
                     startActivity(LoginActivity::class.java)
+//                    startActivityRouter(RouterActivityPath.ModuleTestA.PAGE_TESTA)
                     finish()
                 }
             )

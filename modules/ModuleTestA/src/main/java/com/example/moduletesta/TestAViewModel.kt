@@ -12,7 +12,9 @@ import com.safmvvm.app.AppActivityManager
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.RouterActivityPath
+import com.test.common.ui.ToastDrawableEnum
 
 class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
     var text = SingleLiveEvent<String>()
@@ -20,6 +22,18 @@ class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
     fun backFinish(){
     }
 
+//    fun clickShowToastLeft(view: View){
+////        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
+//        ToastUtil.showShortToast("显示左侧", toastEnumInterface = ToastDrawableEnum.FAIL)
+//    }
+//
+//    fun clickShowToast(view: View){
+//        ToastUtil.showShortToast("不显示", true)
+//    }
+//    fun clickShowToastRight(view: View){
+////        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
+//        ToastUtil.showShortToast("显示右侧", true, ToastDrawableEnum.RIGHT)
+//    }
     fun toTestAppliactionApp(v: View){
         // 1. 应用内简单的跳转(通过URL跳转在'进阶用法'中)
 //        ARouter.getInstance().build(RouterActivityPath.TestApplication.PAGE_MAIN).navigation();

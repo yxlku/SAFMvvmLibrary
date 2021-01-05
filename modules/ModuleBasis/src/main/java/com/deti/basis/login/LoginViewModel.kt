@@ -20,16 +20,4 @@ class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
         finish()
     }
 
-    fun clickShowToastLeft(view: View){
-//        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
-        ToastUtil.showShortToast("显示左侧", toastEnumInterface = ToastDrawableEnum.FAIL)
-    }
-
-    fun clickShowToast(view: View){
-        ToastUtil.showShortToast("不显示", true)
-    }
-    fun clickShowToastRight(view: View){
-//        ToastUtil.showShortToast("我擦牛皮我擦牛皮我擦牛皮我擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮擦牛皮我擦牛皮")
-        ToastUtil.showShortToast("显示右侧", true, ToastDrawableEnum.RIGHT)
-    }
 }
