@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SAFMvvmLibrary">
-        <activity android:name="com.deti.brand.BrandMainActivity">
+        <activity android:name="com.deti.brand.main.MainFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -13,8 +13,8 @@ object RouterActivityPath {
     object ModuleBrand {
         private const val PATH: String = "/brand/"
 
-        /** testA*/
-        const val PAGE_MAIN = PATH + "main"
+        /** 品牌商首页*/
+        const val PAGE_INDEX = PATH + "index"
     }
 
 

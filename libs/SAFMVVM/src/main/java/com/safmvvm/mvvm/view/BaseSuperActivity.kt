@@ -23,6 +23,7 @@ import com.billy.android.swipe.SwipeConsumer
 import com.billy.android.swipe.consumer.ActivitySlidingBackConsumer
 import com.billy.android.swipe.listener.SimpleSwipeListener
 import com.billy.android.swipe.listener.SwipeListener
+import com.gyf.immersionbar.ImmersionBar
 import com.safmvvm.R
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfig
@@ -86,7 +87,7 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     /** 初始化状态栏 */
     private fun initTitleBar(){
-        StatusBarUtil.init(this)
+        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(window.decorView)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)

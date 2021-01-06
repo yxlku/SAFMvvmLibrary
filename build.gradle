@@ -7,7 +7,6 @@ buildscript {
     apply from: "config.gradle"
     ext {
         Versions.kotlinVersion = '1.4.30-M1'
-        Versions.kotlinVersion = '1.4.30-M1'
     }
 
     //远程仓库
@@ -15,7 +14,7 @@ buildscript {
 
     dependencies {
         // 根据自身 AS 的版本而不同，不同的版本，根目录的 gradle 目录也不一样
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath 'com.android.tools.build:gradle:4.2.0-beta02'
         classpath Deps.kotlinPlugin
         classpath Deps.natigationSafeArgsPlugin
     }

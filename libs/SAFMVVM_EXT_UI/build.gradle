@@ -53,6 +53,9 @@ dependencies {
     // 这两个是创建项目默认就有的库
     implementation project(':libs:SAFMVVM')
 
+    //顶部Tab指示器
     api 'com.github.hackware1993:MagicIndicator:1.7.0'
+    //底部Tab
+    api 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
 
 }

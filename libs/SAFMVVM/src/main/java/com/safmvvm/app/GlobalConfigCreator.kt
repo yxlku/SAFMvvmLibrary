@@ -44,6 +44,14 @@ class GlobalConfigCreator {
         GlobalConfig.App.gIsOpenSwipeback = isOpenSwipeback
         return this
     }
+
+    /**
+     * 状态栏文字是否为暗色
+     */
+    fun appIsStatusBarIsDark(isDark: Boolean): GlobalConfigCreator{
+        GlobalConfig.App.gIsStatusBarIsDark = isDark
+        return this
+    }
     /************************************ Toast初始化配置 *******************************************/
 
     /**

@@ -93,7 +93,7 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
 
     /** 初始化状态栏 */
     private fun initTitleBar(view: View){
-        StatusBarUtil.init(this)
+        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(view)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)

@@ -27,8 +27,8 @@ object AutoSizeUtil {
         GlobalConfig.AutoSize.gDesignSize.let {
             manager.setDesignSize(it.first, it.second)
         }
-        manager.setSupportDP(true)
-            .setSupportSP(true)
+        manager.setSupportDP(false)
+            .setSupportSP(false)
             .supportSubunits = Subunits.MM
 
         //自定义过滤问题

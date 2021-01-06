@@ -16,6 +16,6 @@ class RegisterAcitivty: BaseActivity<BasisActivityRegisterBinding, RegisterViewM
 
     override fun initData() {
         super.initData()
-        StatusBarUtil.statusTextAndIconColor(this, true)
+        StatusBarUtil.statusTextAndIconColorIsDark(this, true)
     }
 }
