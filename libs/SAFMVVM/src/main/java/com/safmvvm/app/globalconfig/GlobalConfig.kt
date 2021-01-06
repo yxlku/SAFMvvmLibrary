@@ -36,7 +36,7 @@ internal object GlobalConfig {
         /** 是否开启侧滑功能*/
         var gIsOpenSwipeback: Boolean = true
         /** 默认沉浸式状态栏文字及图标颜色*/
-        var gIsStatusBarIsDark: Boolean = true;
+        var gIsStatusBarIsDark: Boolean = false
     }
 
     /**
