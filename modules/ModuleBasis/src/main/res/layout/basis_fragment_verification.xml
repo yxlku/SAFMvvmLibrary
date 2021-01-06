@@ -127,6 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/basis_linearlayout" />
 
         <TextView
+            android:onClick="@{viewModel.clickToPageIndex}"
             android:textSize="18mm"
             android:textColor="#1B2643"
             android:background="@drawable/base_btn_yellow_bg"

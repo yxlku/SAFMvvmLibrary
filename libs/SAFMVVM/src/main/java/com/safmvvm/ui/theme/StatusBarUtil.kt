@@ -24,6 +24,7 @@ object StatusBarUtil {
             fullScreen(false)
             //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
             keyboardEnable(true)
+            transparentNavigationBar()
             init()
         }
     }

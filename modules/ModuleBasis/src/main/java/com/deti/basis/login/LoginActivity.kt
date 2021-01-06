@@ -2,6 +2,7 @@ package com.deti.basis.login
 
 import android.content.Context
 import android.graphics.Color
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,6 +15,8 @@ import com.deti.basis.login.verification.VerificationFragment
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.ext.ui.ViewPager2FragmentAdapter
 import com.safmvvm.ext.ui.ViewPager2Helper
+import com.safmvvm.ui.theme.StatusBarUtil
+import com.safmvvm.utils.LogUtil
 import com.test.common.RouterActivityPath
 import net.lucode.hackware.magicindicator.FragmentContainerHelper
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -35,6 +38,8 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
     var mFragmentContainerHelper = FragmentContainerHelper()
 
     override fun initData() {
+        StatusBarUtil.statusTextAndIconColor(this, true)
+
         //此页面去除侧滑关闭
         cleanSwipeback()
 
@@ -44,6 +49,8 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
         initMagicIndicator()
         //默认选中页面
         switchPages(0)
+
+        LogUtil.d("是否开启通知：" + NotificationManagerCompat.from(this).areNotificationsEnabled())
     }
 
     private fun initFragment() {

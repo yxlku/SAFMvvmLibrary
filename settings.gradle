@@ -1,3 +1,4 @@
+include ':modules:ModuleBrand'
 include ':libs:SAFMVVM_EXT_UI'
 include ':modules:ModuleBasis'
 include ':libs:Common_Res'

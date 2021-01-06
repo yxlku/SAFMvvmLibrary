@@ -17,7 +17,7 @@ interface IResultFinishCallback {
             Observer {
                 block(it.first, it.second)
             },
-            true
+            false
         )
     }
 

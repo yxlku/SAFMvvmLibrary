@@ -92,7 +92,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
             StatusBarUtil.immersionPageView(this, it)
             it.setOnTitleBarListener(object : OnTitleBarListener {
                 override fun onLeftClick(v: View?) {
-                    if (titleBackFinish()) finish()
+//                    if (titleBackFinish()) finish()
+                    if (titleBackFinish()) onBackPressed()
                 }
 
                 override fun onTitleClick(v: View?) {
