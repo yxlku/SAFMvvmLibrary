@@ -10,7 +10,7 @@
     <color name="textColorHint">#757575</color>
 
     <!-- 全局背景颜色-->
-    <color name="background">#F8F8F8</color>
+    <color name="background">#F9F9F9</color>
     <!-- 标题栏颜色-->
     <color name="navigationBg">#1F2438</color>
     <!-- 标题栏按钮文字颜色-->
