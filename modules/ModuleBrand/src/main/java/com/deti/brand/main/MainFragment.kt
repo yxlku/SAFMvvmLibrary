@@ -5,9 +5,10 @@ import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentMainBinding
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.mvvm.view.BaseFragment
 import com.test.common.RouterActivityPath
 
-class MainFragment: BaseActivity<BrandFragmentMainBinding, MainViewModel>(
+class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     R.layout.brand_fragment_main,
     BR.viewModel
 )

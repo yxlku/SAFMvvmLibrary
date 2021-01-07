@@ -1,4 +1,4 @@
-package com.safmvvm.ext.ui
+package com.safmvvm.ext.ui.viewpager2
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

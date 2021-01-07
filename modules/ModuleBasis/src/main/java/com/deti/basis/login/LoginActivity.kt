@@ -14,9 +14,11 @@ import com.deti.basis.databinding.BasisActivityLoginBinding
 import com.deti.basis.login.password.PasswordFragment
 import com.deti.basis.login.verification.VerificationFragment
 import com.safmvvm.app.AppActivityManager
-import com.safmvvm.ext.ui.ViewPager2FragmentAdapter
-import com.safmvvm.ext.ui.ViewPager2Helper
-import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
+import com.safmvvm.ext.ui.viewpager2.ViewPager2FragmentAdapter
+import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
+import com.safmvvm.ext.ui.viewpager2.transformations.CubeInRotationTransformation
+import com.safmvvm.ext.ui.viewpager2.transformations.FadeOutTransformation
+import com.safmvvm.ext.ui.viewpager2.transformations.ZoomOutTransformation
 import com.safmvvm.mvvm.view.BaseActivity
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.utils.LogUtil
@@ -69,6 +71,7 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
             isUserInputEnabled = true
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             adapter = fragmentAdapter
+            setPageTransformer(CubeInRotationTransformation())
         }
     }
 
@@ -113,7 +116,7 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
 
     private fun switchPages(index: Int){
         mFragmentContainerHelper.handlePageSelected(index, false)
-        mBinding.basisVpContent.currentItem = index
+        mBinding.basisVpContent.setCurrentItem(index, true)
     }
 
     override fun onBackPressed() {
