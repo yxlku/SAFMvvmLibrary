@@ -41,7 +41,7 @@ class BrandIndexActivity: BaseActivity<BrandActivityIndexBinding, BrandIndexView
         mBinding.vpContent.apply {
             adapter = viewPager2FragmentAdapter
             //禁止滑动
-            isUserInputEnabled = true
+            isUserInputEnabled = false
             setPageTransformer(CubeInRotationTransformation())
         }
     }

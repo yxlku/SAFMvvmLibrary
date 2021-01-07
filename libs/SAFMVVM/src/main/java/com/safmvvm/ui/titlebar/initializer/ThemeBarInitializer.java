@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.safmvvm.R;
+import com.safmvvm.app.globalconfig.GlobalConfig;
 import com.safmvvm.ui.titlebar.SelectorDrawable;
 
 
@@ -60,7 +61,7 @@ public class ThemeBarInitializer extends BaseBarInitializer {
 
     @Override
     public Drawable getBackIcon(Context context) {
-        return getDrawableResources(context, R.drawable.bar_arrows_left_black);
+        return getDrawableResources(context, GlobalConfig.TitleBar.gTitleBarBackIcon);
     }
 
     @Override

@@ -14,7 +14,7 @@
     <color name="background">#00BCD4</color>
     <!-- 标题栏颜色-->
     <color name="navigationBg">#C63A3A</color>
-    <!-- 标题栏按钮文字颜色-->
+    <!-- 标题栏按钮文字颜色-->`
     <color name="navigationMenuColor">#FFFFFF</color>
 
 </resources>

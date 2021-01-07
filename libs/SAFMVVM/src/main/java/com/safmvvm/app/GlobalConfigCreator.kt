@@ -52,6 +52,15 @@ class GlobalConfigCreator {
         GlobalConfig.App.gIsStatusBarIsDark = isDark
         return this
     }
+    /************************************ TitleBar初始化配置 *******************************************/
+    /**
+     * 默认标题栏返回按钮
+     */
+    fun titleBarBackIcon(@DrawableRes titleBarBackIcon: Int): GlobalConfigCreator{
+        GlobalConfig.TitleBar.gTitleBarBackIcon = titleBarBackIcon
+        return this
+    }
+
     /************************************ Toast初始化配置 *******************************************/
 
     /**

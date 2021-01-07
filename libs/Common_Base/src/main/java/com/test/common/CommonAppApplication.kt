@@ -6,6 +6,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.component.app.ComponentBaseApp
 import com.safmvvm.db.MigrationManager
+import com.safmvvm.ui.autosize.AutoSizeUtil
 import com.safmvvm.utils.DensityUtil
 import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.test.common.base.ProjectConfigListener
@@ -23,6 +24,8 @@ open class CommonAppApplication : ComponentBaseApp() {
 
     override fun onMainPorcessInitBefore() {
         super.onMainPorcessInitBefore()
+
+        AutoSizeUtil.init()
 
         GlobalConfigCreator()
             //是否开启日志功能

@@ -9,13 +9,12 @@
     <color name="textColor">#000000</color>
     <color name="textColorHint">#757575</color>
 
-
     <!-- 全局背景颜色-->
-    <color name="background">#FFFFFF</color>
+    <color name="background">#F8F8F8</color>
     <!-- 标题栏颜色-->
-    <color name="navigationBg">#FFFFFF</color>
+    <color name="navigationBg">#1F2438</color>
     <!-- 标题栏按钮文字颜色-->
-    <color name="navigationMenuColor">#000000</color>
+    <color name="navigationMenuColor">#FFFFFF</color>
 
 
 </resources>

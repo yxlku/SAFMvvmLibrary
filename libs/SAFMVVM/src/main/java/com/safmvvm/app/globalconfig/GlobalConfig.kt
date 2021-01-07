@@ -1,10 +1,8 @@
 package com.safmvvm.app.globalconfig
 
+import android.graphics.Color
 import android.view.Gravity
-import androidx.annotation.AnimRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
+import androidx.annotation.*
 import com.safmvvm.R
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
@@ -37,6 +35,12 @@ internal object GlobalConfig {
         var gIsOpenSwipeback: Boolean = true
         /** 默认沉浸式状态栏文字及图标颜色*/
         var gIsStatusBarIsDark: Boolean = false
+    }
+
+    object TitleBar{
+        /** 默认返回按钮*/
+        @JvmField
+        @DrawableRes var gTitleBarBackIcon: Int = R.drawable.bar_arrows_left_black
     }
 
     /**

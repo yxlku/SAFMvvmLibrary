@@ -54,8 +54,6 @@ class LoginActivity: BaseActivity<BasisActivityLoginBinding, LoginViewModel>(
         initMagicIndicator()
         //默认选中页面
         switchPages(0)
-
-        LogUtil.d("是否开启通知：" + NotificationManagerCompat.from(this).areNotificationsEnabled())
     }
 
     private fun initFragment() {

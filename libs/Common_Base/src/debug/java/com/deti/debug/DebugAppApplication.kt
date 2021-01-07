@@ -1,14 +1,11 @@
-package com.test.app
+package com.deti.debug
 
-import com.safmvvm.ui.autosize.AutoSizeUtil
-import com.safmvvm.ui.titlebar.TitleBar
-import com.safmvvm.ui.titlebar.initializer.BaseBarInitializer
 import com.safmvvm.utils.LogUtil
 import com.test.common.CommonAppApplication
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.external.ExternalAdaptInfo
 
-class AppApplication: CommonAppApplication() {
+class DebugAppApplication: CommonAppApplication() {
 
 
     override fun onMainProcessInit() {

@@ -8,6 +8,4 @@ import com.safmvvm.mvvm.view.BaseFragment
 class MsgFragment: BaseFragment<BrandFragmentMsgBinding, MsgViewModel>(
     R.layout.brand_fragment_msg,
     BR.viewModel
-){
-
-}
+)

@@ -8,4 +8,6 @@ import com.safmvvm.mvvm.view.BaseFragment
 class ODMFragment: BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     R.layout.brand_fragment_index_odm,
     BR.viewModel
-)
+){
+
+}

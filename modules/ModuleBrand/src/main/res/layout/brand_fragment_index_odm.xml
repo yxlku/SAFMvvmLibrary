@@ -13,14 +13,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/brand_textview2"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_tab_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ODM"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60mm" />
+        <View
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/gl_tab_line"
+            android:background="#1F2438"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"/>
+        <ImageView
+            android:id="@+id/iv_title"
+            android:src="@drawable/brand_odm_title_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/gl_tab_line"
+            android:layout_width="match_parent"
+            android:layout_height="48mm"/>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            app:layout_constraintStart_toStartOf="@id/iv_title"
+            app:layout_constraintEnd_toEndOf="@id/iv_title"
+            app:layout_constraintTop_toTopOf="@id/iv_title"
+            app:layout_constraintBottom_toBottomOf="@id/iv_title"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
