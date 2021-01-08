@@ -21,6 +21,7 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
 import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.Utils
 import com.zy.multistatepage.MultiStatePage
 import com.zy.multistatepage.OnNotifyListener
 
@@ -187,6 +188,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Utils.releaseBinding(this.javaClass, BaseSuperFragment::class.java, this, "mBinding")
         dialogView?.destroy()
     }
 

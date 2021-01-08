@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
+import cn.dreamtobe.percentsmoothhandler.ISmoothTarget
 import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
@@ -27,6 +28,7 @@ interface ITabTop {
         viewPager2: ViewPager2? = null,
         titles: ArrayList<String>,
         isAdjust: Boolean = false,
+        tag: Int = 0
     ) {
         context?.let {
             var commonNavigator = CommonNavigator(context).apply {
@@ -35,9 +37,9 @@ interface ITabTop {
                     override fun getCount(): Int = titles.size
 
                     override fun getTitleView(context: Context, index: Int): IPagerTitleView? =
-                        createTitleItemView(context, magicIndicator, viewPager2, index, titles)
+                        createTitleItemView(context, magicIndicator, viewPager2, index, titles, tag)
 
-                    override fun getIndicator(context: Context): IPagerIndicator? = createIndicator(context)
+                    override fun getIndicator(context: Context): IPagerIndicator? = createIndicator(context, tag)
 
                     override fun getTitleWeight(context: Context?, index: Int): Float = createTitleWeight(context, index)
                 }
@@ -60,6 +62,7 @@ interface ITabTop {
         viewPager2: ViewPager2? = null,
         index: Int,
         titles: ArrayList<String>,
+        tab: Int
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
         setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
         textSize = 16F
@@ -77,7 +80,7 @@ interface ITabTop {
      *
      * 不写就是方法内默认样式
      */
-    fun createIndicator(context: Context?): IPagerIndicator? {
+    fun createIndicator(context: Context?, tag: Int = 0): IPagerIndicator? {
         return LinePagerIndicator(context).apply {
             mode = LinePagerIndicator.MODE_WRAP_CONTENT
             setColors(Color.parseColor("#FCCE48"))
@@ -103,7 +106,7 @@ interface ITabTop {
         index: Int,
     ) {
         viewPager2?.let {
-            viewPager2?.setCurrentItem(index, true)
+            viewPager2.setCurrentItem(index, false)
         } ?: run{
             magicIndicator.onPageScrolled(index, 0f, 0)
             magicIndicator.onPageSelected(index)

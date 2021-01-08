@@ -1,5 +1,8 @@
 package com.safmvvm.ext.ui.viewpager2;
 
+import android.view.animation.OvershootInterpolator;
+
+import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import androidx.viewpager2.widget.ViewPager2;
 

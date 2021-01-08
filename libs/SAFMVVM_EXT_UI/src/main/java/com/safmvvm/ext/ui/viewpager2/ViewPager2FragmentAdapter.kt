@@ -13,9 +13,9 @@ fun ArrayList<Fragment>.createViewPager2(
     viewPager2: ViewPager2,
     isScroll: Boolean = true,
     block: (viewPager2: ViewPager2) -> Unit = {},
-) {
+): ViewPager2 {
     var viewPager2FragmentAdapter = ViewPager2FragmentAdapter(activity, this)
-    viewPager2.apply {
+    return viewPager2.apply {
         adapter = viewPager2FragmentAdapter
         //禁止滑动
         isUserInputEnabled = isScroll

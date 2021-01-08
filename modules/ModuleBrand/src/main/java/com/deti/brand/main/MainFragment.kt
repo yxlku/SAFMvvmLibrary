@@ -42,7 +42,7 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
         fragments.createViewPager2(
             activity as AppCompatActivity,
             mBinding.vpContent,
-            true
+            false
         )
     }
     private fun initTab() {
@@ -65,6 +65,7 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
         viewPager2: ViewPager2?,
         index: Int,
         titles: ArrayList<String>,
+        tag: Int
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
         setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
         textSize = 16F
@@ -82,13 +83,5 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
      *
      * 不写就是方法内默认样式
      */
-    override fun createIndicator(context: Context?): IPagerIndicator {
-        return LinePagerIndicator(context).apply {
-            mode = LinePagerIndicator.MODE_WRAP_CONTENT
-            setColors(Color.parseColor("#FCCE48"))
-            startInterpolator = AccelerateInterpolator()
-            endInterpolator = DecelerateInterpolator(1.6f)
-            lineHeight = AutoSizeUtils.mm2px(context, 2.0f).toFloat()
-        }
-    }
+    override fun createIndicator(context: Context?, tag: Int): IPagerIndicator? = null
 }

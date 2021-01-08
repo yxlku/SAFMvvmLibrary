@@ -132,7 +132,6 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         }
         //销毁所有LiveDataBus
         removeLiveDataBus(this)
-
     }
 
     /**

@@ -15,6 +15,13 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_tab_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,16 +46,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <View
+            android:id="@+id/v_tab_bg_white"
+            android:layout_width="0mm"
+            android:layout_height="0mm"
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="6mm"
+            android:layout_marginBottom="6mm"
+            android:background="@drawable/brand_odm_tab_white_bg"
+            app:layout_constraintBottom_toBottomOf="@id/iv_title"
+            app:layout_constraintEnd_toEndOf="@id/line_center"
+            app:layout_constraintStart_toStartOf="@id/iv_title"
+            app:layout_constraintTop_toTopOf="@id/iv_title" />
+
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/mi_tab"
             android:layout_width="match_parent"
             android:layout_height="0mm"
+            android:paddingStart="16mm"
+            android:paddingEnd="16mm"
+            app:layout_constraintBottom_toBottomOf="@id/iv_title"
+            app:layout_constraintEnd_toEndOf="@id/iv_title"
+            app:layout_constraintStart_toStartOf="@id/iv_title"
+            app:layout_constraintTop_toTopOf="@id/iv_title" />
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:paddingTop="6mm"
+            android:id="@+id/mi_tab_triangle"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"
+            android:paddingStart="16mm"
+            android:paddingEnd="16mm"
             app:layout_constraintBottom_toBottomOf="@id/iv_title"
             app:layout_constraintEnd_toEndOf="@id/iv_title"
             app:layout_constraintStart_toStartOf="@id/iv_title"
             app:layout_constraintTop_toTopOf="@id/iv_title" />
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="0mm"
             app:layout_constraintBottom_toBottomOf="parent"
