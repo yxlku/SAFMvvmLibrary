@@ -16,6 +16,7 @@ import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.utils.ResUtil
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -118,14 +119,10 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
         //tab颜色状态
         tabNormalColor(magicIndicator, index)
         //前两个tab背景图片在点后两个的时候隐藏
-        if (index > 1) {
-            if (mBinding.vTabBgWhite.visibility == View.VISIBLE) {
-                AnimationUtils.showAndHiddenAnimation(mBinding.vTabBgWhite, AnimationUtils.AnimationState.STATE_HIDDEN, 250)
-            }
+        mBinding.vTabBgWhite.background = if (index > 1) {
+            ResUtil.getDrawable(R.drawable.brand_odm_tab_gray_bg)
         } else {
-            if (mBinding.vTabBgWhite.visibility == View.GONE) {
-                AnimationUtils.showAndHiddenAnimation(mBinding.vTabBgWhite, AnimationUtils.AnimationState.STATE_SHOW, 250)
-            }
+            ResUtil.getDrawable(R.drawable.brand_odm_tab_white_bg)
         }
         //滑动动画
         viewPager2?.setCurrentItem(index, false)
