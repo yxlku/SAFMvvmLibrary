@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.deti.brand.main.odm.demand.create.item.service.ItemServiceEntity" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_weight="1"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="20mm"
+            android:background="@drawable/brand_demand_create_item_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10mm"
+            android:paddingTop="15mm"
+            android:paddingEnd="10mm"
+            android:paddingBottom="15mm"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="服务类型 *"
+                android:textSize="16mm"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/brand_memand_create_arrow_gray"
+                android:drawablePadding="2mm"
+                android:text="请选择"
+                android:textColor="#CCCCCC" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_weight="1"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13mm"
+            android:layout_marginTop="20mm"
+            android:layout_marginEnd="16mm"
+            android:background="@drawable/brand_demand_create_item_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10mm"
+            android:paddingTop="15mm"
+            android:paddingEnd="10mm"
+            android:paddingBottom="15mm"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="对应服务 *"
+                android:textSize="16mm"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/brand_memand_create_arrow_gray"
+                android:drawablePadding="2mm"
+                android:text="请选择"
+                android:textColor="#CCCCCC" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
