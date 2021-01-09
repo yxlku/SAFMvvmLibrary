@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="entity"
+            type="com.deti.brand.main.odm.demand.create.item.file.ItemUploadFileEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16mm"
+        android:paddingTop="20mm"
+        android:paddingEnd="16mm">
+
+        <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请上传面料信息"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10mm"
+            android:text="(选填)"
+            android:textColor="#CCCCCC"
+            app:layout_constraintBottom_toBottomOf="@id/tv_text"
+            app:layout_constraintStart_toEndOf="@id/tv_text"
+            app:layout_constraintTop_toTopOf="@id/tv_text" />
+
+        <TextView
+            android:id="@+id/tv_upload_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10mm"
+            android:background="@drawable/brand_upload_file_bg"
+            android:drawableStart="@drawable/brand_demand_upload_icon"
+            android:drawablePadding="10mm"
+            android:paddingStart="14mm"
+            android:paddingTop="9mm"
+            android:paddingEnd="14mm"
+            android:paddingBottom="9mm"
+            android:text="上传物料信息"
+            android:textColor="#1B2643"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

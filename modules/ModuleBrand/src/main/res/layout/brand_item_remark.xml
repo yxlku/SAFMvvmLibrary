@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.deti.brand.main.odm.demand.create.item.remark.ItemRemarkEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:paddingStart="16mm"
+        android:paddingEnd="16mm">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请输入备注（选填）"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15mm"
+            android:background="@drawable/brand_demand_create_item_bg"
+            android:gravity="top|left"
+            android:hint="请输入更多备注信息"
+            android:minHeight="146mm"
+            android:padding="16mm"
+            android:textColor="#999999"
+            android:textColorHint="#666666"
+            android:textSize="12mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
