@@ -2,13 +2,9 @@ package com.deti.basis.login
 
 import android.app.Application
 import android.view.View
-import com.deti.basis.register.RegisterAcitivty
 import com.safmvvm.app.AppActivityManager
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
-import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.test.common.RouterActivityPath
-import com.test.common.ui.ToastDrawableEnum
 
 class LoginViewModel(app: Application): BaseViewModel<LoginModel>(app){
 

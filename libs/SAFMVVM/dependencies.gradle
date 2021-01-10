@@ -109,7 +109,7 @@ ext {
             liveEventBus               : "com.jeremyliao:live-event-bus-x:1.7.2",
 
             //dialog
-            XPopupDialog               :"com.lxj:xpopup:2.2.5",
+            XPopupDialog               :"com.lxj:xpopup:2.2.13",
             //城市列表、时间选择：https://github.com/li-xiaojun/XPopupExt
             XPopupDialogExt            :"com.lxj:xpopup-ext:0.0.3",
             //日期选择器

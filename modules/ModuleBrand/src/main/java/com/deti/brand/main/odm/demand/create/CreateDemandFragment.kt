@@ -104,7 +104,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
 
         mAdapter.apply {
-            addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip())
+            addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
             addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose())
             addItemBinder(ItemServiceEntity::class.java, ItemService())
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose())

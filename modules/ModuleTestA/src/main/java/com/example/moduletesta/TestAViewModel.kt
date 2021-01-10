@@ -1,20 +1,10 @@
 package com.example.moduletesta
 
-import android.app.Activity
 import android.app.Application
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
-import com.alibaba.android.arouter.facade.Postcard
-import com.alibaba.android.arouter.launcher.ARouter
-import com.safmvvm.app.AppActivityManager
 import com.safmvvm.bus.SingleLiveEvent
-import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
-import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.RouterActivityPath
-import com.test.common.ui.ToastDrawableEnum
 
 class TestAViewModel(app: Application): BaseViewModel<TestAModel>(app){
     var text = SingleLiveEvent<String>()

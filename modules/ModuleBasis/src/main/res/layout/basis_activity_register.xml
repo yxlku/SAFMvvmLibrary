@@ -234,7 +234,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.safmvvm.ui.titlebar.TitleBar
-            app:leftIcon="@drawable/base_dialog_close"
+            app:leftIcon="@drawable/base_titlebar_close"
             app:lineVisible="false"
             android:id="@+id/tb_title"
             android:paddingLeft="18mm"

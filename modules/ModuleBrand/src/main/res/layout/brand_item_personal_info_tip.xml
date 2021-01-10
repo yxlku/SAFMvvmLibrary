@@ -5,6 +5,10 @@
         <variable
             name="entity"
             type="com.deti.brand.main.odm.demand.create.item.personinfo.ItemPersonalInfoEntity" />
+
+        <variable
+            name="viewMolde"
+            type="com.deti.brand.main.odm.demand.create.item.personinfo.ItemPersonalInfoTip" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -28,6 +32,7 @@
             android:text="欢迎来到得体，不要忘记完善\n信息后再提交需求哦！~" />
 
         <TextView
+            android:onClick="@{viewMolde.clickDialogTest}"
             android:id="@+id/brand_textview5"
             android:layout_width="wrap_content"
             android:layout_height="34mm"

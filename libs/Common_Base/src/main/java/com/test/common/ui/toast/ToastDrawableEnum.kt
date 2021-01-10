@@ -1,4 +1,4 @@
-package com.test.common.ui
+package com.test.common.ui.toast
 
 import androidx.annotation.DrawableRes
 import com.safmvvm.ui.toast.ToastEnumInterface
