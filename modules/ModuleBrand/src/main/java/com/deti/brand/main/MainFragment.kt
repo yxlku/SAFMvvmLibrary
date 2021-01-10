@@ -28,10 +28,10 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     R.layout.brand_fragment_main,
     BR.viewModel
 ), ITabTop {
-    var titles = arrayListOf("OEM", "ODM")
-    var fragments = arrayListOf<Fragment>(OEMFragment(), ODMFragment())
-//    var titles = arrayListOf("ODM")
-//    var fragments = arrayListOf<Fragment>(ODMFragment())
+//    var titles = arrayListOf("OEM", "ODM")
+//    var fragments = arrayListOf<Fragment>(OEMFragment(), ODMFragment())
+    var titles = arrayListOf("ODM")
+    var fragments = arrayListOf<Fragment>(ODMFragment())
 
     override fun initData() {
         super.initData()

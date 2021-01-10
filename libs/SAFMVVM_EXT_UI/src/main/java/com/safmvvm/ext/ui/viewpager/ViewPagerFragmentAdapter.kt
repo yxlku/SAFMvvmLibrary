@@ -19,6 +19,7 @@ fun ArrayList<Fragment>.createViewPager(
 ): ViewPager {
     var viewPagerFragmentAdapter = ViewPagerFragmentAdapter(fragmentManager, this)
     return viewPager.apply {
+        offscreenPageLimit = 5
         adapter = viewPagerFragmentAdapter
         block(this)
     }

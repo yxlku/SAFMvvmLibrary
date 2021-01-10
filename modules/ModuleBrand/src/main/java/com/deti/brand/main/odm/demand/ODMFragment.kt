@@ -12,12 +12,14 @@ import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentIndexOdmBinding
 import com.deti.brand.main.odm.demand.create.CreateDemandFragment
+import com.deti.brand.main.odm.demand.price.PriceDemandFragment
 import com.safmvvm.ext.ui.AnimationUtils
 import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.ResUtil
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
@@ -44,13 +46,14 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     )
     var fragments = arrayListOf<Fragment>(
         CreateDemandFragment(),
-        CreateDemandFragment(),
-        CreateDemandFragment(),
-        CreateDemandFragment()
+        PriceDemandFragment(),
+        PriceDemandFragment(),
+        PriceDemandFragment()
     )
 
     override fun initData() {
         super.initData()
+
         initViewPager()
         initTab()
     }

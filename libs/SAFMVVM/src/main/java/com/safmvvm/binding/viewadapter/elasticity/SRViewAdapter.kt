@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import com.safmvvm.R
+import com.safmvvm.utils.LogUtil
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 
