@@ -4,10 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import cn.dreamtobe.percentsmoothhandler.ISmoothTarget
-import com.safmvvm.ext.ui.viewpager.ViewPagerHelper
 import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
@@ -19,7 +17,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
 
-interface ITabTop {
+interface ITabTop2 {
 
     /**
      * 1、初始调用位置
@@ -27,7 +25,7 @@ interface ITabTop {
     fun initTabTop(
         context: Context?,
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager? = null,
+        viewPager2: ViewPager2? = null,
         titles: ArrayList<String>,
         isAdjust: Boolean = false,
         tag: Int = 0
@@ -39,7 +37,7 @@ interface ITabTop {
                     override fun getCount(): Int = titles.size
 
                     override fun getTitleView(context: Context, index: Int): IPagerTitleView? =
-                        createTitleItemView(context, magicIndicator, viewPager, index, titles, tag)
+                        createTitleItemView(context, magicIndicator, viewPager2, index, titles, tag)
 
                     override fun getIndicator(context: Context): IPagerIndicator? = createIndicator(context, tag)
 
@@ -47,8 +45,8 @@ interface ITabTop {
                 }
             }
             magicIndicator.navigator = commonNavigator
-            viewPager?.let {
-                ViewPagerHelper.bind(magicIndicator, it)
+            viewPager2?.let {
+                ViewPager2Helper.bind(magicIndicator, it)
             }
         }
     }
@@ -61,7 +59,7 @@ interface ITabTop {
     fun createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager? = null,
+        viewPager2: ViewPager2? = null,
         index: Int,
         titles: ArrayList<String>,
         tab: Int
@@ -72,7 +70,7 @@ interface ITabTop {
         normalColor = Color.parseColor("#99FFFFFF")
         selectedColor = Color.parseColor("#FFFFFF")
         setOnClickListener {
-            switchPage(magicIndicator, viewPager, index)
+            switchPage(magicIndicator, viewPager2, index)
         }
     }
 
@@ -104,11 +102,11 @@ interface ITabTop {
      */
     fun switchPage(
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager?,
+        viewPager2: ViewPager2?,
         index: Int,
     ) {
-        viewPager?.let {
-            viewPager.setCurrentItem(index, false)
+        viewPager2?.let {
+            viewPager2.setCurrentItem(index, false)
         } ?: run{
             magicIndicator.onPageScrolled(index, 0f, 0)
             magicIndicator.onPageSelected(index)

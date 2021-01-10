@@ -1,9 +1,7 @@
 package com.safmvvm.ext.ui.tab
 
 import androidx.annotation.DrawableRes
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.safmvvm.ext.ui.viewpager.ViewPagerHelper
 import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
 import me.majiajie.pagerbottomtabstrip.NavigationController
 import me.majiajie.pagerbottomtabstrip.PageNavigationView
@@ -11,7 +9,7 @@ import me.majiajie.pagerbottomtabstrip.item.BaseTabItem
 
 
 
-interface ITabBottom{
+interface ITabBottom2{
 
     /**
      * 2、tabItem样式
@@ -27,7 +25,7 @@ interface ITabBottom{
      */
     fun createBottomTab(
         pageNavigationView: PageNavigationView,
-        viewPager: ViewPager? = null,
+        viewPager2: ViewPager2? = null,
         tabItems: ArrayList<out BaseTabItem>,
         defSelected: Int = 0,
         block: (navigationController: NavigationController) -> Unit = {},
@@ -38,11 +36,11 @@ interface ITabBottom{
             }
         }.build().run {
             block(this)
-            viewPager?.let {
+            viewPager2?.let {
                 //默认选择
                 setSelect(defSelected)
                 //可以不使用ViewPager
-                ViewPagerHelper.bind(this, it)
+                ViewPager2Helper.bind(this, it)
                 addSimpleTabItemSelectedListener { index, old ->
                     //选择
                     switchPage(this, it, index)
@@ -57,11 +55,11 @@ interface ITabBottom{
      */
     fun switchPage(
         navigationController: NavigationController,
-        viewPager: ViewPager,
+        viewPager2: ViewPager2,
         index: Int
     ) {
         navigationController.setSelect(index)
-        viewPager.setCurrentItem(index, true)
+        viewPager2.setCurrentItem(index, true)
     }
 
 

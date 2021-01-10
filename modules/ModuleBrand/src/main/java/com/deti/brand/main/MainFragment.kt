@@ -6,6 +6,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.deti.brand.BR
 import com.deti.brand.R
@@ -13,6 +14,7 @@ import com.deti.brand.databinding.BrandFragmentMainBinding
 import com.deti.brand.main.odm.demand.ODMFragment
 import com.deti.brand.main.oem.OEMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
+import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.mvvm.view.BaseFragment
 import me.jessyan.autosize.utils.AutoSizeUtils
@@ -26,10 +28,10 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     R.layout.brand_fragment_main,
     BR.viewModel
 ), ITabTop {
-//    var titles = arrayListOf("OEM", "ODM")
-//    var fragments = arrayListOf<Fragment>(OEMFragment(), ODMFragment())
-    var titles = arrayListOf("ODM")
-    var fragments = arrayListOf<Fragment>(ODMFragment())
+    var titles = arrayListOf("OEM", "ODM")
+    var fragments = arrayListOf<Fragment>(OEMFragment(), ODMFragment())
+//    var titles = arrayListOf("ODM")
+//    var fragments = arrayListOf<Fragment>(ODMFragment())
 
     override fun initData() {
         super.initData()
@@ -39,10 +41,9 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     }
 
     private fun initViewPager() {
-        fragments.createViewPager2(
-            activity as AppCompatActivity,
-            mBinding.vpContent,
-            false
+        fragments.createViewPager(
+            childFragmentManager,
+            mBinding.vpContent
         )
     }
     private fun initTab() {
@@ -62,7 +63,7 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     override fun createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager2: ViewPager2?,
+        viewPager: ViewPager?,
         index: Int,
         titles: ArrayList<String>,
         tag: Int
@@ -73,7 +74,7 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
         normalColor = Color.parseColor("#99FFFFFF")
         selectedColor = Color.parseColor("#FFFFFF")
         setOnClickListener {
-            switchPage(magicIndicator, viewPager2, index)
+            switchPage(magicIndicator, viewPager, index)
         }
     }
 

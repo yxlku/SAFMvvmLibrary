@@ -6,6 +6,7 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.deti.brand.R
 import com.deti.brand.BR
@@ -14,6 +15,7 @@ import com.deti.brand.main.odm.demand.create.CreateDemandFragment
 import com.safmvvm.ext.ui.AnimationUtils
 import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
+import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.utils.ResUtil
@@ -54,10 +56,9 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     }
 
     private fun initViewPager() {
-        fragments.createViewPager2(
-            activity as AppCompatActivity,
-            mBinding.vpContent,
-            false
+        fragments.createViewPager(
+            childFragmentManager,
+            mBinding.vpContent
         )
     }
 
@@ -69,7 +70,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     override fun createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager2: ViewPager2?,
+        viewPager: ViewPager?,
         index: Int,
         titles: ArrayList<String>,
         tag: Int
@@ -85,7 +86,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
                     Color.parseColor("#1F2438")
                 }
                 setOnClickListener {
-                    switchPage(magicIndicator, viewPager2, index)
+                    switchPage(magicIndicator, viewPager, index)
                 }
             }
         } else {
@@ -113,7 +114,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
 
     override fun switchPage(
         magicIndicator: MagicIndicator,
-        viewPager2: ViewPager2?,
+        viewPager: ViewPager?,
         index: Int
     ) {
         //tab颜色状态
@@ -125,7 +126,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
             ResUtil.getDrawable(R.drawable.brand_odm_tab_white_bg)
         }
         //滑动动画
-        viewPager2?.setCurrentItem(index, false)
+        viewPager?.setCurrentItem(index, false)
     }
 
     fun tabNormalColor(magicIndicator: MagicIndicator, index: Int){

@@ -9,6 +9,7 @@ import com.deti.brand.mine.MineFragment
 import com.deti.brand.msg.MsgFragment
 import com.safmvvm.ext.ui.tab.ITabBottom
 import com.safmvvm.ext.ui.tab.bottom.NewNormalItemView
+import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.ext.ui.viewpager2.transformations.CubeInRotationTransformation
 import com.safmvvm.mvvm.view.BaseActivity
@@ -34,9 +35,7 @@ class BrandIndexActivity: BaseActivity<BrandActivityIndexBinding, BrandIndexView
             add(MsgFragment())
             add(MineFragment())
         }
-        fragments.createViewPager2(this, mBinding.vpContent, false){
-            it.setPageTransformer(CubeInRotationTransformation())
-        }
+        fragments.createViewPager(supportFragmentManager, mBinding.vpContent)
     }
 
     private fun initTab() {

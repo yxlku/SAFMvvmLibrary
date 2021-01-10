@@ -17,6 +17,7 @@ fun ArrayList<Fragment>.createViewPager2(
     var viewPager2FragmentAdapter = ViewPager2FragmentAdapter(activity, this)
     return viewPager2.apply {
         adapter = viewPager2FragmentAdapter
+        offscreenPageLimit = 10
         //禁止滑动
         isUserInputEnabled = isScroll
         block(this)
@@ -30,5 +31,10 @@ class ViewPager2FragmentAdapter(
 
     override fun getItemCount(): Int = mFragments.size
 
-    override fun createFragment(position: Int): Fragment = mFragments[position]
+    override fun createFragment(position: Int): Fragment {
+//        val itemId = mFragments[position].item
+       return  mFragments[position]
+    }
+
+    override fun containsItem(itemId: Long): Boolean = mFragments.contains(itemId)
 }
