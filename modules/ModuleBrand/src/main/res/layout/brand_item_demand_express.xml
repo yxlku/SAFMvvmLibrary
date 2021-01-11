@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="entity"
+            type="com.deti.brand.demand.create.item.express.ItemExpressEntity" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginStart="16mm"
+        android:layout_marginEnd="16mm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#666666"
+                android:text="样衣寄送"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:paddingBottom="15mm"
+                android:gravity="right"
+                android:textColor="#4389F1"
+                android:text="获取得体地址"
+                android:layout_weight="1"
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/brand_demand_create_item_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10mm"
+            android:paddingTop="15mm"
+            android:paddingEnd="10mm"
+            android:paddingBottom="15mm"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="请选择快递 *"
+                android:textSize="16mm"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/brand_memand_create_arrow_gray"
+                android:drawablePadding="2mm"
+                android:text="请选择"
+                android:textColor="#CCCCCC" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10mm"
+            android:background="@drawable/brand_demand_create_item_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10mm"
+            android:paddingTop="15mm"
+            android:paddingEnd="10mm"
+            android:paddingBottom="15mm"
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入快递单号"
+                android:singleLine="true"
+                android:textColorHint="#CCCCCC" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

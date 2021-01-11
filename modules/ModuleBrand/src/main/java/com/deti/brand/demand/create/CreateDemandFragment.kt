@@ -7,6 +7,8 @@ import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
+import com.deti.brand.demand.create.item.express.ItemExpress
+import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFile
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.form.ItemFormChoose
@@ -59,6 +61,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemDeamandTypeChooseEntity(),
             //服务
             ItemServiceEntity(),
+            //透明分割线
+            ItemTransparentLineEntity(context),
+            //快递
+            ItemExpressEntity(),
             //图片
             ItemPicChooseEntity(),
             //上传面料信息
@@ -115,6 +121,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
+            addItemBinder(ItemExpressEntity::class.java, ItemExpress())
             setList(listData)
         }
 
