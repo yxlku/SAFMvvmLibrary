@@ -2,26 +2,19 @@ package com.deti.brand.main
 
 import android.content.Context
 import android.graphics.Color
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentMainBinding
-import com.deti.brand.main.odm.demand.ODMFragment
-import com.deti.brand.main.oem.OEMFragment
+import com.deti.brand.main.odm.ODMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
-import com.safmvvm.ext.ui.viewpager2.createViewPager2
 import com.safmvvm.mvvm.view.BaseFragment
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
 class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(

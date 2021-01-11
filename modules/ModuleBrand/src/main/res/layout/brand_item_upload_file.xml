@@ -6,7 +6,7 @@
     <data>
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.file.ItemUploadFileEntity" />
+            type="com.deti.brand.demand.create.item.file.ItemUploadFileEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

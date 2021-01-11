@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.form.ItemFormInputEntity" />
+            type="com.deti.brand.demand.create.item.form.ItemFormInputEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,10 +7,10 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.pic.ItemPicChooseEntity" />
+            type="com.deti.brand.demand.create.item.pic.ItemPicChooseEntity" />
         <variable
             name="viewModel"
-            type="com.deti.brand.main.odm.demand.create.item.pic.ItemPicChoose" />
+            type="com.deti.brand.demand.create.item.pic.ItemPicChoose" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

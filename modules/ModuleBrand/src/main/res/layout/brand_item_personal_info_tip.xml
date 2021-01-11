@@ -4,11 +4,11 @@
     <data>
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.personinfo.ItemPersonalInfoEntity" />
+            type="com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity" />
 
         <variable
             name="viewMolde"
-            type="com.deti.brand.main.odm.demand.create.item.personinfo.ItemPersonalInfoTip" />
+            type="com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoTip" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

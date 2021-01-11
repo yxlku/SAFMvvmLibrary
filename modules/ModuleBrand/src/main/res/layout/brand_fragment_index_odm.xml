@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.deti.brand.main.odm.demand.ODMViewModel" />
+            type="com.deti.brand.main.odm.ODMViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

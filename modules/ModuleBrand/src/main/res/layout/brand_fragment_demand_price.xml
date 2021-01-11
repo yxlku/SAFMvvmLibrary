@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.deti.brand.main.odm.demand.price.PriceDemandViewModel" />
+            type="com.deti.brand.demand.price.PriceDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

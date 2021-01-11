@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.line.ItemTransparentLineEntity" />
+            type="com.deti.brand.demand.create.item.line.ItemTransparentLineEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

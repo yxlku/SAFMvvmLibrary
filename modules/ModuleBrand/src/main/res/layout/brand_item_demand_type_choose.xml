@@ -5,7 +5,7 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.main.odm.demand.create.item.demandtype.ItemDeamandTypeChooseEntity" />
+            type="com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
