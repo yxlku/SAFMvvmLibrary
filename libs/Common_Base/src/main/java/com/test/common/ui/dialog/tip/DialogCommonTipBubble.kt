@@ -18,6 +18,7 @@ fun String.createDialogTip(
     return XPopup.Builder(activity)
         .hasShadowBg(hasShadowBg)
         .atView(view)
+        .isDestroyOnDismiss(true)
         .apply {
             block(this)
         }
