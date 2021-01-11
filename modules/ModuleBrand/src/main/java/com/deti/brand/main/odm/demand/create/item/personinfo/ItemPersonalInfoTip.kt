@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemPersonalInfoTipBinding
 import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
-import com.test.common.ui.dialog.single.createDialog
+import com.test.common.ui.dialog.single.createDialogSelectedSingle
 
 class ItemPersonalInfoTip(
     var activty: Activity?
@@ -38,7 +38,7 @@ class ItemPersonalInfoTip(
                     add(BaseSingleChoiceEntity("text${i}"))
                 }
             }
-            datas.createDialog(it, "testTitle").show()
+            datas.createDialogSelectedSingle(it, "testTitle", false).show()
         }
     }
 }

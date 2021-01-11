@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.single
+package com.test.common.ui.dialog.multiple
 
 import android.app.Activity
 import com.lxj.xpopup.XPopup
@@ -23,10 +23,9 @@ fun List<String>.create(
 }
 
 
-fun List<BaseSingleChoiceEntity>.createDialogSelectedSingle(
+fun List<BaseMultipleChoiceEntity>.createDialogSelectedMultiple(
     activity: Activity,
     title: String,
-    selectedIsDismiss: Boolean = true,
     block: () -> Unit = {}
 ): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
     //如果不加这个，评论弹窗会移动到软键盘上面
@@ -38,7 +37,7 @@ fun List<BaseSingleChoiceEntity>.createDialogSelectedSingle(
 
 }.apply {
     block()
-}.asCustom(SingleStringPopupView(activity, title, this, selectedIsDismiss = selectedIsDismiss))
+}.asCustom(MultipleStringPoputView(activity, title, this))
 
 
 
