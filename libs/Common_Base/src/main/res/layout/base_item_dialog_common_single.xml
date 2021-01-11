@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.test.common.ui.dialog.single.BaseSingleChoiceEntity" />
+
+        <variable
+            name="viewModel"
+            type="com.test.common.ui.dialog.single.adpater.SingleChoiceViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingStart="20mm"
+        android:paddingTop="18mm"
+        android:paddingEnd="20mm"
+        android:paddingBottom="18mm">
+
+        <TextView
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{entity.text}"
+            android:textColor="#1B2643"
+            android:textSize="18mm" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+
+            android:id="@+id/iv_choose_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/base_dialog_radiobtn_selected" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

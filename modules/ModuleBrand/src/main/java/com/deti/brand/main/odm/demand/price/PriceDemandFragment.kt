@@ -8,5 +8,4 @@ import com.safmvvm.mvvm.view.BaseFragment
 class PriceDemandFragment: BaseFragment<BrandFragmentDemandPriceBinding, PriceDemandViewModel>(
     R.layout.brand_fragment_demand_price,
     BR.viewModel
-) {
-}
+)
