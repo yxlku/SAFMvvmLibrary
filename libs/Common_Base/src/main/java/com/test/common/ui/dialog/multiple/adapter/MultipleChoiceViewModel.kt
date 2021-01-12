@@ -8,11 +8,10 @@ import com.safmvvm.bus.putValue
 
 class MultipleChoiceViewModel {
 
-    var selectedPosition = SingleLiveEvent<Int>()
+    var selectedPosition = SingleLiveEvent<Boolean>()
 
     init {
-        selectedPosition.putValue(0)
+        selectedPosition.putValue(false)
     }
-
 
 }

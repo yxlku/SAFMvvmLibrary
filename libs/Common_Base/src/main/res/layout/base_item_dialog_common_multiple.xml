@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="entity"
             type="com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity" />
+        <variable
+            name="viewModel"
+            type="com.test.common.ui.dialog.multiple.adapter.MultipleChoiceViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:gravity="center_vertical"
-        android:paddingStart="20mm"
-        android:paddingTop="18mm"
-        android:paddingEnd="20mm"
-        android:paddingBottom="18mm">
+        android:orientation="horizontal">
 
         <CheckBox
-            android:checked="@{entity.checked == true}"
+            android:paddingStart="20mm"
+            android:paddingTop="18mm"
+            android:paddingEnd="20mm"
+            android:paddingBottom="18mm"
             android:id="@+id/cb_item"
-            android:button="@null"
-            android:drawableRight="@drawable/base_dialog_checkbox_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="@{viewModel.selectedPosition}"
+            android:drawableRight="@drawable/base_dialog_checkbox_selector"
             android:text="@{entity.text}"
             android:textColor="#1B2643"
             android:textSize="18mm" />

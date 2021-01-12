@@ -4,5 +4,5 @@ data class BaseMultipleChoiceEntity(
     /** 显示文字*/
     var text: String,
     /** 是否选中*/
-    var isChecked: Boolean = false
+    var isS: Boolean = false
 )

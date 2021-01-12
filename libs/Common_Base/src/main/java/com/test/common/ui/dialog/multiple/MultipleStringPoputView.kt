@@ -2,15 +2,13 @@ package com.test.common.ui.dialog.multiple
 
 import android.app.Activity
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
-import com.safmvvm.bus.putValue
 import com.test.common.R
 import com.test.common.ui.dialog.multiple.adapter.MultipleChoiceAdapter
 import com.test.common.ui.dialog.tip.createDialogTip
@@ -21,9 +19,10 @@ class MultipleStringPoputView(
     var mTitle: String = "",
     var mData: List<BaseMultipleChoiceEntity> = arrayListOf(),
     var mHeightMultiple: Float = 0.7F,
+    var callback: ((buttonView: CompoundButton?, isChecked: Boolean, entity: BaseMultipleChoiceEntity) -> Unit?)? = null,
 ): BottomPopupView(mActivit), View.OnClickListener {
 
-    var mAdapter = MultipleChoiceAdapter()
+    var mAdapter = MultipleChoiceAdapter(callback)
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_list
 
@@ -44,16 +43,6 @@ class MultipleStringPoputView(
             adapter = mAdapter
         }
         mAdapter.setList(mData)
-
-        mAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var entity = mAdapter.getItem(position)
-                entity.apply {
-                    isChecked = !isChecked
-                }
-            }
-        })
-
     }
 
 
