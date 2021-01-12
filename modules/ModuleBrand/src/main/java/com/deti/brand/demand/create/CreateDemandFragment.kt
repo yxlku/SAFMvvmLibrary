@@ -121,7 +121,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
-            addItemBinder(ItemExpressEntity::class.java, ItemExpress())
+            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity))
             setList(listData)
         }
 
