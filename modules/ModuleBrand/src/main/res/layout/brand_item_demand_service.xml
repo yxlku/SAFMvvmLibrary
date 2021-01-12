@@ -2,10 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="com.safmvvm.utils.encrypt.base.TextUtils"/>
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.service.ItemServiceEntity" />
+
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.create.item.service.ItemServiceViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -14,6 +18,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:onClick="@{(view) -> viewModel.clickChooseTypeDialog(view, entity)}"
             android:layout_weight="1"
             android:layout_width="0mm"
             android:layout_height="wrap_content"
@@ -33,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:text="服务类型 *"
+                android:text='@{TextUtils.isEmpty(entity.selectedTypeText) == true ? "服务类型 *" : entity.selectedTypeText}'
                 android:textSize="16mm"
                 android:textStyle="bold" />
 
@@ -42,11 +47,12 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text="请选择"
+                android:text='@{TextUtils.isEmpty(entity.selectedTypeText) == true ? "请选择" : "修改"}'
                 android:textColor="#CCCCCC" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:onClick="@{(view) -> viewModel.clickChooseServiceDialog(view, entity)}"
             android:layout_weight="1"
             android:layout_width="0mm"
             android:layout_height="wrap_content"
@@ -67,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:text="对应服务 *"
+                android:text='@{TextUtils.isEmpty(entity.seletedServiceText) == true ? "对应服务 *" : entity.seletedServiceText}'
                 android:textSize="16mm"
                 android:textStyle="bold" />
 
@@ -76,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text="请选择"
+                android:text='@{TextUtils.isEmpty(entity.seletedServiceText) == true ? "请选择" : "修改"}'
                 android:textColor="#CCCCCC" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

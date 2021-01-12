@@ -27,7 +27,8 @@ fun List<BaseSingleChoiceEntity>.createDialogSelectedSingle(
     activity: Activity,
     title: String,
     selectedIsDismiss: Boolean = true,
-    block: () -> Unit = {}
+    block: () -> Unit = {},
+    callback: (entity: BaseSingleChoiceEntity) -> Unit = {},
 ): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
     //如果不加这个，评论弹窗会移动到软键盘上面
     moveUpToKeyboard(false)
@@ -38,7 +39,7 @@ fun List<BaseSingleChoiceEntity>.createDialogSelectedSingle(
 
 }.apply {
     block()
-}.asCustom(SingleStringPopupView(activity, title, this, selectedIsDismiss = selectedIsDismiss))
+}.asCustom(SingleStringPopupView(activity, title, this, selectedIsDismiss = selectedIsDismiss, callback = callback))
 
 
 

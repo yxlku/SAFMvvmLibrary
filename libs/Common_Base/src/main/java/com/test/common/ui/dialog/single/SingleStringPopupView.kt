@@ -26,6 +26,7 @@ class SingleStringPopupView(
     var mHeightMultiple: Float = 0.7F,
     /** 选中后是否关闭弹窗*/
     var selectedIsDismiss: Boolean = true,
+    var callback: (entity: BaseSingleChoiceEntity) -> Unit
 ) : BottomPopupView(mActivit), View.OnClickListener {
 
     var mAdapter = SingleChoiceAdapter()
@@ -56,6 +57,7 @@ class SingleStringPopupView(
                 var mAdapter = adapter as SingleChoiceAdapter
                 mAdapter.mViewModel.selectedPosition.putValue(position)
                 mAdapter.notifyDataSetChanged()
+                callback(mAdapter.getItem(position))
                 if (selectedIsDismiss) {
                     dismiss()
                 }
