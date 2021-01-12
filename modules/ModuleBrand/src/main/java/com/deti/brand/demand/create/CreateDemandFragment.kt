@@ -79,11 +79,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemFormChooseEntity("款式分类", false, "请选择款式分类"),
             //分割线
             ItemGrayLineEntity(context),
-            //款式分类
+            //尺码类型
             ItemFormChooseEntity("尺码类型", false, "请选择所需要的尺码"),
             //分割线
             ItemGrayLineEntity(context),
-            //款式分类
+            //颜色选择
             ItemFormChooseEntity("颜色选择", false, "可设置多个颜色"),
             //透明分割线
             ItemTransparentLineEntity(context),
@@ -105,7 +105,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemPlaceOrderEntity(),
             ItemTransparentLineEntity(context),
 
-        )
+            )
 
 
         mAdapter.apply {
@@ -116,7 +116,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile())
             addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
             addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
-            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose())
+            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())

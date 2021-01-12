@@ -7,9 +7,13 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.form.ItemFormChooseEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.create.item.form.ItemFormChooseViewModel"/> />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{(view) -> viewModel.clickItem(view, entity)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
