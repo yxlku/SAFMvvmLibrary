@@ -1,25 +1,13 @@
 package com.deti.basis.splash
 
 import android.app.Application
-import android.os.CountDownTimer
-import android.text.format.DateUtils
 import androidx.lifecycle.LifecycleOwner
 import com.deti.basis.login.LoginActivity
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
-import com.safmvvm.utils.DefaultDateFormat
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowCountDownDeal
-import com.safmvvm.utils.coroutines.flowCountdown
-import com.safmvvm.utils.format2DateString
-import com.safmvvm.utils.formatAgoStyleForWeibo
-import com.test.common.RouterActivityPath
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
-import java.util.concurrent.TimeUnit
 
 class SplashViewModel(app: Application) : BaseViewModel<SplashModel>(app) {
     private val initTime: Long = 0

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="31mm"
+        android:paddingTop="15mm"
+        android:paddingEnd="31mm"
+        android:paddingBottom="15mm"
+        android:text="text"
+        android:textColor="#1B2643"
+        android:textSize="16mm" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

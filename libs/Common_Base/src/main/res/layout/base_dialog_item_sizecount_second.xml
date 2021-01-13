@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="20mm"
+    android:paddingEnd="20mm">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_size"
+        android:layout_width="0mm"
+        android:layout_height="match_parent"
+        android:textColor="#333333"
+        android:textSize="16mm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_subtract"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/iv_subtract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="14mm"
+        android:paddingEnd="6mm"
+        android:paddingBottom="14mm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/et_count"
+        app:layout_constraintStart_toEndOf="@id/tv_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base_sizecount_subtract" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:inputType="number"
+        android:id="@+id/et_count"
+        android:maxLines="1"
+        android:layout_width="wrap_content"
+        android:layout_height="0mm"
+        android:background="@null"
+        android:gravity="center"
+        android:minWidth="50mm"
+        android:textColor="#373D57"
+        android:textSize="16mm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_add"
+        app:layout_constraintStart_toEndOf="@id/iv_subtract"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/iv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="6mm"
+        android:paddingTop="14mm"
+        android:paddingBottom="14mm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base_sizecount_add" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
