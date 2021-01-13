@@ -28,10 +28,10 @@ enum class ToastDrawableEnum(
             return mDrawableDirection
         }
     },
-    RIGHT(
-        R.drawable.ic_baseline_delete_forever,
+    TOP(
+        R.drawable.base_toast_top,
         DensityUtil.dp2px(10F),
-        TextViewDrawableEnum.RIGHT
+        TextViewDrawableEnum.TOP
     ) {
         override fun iconId(): Int {
             return mIconId

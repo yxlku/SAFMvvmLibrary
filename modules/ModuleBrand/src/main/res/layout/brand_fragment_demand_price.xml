@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.deti.brand.demand.price.PriceDemandViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:text="other"
-            android:layout_width="0mm"
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:paddingBottom="12mm"
+            android:paddingStart="30mm"
+            android:paddingEnd="30mm"
+            android:layout_gravity="center"
+            android:id="@+id/mi_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="50mm" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
             android:layout_height="0mm"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1"
+            android:text="other" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
