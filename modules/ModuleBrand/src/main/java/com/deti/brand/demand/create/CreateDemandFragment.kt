@@ -85,6 +85,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemGrayLineEntity(context),
             //颜色选择
             ItemFormChooseEntity("颜色选择", false, "可设置多个颜色"),
+            //分割线
+            ItemGrayLineEntity(context),
+            //颜色选择
+            ItemFormChooseEntity("尺码数量", false, "可设置多个"),
             //透明分割线
             ItemTransparentLineEntity(context),
 

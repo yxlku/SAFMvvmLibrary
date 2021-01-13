@@ -22,6 +22,7 @@ class ItemFormChooseViewModel(
             "尺码类型" -> clickChooseSizeTypeDialog(view, entity)
             "设置交期" -> clickChooseDateDialog(view, entity)
             "款式分类" -> clickChooseTypesDialog(view, entity)
+            "尺码数量" -> clickChooseSizeCountDialog(view, entity)
             else -> {
             }
         }
@@ -57,9 +58,14 @@ class ItemFormChooseViewModel(
      * 选择款式分类
      */
     fun clickChooseTypesDialog(view: View, entity: ItemFormChooseEntity){
-//        mActivity?.let {
-//            createDialogTypes(it,"选择款式分类").show()
-//        }
+        mActivity?.let {
+            createDialogTypes(it,"选择款式分类").show()
+        }
+    }
+    /**
+     * 选择尺码数量
+     */
+    fun clickChooseSizeCountDialog(view: View, entity: ItemFormChooseEntity){
         mActivity?.let {
             createDialogSizeCount(it, "选择尺码和设置数量"){
                 var sb = StringBuilder()
