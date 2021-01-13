@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="#00000000"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_dialog_title_bg"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="选择颜色"
+            android:textColor="#999999"
+            android:textSize="16mm" />
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="20mm"
+            android:text="确定"
+            android:textColor="#2171E8"
+            android:textSize="16mm" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24mm"
+            android:paddingTop="14mm"
+            android:paddingBottom="14mm"
+            android:text="已选的颜色：" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selected"
+            android:layout_width="0mm"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10mm"
+        android:background="#E5E5E5" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_left"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:showLabel="true"
+            app:textSize="18mm"
+            app:themeColor="#1F2438" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_right"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:showLabel="true"
+            app:textSize="18mm"
+            app:themeColor="#1F2438" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

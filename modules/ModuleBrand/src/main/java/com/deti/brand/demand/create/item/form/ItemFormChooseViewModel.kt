@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
+import com.test.common.ui.dialog.color.createDialogColors
 import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
 import com.test.common.ui.dialog.single.createDialogSelectedSingle
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
@@ -22,6 +23,7 @@ class ItemFormChooseViewModel(
             "尺码类型" -> clickChooseSizeTypeDialog(view, entity)
             "设置交期" -> clickChooseDateDialog(view, entity)
             "款式分类" -> clickChooseTypesDialog(view, entity)
+            "颜色选择" -> clickChooseColorsDialog(view, entity)
             "尺码数量" -> clickChooseSizeCountDialog(view, entity)
             else -> {
             }
@@ -60,6 +62,14 @@ class ItemFormChooseViewModel(
     fun clickChooseTypesDialog(view: View, entity: ItemFormChooseEntity){
         mActivity?.let {
             createDialogTypes(it,"选择款式分类").show()
+        }
+    }
+    /**
+     * 选择颜色
+     */
+    fun clickChooseColorsDialog(view: View, entity: ItemFormChooseEntity){
+        mActivity?.let {
+            createDialogColors(it,"选择颜色").show()
         }
     }
     /**
