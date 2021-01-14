@@ -6,57 +6,87 @@ import android.view.View
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.safmvvm.ext.ui.typesview.entity.BaseTypesNode
-import com.safmvvm.ext.ui.typesview.test.FourEntity
-import com.safmvvm.ext.ui.typesview.test.SecondEntity
-import com.safmvvm.ext.ui.typesview.test.ThridEntity
-import me.jessyan.autosize.utils.AutoSizeUtils
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.safmvvm.bus.putValue
+import com.safmvvm.ext.ui.typesview.adapter.first.TypeFirstAdapter
+import com.safmvvm.ext.ui.typesview.adapter.four.TypeFourAdapter
+import com.safmvvm.ext.ui.typesview.adapter.two.TypeThreeAdapter
+import com.safmvvm.ext.ui.typesview.adapter.two.TypeTwoAdapter
+import com.safmvvm.ext.ui.typesview.entity.*
 
 /**
  * 分类列表
  */
-class TypesRecyclerView: LinearLayoutCompat {
+class TypesRecyclerView : LinearLayoutCompat {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr){
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context,
+        attrs,
+        defStyleAttr) {
         initView()
     }
-    fun testData(): List<BaseTypesNode>{
-        var firstDatas = arrayListOf<BaseTypesNode>()
-        for (i in 0 until 10){
-            var secondDatas = arrayListOf<BaseTypesNode>()
-            for (i in 0 until 3){
-                var thridDatas = arrayListOf<BaseTypesNode>()
-                for (i in 0 until 4){
-                    var fourDatas = arrayListOf<BaseTypesNode>()
-                    for (i in 0 until 5){
-                        fourDatas.add(FourEntity("four : $i", null))
+
+    fun testData(): List<TypesViewEntity> {
+        var typesViewEntitys = arrayListOf<TypesViewEntity>()
+        for (i in 0 until 5) {
+            var twoEntitys = arrayListOf<TypesViewTwoEntity>()
+            for (j in 0 until 4) {
+                var threeEntitys = arrayListOf<TypesViewThreeEntity>()
+                for (k in 0 until 3) {
+                    var fourEntitys = arrayListOf<TypesViewFourEntity>()
+                    for (l in 0 until 5) {
+                        var fourEntity = TypesViewFourEntity(
+                            l,
+                            "four$i$j$k$l",
+                            null
+                        )
+                        fourEntitys.add(fourEntity)
                     }
-                    thridDatas.add(ThridEntity("thrid : $i", fourDatas))
+                    var threeEntity = TypesViewThreeEntity(
+                        k,
+                        "three$i$j$k",
+                        fourEntitys
+                    )
+                    threeEntitys.add(threeEntity)
                 }
-                secondDatas.add(SecondEntity("second : $i", thridDatas))
+                var twoEntity = TypesViewTwoEntity(
+                    j,
+                    "two$i$j",
+                    threeEntitys
+                )
+                twoEntitys.add(twoEntity)
             }
-            firstDatas.add(SecondEntity("frist : $i", secondDatas))
+            var firstEntity = TypesViewEntity(
+                i,
+                "first$i",
+                twoEntitys
+            )
+            typesViewEntitys.add(firstEntity)
         }
-
-
-        return firstDatas
+        return typesViewEntitys
     }
+
     var rvOne: RecyclerView? = null
     var rvTwo: RecyclerView? = null
     var rvThree: RecyclerView? = null
     var rvFour: RecyclerView? = null
 
+    var oneAdapter = TypeFirstAdapter()
+    var twoAdapter = TypeTwoAdapter()
+    var threeAdapter = TypeThreeAdapter()
+    var fourAdapter = TypeFourAdapter()
+
     private fun initView() {
-        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT )
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         orientation = HORIZONTAL
 
 
-        var rvOne = createRecyclerView(testData())
-        var rvTwo = createRecyclerView(null)
-        var rvThree = createRecyclerView(null)
-        var rvFour = createRecyclerView(null)
+        var rvOne = createRecyclerView()
+        var rvTwo = createRecyclerView()
+        var rvThree = createRecyclerView()
+        var rvFour = createRecyclerView()
 
         addView(rvOne)
         addView(rvTwo)
@@ -64,26 +94,74 @@ class TypesRecyclerView: LinearLayoutCompat {
         addView(rvFour)
 
         invalidate()
+
+        rvOne.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = oneAdapter
+        }
+        rvTwo.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = twoAdapter
+        }
+        rvThree.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = threeAdapter
+        }
+        rvFour.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = fourAdapter
+        }
+
+        oneAdapter.setList(testData())
+
+        oneAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var mAdapter = adapter as TypeFirstAdapter
+                mAdapter.mViewModel.selectedPosition.putValue(position)
+                mAdapter.notifyDataSetChanged()
+
+                var firstData = mAdapter.data[position]
+                var secondData = firstData.childEntity
+                twoAdapter.setList(secondData)
+            }
+        })
+        twoAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var mAdapter = adapter as TypeTwoAdapter
+                mAdapter.mViewModel.selectedPosition.putValue(position)
+                mAdapter.notifyDataSetChanged()
+
+                var firstData = mAdapter.data[position]
+                var secondData = firstData.childEntity
+                threeAdapter.setList(secondData)
+            }
+        })
+        threeAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var mAdapter = adapter as TypeThreeAdapter
+                mAdapter.mViewModel.selectedPosition.putValue(position)
+                mAdapter.notifyDataSetChanged()
+
+                var firstData = mAdapter.data[position]
+                var secondData = firstData.childEntity
+                fourAdapter.setList(secondData)
+            }
+        })
+        fourAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var mAdapter = adapter as TypeFourAdapter
+                mAdapter.mViewModel.selectedPosition.putValue(position)
+                mAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     /**
      * 创建列表
      */
-    fun createRecyclerView(
-        datas: List<BaseTypesNode>?,
-        itemClickBlock: (view: View, data: BaseTypesNode)->Unit={view: View, data: BaseTypesNode->}
-    ): RecyclerView{
+    fun createRecyclerView(): RecyclerView {
         var recyclerView = RecyclerView(context)
         recyclerView.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0F)
-        var itemLinerManager = LinearLayoutManager(context)
-        var itemAdaper = TypesAdapter(context, itemClickBlock)
-        datas?.run {
-            itemAdaper.mDatas = datas
-        }
-        recyclerView.apply {
-            layoutManager = itemLinerManager
-            adapter = itemAdaper
-        }
         return recyclerView
     }
 }
