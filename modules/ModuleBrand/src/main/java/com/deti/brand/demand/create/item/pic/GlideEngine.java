@@ -1,4 +1,4 @@
-package com.deti.brand.demand.create.item.file;
+package com.deti.brand.demand.create.item.pic;
 
 import android.content.Context;
 import android.graphics.Bitmap;

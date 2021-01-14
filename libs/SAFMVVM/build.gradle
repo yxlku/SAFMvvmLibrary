@@ -90,7 +90,9 @@ dependencies {
     api Deps.camera2
 //    api Deps.cameraLifecycle
     //图片选择
-    api Deps.photoSlelected
+    api Deps.photoSelector
+    //文件选择器
+    api Deps.fileSelector
 
     // 网络，默认使用 gson 解析 json
     api Deps.retrofit2

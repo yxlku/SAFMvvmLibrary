@@ -120,7 +120,9 @@ ext {
             //日期选择器
             DateTimePicker            :"com.github.loperSeven:DateTimePicker:0.2.3",
             //图片选择器
-            photoSlelected            :"com.github.LuckSiege.PictureSelector:picture_library:v2.6.0",
+            photoSelector           :"com.github.LuckSiege.PictureSelector:picture_library:v2.6.0",
+            //文件选择器
+            fileSelector            :"com.github.ZLYang110:FileSelector:2.0.0",
 
             //Adobe动画
             lottie                     : "com.airbnb.android:lottie:3.5.0",
