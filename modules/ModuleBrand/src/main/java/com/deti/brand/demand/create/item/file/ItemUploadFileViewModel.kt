@@ -65,33 +65,4 @@ class ItemUploadFileViewModel(
         }
     }
 
-    fun takePhoto(entity: ItemUploadFileEntity){
-        mActivity?.apply {
-            PictureSelector.create(this)
-                .openCamera(PictureMimeType.ofAll())
-                .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
-                .theme(R.style.picture_WeChat_style)
-                .isUseCustomCamera(true)// 是否使用自定义相机
-                .minSelectNum(1)// 最小选择数量
-                .maxSelectNum(1)// 最大图片选择数量
-                .isEnableCrop(true)// 是否裁剪
-                .forResult(object : OnResultCallbackListener<LocalMedia> {
-                    override fun onResult(result: MutableList<LocalMedia>?) {
-                        result?.forEach {
-                            var path =
-                                if (TextUtils.isEmpty(it.androidQToPath)) it.path else it.androidQToPath
-                            LogUtil.d("拍照: $path / ${it.fileName}")
-                            entity.filePath = path
-                            mAdapter.notifyDataSetChanged()
-                        }
-                    }
-
-                    override fun onCancel() {
-                        ToastUtil.showShortToast("取消")
-                    }
-
-                })
-        }
-    }
-
 }

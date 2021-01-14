@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.pic.ItemPicChooseEntity" />
+
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.item.pic.ItemPicChoose" />
+            type="com.deti.brand.demand.create.item.pic.ItemPicChooseViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16mm"
         android:layout_marginTop="20mm"
-        android:layout_marginEnd="16mm"
         android:background="#00000000">
 
 
@@ -26,12 +24,14 @@
             android:id="@+id/brand_textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
             android:text="请上传图片 *"
             android:textColor="#1B2643"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_marginEnd="16mm"
             android:id="@+id/brand_textview6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,221 +41,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:onClick="@{viewModel.btnShowMultipeDialog}"
-            android:id="@+id/cl_one"
-            android:layout_width="151mm"
-            android:layout_height="180mm"
-            android:layout_marginTop="14mm"
-            android:background="@drawable/brand_pic_choose_bg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/brand_textview2">
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/brand_pic_add" />
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="0mm"
-                android:gravity="center_vertical"
-                android:text="款式正面图"
-                android:textColor="#666666"
-                android:textSize="12mm"
-                app:layout_constraintBottom_toBottomOf="@id/v_bottom_bg"
-                app:layout_constraintEnd_toEndOf="@id/v_bottom_bg"
-                app:layout_constraintStart_toStartOf="@id/v_bottom_bg"
-                app:layout_constraintTop_toTopOf="@+id/v_bottom_bg" />
-
-            <View
-                android:layout_margin="1mm"
-                android:id="@+id/v_bottom_bg"
-                android:layout_width="match_parent"
-                android:layout_height="32mm"
-                android:background="@drawable/brand_pic_choose_bottom_white_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_two"
-            android:layout_marginStart="12mm"
-            android:layout_width="84mm"
-            android:layout_height="84mm"
-            app:layout_constraintEnd_toStartOf="@id/cl_three"
-            app:layout_constraintTop_toTopOf="@id/cl_one"
-            android:background="@drawable/brand_pic_choose_bg"
-            app:layout_constraintStart_toEndOf="@id/cl_one"
-           >
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/brand_pic_add" />
-
-            <TextView
-                android:id="@+id/tv_two"
-                android:layout_width="wrap_content"
-                android:layout_height="0mm"
-                android:gravity="center_vertical"
-                android:text="款式背面图"
-                android:textColor="#666666"
-                android:textSize="12mm"
-                app:layout_constraintBottom_toBottomOf="@id/v_two_bottom_bg"
-                app:layout_constraintEnd_toEndOf="@id/v_two_bottom_bg"
-                app:layout_constraintStart_toStartOf="@id/v_two_bottom_bg"
-                app:layout_constraintTop_toTopOf="@+id/v_two_bottom_bg" />
-
-            <View
-                android:layout_margin="1mm"
-                android:id="@+id/v_two_bottom_bg"
-                android:layout_width="match_parent"
-                android:layout_height="24mm"
-                android:background="@drawable/brand_pic_choose_bottom_white_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_three"
-            android:layout_marginStart="12mm"
-            android:layout_width="84mm"
-            android:layout_height="84mm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cl_two"
-            android:background="@drawable/brand_pic_choose_bg"
-            app:layout_constraintStart_toEndOf="@id/cl_two">
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/brand_pic_add" />
-
-            <TextView
-                android:id="@+id/tv_three"
-                android:layout_width="wrap_content"
-                android:layout_height="0mm"
-                android:gravity="center_vertical"
-                android:text="款式细节图"
-                android:textColor="#666666"
-                android:textSize="12mm"
-                app:layout_constraintBottom_toBottomOf="@id/v_three_bottom_bg"
-                app:layout_constraintEnd_toEndOf="@id/v_three_bottom_bg"
-                app:layout_constraintStart_toStartOf="@id/v_three_bottom_bg"
-                app:layout_constraintTop_toTopOf="@+id/v_three_bottom_bg" />
-
-            <View
-                android:layout_margin="1mm"
-                android:id="@+id/v_three_bottom_bg"
-                android:layout_width="match_parent"
-                android:layout_height="24mm"
-                android:background="@drawable/brand_pic_choose_bottom_white_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="12mm"
-            android:id="@+id/cl_four"
-            android:layout_width="84mm"
-            android:layout_height="84mm"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pics"
+            android:layout_width="match_parent"
+            android:layout_height="195mm"
+            android:layout_marginTop="10mm"
+            android:layout_marginStart="10mm"
+            android:layout_marginEnd="10mm"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/cl_two"
-            android:background="@drawable/brand_pic_choose_bg"
-            app:layout_constraintStart_toStartOf="@id/cl_two"
-            app:layout_constraintTop_toBottomOf="@+id/cl_two">
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/brand_pic_add" />
-
-            <TextView
-                android:id="@+id/tv_four"
-                android:layout_width="wrap_content"
-                android:layout_height="0mm"
-                android:gravity="center_vertical"
-                android:text="款式细节图"
-                android:textColor="#666666"
-                android:textSize="12mm"
-                app:layout_constraintBottom_toBottomOf="@id/v_four_bottom_bg"
-                app:layout_constraintEnd_toEndOf="@id/v_four_bottom_bg"
-                app:layout_constraintStart_toStartOf="@id/v_four_bottom_bg"
-                app:layout_constraintTop_toTopOf="@+id/v_four_bottom_bg" />
-
-            <View
-                android:layout_margin="1mm"
-                android:id="@+id/v_four_bottom_bg"
-                android:layout_width="match_parent"
-                android:layout_height="24mm"
-                android:background="@drawable/brand_pic_choose_bottom_white_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_fiv"
-            android:layout_width="84mm"
-            android:layout_height="84mm"
-            app:layout_constraintBottom_toBottomOf="@id/cl_four"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/brand_pic_choose_bg"
-            app:layout_constraintStart_toStartOf="@id/cl_three"
-            app:layout_constraintTop_toTopOf="@id/cl_four">
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/brand_pic_add" />
-
-            <TextView
-                android:id="@+id/tv_fiv"
-                android:layout_width="wrap_content"
-                android:layout_height="0mm"
-                android:gravity="center_vertical"
-                android:text="款式细节图"
-                android:textColor="#666666"
-                android:textSize="12mm"
-                app:layout_constraintBottom_toBottomOf="@id/v_fiv_bottom_bg"
-                app:layout_constraintEnd_toEndOf="@id/v_fiv_bottom_bg"
-                app:layout_constraintStart_toStartOf="@id/v_fiv_bottom_bg"
-                app:layout_constraintTop_toTopOf="@+id/v_fiv_bottom_bg" />
-
-            <View
-                android:layout_margin="1mm"
-                android:id="@+id/v_fiv_bottom_bg"
-                android:layout_width="match_parent"
-                android:layout_height="24mm"
-                android:background="@drawable/brand_pic_choose_bottom_white_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/brand_textview2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
