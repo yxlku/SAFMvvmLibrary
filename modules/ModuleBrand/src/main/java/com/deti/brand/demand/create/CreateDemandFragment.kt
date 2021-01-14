@@ -1,5 +1,6 @@
 package com.deti.brand.demand.create
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.R
@@ -67,8 +68,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemExpressEntity(),
             //图片
             ItemPicChooseEntity(),
+            //透明分割线
+            ItemTransparentLineEntity(context),
             //上传面料信息
             ItemUploadFileEntity(),
+            //透明分割线
+            ItemTransparentLineEntity(context),
             //上传制版信息
             ItemUploadFileEntity(),
             //分组标题 //请填写服务详细信息
@@ -117,7 +122,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
             addItemBinder(ItemServiceEntity::class.java, ItemService(activity))
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
-            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile())
+            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(activity as AppCompatActivity?))
             addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
             addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
             addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))

@@ -3,6 +3,8 @@ package com.safmvvm.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.camera.camera2.Camera2Config
+import androidx.camera.core.CameraXConfig
 import com.jiang.awesomedownloader.downloader.AwesomeDownloader
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.ui.autosize.AutoSizeUtil
@@ -16,7 +18,7 @@ import com.safmvvm.utils.LogUtil
  * 所有子Module都要继承此BaseApp
  * 所有统一初始化的工具都放到此处
  */
-open class BaseApp : Application() {
+open class BaseApp : Application(), CameraXConfig.Provider {
 
     override fun onCreate() {
         super.onCreate()
@@ -116,6 +118,8 @@ open class BaseApp : Application() {
             return app
         }
     }
+
+    override fun getCameraXConfig(): CameraXConfig = Camera2Config.defaultConfig()
 
 
 }

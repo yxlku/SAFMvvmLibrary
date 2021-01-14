@@ -85,6 +85,13 @@ dependencies {
     api Deps.roomRuntime
     api Deps.roomKTX
 
+    //相机
+    api Deps.camera
+    api Deps.camera2
+//    api Deps.cameraLifecycle
+    //图片选择
+    api Deps.photoSlelected
+
     // 网络，默认使用 gson 解析 json
     api Deps.retrofit2
     api Deps.retrofit2KotlinCoroutinesAdapter
@@ -111,6 +118,8 @@ dependencies {
     api Deps.XPopupDialog
     api Deps.XPopupDialogExt //城市
     api Deps.DateTimePicker //时间选择
+
+
 
     //Adobe动画库
     api Deps.lottie

@@ -40,6 +40,11 @@ ext {
             roomCompiler              : "androidx.room:room-compiler:$Versions.room",
             roomKTX                   : "androidx.room:room-ktx:$Versions.room",
 
+            //相机
+            camera                    : "androidx.camera:camera-core:1.0.0-beta03",
+            camera2                   : "androidx.camera:camera-camera2:1.0.0-beta12",
+            cameraLifecycle           : "androidx.camera:camera-lifecycle:1.0.0-beta12",
+
             // 网络
             retrofit2                 : "com.squareup.retrofit2:retrofit:$Versions.retrofit2",
             //retrofit协程的适配器
@@ -114,6 +119,8 @@ ext {
             XPopupDialogExt            :"com.lxj:xpopup-ext:0.0.3",
             //日期选择器
             DateTimePicker            :"com.github.loperSeven:DateTimePicker:0.2.3",
+            //图片选择器
+            photoSlelected            :"com.github.LuckSiege.PictureSelector:picture_library:v2.6.0",
 
             //Adobe动画
             lottie                     : "com.airbnb.android:lottie:3.5.0",

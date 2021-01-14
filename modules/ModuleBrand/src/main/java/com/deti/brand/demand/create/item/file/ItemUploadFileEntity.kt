@@ -1,3 +1,5 @@
 package com.deti.brand.demand.create.item.file
 
-class ItemUploadFileEntity
+data class ItemUploadFileEntity(
+    var filePath: String = ""
+)

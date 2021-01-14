@@ -9,7 +9,4 @@ import com.test.common.ui.toast.ToastDrawableEnum
 
 class PriceListViewModel(
     app: Application
-): BaseViewModel<PriceListModel>(app) {
-
-
-}
+): BaseViewModel<PriceListModel>(app)
