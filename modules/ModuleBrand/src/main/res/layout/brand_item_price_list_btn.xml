@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.safmvvm.utils.ResUtil"/>
+        <variable
+            name="entity"
+            type="com.deti.brand.demand.price.all.entity.PriceListAllBtnEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.price.all.adapter.PriceListAllBtnViewModel" />
+    </data>
+
+    <TextView
+        android:layout_marginStart="10mm"
+        android:id="@+id/tv_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@{ResUtil.INSTANCE.getDrawable(entity.btnBg)}"
+        android:paddingTop="7mm"
+        android:paddingBottom="7mm"
+        android:paddingStart="12mm"
+        android:paddingEnd="12mm"
+        android:text="@{entity.text}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+</layout>

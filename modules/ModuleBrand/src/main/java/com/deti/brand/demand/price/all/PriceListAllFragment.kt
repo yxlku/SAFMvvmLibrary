@@ -16,7 +16,7 @@ class PriceListAllFragment: BaseFragment<BrandFragmentPriceListAllBinding, Price
     BR.viewModel
 ) {
 
-    var mAdapter = PriceListAllAdapter()
+    var mAdapter = PriceListAllAdapter(activity)
     override fun initData() {
         super.initData()
 
