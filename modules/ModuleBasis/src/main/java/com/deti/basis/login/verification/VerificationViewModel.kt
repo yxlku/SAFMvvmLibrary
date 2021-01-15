@@ -19,7 +19,8 @@ class VerificationViewModel(app: Application): BaseViewModel<VerificationModel>(
 
 
     fun clickToPageIndex(v: View){
-        startActivityRouter(RouterActivityPath.ModuleBrand.PAGE_INDEX)
+//        startActivityRouter(RouterActivityPath.ModuleBrand.PAGE_INDEX)
+        startActivityRouter(RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
     }
 
 }

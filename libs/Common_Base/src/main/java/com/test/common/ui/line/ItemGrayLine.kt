@@ -1,10 +1,9 @@
-package com.deti.brand.demand.create.item.line
+package com.test.common.ui.line
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
-import com.deti.brand.databinding.BrandItemLineGrayBinding
-import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.databinding.BrandItemLineGrayBinding
 import me.jessyan.autosize.utils.AutoSizeUtils
 
 class ItemGrayLine: QuickDataBindingItemBinder<ItemGrayLineEntity, BrandItemLineGrayBinding>() {

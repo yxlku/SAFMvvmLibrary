@@ -3,11 +3,12 @@
     package="com.deti.basis">
 
     <application
+        android:name="com.test.common.CommonAppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SAFMvvmLibrary">
+        android:theme="@style/DetiAppTheme">
         <activity android:name="com.deti.basis.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -15,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".personal.PersonalActivity" />
+        <activity android:name="com.deti.basis.login.LoginActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="com.deti.basis.register.RegisterAcitivty" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".personal.PersonalActivity" android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

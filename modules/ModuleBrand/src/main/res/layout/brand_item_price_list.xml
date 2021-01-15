@@ -181,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/brand_upload_file_bg"
+            android:background="@drawable/base_btn_black_bg_round"
             android:paddingStart="13mm"
             android:paddingTop="7mm"
             android:paddingEnd="13mm"

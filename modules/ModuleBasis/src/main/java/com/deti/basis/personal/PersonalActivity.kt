@@ -1,6 +1,7 @@
 package com.deti.basis.personal
 
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.deti.basis.BR
 import com.deti.basis.R
@@ -12,6 +13,7 @@ import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseActivity
 import com.test.common.RouterActivityPath
+import net.lucode.hackware.magicindicator.MagicIndicator
 
 @Route(path = RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
 class PersonalActivity : BaseActivity<BasisActivityPersonalBinding, PersonalViewModel>(
@@ -43,6 +45,20 @@ class PersonalActivity : BaseActivity<BasisActivityPersonalBinding, PersonalView
             true
         )
     }
-
+    /**
+     * 选择页面
+     */
+    override fun switchPage(
+        magicIndicator: MagicIndicator,
+        viewPager: ViewPager?,
+        index: Int,
+    ) {
+        viewPager?.let {
+            viewPager.setCurrentItem(index, true)
+        } ?: run {
+            magicIndicator.onPageScrolled(index, 0f, 0)
+            magicIndicator.onPageSelected(index)
+        }
+    }
 
 }

@@ -19,7 +19,7 @@ import com.deti.brand.demand.create.item.form.ItemFormInputEntity
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitle
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
 import com.deti.brand.demand.create.item.line.ItemGrayLine
-import com.deti.brand.demand.create.item.line.ItemGrayLineEntity
+import com.test.common.ui.line.ItemGrayLineEntity
 import com.deti.brand.demand.create.item.line.ItemTransparentLine
 import com.deti.brand.demand.create.item.line.ItemTransparentLineEntity
 import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity

@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"/>
 
         <net.lucode.hackware.magicindicator.MagicIndicator
+            android:background="#FFFFFF"
             android:id="@+id/mi_tab"
             android:layout_width="match_parent"
             android:layout_height="50mm"/>
