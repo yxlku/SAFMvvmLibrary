@@ -10,6 +10,7 @@ import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentIndexOdmBinding
 import com.deti.brand.demand.create.CreateDemandFragment
 import com.deti.brand.demand.price.PriceDemandFragment
+import com.deti.brand.demand.sampleclothes.SimpleClothesFragment
 import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
@@ -33,7 +34,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     var fragments = arrayListOf<Fragment>(
         CreateDemandFragment(),
         PriceDemandFragment(),
-        PriceDemandFragment(),
+        SimpleClothesFragment(),
         PriceDemandFragment()
     )
 
