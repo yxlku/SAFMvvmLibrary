@@ -25,7 +25,7 @@ class ItemPicChoose(
     var mViewMode = ItemPicChooseViewModel(mActivity)
 
     var mSpannableGridLayoutManager = SpannableGridLayoutManager(object : SpannableGridLayoutManager.GridSpanLookup {
-        override fun getSpanInfo(position: Int): SpannableGridLayoutManager.SpanInfo {
+        override fun getSpanInfo(position: Int): SpanInfo {
             return if (position === 0) {
                 SpanInfo(2, 2)
             } else {
