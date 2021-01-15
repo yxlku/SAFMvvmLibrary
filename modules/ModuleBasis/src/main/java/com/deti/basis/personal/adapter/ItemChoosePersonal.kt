@@ -13,7 +13,7 @@ class ItemChoosePersonal(
         holder: BinderDataBindingHolder<BasisItemPerfectChooseBinding>,
         data: ItemChoosePersonalEntity,
     ) {
-        var mViewModel = ItemChoosePersonalViewModel(mActivity, adapter)
+        var mViewModel = ItemChoosePersonalViewModel(mActivity, adapter, holder.adapterPosition)
         var binding = holder.dataBinding
         binding?.apply {
             entity = data

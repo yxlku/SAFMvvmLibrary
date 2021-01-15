@@ -10,6 +10,7 @@ import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentDemandPriceBinding
 import com.deti.brand.demand.create.CreateDemandFragment
+import com.deti.brand.demand.price.all.PriceListAllFragment
 import com.deti.brand.demand.price.pricelist.PriceListFragment
 import com.deti.brand.main.odm.ODMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
@@ -34,7 +35,7 @@ class PriceDemandFragment: BaseFragment<BrandFragmentDemandPriceBinding, PriceDe
         "已关闭",
     )
     var fragments = arrayListOf<Fragment>(
-        PriceListFragment(0),
+        PriceListAllFragment(),
         PriceListFragment(1),
         PriceListFragment(2),
         PriceListFragment(3),

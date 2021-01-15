@@ -4,14 +4,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.price.pricelist.PriceListViewModel" />
+            type="com.deti.brand.demand.price.all.PriceListAllViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

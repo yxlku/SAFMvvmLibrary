@@ -11,7 +11,8 @@ import com.safmvvm.ui.toast.ToastUtil
 
 class ItemChoosePersonalViewModel(
     var mActivity: Activity?,
-    var mAdapter: BaseBinderAdapter
+    var mAdapter: BaseBinderAdapter,
+    var position: Int
 ) {
 
     fun clickItem(view: View, entity: ItemChoosePersonalEntity){
@@ -34,7 +35,8 @@ class ItemChoosePersonalViewModel(
                     v: View?,
                 ) {
                     entity.content = "$province $city $area"
-                    mAdapter.notifyDataSetChanged()
+                    mAdapter.notifyItemChanged(position)
+//                    mAdapter.notifyDataSetChanged()
                 }
 
                 override fun onCityChange(province: String?, city: String?, area: String?) {
