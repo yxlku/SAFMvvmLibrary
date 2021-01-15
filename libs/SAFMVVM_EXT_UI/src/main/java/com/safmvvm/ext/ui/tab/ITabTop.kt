@@ -5,10 +5,8 @@ import android.graphics.Color
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import cn.dreamtobe.percentsmoothhandler.ISmoothTarget
 import com.safmvvm.ext.ui.viewpager.ViewPagerHelper
-import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
+import com.safmvvm.ui.autosize.setTextSizeAuto
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -30,7 +28,7 @@ interface ITabTop {
         viewPager: ViewPager? = null,
         titles: ArrayList<String>,
         isAdjust: Boolean = false,
-        tag: Int = 0
+        tag: Int = 0,
     ) {
         context?.let {
             var commonNavigator = CommonNavigator(context).apply {
@@ -41,9 +39,11 @@ interface ITabTop {
                     override fun getTitleView(context: Context, index: Int): IPagerTitleView? =
                         createTitleItemView(context, magicIndicator, viewPager, index, titles, tag)
 
-                    override fun getIndicator(context: Context): IPagerIndicator? = createIndicator(context, tag)
+                    override fun getIndicator(context: Context): IPagerIndicator? =
+                        createIndicator(context, tag)
 
-                    override fun getTitleWeight(context: Context?, index: Int): Float = createTitleWeight(context, index)
+                    override fun getTitleWeight(context: Context?, index: Int): Float =
+                        createTitleWeight(context, index)
                 }
             }
             magicIndicator.navigator = commonNavigator
@@ -53,6 +53,29 @@ interface ITabTop {
         }
     }
 
+//    /**
+//     * 2、实现此方法，来自定义titleItemView
+//     *
+//     * 不写就是方法内默认样式
+//     */
+//    fun createTitleItemView(
+//        context: Context,
+//        magicIndicator: MagicIndicator,
+//        viewPager: ViewPager? = null,
+//        index: Int,
+//        titles: ArrayList<String>,
+//        tab: Int
+//    ): IPagerTitleView = SimplePagerTitleView(context).apply {
+//        setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
+//        textSize = AutoSizeUtils.mm2px(context, 14F).toFloat()
+//        text = titles[index]
+//        normalColor = Color.parseColor("#999999")
+//        selectedColor = Color.parseColor("#333333")
+//        setOnClickListener {
+//            switchPage(magicIndicator, viewPager, index)
+//        }
+//    }
+
     /**
      * 2、实现此方法，来自定义titleItemView
      *
@@ -61,16 +84,17 @@ interface ITabTop {
     fun createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager? = null,
+        viewPager: ViewPager?,
         index: Int,
         titles: ArrayList<String>,
-        tab: Int
+        tab: Int,
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
-        setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
-        textSize = 16F
+        //setTextSize默认使用的是SP单位的，如果再进行转换将被二次转换，
+//        textSize = AutoSizeUtils.mm2px(context, 14F).toFloat()
+        setTextSizeAuto(14F)
         text = titles[index]
-        normalColor = Color.parseColor("#99FFFFFF")
-        selectedColor = Color.parseColor("#FFFFFF")
+        normalColor = Color.parseColor("#999999")
+        selectedColor = Color.parseColor("#333333")
         setOnClickListener {
             switchPage(magicIndicator, viewPager, index)
         }
@@ -109,7 +133,7 @@ interface ITabTop {
     ) {
         viewPager?.let {
             viewPager.setCurrentItem(index, false)
-        } ?: run{
+        } ?: run {
             magicIndicator.onPageScrolled(index, 0f, 0)
             magicIndicator.onPageSelected(index)
         }

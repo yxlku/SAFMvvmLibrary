@@ -14,6 +14,7 @@ import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.ui.autosize.setTextSizeAuto
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
@@ -67,7 +68,7 @@ class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
         titles: ArrayList<String>,
         tag: Int,
     ): IPagerTitleView = NewSimplePagerTitleView(context).apply {
-        textSize = 14F
+        setTextSizeAuto(14F)
         text = titles[index]
         selectedColor = Color.parseColor("#1F2438")
         normalColor = Color.parseColor("#CCFFFFFF")

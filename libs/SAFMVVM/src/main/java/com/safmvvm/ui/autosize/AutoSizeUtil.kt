@@ -1,5 +1,7 @@
 package com.safmvvm.ui.autosize
 
+import android.util.TypedValue
+import android.widget.TextView
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.ui.titlebar.initializer.BaseBarInitializer
@@ -7,6 +9,10 @@ import com.safmvvm.utils.LogUtil
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.external.ExternalAdaptInfo
 import me.jessyan.autosize.unit.Subunits
+
+fun TextView.setTextSizeAuto(size: Float){
+    this.setTextSize(TypedValue.COMPLEX_UNIT_MM, size)
+}
 
 /**
  * 屏幕适配

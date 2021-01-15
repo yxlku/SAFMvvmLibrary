@@ -7,6 +7,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
 import cn.dreamtobe.percentsmoothhandler.ISmoothTarget
 import com.safmvvm.ext.ui.viewpager2.ViewPager2Helper
+import com.safmvvm.ui.autosize.setTextSizeAuto
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -65,7 +66,7 @@ interface ITabTop2 {
         tab: Int
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
         setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
-        textSize = 16F
+        setTextSizeAuto(16F)
         text = titles[index]
         normalColor = Color.parseColor("#99FFFFFF")
         selectedColor = Color.parseColor("#FFFFFF")

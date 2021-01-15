@@ -8,6 +8,9 @@ object RouterActivityPath {
 
         /** 登录页面*/
         const val PAGE_LOGIN: String = PATH + "login"
+
+        /** 完善个人信息页面*/
+        const val PAGE_PERFECT_PERSONAL: String = PATH + "perfect/personal"
     }
     /** 品牌商*/
     object ModuleBrand {

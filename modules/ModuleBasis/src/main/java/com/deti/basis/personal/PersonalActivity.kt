@@ -1,13 +1,19 @@
 package com.deti.basis.personal
 
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.deti.basis.BR
 import com.deti.basis.R
 import com.deti.basis.databinding.BasisActivityPersonalBinding
+import com.deti.basis.personal.address.AddAddressFragment
+import com.deti.basis.personal.perfect.PerfectPersonalFragment
+import com.deti.basis.personal.subaccount.AddSubAccountFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseActivity
+import com.test.common.RouterActivityPath
 
+@Route(path = RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
 class PersonalActivity : BaseActivity<BasisActivityPersonalBinding, PersonalViewModel>(
     R.layout.basis_activity_personal,
     BR.viewModel
@@ -18,7 +24,9 @@ class PersonalActivity : BaseActivity<BasisActivityPersonalBinding, PersonalView
         "添加收货地址"
     )
     var fragments = arrayListOf<Fragment>(
-
+        PerfectPersonalFragment(),
+        AddSubAccountFragment(),
+        AddAddressFragment()
     )
 
     override fun initData() {
@@ -34,6 +42,7 @@ class PersonalActivity : BaseActivity<BasisActivityPersonalBinding, PersonalView
             titles,
             true
         )
-
     }
+
+
 }

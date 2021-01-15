@@ -12,8 +12,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingDefaultResource">
+        android:layout_height="match_parent">
 
         <com.safmvvm.ui.titlebar.TitleBar
             app:title="完善信息"
@@ -23,12 +22,13 @@
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/mi_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="50mm"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_content"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0mm"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
