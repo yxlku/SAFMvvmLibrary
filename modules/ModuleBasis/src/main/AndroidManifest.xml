@@ -7,6 +7,7 @@
         <activity android:name="com.deti.basis.splash.SplashActivity"/>
         <activity android:name="com.deti.basis.login.LoginActivity"/>
         <activity android:name="com.deti.basis.register.RegisterAcitivty" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".personal.PersonalActivity" />
     </application>
 
 </manifest>

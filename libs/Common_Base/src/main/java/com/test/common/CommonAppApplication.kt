@@ -53,6 +53,8 @@ open class CommonAppApplication : ComponentBaseApp() {
             .toastCustomMsgId(R.id.toast_msg_id)
             //自定义Toast显示位置
             .toastCustomToastGravity(Gravity.CENTER)
+            //标题栏通用返回按钮
+            .titleBarBackIcon(R.drawable.base_title_back_white)
 
             .loadingLayoutText("等待中。。。")
             .pageStateLoading(CusLoadStatePage::class.java)

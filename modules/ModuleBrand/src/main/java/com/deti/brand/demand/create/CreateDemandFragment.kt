@@ -49,11 +49,34 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         //初始化列表
         initRecyclerView()
     }
-
     /**
      * 初始化列表
      */
     private fun initRecyclerView() {
+        mAdapter.apply {
+            addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
+            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
+            addItemBinder(ItemServiceEntity::class.java, ItemService(activity))
+            addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
+            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(activity as AppCompatActivity?))
+            addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
+            addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
+            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))
+            addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
+            addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
+            addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
+            addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
+            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity))
+        }
+
+        mBinding.rvContent.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAdapter
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
         //VM
         var listData = arrayListOf(
             //提示完善个人信息
@@ -115,30 +138,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemTransparentLineEntity(context),
 
             )
-
-
-        mAdapter.apply {
-            addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
-            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
-            addItemBinder(ItemServiceEntity::class.java, ItemService(activity))
-            addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
-            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(activity as AppCompatActivity?))
-            addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
-            addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
-            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))
-            addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
-            addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
-            addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
-            addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
-            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity))
-            setList(listData)
-        }
-
-        mBinding.rvContent.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = mAdapter
-        }
-
-
+        mAdapter.setList(listData)
     }
 }
