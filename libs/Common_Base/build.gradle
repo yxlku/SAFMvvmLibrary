@@ -47,5 +47,7 @@ dependencies {
     api project(':libs:SAFMVVM')
     api project(':libs:SAFMVVM_EXT_UI')
     api project(':libs:Common_Res')
-
+    //分布指示器
+    api 'com.github.baoyachi:StepView:1.9'
+    api 'com.shuhart.stepview:stepview:1.5.1'
 }
