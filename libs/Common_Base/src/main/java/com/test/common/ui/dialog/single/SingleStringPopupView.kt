@@ -3,6 +3,7 @@ package com.test.common.ui.dialog.single
 import android.app.Activity
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,15 +21,17 @@ class SingleStringPopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var mData: List<BaseSingleChoiceEntity> = arrayListOf(),
+    @LayoutRes var listLayoutId: Int = R.layout.base_dialog_list,
+    @LayoutRes var itemLayoutId: Int = R.layout.base_item_dialog_common_single,
     var mHeightMultiple: Float = 0.7F,
     /** 选中后是否关闭弹窗*/
     var selectedIsDismiss: Boolean = true,
     var callback: (entity: BaseSingleChoiceEntity) -> Unit
 ) : BottomPopupView(mActivit), View.OnClickListener {
 
-    var mAdapter = SingleChoiceAdapter()
+    var mAdapter = SingleChoiceAdapter(itemLayoutId)
 
-    override fun getImplLayoutId(): Int = R.layout.base_dialog_list
+    override fun getImplLayoutId(): Int = listLayoutId
 
     override fun onCreate() {
         super.onCreate()
