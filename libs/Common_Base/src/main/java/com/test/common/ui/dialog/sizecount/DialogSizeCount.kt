@@ -15,7 +15,7 @@ fun createDialogSizeCount(
     //如果不加这个，评论弹窗会移动到软键盘上面
     moveUpToKeyboard(false)
     //允许拖拽
-    enableDrag(true)
+//    enableDrag(true)
     //对于只使用一次的弹窗，推荐设置这个
     isDestroyOnDismiss(true)
 }.asCustom(SizeCountPopupView(activity, title, block= block))

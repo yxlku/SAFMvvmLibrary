@@ -23,7 +23,7 @@ class FirstNodeProvider: BaseNodeProvider() {
 
         var tv_order_num = helper.getView<TextView>(R.id.tv_order_num)
         var tv_style_num = helper.getView<TextView>(R.id.tv_style_num)
-        tv_order_num.text = "订单：$data.orderNumText"
+        tv_order_num.text = "订单：${data.orderNumText}"
         tv_style_num.text = "款式：data.styleCount"
     }
 
@@ -72,5 +72,6 @@ class FirstNodeProvider: BaseNodeProvider() {
             true,
             true,
             EXPAND_COLLAPSE_PAYLOAD)
+
     }
 }

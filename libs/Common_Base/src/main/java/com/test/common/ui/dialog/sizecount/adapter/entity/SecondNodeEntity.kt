@@ -2,7 +2,7 @@ package com.test.common.ui.dialog.sizecount.adapter.entity
 
 import com.chad.library.adapter.base.entity.node.BaseNode
 
-data class SecondNodeEntity(
+class SecondNodeEntity(
     var id: Int = 0,
     /** 尺寸*/
     var size: String = "",

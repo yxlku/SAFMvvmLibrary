@@ -36,8 +36,8 @@ class ItemFormChooseViewModel(
     fun clickChooseSizeTypeDialog(view: View, entity: ItemFormChooseEntity){
         mActivity?.let {
             arrayListOf(
-                BaseSingleChoiceEntity("数字码"),
-                BaseSingleChoiceEntity("字母码")
+                BaseSingleChoiceEntity(0, "数字码"),
+                BaseSingleChoiceEntity(0, "字母码")
             ).createDialogSelectedSingle(it, "请选择尺码类型", callback = {
                 entity.contentText = it.text
                 mAdapter.notifyDataSetChanged()

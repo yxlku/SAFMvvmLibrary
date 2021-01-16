@@ -15,8 +15,8 @@ class ItemExpressViewModel(
     fun clickChooseExpressDialog(view: View, entity: ItemExpressEntity){
         mActivity?.let {
             arrayListOf(
-                BaseSingleChoiceEntity("顺丰快递"),
-                BaseSingleChoiceEntity("啥都行快递")
+                BaseSingleChoiceEntity(0, "顺丰快递"),
+                BaseSingleChoiceEntity(0, "啥都行快递")
             ).createDialogSelectedSingle(it, "请选择快递", callback = {
                 entity.selectedExpressText = it.text
                 mAdapter.notifyDataSetChanged()
