@@ -15,10 +15,10 @@ class SimpleClothesListAllFragment: BaseFragment<BrandFragmentSimpleClothesListA
     BR.viewModel
 ) {
 
-    var mAdapter = SimpleClothesListAllAdapter(activity)
+
     override fun initData() {
         super.initData()
-
+        var mAdapter = SimpleClothesListAllAdapter(activity)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

@@ -4,6 +4,8 @@
 
     <application>
         <activity android:name=".BrandIndexActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".demand.progress.generate.SampleClothesProgressActivity" />
+        <activity android:name=".demand.progress.logistics.LogisticsActivity" />
     </application>
 
 </manifest>

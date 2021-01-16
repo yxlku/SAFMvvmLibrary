@@ -1,16 +1,21 @@
 package com.deti.brand.demand.sampleclothes.all.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.deti.brand.R
 import com.deti.brand.demand.price.all.entity.PriceListAllBtnEntity
+import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
+import com.deti.brand.demand.progress.logistics.LogisticsActivity
 import com.deti.brand.demand.sampleclothes.all.entity.SampleClothesListAllBtnEntity
 import com.deti.brand.demand.sampleclothes.all.entity.SecondNodeEntity
 import com.safmvvm.ui.toast.ToastUtil
@@ -64,6 +69,24 @@ class SecondNodeProvider(
         }
 
         mAdapter.setList(btnDatas)
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            when (position) {
+                0 -> {
+                    mActivity?.apply {
+                        var intent = Intent(this, SampleClothesProgressActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+                1 -> {
+                    mActivity?.apply {
+                        var intent = Intent(this, LogisticsActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+                else -> {
+                }
+            }
+        }
     }
 
     private fun initBtn(item: SecondNodeEntity) : ArrayList<SampleClothesListAllBtnEntity>{
