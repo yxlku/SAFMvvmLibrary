@@ -2,6 +2,7 @@ package com.deti.brand.demand.progress.generate
 
 import android.graphics.Color
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.baoyachi.stepview.bean.StepBean
 import com.deti.brand.BR
 import com.deti.brand.R
@@ -15,7 +16,7 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
     R.layout.brand_activity_sample_clothes_progress,
     BR.viewModel
 ) {
-    val stepsList = arrayListOf<String>(
+    val stepsList = arrayListOf(
         "样衣发货",
         "样衣运输",
         "样衣签收"
@@ -26,8 +27,11 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
 
         mBinding.stepView.apply {
             setSteps(stepsList)
-            setStepsNumber(stepsList.size)
-            go(2, true)
+//            setStepsNumber(3)
+            setOnStepClickListener {
+                go(it, true)
+            }
+//            go(2, true)
         }
     }
 

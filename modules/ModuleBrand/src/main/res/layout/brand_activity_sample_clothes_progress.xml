@@ -23,36 +23,37 @@
             app:titleColor="#333333" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="#1B2643"
-            android:paddingStart="30mm"
-            android:paddingTop="15mm"
-            android:paddingEnd="30mm"
-            android:paddingBottom="15mm">
+            android:paddingStart="40mm"
+            android:paddingEnd="40mm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <com.shuhart.stepview.StepView
+            <com.safmvvm.ext.ui.stepview.SAFStepView
+                android:paddingTop="15mm"
+                android:paddingBottom="15mm"
                 android:id="@+id/step_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15mm"
-                android:layout_marginBottom="15mm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:sv_animationType="Line"
                 app:sv_doneCircleColor="#FCCE48"
+                app:sv_doneCircleRadius="10mm"
                 app:sv_doneStepLineColor="#FCCE48"
                 app:sv_doneStepMarkColor="#FFFFFF"
-                app:sv_nextStepCircleColor="#FFFFFF"
+                app:sv_doneTextColor="#FCCE48"
+                app:sv_done_duihao="false"
+                app:sv_textPadding="10mm"
+                app:sv_nextStepCircleColor="#E9E9E9"
                 app:sv_nextStepCircleEnabled="true"
                 app:sv_nextStepLineColor="#E9E9E9"
                 app:sv_nextTextColor="#FFFFFF"
                 app:sv_selectedCircleColor="#FCCE48"
-                app:sv_selectedCircleRadius="12mm"
+                app:sv_selectedCircleRadius="10mm"
                 app:sv_selectedStepNumberColor="#FFFFFF"
                 app:sv_selectedTextColor="#FCCE48"
                 app:sv_stepLineWidth="2mm"
                 app:sv_stepNumberTextSize="12mm"
                 app:sv_stepPadding="0mm"
-                app:sv_stepViewStyle="@style/StepView"
                 app:sv_textSize="12mm" />
         </RelativeLayout>
 
