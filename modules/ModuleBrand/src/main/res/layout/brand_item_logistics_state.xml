@@ -5,11 +5,11 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.demand.progress.logistics.adapter.LogisticsStateEntity" />
+            type="com.deti.brand.demand.progress.logistics.adapter2.LogisticsStateEntity" />
 
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.progress.logistics.adapter.LogisticsStateViewModel" />
+            type="com.deti.brand.demand.progress.logistics.adapter2.LogisticsStateViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"

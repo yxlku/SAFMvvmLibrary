@@ -1,8 +1,7 @@
-package com.deti.brand.demand.progress.logistics.adapter
+package com.deti.brand.demand.progress.logistics.adapter2
 
 import android.app.Activity
 import android.graphics.Color
-import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.brand.R
