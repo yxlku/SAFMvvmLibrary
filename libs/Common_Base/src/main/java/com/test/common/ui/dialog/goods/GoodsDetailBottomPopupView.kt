@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.lxj.xpopup.core.BottomPopupView
+import com.lxj.xpopup.util.XPopupUtils
 import com.test.common.R
 import com.test.common.ui.dialog.goods.item.info.ItemInfo
 import com.test.common.ui.dialog.goods.item.info.ItemInfoEntity
@@ -13,6 +14,8 @@ import com.test.common.ui.dialog.goods.item.paymode.ItemPayModeTime
 import com.test.common.ui.dialog.goods.item.paymode.ItemPayModeTimeEntity
 import com.test.common.ui.dialog.goods.item.paytitle.ItemPayModeTitle
 import com.test.common.ui.dialog.goods.item.paytitle.ItemPayModeTitleEntity
+import com.test.common.ui.dialog.goods.item.sizecount.ItemGoodsSizeCount
+import com.test.common.ui.dialog.goods.item.sizecount.ItemGoodsSizeCountEntity
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
 import com.test.common.ui.line.ItemTransparentLine
@@ -34,8 +37,9 @@ class GoodsDetailBottomPopupView(
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
             //布局
             addItemBinder(ItemPayModeTitleEntity::class.java, ItemPayModeTitle())
-            addItemBinder(ItemPayModeTimeEntity::class.java, ItemPayModeTime())
+            addItemBinder(ItemPayModeTimeEntity::class.java, ItemPayModeTime(mActivity))
             addItemBinder(ItemInfoEntity::class.java, ItemInfo(mActivity))
+            addItemBinder(ItemGoodsSizeCountEntity::class.java, ItemGoodsSizeCount())
 
         }
         var rv_content = findViewById<RecyclerView>(R.id.rv_content)
@@ -46,6 +50,10 @@ class GoodsDetailBottomPopupView(
         }
 
         var listData = arrayListOf(
+            ItemInfoEntity(ItemInfoTagIds.OTHER, "单价：", "¥680.00"),
+            ItemGrayLineEntity(context),
+            ItemInfoEntity(ItemInfoTagIds.ID_GOODS_TIME, "货期：", "2020-12-11", R.drawable.base_icon_date),
+
             ItemPayModeTitleEntity(),
             ItemTransparentLineEntity(context, 7F),
             ItemPayModeTimeEntity("收款", "20%", 0, "2020-12-19"),
@@ -55,17 +63,20 @@ class GoodsDetailBottomPopupView(
             ItemPayModeTimeEntity("尾款", "30%", 0, ""),
             ItemTransparentLineEntity(context, 8F),
 
-            ItemInfoEntity(ItemInfoTagIds.OTHER, "单价：", "¥680.00"),
-            ItemGrayLineEntity(context),
-            ItemInfoEntity(ItemInfoTagIds.ID_GOODS_TIME, "货期：", "2020-12-11", R.drawable.base_titlebar_close),
-            ItemGrayLineEntity(context),
+
             ItemInfoEntity(ItemInfoTagIds.OTHER, "货号：", "123456778899"),
             ItemGrayLineEntity(context),
             ItemInfoEntity(ItemInfoTagIds.OTHER, "颜色：", "黑色"),
             ItemGrayLineEntity(context),
+
+            ItemGoodsSizeCountEntity()
         )
         mAdapter.setList(listData)
     }
-
+    /**
+     * 弹窗最高高度
+     */
+    override fun getMaxHeight(): Int =
+        (XPopupUtils.getScreenHeight(mActivity) * 0.7).toInt()
 
 }

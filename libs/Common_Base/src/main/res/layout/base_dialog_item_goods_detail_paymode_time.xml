@@ -10,6 +10,8 @@
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginStart="16mm"
+        android:layout_marginEnd="16mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -57,6 +59,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_time"
             android:paddingStart="10mm"
             android:paddingEnd="10mm"
             android:layout_width="0mm"
@@ -80,13 +83,14 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
+                android:maxLines="1"
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/base_item_right_arrow"
                 android:drawablePadding="8mm"
                 android:gravity="center_vertical|right"
                 android:hint="请选择"
                 android:text="@{entity.time}"
-                android:textColor="#CCCCCC"
+                android:textColor="#333333"
                 android:textSize="12mm" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

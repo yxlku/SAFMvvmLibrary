@@ -3,6 +3,7 @@ package com.test.common.ui.dialog.sizecount.adapter
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
@@ -14,11 +15,14 @@ import com.test.common.R
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
-class FirstNodeProvider : BaseNodeProvider() {
+class FirstNodeProvider(
+    @LayoutRes var mLayoutId : Int = R.layout.base_dialog_item_sizecount_first
+) : BaseNodeProvider() {
 
     override val itemViewType: Int = 1
 
-    override val layoutId: Int = R.layout.base_dialog_item_sizecount_first
+    override val layoutId: Int = mLayoutId
+
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
         var data = item as FirstNodeEntity
         var tv_color = helper.getView<TextView>(R.id.tv_color)

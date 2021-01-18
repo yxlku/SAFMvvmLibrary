@@ -48,8 +48,7 @@
         android:layout_height="0mm"
         android:layout_weight="1"
         android:background="#FFFFFF"
-        android:paddingStart="16mm"
-        android:paddingEnd="16mm" />
+        />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

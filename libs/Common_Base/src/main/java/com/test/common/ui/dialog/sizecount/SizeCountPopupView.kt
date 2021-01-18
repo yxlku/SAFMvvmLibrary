@@ -20,7 +20,7 @@ class SizeCountPopupView(
     var mHeightMultiple: Float = 0.7F,
     var block: (nodes: List<BaseNode>)->Unit = {}
 ) : BottomPopupView(mActivit), View.OnClickListener {
-    var mAdapter = SizeCountAdapter()
+    var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_sizecount_first)
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_size_count
 

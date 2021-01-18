@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="20mm"
+    android:paddingTop="14mm"
+    android:paddingEnd="20mm"
+    android:paddingBottom="14mm">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订单数量："
+        android:textColor="#B3373D57"
+        android:textSize="12mm" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_count"
+        android:layout_width="0mm"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="0件"
+        android:textColor="#357EEA"
+        android:textSize="12mm" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:layout_marginStart="6mm"
+        android:id="@+id/iv_retract"
+        app:srcCompat="@drawable/base_sizecount_retract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
