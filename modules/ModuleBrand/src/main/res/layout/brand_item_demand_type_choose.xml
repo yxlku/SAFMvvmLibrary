@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text='@{TextUtils.isEmpty(entity.showText)? "选择已有信息 * " : entity.showText}'
-            android:textSize="16mm"
+            android:textSize="14mm"
             android:textStyle="bold" />
 
         <TextView

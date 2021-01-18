@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:text='@{TextUtils.isEmpty(entity.selectedTypeText) == true ? "服务类型 *" : entity.selectedTypeText}'
-                android:textSize="16mm"
+                android:textSize="14mm"
                 android:textStyle="bold" />
 
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:text='@{TextUtils.isEmpty(entity.seletedServiceText) == true ? "对应服务 *" : entity.seletedServiceText}'
-                android:textSize="16mm"
+                android:textSize="14mm"
                 android:textStyle="bold" />
 
             <TextView

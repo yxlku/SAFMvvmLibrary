@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.xujiaji.happybubble.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bubbleLayout"
+    android:id="@+id/bl_bg"
     android:background="#00000000"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,12 +10,12 @@
     app:bubbleArrowTopLeftRadius="10mm"
     app:bubbleArrowTopRightRadius="10mm"
     app:lookAt="top"
-    app:lookLength="5mm"
-    app:lookWidth="5mm">
+    app:lookLength="15dp"
+    app:lookWidth="5dp">
 
 
     <com.lxj.xpopup.widget.VerticalRecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:overScrollMode="never"

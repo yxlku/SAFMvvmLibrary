@@ -32,11 +32,11 @@ class ItemDeamandTypeViewModel(
                     BaseMultipleChoiceEntity("制版文件", false),
                     BaseMultipleChoiceEntity("企划", false),
                 ).createDialogSelectedMultiple(it, "请选择服务类型", callback = { buttonView: CompoundButton?, isChecked: Boolean, checkEntity: BaseMultipleChoiceEntity ->
-                    if (checkEntity.text == "图片") {
-                        ToastUtil.showShortToast("图片为必选项")
-                        buttonView?.isChecked = true
-                        return@createDialogSelectedMultiple null
-                    }
+//                    if (checkEntity.text == "图片") {
+//                        ToastUtil.showShortToast("图片为必选项")
+//                        buttonView?.isChecked = true
+//                        return@createDialogSelectedMultiple null
+//                    }
                     if (checkEntity.isS) {
                         if (!entity.types.contains(checkEntity.text)) {
                             entity.types.add(checkEntity.text)

@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_proportion"
             android:paddingStart="10mm"
             android:paddingEnd="10mm"
             android:layout_width="0mm"

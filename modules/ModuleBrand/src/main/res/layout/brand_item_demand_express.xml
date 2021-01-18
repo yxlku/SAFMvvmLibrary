@@ -59,7 +59,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:text='@{TextUtils.isEmpty(entity.selectedExpressText) == true ? "请选择快递  *" : entity.selectedExpressText}'
-                android:textSize="16mm"
+                android:textSize="14mm"
                 android:textStyle="bold" />
 
             <TextView

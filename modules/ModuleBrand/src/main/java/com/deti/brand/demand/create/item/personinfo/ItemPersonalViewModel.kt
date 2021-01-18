@@ -6,8 +6,12 @@ import com.safmvvm.app.BaseApp
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.RouterActivityPath
 import com.test.common.ui.dialog.goods.createDialogGoodsDetail
+import com.test.common.ui.popup.base.BaseDialogSingleEntity
+import com.test.common.ui.popup.dialogBubbleSingle
+import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 
 class ItemPersonalViewModel(
     var activty: Activity?
@@ -20,6 +24,8 @@ class ItemPersonalViewModel(
         activty?.apply {
             createDialogGoodsDetail(this).show()
         }
+
+
     }
 
 }

@@ -18,8 +18,12 @@ import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
 import com.deti.brand.demand.progress.logistics.LogisticsActivity
 import com.deti.brand.demand.sampleclothes.all.entity.SampleClothesListAllBtnEntity
 import com.deti.brand.demand.sampleclothes.all.entity.SecondNodeEntity
+import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.ui.dialog.morebtns.createDialogSelectedSingleMoreTip
+import com.test.common.ui.popup.base.BaseDialogSingleEntity
+import com.test.common.ui.popup.dialogBubbleSingle
+import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 
 class SecondNodeProvider(
     var mActivity: Activity?
@@ -27,7 +31,7 @@ class SecondNodeProvider(
     override val itemViewType: Int = 2
 
     override val layoutId: Int = R.layout.brand_item_simple_clothes_list_second
-
+    var testSelected = 2
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
         var data = item as SecondNodeEntity
         var rvBtns = helper.getView<RecyclerView>(R.id.rv_btns)
@@ -37,21 +41,40 @@ class SecondNodeProvider(
 
         var btnDatas = initBtn(data)
 
+
         tv_more_btn.setOnClickListener {
             //更多
             if(btnDatas.size > 3){
 
-                var moreBtnsDatas = btnDatas.subList(3, btnDatas.size)
-                var moreListString = arrayListOf<String>()
-                moreBtnsDatas.forEach {
-                    moreListString.add(it.text)
+//                var moreBtnsDatas = btnDatas.subList(3, btnDatas.size)
+//                var moreListString = arrayListOf<String>()
+//                moreBtnsDatas.forEach {
+//                    moreListString.add(it.text)
+//                }
+//                moreListString.createDialogSelectedSingleMoreTip(
+//                    context,
+//                    it,
+//                ){position: Int, text: String->
+//                    ToastUtil.showShortToast("选中了：$text")
+//                }.show()
+
+                var listData = arrayListOf<BaseDialogSingleEntity>(
+                    BaseDialogSingleEntity(0, "我要修改33"),
+                    BaseDialogSingleEntity(4, "我要修改44"),
+                    BaseDialogSingleEntity(4, "我要修改55")
+                )
+                mActivity?.apply {
+                    listData.dialogBubbleSingle(
+                        this,
+                        tv_more_btn,
+                        DialogBubbleSinglePopupView.MODE_NONE,
+                        testSelected,
+                        true
+                    ){ view: View, position: Int, entity: BaseDialogSingleEntity->
+                        testSelected = position
+                        ToastUtil.showShortToast("选中了：${entity.text}")
+                    }.show()
                 }
-                moreListString.createDialogSelectedSingleMoreTip(
-                    context,
-                    it,
-                ){position: Int, text: String->
-                    ToastUtil.showShortToast("选中了：$text")
-                }.show()
             }
         }
 

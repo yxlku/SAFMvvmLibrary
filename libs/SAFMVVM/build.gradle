@@ -143,6 +143,8 @@ dependencies {
     api Deps.refreshLayout
     api Deps.refreshLayoutHeaderClassics
     api Deps.refreshLayoutFooterClassics
+    //圆角气泡view
+    api Deps.bubbleView
     //列表库
     api Deps.adapter
 
