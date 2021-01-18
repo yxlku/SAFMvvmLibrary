@@ -5,5 +5,4 @@ import android.app.Activity
 class PriceListAllBtnViewModel(
     var mActivity: Activity?,
     var mAdapter: PriceListAllBtnAdapter
-) {
-}
+)

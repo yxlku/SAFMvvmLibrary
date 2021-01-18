@@ -58,7 +58,7 @@ public class TimelineView extends View {
     private int mMarkerPaddingRight;
     private int mMarkerPaddingBottom;
     private boolean mMarkerInCenter;
-    private Paint mLinePaint = new Paint();
+    private final Paint mLinePaint = new Paint();
     private boolean mDrawStartLine = false;
     private boolean mDrawEndLine = false;
     private float mStartLineStartX, mStartLineStartY, mStartLineStopX, mStartLineStopY;

@@ -39,6 +39,6 @@ fun toFileIntent(isMultiple: Boolean = false): Intent {
     val intent = Intent(Intent.ACTION_GET_CONTENT)
     intent.addCategory(Intent.CATEGORY_OPENABLE)
     intent.type = "*/*"
-    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, isMultiple);
+    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, isMultiple)
     return intent
 }

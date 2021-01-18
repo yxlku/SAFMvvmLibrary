@@ -14,7 +14,7 @@ class ItemLogisticsProgress: QuickDataBindingItemBinder<ItemLogisticsProgressEnt
         data: ItemLogisticsProgressEntity
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
 
             binding.psvProgress.apply {

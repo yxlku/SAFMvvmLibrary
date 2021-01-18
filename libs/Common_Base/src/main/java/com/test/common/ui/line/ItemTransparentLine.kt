@@ -3,12 +3,12 @@ package com.test.common.ui.line
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
-import com.test.common.databinding.BrandItemLineTransparentBinding
+import com.test.common.databinding.BaseItemLineTransparentBinding
 import me.jessyan.autosize.utils.AutoSizeUtils
 
-class ItemTransparentLine: QuickDataBindingItemBinder<ItemTransparentLineEntity, BrandItemLineTransparentBinding>() {
+class ItemTransparentLine: QuickDataBindingItemBinder<ItemTransparentLineEntity, BaseItemLineTransparentBinding>() {
     override fun convert(
-        holder: BinderDataBindingHolder<BrandItemLineTransparentBinding>,
+        holder: BinderDataBindingHolder<BaseItemLineTransparentBinding>,
         data: ItemTransparentLineEntity,
     ) {
         var binding = holder.dataBinding
@@ -24,5 +24,5 @@ class ItemTransparentLine: QuickDataBindingItemBinder<ItemTransparentLineEntity,
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
-    ): BrandItemLineTransparentBinding = BrandItemLineTransparentBinding.inflate(layoutInflater, parent, false)
+    ): BaseItemLineTransparentBinding = BaseItemLineTransparentBinding.inflate(layoutInflater, parent, false)
 }

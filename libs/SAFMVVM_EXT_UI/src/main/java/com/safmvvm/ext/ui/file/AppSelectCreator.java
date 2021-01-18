@@ -19,8 +19,8 @@ import com.zlylib.fileselectorlib.ui.FileSelectorActivity;
 
 public final class AppSelectCreator {
 
-    private AppFileSelector filePicker;
-    private SelectOptions selectOptions;
+    private final AppFileSelector filePicker;
+    private final SelectOptions selectOptions;
 
     public AppSelectCreator(AppFileSelector filePicker ) {
         selectOptions = SelectOptions.getCleanInstance();

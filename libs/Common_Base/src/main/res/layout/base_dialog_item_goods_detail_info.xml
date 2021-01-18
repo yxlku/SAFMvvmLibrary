@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.test.common.R"/>
+        <import type="com.safmvvm.utils.ResUtil"/>
+        <variable
+            name="entity"
+            type="com.test.common.ui.dialog.goods.item.info.ItemInfoEntity" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="12mm"
+            android:paddingBottom="12mm"
+            android:text="@{entity.title}"
+            android:textColor="#999999"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0mm"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="@{entity.content}"
+            android:textColor="#333333"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:visibility="@{entity.icon == 0 ? View.GONE : View.VISIBLE}"
+            android:layout_width="16mm"
+            android:layout_height="16mm"
+            android:layout_marginStart="9mm"
+            android:src="@{ResUtil.INSTANCE.getDrawable(entity.icon == 0 ? R.drawable.base_dialog_title_close : entity.icon)}" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

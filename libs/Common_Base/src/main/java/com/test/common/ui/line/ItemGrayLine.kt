@@ -3,12 +3,12 @@ package com.test.common.ui.line
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
-import com.test.common.databinding.BrandItemLineGrayBinding
+import com.test.common.databinding.BaseItemLineGrayBinding
 import me.jessyan.autosize.utils.AutoSizeUtils
 
-class ItemGrayLine: QuickDataBindingItemBinder<ItemGrayLineEntity, BrandItemLineGrayBinding>() {
+class ItemGrayLine: QuickDataBindingItemBinder<ItemGrayLineEntity, BaseItemLineGrayBinding>() {
     override fun convert(
-        holder: BinderDataBindingHolder<BrandItemLineGrayBinding>,
+        holder: BinderDataBindingHolder<BaseItemLineGrayBinding>,
         data: ItemGrayLineEntity,
     ) {
         var binding = holder.dataBinding
@@ -24,5 +24,5 @@ class ItemGrayLine: QuickDataBindingItemBinder<ItemGrayLineEntity, BrandItemLine
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
-    ): BrandItemLineGrayBinding = BrandItemLineGrayBinding.inflate(layoutInflater, parent, false)
+    ): BaseItemLineGrayBinding = BaseItemLineGrayBinding.inflate(layoutInflater, parent, false)
 }

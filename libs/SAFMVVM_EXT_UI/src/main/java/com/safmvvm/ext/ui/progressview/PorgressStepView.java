@@ -40,16 +40,19 @@ public class PorgressStepView extends RecyclerView {
     private static final int DEFAULT_LINE_WIDTH = 1;
 
     private int leftMargin, rightMargin;
-    private int lineColor, lineWidth;
-    private int defaultDotColor, highDotColor;
-    private int dotPosition;
+    private final int lineColor;
+    private int lineWidth;
+    private final int defaultDotColor;
+    private final int highDotColor;
+    private final int dotPosition;
     private int radius;
-    private int defaultTextColor, highTextColor;
-    private Drawable defaultDotDrawable;
-    private Drawable highDotDrawable;
-    private int defaultColor = Color.parseColor("#eeeeee");
+    private final int defaultTextColor;
+    private final int highTextColor;
+    private final Drawable defaultDotDrawable;
+    private final Drawable highDotDrawable;
+    private final int defaultColor = Color.parseColor("#eeeeee");
 
-    private List itemDatas = new ArrayList<>();
+    private final List itemDatas = new ArrayList<>();
     private StepAdapter mAdapter;
     private BindViewListener mListener;
 
@@ -171,7 +174,7 @@ public class PorgressStepView extends RecyclerView {
         }
     }
 
-    public static interface BindViewListener {
+    public interface BindViewListener {
         void onBindView(TextView itemMsg, TextView itemDate, Object data);
     }
 

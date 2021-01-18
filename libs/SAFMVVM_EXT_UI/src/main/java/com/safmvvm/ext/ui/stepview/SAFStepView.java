@@ -71,7 +71,7 @@ public class SAFStepView extends View {
     private static final int START_STEP = 0;
     @DisplayMode
     private int displayMode = DISPLAY_MODE_WITH_TEXT;
-    private List<String> steps = new ArrayList<>();
+    private final List<String> steps = new ArrayList<>();
     // for display mode DISPLAY_MODE_NO_TEXT
     private int stepsNumber = 0;
     private int currentStep = START_STEP;
@@ -116,8 +116,8 @@ public class SAFStepView extends View {
     @ColorInt
     private int nextStepCircleColor;
 
-    private Paint paint;
-    private TextPaint textPaint;
+    private final Paint paint;
+    private final TextPaint textPaint;
     private ValueAnimator animator;
 
     private int[] circlesX;
@@ -130,7 +130,7 @@ public class SAFStepView extends View {
     private boolean done;
     private StaticLayout[] textLayouts;
 
-    private Rect bounds = new Rect();
+    private final Rect bounds = new Rect();
 
     /** 完成后指示器是否为对号*/
     private boolean isDoneDuihao = true;
@@ -631,11 +631,7 @@ public class SAFStepView extends View {
                 int animatedX = (int) (endLinesX[i] - animatedFraction * (endLinesX[i] - startLinesX[i]));
                 drawLine(canvas, startLinesX[i], animatedX, circlesY, true);
                 drawLine(canvas, animatedX, endLinesX[i], circlesY, false);
-            } else if (i < currentStep) {
-                drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, true);
-            } else {
-                drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, false);
-            }
+            } else drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, i < currentStep);
         }
     }
 

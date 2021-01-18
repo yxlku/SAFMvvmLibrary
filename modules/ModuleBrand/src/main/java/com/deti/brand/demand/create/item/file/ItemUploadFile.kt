@@ -18,7 +18,7 @@ class ItemUploadFile(
     ) {
         var mViewModel = ItemUploadFileViewModel(mActivity, adapter)
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()

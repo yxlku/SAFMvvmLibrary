@@ -42,7 +42,7 @@ class ItemUploadFileViewModel(
             AppFileSelector.from(this)
                 // .onlyShowFolder()  //只显示文件夹
                 //.onlySelectFolder()  //只能选择文件夹
-                 .isSingle() // 只能选择一个
+                 .isSingle // 只能选择一个
                 .setMaxCount(1) //设置最大选择数
                 .setFileTypes("png", "doc", "apk", "mp3", "gif", "txt", "mp4", "zip") //设置文件类型
                 .setSortType(FileSelector.BY_NAME_ASC) //设置名字排序
@@ -57,7 +57,7 @@ class ItemUploadFileViewModel(
                                 }
                                 entity.filePath = builder.toString()
                                 mAdapter.notifyDataSetChanged()
-                                LogUtil.d("文件：${builder.toString()}")
+                                LogUtil.d("文件：$builder")
                             }
                         }
                     }

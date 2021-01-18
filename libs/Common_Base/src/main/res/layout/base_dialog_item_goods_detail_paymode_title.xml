@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="支付方式："
+            android:textColor="#333333"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12mm"
+            android:layout_weight="1"
+            android:text="付款日期："
+            android:textColor="#333333"
+            android:textSize="12mm" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

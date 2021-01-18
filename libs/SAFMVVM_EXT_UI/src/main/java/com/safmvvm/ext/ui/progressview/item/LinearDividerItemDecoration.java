@@ -22,8 +22,8 @@ import me.jessyan.autosize.utils.AutoSizeUtils;
 public class LinearDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int DEFAULT_HEIGHT = 1;
-    private ColorDrawable mDivider;
-    private Builder builder;
+    private final ColorDrawable mDivider;
+    private final Builder builder;
 
     private LinearDividerItemDecoration(Builder builder) {
         mDivider = new ColorDrawable(Color.GRAY);

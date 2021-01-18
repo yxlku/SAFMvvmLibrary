@@ -15,7 +15,7 @@ class ItemChoosePersonal(
     ) {
         var mViewModel = ItemChoosePersonalViewModel(mActivity, adapter, holder.adapterPosition)
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()
@@ -28,10 +28,4 @@ class ItemChoosePersonal(
         viewType: Int,
     ): BasisItemPerfectChooseBinding = BasisItemPerfectChooseBinding.inflate(layoutInflater, parent, false)
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BinderDataBindingHolder<BasisItemPerfectChooseBinding> {
-        return super.onCreateViewHolder(parent, viewType)
-    }
 }

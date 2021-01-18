@@ -11,7 +11,7 @@ class ItemLogisticsInfo: QuickDataBindingItemBinder<ItemLogisticsInfoEntity, Bra
         data: ItemLogisticsInfoEntity
     ) {
         var databindg = holder.dataBinding
-        databindg?.apply {
+        databindg.apply {
             entity = data
             executePendingBindings()
         }

@@ -5,6 +5,4 @@ import android.content.Context
 class PriceListAllItemViewModel(
     var mContext: Context,
     var mAdatper: PriceListAllAdapter,
-) {
-
-}
+)

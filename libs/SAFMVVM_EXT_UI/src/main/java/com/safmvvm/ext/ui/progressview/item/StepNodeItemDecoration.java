@@ -25,7 +25,7 @@ public class StepNodeItemDecoration extends RecyclerView.ItemDecoration {
     public static final int POSITION_TOP = 0;
     public static final int POSITION_CENTER = 1;
 
-    private Builder mBuilder;
+    private final Builder mBuilder;
     private Paint mLinePaint;
     private Paint mDotPaint;
     private Paint mDotHighPaint;
@@ -153,7 +153,7 @@ public class StepNodeItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable defaultDotDrawable;
         private Drawable highDotDrawable;
         private int radius;
-        private Context context;
+        private final Context context;
 
         public Builder(Context context) {
             this.context = context;
