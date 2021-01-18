@@ -8,6 +8,7 @@
         <activity android:name="com.deti.basis.login.LoginActivity"/>
         <activity android:name="com.deti.basis.register.RegisterAcitivty" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".personal.PersonalActivity" />
+        <activity android:name=".search.SearchActivity"  android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

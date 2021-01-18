@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.deti.basis.search.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="56mm"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rightColor="#666666"
+            app:rightTitle="取消">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="300mm"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="12mm"
+                android:layout_marginBottom="12mm"
+                android:background="@drawable/base_edit_gray_bg"
+                android:gravity="center_vertical"
+                android:hint="请输入搜索内容"
+                android:paddingStart="10mm"
+                android:paddingEnd="10mm" />
+        </com.safmvvm.ui.titlebar.TitleBar>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_history_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="20mm"
+            android:text="历史搜索内容"
+            android:textColor="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <co.lujun.androidtagview.TagContainerLayout
+            android:id="@+id/tag_history"
+            app:horizontal_interval="8mm"
+            app:vertical_interval="15mm"
+            app:container_enable_drag="true"
+            app:container_border_width="0mm"
+            app:container_border_color="#00000000"
+            app:container_background_color="#00000000"
+            app:tag_text_size="13mm"
+            app:tag_theme="none"
+            app:tag_border_color="#00000000"
+            app:tag_border_width="0mm"
+            app:tag_background_color="#F2F2F2"
+            app:tag_text_color="#666666"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="20mm"
+            android:layout_marginEnd="16mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_title" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

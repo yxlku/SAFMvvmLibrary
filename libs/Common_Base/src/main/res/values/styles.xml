@@ -2,7 +2,7 @@
 <resources>
     <style name="DetiAppTheme" parent="AppTheme">
         <!-- 默认文字大小-->
-        <item name="android:textSize">12mm</item>
+        <item name="android:textSize">13mm</item>
     </style>
 
 </resources>

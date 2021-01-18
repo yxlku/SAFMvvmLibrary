@@ -50,4 +50,7 @@ dependencies {
     //分布指示器
     api 'com.github.baoyachi:StepView:1.9'
     api 'com.shuhart.stepview:stepview:1.5.1'
+
+    //Tag标签
+    api 'co.lujun:androidtagview:1.1.7'
 }

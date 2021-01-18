@@ -11,6 +11,9 @@ object RouterActivityPath {
 
         /** 完善个人信息页面*/
         const val PAGE_PERFECT_PERSONAL: String = PATH + "perfect/personal"
+
+        /** 通用搜索页面*/
+        const val PAGE_SEARCH: String = PATH + "search"
     }
     /** 品牌商*/
     object ModuleBrand {
