@@ -56,7 +56,6 @@ class ItemPayModeTime(
                         testSelected = position
                         binding?.entity?.proportion = entity.text
                         adapter.notifyDataSetChanged()
-                        ToastUtil.showShortToast("选中了：${entity.text}")
                     }.show()
                 }
             }

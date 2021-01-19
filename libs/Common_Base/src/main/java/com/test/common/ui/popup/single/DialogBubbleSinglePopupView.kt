@@ -1,13 +1,13 @@
 package com.test.common.ui.popup.single
 
 import android.app.Activity
-import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.lxj.xpopup.animator.PopupAnimator
 import com.lxj.xpopup.core.AttachPopupView
+import com.lxj.xpopup.core.BasePopupView
 import com.test.common.R
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.xujiaji.happybubble.BubbleLayout
@@ -43,7 +43,6 @@ class DialogBubbleSinglePopupView(
     }
 
     init{
-
         addInnerContent()
     }
 
@@ -51,22 +50,15 @@ class DialogBubbleSinglePopupView(
 
     var mAdapter = DialogBubbleSingleAdapter(selectedPosition, selectedMode)
 
-
+    var bl_bg: BubbleLayout? = null
     override fun onCreate() {
         super.onCreate()
         //气泡背景
-        var bl_bg: BubbleLayout = findViewById(R.id.bl_bg)
+        bl_bg = findViewById(R.id.bl_bg)
         //列表
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
 
-        bl_bg.look = if (isShowUpToTarget) {
-            BubbleLayout.Look.BOTTOM
-        }else{
-            BubbleLayout.Look.TOP
-        }
-
-        bl_bg.lookPosition = (atView.right - atView.left) / 2
-
+        bl_bg?.lookPosition = (atView.right - atView.left) / 2
         rv_content.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
@@ -81,6 +73,24 @@ class DialogBubbleSinglePopupView(
             mAdapter.notifyDataSetChanged()
         }
         mAdapter.setList(datas)
+    }
 
+    override fun getPopupAnimator(): PopupAnimator {
+        var an = super.getPopupAnimator()
+        bl_bg = findViewById(R.id.bl_bg)
+        popupContentView.post {
+            if (isShowUpToTarget) {
+                bl_bg?.look = BubbleLayout.Look.BOTTOM
+            } else {
+                bl_bg?.look = BubbleLayout.Look.TOP
+            }
+        }
+        return an
+    }
+
+
+    override fun show(): BasePopupView {
+        super.show()
+        return this
     }
 }
