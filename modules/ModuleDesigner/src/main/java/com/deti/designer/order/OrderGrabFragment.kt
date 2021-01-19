@@ -22,10 +22,10 @@ class OrderGrabFragment(
         /** 派单*/
         const val STATE_DISPATCH: Int = 1
     }
-    var mAdapter = OrderGrabAdapter(mState)
+
     override fun initData() {
         super.initData()
-
+        var mAdapter = OrderGrabAdapter(activity, mState)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

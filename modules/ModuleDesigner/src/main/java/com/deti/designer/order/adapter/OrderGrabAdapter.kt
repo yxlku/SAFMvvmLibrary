@@ -1,5 +1,6 @@
 package com.deti.designer.order.adapter
 
+import android.app.Activity
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -7,8 +8,11 @@ import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemOrderGrabBinding
 import com.deti.designer.order.OrderGrabEntity
 import com.deti.designer.order.OrderGrabFragment
+import com.deti.designer.order.popup.TaskReminderPopupView
+import com.test.common.ui.popup.createDialogBase
 
 class OrderGrabAdapter(
+    var mActivity: Activity?,
     var mState: Int = OrderGrabFragment.STATE_GRAB
 ): BaseQuickAdapter<OrderGrabEntity, BaseDataBindingHolder<DesignerItemOrderGrabBinding>>(
     R.layout.designer_item_order_grab
@@ -33,10 +37,20 @@ class OrderGrabAdapter(
                 //抢单
                 tvBtnYellow.text = "立即抢单"
                 tvBtnWhite.visibility = View.VISIBLE
+                tvBtnYellow.setOnClickListener{
+                    mActivity?.apply {
+                        createDialogBase(TaskReminderPopupView(this, mState)).show()
+                    }
+                }
             } else {
                 //派单
                 tvBtnYellow.text = "立即接单"
                 tvBtnWhite.visibility = View.GONE
+                tvBtnYellow.setOnClickListener{
+                    mActivity?.apply {
+                        createDialogBase(TaskReminderPopupView(this, mState)).show()
+                    }
+                }
             }
         }
     }

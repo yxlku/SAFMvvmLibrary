@@ -21,3 +21,12 @@ fun createDialogBase(
     //自方法自定义属性
     block(this)
 }.asCustom(customView)
+
+
+/**
+ * 设置带标题的自定义页面底部弹窗
+ */
+fun createDialogPageTitleBae(
+    customView: BasePopupView,
+    block:(builder: XPopup.Builder) -> Unit = {}
+): BasePopupView = createDialogBase(customView, block)
