@@ -8,3 +8,4 @@ include ':app'
 include ':modules:testapplication'
 include ':modules:ModuleTestA'
 rootProject.name = "SAFMvvmLibrary"
+include ':modules:ModuleDesigner'

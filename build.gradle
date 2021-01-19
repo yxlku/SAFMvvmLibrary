@@ -6,6 +6,8 @@ buildscript {
     //组件化时只初始化使用这个就行
     apply from: "config.gradle"
     ext {
+        kotlin_version = '1.4.20'
+        Versions.kotlinVersion = '1.4.20'
         Versions.kotlinVersion = '1.4.30-M1'
     }
 
