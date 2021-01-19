@@ -16,7 +16,7 @@ import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgressEnt
 import com.safmvvm.mvvm.view.BaseActivity
 
 /**
- * 物流页面
+ * 订单详情
  */
 class LogisticsActivity: BaseActivity<BrandActivityLogisticsBinding, LogisticsViewModel>(
     R.layout.brand_activity_logistics,

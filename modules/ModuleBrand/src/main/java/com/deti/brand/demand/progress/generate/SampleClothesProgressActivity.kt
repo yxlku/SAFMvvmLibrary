@@ -9,6 +9,9 @@ import com.safmvvm.ext.ui.progressview.PorgressStepView
 import com.safmvvm.mvvm.view.BaseActivity
 
 
+/**
+ * 样衣进度
+ */
 class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProgressBinding, SampleClothesProgressViewModel>(
     R.layout.brand_activity_sample_clothes_progress,
     BR.viewModel

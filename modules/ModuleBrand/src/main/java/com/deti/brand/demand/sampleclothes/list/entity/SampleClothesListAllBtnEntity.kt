@@ -1,6 +1,7 @@
-package com.deti.brand.demand.sampleclothes.all.entity
+package com.deti.brand.demand.sampleclothes.list.entity
 
 import androidx.annotation.DrawableRes
+import com.deti.brand.R
 
 
 /**
@@ -13,6 +14,6 @@ data class SampleClothesListAllBtnEntity(
     /** 状态*/
     var status: Int = 0,
     /** 按钮背景*/
-    @DrawableRes var btnBg: Int = 0
+    @DrawableRes var btnBg: Int = R.drawable.base_btn_gray_bg
 
 )

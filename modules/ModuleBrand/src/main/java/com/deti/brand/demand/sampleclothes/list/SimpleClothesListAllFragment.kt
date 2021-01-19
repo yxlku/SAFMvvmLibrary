@@ -1,24 +1,26 @@
-package com.deti.brand.demand.sampleclothes.all
+package com.deti.brand.demand.sampleclothes.list
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentSimpleClothesListAllBinding
-import com.deti.brand.demand.sampleclothes.all.adapter.SimpleClothesListAllAdapter
-import com.deti.brand.demand.sampleclothes.all.entity.FirstNodeEntity
-import com.deti.brand.demand.sampleclothes.all.entity.SecondNodeEntity
+import com.deti.brand.demand.sampleclothes.list.adapter.list.SimpleClothesListAllAdapter
+import com.deti.brand.demand.sampleclothes.list.entity.FirstNodeEntity
+import com.deti.brand.demand.sampleclothes.list.entity.SecondNodeEntity
 import com.safmvvm.mvvm.view.BaseFragment
 
-class SimpleClothesListAllFragment: BaseFragment<BrandFragmentSimpleClothesListAllBinding, SimpleClothesListAllViewModel>(
+class SimpleClothesListAllFragment(
+    /** 列表状态*/
+    var mStateList: Int = StateListSimpleClothesEnum.STATE_ALL
+): BaseFragment<BrandFragmentSimpleClothesListAllBinding, SimpleClothesListAllViewModel>(
     R.layout.brand_fragment_simple_clothes_list_all,
     BR.viewModel
 ) {
 
-
     override fun initData() {
         super.initData()
-        var mAdapter = SimpleClothesListAllAdapter(activity)
+        var mAdapter = SimpleClothesListAllAdapter(activity, mStateList)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

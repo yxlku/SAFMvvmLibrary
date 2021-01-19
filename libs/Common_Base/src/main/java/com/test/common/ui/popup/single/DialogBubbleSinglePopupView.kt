@@ -11,6 +11,7 @@ import com.lxj.xpopup.core.BasePopupView
 import com.test.common.R
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.xujiaji.happybubble.BubbleLayout
+import me.jessyan.autosize.utils.AutoSizeUtils
 
 /**
  * 气泡弹窗view
@@ -27,6 +28,8 @@ class DialogBubbleSinglePopupView(
     var clickDismiss: Boolean = true,
     /** 数据*/
     var datas: List<BaseDialogSingleEntity>,
+    /** 布局宽度*/
+    var layoutWidth: Float = -1.0F,
     /** 点击事件回调*/
     var block: (view: View, position: Int, entity: BaseDialogSingleEntity)->Unit = {view: View, position: Int, entity: BaseDialogSingleEntity->}
 ): AttachPopupView(mActivity) {
@@ -58,7 +61,15 @@ class DialogBubbleSinglePopupView(
         //列表
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
 
-        bl_bg?.lookPosition = (atView.right - atView.left) / 2
+        bl_bg?.apply {
+            lookPosition = (atView.right - atView.left) / 2
+            if (layoutWidth != -1.0F) {
+                layoutParams = layoutParams.apply {
+                    width = AutoSizeUtils.mm2px(context, layoutWidth)
+                }
+            }
+        }
+
         rv_content.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

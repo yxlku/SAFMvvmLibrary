@@ -2,23 +2,19 @@ package com.deti.brand.demand.sampleclothes
 
 import android.content.Context
 import android.graphics.Color
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentSimpleClothesBinding
-import com.deti.brand.demand.sampleclothes.all.SimpleClothesListAllFragment
+import com.deti.brand.demand.sampleclothes.list.SimpleClothesListAllFragment
+import com.deti.brand.demand.sampleclothes.list.StateListSimpleClothesEnum
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
-import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
 class SimpleClothesFragment: BaseFragment<BrandFragmentSimpleClothesBinding, SimpleClothesViewModel>(
@@ -29,15 +25,20 @@ class SimpleClothesFragment: BaseFragment<BrandFragmentSimpleClothesBinding, Sim
         "全部",
         "待发货",
         "待收货",
-        "待评价",
+//        "待评价",
         "待付款",
     )
     var fragments = arrayListOf<Fragment>(
-        SimpleClothesListAllFragment(),
-        SimpleClothesListAllFragment(),
-        SimpleClothesListAllFragment(),
-        SimpleClothesListAllFragment(),
-        SimpleClothesListAllFragment(),
+        /** 全部列表*/
+        SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_ALL),
+        /** 待发货*/
+        SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_DELIVER),
+        /** 待收货*/
+        SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_RECEIVED),
+//        /** 待评价*/
+//        SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_EVALUATION),
+        /** 待收款*/
+        SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_PAYMENT),
     )
     override fun initData() {
         super.initData()

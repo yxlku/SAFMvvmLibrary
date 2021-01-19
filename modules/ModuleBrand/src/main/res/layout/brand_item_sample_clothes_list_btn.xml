@@ -6,10 +6,10 @@
         <import type="com.safmvvm.utils.ResUtil"/>
         <variable
             name="entity"
-            type="com.deti.brand.demand.sampleclothes.all.entity.SampleClothesListAllBtnEntity" />
+            type="com.deti.brand.demand.sampleclothes.list.entity.SampleClothesListAllBtnEntity" />
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.sampleclothes.all.adapter.SampleClothesBtnViewModel" />
+            type="com.deti.brand.demand.sampleclothes.list.adapter.btn.SampleClothesBtnViewModel" />
     </data>
 
     <TextView

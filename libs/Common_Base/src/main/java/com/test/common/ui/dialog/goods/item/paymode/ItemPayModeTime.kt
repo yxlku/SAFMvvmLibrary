@@ -51,7 +51,8 @@ class ItemPayModeTime(
                         it,
                         DialogBubbleSinglePopupView.MODE_BG,
                         testSelected,
-                        true
+                        true,
+                        200F,
                     ){ view: View, position: Int, entity: BaseDialogSingleEntity ->
                         testSelected = position
                         binding?.entity?.proportion = entity.text

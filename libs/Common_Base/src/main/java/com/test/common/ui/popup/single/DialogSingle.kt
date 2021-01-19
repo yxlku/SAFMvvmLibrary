@@ -17,11 +17,14 @@ fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
     /** 默认选中位置*/
     selectedPosition: Int = -1,
     clickDismiss: Boolean,
+    /** 布局宽度*/
+    layoutWidth: Float = -1.0F,
     block: (view: View, position: Int, entity: BaseDialogSingleEntity)->Unit = {view: View, position: Int, entity: BaseDialogSingleEntity->}
 ): BasePopupView {
     return createDialogBase(
-        DialogBubbleSinglePopupView(mActivity, v, selectedMode, selectedPosition, clickDismiss,this, block)
+        DialogBubbleSinglePopupView(mActivity, v, selectedMode, selectedPosition, clickDismiss,this, layoutWidth, block)
     ){
+        it.hasBlurBg(false)
         it.atView(v)
         it.popupType(PopupType.AttachView)
     }

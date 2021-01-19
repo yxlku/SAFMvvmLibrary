@@ -1,4 +1,4 @@
-package com.deti.brand.demand.sampleclothes.all.entity
+package com.deti.brand.demand.sampleclothes.list.entity
 
 import com.chad.library.adapter.base.entity.node.BaseExpandNode
 import com.chad.library.adapter.base.entity.node.BaseNode

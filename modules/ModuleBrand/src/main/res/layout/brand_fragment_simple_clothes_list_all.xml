@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.sampleclothes.all.SimpleClothesListAllViewModel" />
+            type="com.deti.brand.demand.sampleclothes.list.SimpleClothesListAllViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

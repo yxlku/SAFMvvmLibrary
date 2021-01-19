@@ -1,17 +1,16 @@
-package com.deti.brand.demand.sampleclothes.all.adapter
+package com.deti.brand.demand.sampleclothes.list.adapter.list
 
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.core.view.ViewCompat
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.deti.brand.R
-import com.deti.brand.demand.sampleclothes.all.adapter.SimpleClothesListAllAdapter.Companion.EXPAND_COLLAPSE_PAYLOAD
-import com.deti.brand.demand.sampleclothes.all.entity.FirstNodeEntity
+import com.deti.brand.demand.sampleclothes.list.adapter.list.SimpleClothesListAllAdapter.Companion.EXPAND_COLLAPSE_PAYLOAD
+import com.deti.brand.demand.sampleclothes.list.entity.FirstNodeEntity
 
 class FirstNodeProvider: BaseNodeProvider() {
 

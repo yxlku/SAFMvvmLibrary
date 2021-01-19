@@ -1,4 +1,4 @@
-package com.deti.brand.demand.sampleclothes.all.adapter
+package com.deti.brand.demand.sampleclothes.list.adapter.btn
 
 import android.app.Activity
 
