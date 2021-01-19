@@ -57,6 +57,8 @@ ext {
             // 图片加载
             glide                     : "com.github.bumptech.glide:glide:$Versions.glideVersion",
             glideCompiler             : "com.github.bumptech.glide:compiler:$Versions.glideVersion",
+            //圆角ImageView
+            roundImageView            : 'com.github.xiaofeidev:round:1.1.1',
 
             gson                      : "com.google.code.gson:gson:2.8.6",
             gsonConverter             : "com.squareup.retrofit2:converter-gson:2.7.2",

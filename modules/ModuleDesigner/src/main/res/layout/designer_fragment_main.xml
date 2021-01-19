@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.deti.designer.main.MainViewModel" />
@@ -9,7 +11,148 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/designer_main_title_bg"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            app:backButton="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lineVisible="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12mm"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16mm"
+                    android:layout_marginEnd="13mm"
+                    android:src="@mipmap/designer_main_titile_icon" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="0mm"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/designer_et_bg_main_search"
+                    android:drawableLeft="@mipmap/designer_main_titile_search"
+                    android:drawablePadding="8mm"
+                    android:hint="搜索你要找的需求单号"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:paddingStart="12mm"
+                    android:paddingTop="7mm"
+                    android:paddingEnd="12mm"
+                    android:paddingBottom="7mm"
+                    android:textColor="#FFFFFF" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10mm"
+                    android:layout_marginEnd="16mm"
+                    android:src="@mipmap/designer_main_titile_msg" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.safmvvm.ui.titlebar.TitleBar>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/mi_tab"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"
+            android:layout_marginTop="22mm"
+            app:layout_constraintBottom_toTopOf="@id/iv_top_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="25mm"
+            android:background="@drawable/designer_img_main_top_round"
+            app:layout_constraintBottom_toBottomOf="@id/iv_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_bg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20mm"
+            android:paddingBottom="11mm"
+            android:text="抢单列表"
+            android:textSize="16mm"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_top_bg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_list_title_count"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2mm"
+            android:text="(共2354条)"
+            android:textColor="#999999"
+            android:textSize="13mm"
+            app:layout_constraintEnd_toStartOf="@id/tv_list_title_filter"
+            app:layout_constraintStart_toEndOf="@id/tv_list_title"
+            app:layout_constraintTop_toBottomOf="@id/iv_top_bg"
+            app:layout_constraintTop_toTopOf="@id/tv_list_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_list_title_filter"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20mm"
+            android:drawableLeft="@mipmap/designer_main_list_title_filter"
+            android:drawablePadding="6mm"
+            android:text="筛选"
+            android:textColor="#666666"
+            android:textSize="13mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_top_bg"
+            app:layout_constraintTop_toTopOf="@id/tv_list_title" />
+
+        <View
+            android:id="@+id/v_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_list_title"
+            android:background="#E6E6E6"
+            android:layout_width="match_parent"
+            android:layout_height="1mm"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="0mm"
+            android:layout_height="0mm"
+            android:background="#F5F5F5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_line" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -103,6 +103,8 @@ dependencies {
 
     // 图片，使用 glide
     api Deps.glide
+    //圆角图片
+    api Deps.roundImageView
 
     // 权限申请
     api Deps.xxpermissions
