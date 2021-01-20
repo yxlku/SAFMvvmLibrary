@@ -16,7 +16,9 @@
         android:id="@+id/tv_order_num"
         android:layout_width="0mm"
         android:layout_height="wrap_content"
-        android:text="需求单号：X2020111314391496"
+        android:text="货号：12333333"
+        android:textColor="#333333"
+        android:textSize="12mm"
         app:layout_constraintEnd_toStartOf="@id/tv_state"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,12 +27,24 @@
         android:id="@+id/tv_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="状态"
+        android:text="寄送中"
         android:textColor="#F74B60"
         android:textSize="12mm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_order_num"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_state_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8mm"
+        android:text="首次"
+        android:textColor="#F74B60"
+        android:textSize="12mm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_order_num"
+        app:layout_constraintTop_toBottomOf="@id/tv_state" />
 
     <ImageView
         android:id="@+id/iv_img"
@@ -90,12 +104,13 @@
         android:id="@+id/tv_service"
         android:layout_width="0mm"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:maxLines="1"
-        android:text="样衣+打版+生产"
+        android:text="样衣+打版+生产样衣+打版+生产样衣+打版+生产样衣+打版+生产样衣+打版+生产"
         android:textColor="#666666"
         android:textSize="12mm"
         app:layout_constraintBottom_toBottomOf="@+id/tv_service_title"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_state_second"
         app:layout_constraintStart_toEndOf="@+id/tv_service_title"
         app:layout_constraintTop_toTopOf="@+id/tv_service_title" />
 
@@ -138,6 +153,17 @@
         app:layout_constraintStart_toEndOf="@+id/tv_delivery_time_title"
         app:layout_constraintTop_toTopOf="@+id/tv_delivery_time_title" />
 
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_cost"
+        android:layout_width="0mm"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="tv_delivery_time_title, tv_delivery_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_color_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_color_title" />
+
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
@@ -150,8 +176,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="15mm"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line">
@@ -159,20 +185,20 @@
         <TextView
             android:id="@+id/tv_more_btn"
             android:layout_width="wrap_content"
-            android:textColor="#333333"
-            android:paddingTop="5mm"
-            android:paddingBottom="5mm"
-            android:paddingRight="5mm"
-            android:textSize="12mm"
             android:layout_height="wrap_content"
-            android:text="更多..." />
+            android:paddingTop="5mm"
+            android:paddingRight="5mm"
+            android:paddingBottom="5mm"
+            android:text="更多..."
+            android:textColor="#66333333"
+            android:textSize="12mm" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_btns"
-            android:layout_weight="1"
             android:layout_width="0mm"
-            android:layoutDirection="rtl"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layoutDirection="rtl"
             android:text="查看进度" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -11,8 +11,8 @@ data class SampleClothesListAllBtnEntity(
     var id: Int = 0,
     /** 按钮文字*/
     var text: String,
-    /** 状态*/
-    var status: Int = 0,
+//    /** 状态*/
+//    var status: Int = 0,
     /** 按钮背景*/
     @DrawableRes var btnBg: Int = R.drawable.base_btn_gray_bg
 

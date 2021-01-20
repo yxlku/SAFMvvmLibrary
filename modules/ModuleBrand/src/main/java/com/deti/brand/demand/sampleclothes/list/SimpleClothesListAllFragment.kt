@@ -30,9 +30,9 @@ class SimpleClothesListAllFragment(
 
     fun testData(): List<FirstNodeEntity> {
         var firstNode = arrayListOf<FirstNodeEntity>()
-        for (i in 0 until 3) {
+        for (i in 0 until 1) {
             var secondNodes = arrayListOf<BaseNode>()
-            for (j in 0 until 5) {
+            for (j in 0 until 4) {
                 var secondNodeEntity = SecondNodeEntity(
                     j,
                     j
