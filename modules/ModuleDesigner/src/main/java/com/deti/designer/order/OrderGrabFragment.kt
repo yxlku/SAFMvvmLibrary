@@ -6,7 +6,9 @@ import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentOrderGrabBinding
 import com.deti.designer.order.adapter.OrderGrabAdapter
 import com.deti.designer.order.entity.OrderGrabEntity
+import com.deti.designer.order.popup.FilterOrderPopupView
 import com.safmvvm.mvvm.view.BaseFragment
+import com.test.common.ui.popup.createDialogBase
 
 /**
  * 抢单
@@ -26,6 +28,14 @@ class OrderGrabFragment(
 
     override fun initData() {
         super.initData()
+
+        mBinding.tvListTitleFilter.setOnClickListener{
+            activity?.apply {
+                createDialogBase(FilterOrderPopupView(this)).show()
+            }
+        }
+
+
         var mAdapter = OrderGrabAdapter(activity, mState)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)

@@ -1,5 +1,6 @@
 package com.deti.designer.order.popup.adapter
 
+import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.binder.QuickViewBindingItemBinder
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -29,8 +30,10 @@ class FilterOrderPopupAdapter(
             var isChoose = holder.adapterPosition == selectedPosition
             if (isChoose) {
                 tvBtn.background = ResUtil.getDrawable(R.drawable.base_btn_yellow_bg_round)
+                tvBtn.setTextColor(Color.parseColor("#333333"))
             }else{
                 tvBtn.background = ResUtil.getDrawable(R.drawable.base_btn_gray_bg_round)
+                tvBtn.setTextColor(Color.parseColor("#666666"))
             }
             executePendingBindings()
         }

@@ -54,11 +54,6 @@ class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
 
         initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
 
-        mBinding.tvListTitleFilter.setOnClickListener{
-            activity?.apply {
-                createDialogBase(FilterOrderPopupView(this)).show()
-            }
-        }
     }
 
     /**
