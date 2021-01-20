@@ -10,11 +10,13 @@ import com.deti.designer.R
 import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentMainBinding
 import com.deti.designer.order.OrderGrabFragment
+import com.deti.designer.order.popup.FilterOrderPopupView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
+import com.test.common.ui.popup.createDialogBase
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -51,6 +53,12 @@ class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
         fragments.createViewPager(childFragmentManager, mBinding.vpContent)
 
         initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
+
+        mBinding.tvListTitleFilter.setOnClickListener{
+            activity?.apply {
+                createDialogBase(FilterOrderPopupView(this)).show()
+            }
+        }
     }
 
     /**

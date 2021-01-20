@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.designer.order.OrderGrabEntity" />
+            type="com.deti.designer.order.entity.OrderGrabEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

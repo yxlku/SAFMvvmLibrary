@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemOrderGrabBinding
-import com.deti.designer.order.OrderGrabEntity
+import com.deti.designer.order.entity.OrderGrabEntity
 import com.deti.designer.order.OrderGrabFragment
 import com.deti.designer.order.popup.TaskReminderPopupView
 import com.test.common.ui.popup.createDialogBase

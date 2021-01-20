@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.deti.designer.R
 import com.deti.designer.order.OrderGrabFragment
-import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 
 /**
@@ -16,7 +15,7 @@ class TaskReminderPopupView(
     var mState: Int = OrderGrabFragment.STATE_GRAB
 ) : BottomPopupView(mActivity) {
 
-    override fun getImplLayoutId(): Int = R.layout.designer_popup_tast_reminder
+    override fun getImplLayoutId(): Int = R.layout.designer_popup_task_reminder
 
     var tv_cancel: TextView? = null
     var tv_sure: TextView? = null

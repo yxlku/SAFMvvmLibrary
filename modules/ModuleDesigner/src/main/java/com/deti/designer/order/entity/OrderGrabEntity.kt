@@ -1,4 +1,4 @@
-package com.deti.designer.order
+package com.deti.designer.order.entity
 
 /**
  * 抢单、接单

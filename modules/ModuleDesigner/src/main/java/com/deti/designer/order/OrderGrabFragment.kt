@@ -5,6 +5,7 @@ import com.deti.designer.R
 import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentOrderGrabBinding
 import com.deti.designer.order.adapter.OrderGrabAdapter
+import com.deti.designer.order.entity.OrderGrabEntity
 import com.safmvvm.mvvm.view.BaseFragment
 
 /**
