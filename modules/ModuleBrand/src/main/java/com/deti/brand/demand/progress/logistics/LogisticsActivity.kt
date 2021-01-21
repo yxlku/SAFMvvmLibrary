@@ -5,15 +5,13 @@ import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandActivityLogisticsBinding
-import com.deti.brand.demand.create.item.line.ItemGrayLine
-//import com.deti.brand.demand.create.item.line.ItemGrayLineEntity
-import com.deti.brand.demand.create.item.line.ItemTransparentLine
-import com.deti.brand.demand.create.item.line.ItemTransparentLineEntity
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfo
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfoEntity
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgress
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgressEntity
 import com.safmvvm.mvvm.view.BaseActivity
+import com.test.common.ui.line.ItemTransparentLine
+import com.test.common.ui.line.ItemTransparentLineEntity
 
 /**
  * 订单详情

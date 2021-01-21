@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:text="@{entity.text}"
             android:textColor="#1B2643"
-            android:textSize="18mm" />
+            android:textSize="14mm" />
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/iv_choose_state"

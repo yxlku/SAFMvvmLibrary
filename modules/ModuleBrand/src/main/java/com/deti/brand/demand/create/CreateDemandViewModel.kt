@@ -19,16 +19,40 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @ExperimentalCoroutinesApi
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
-    /** 快递选择信息 -- 最后的数据信息 */
-//    var mExpressSingleChoiceEntity = SingleLiveEvent<BaseSingleChoiceEntity>()
-    var mExpressSingleChoiceEntity = ObservableField<BaseSingleChoiceEntity>()
-    var mExpressNum = ObservableField<String>()
-    var c = object : BindingConsumer<String>{
-        override fun call(t: String?) {
-            mExpressNum.set(t)
-        }
-    }
 
+    /** 服务类型*/
+    var mServiceType = ObservableField<String>()
+    /** 对应服务*/
+    var mServiceProduce = ObservableField<String>()
+
+    /** 快递选择信息 -- 最后的数据信息 */
+    var mExpressSingleChoiceEntity = ObservableField<BaseSingleChoiceEntity>()
+    /** 快递单号*/
+    var mExpressNum = ObservableField<String>()
+    /** 快递单号输入监听*/
+    var consumerExpressNum = BindingConsumer<String> { t -> mExpressNum.set(t) }
+
+    /**
+     * 服务类型
+     */
+    fun clickServiceType(view: View){
+        var datas = arrayListOf(
+            BaseSingleChoiceEntity("0", "包工包料"),
+            BaseSingleChoiceEntity("1", "纯加工"),
+        )
+        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
+    }
+    /**
+     * 对应服务
+     */
+    fun clickServiceProduce(view: View){
+        var datas = arrayListOf(
+            BaseSingleChoiceEntity("0", "打版 + 生产"),
+            BaseSingleChoiceEntity("1", "仅生产"),
+        )
+        var pos = datas.indexOf(mServiceProduce.get())
+        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
+    }
     /**
      * 地址弹窗
      */

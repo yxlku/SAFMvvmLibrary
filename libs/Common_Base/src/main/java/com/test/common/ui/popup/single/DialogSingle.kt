@@ -42,10 +42,12 @@ fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
 fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
     activity: Activity,
     title: String,
-    selectedPosition: Int = 0,
+    selectedPosition: Int = -1,
     selectedIsDismiss: Boolean = true,
     block: () -> Unit = {},
     callback: (entity: BaseSingleChoiceEntity) -> Unit = {},
+    /** 右侧按钮点击事件*/
+    rightClick: (view: View?) -> Unit = {}
 ): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
     //如果不加这个，评论弹窗会移动到软键盘上面
     moveUpToKeyboard(false)
@@ -56,4 +58,4 @@ fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
 
 }.apply {
     block()
-}.asCustom(DialogBottomSinglePopupView(activity, title, this,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback))
+}.asCustom(DialogBottomSinglePopupView(activity, title, this,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback, rightClick = rightClick))

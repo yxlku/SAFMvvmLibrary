@@ -2,30 +2,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.safmvvm.utils.encrypt.base.TextUtils"/>
-        <variable
-            name="entity"
-            type="com.deti.brand.demand.create.item.service.ItemServiceEntity" />
+
+        <import type="com.safmvvm.utils.encrypt.base.TextUtils" />
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.item.service.ItemServiceViewModel" />
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginStart="16mm"
+        android:layout_marginEnd="16mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:onClick="@{(view) -> viewModel.clickChooseTypeDialog(view, entity)}"
-            android:layout_weight="1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0mm"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16mm"
-            android:layout_marginTop="20mm"
+            android:layout_weight="1"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
+            android:onClick="@{viewModel.clickServiceType}"
             android:orientation="horizontal"
             android:paddingStart="10mm"
             android:paddingTop="15mm"
@@ -34,33 +34,54 @@
             android:visibility="visible">
 
             <TextView
-                android:layout_width="0mm"
+                android:id="@+id/tv_text_type"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:singleLine="true"
-                android:text='@{TextUtils.isEmpty(entity.selectedTypeText) == true ? "服务类型 *" : entity.selectedTypeText}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceType) == true ? "服务类型" :  viewModel.mServiceType}'
                 android:textSize="14mm"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_tip_red_type"
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5mm"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="*"
+                android:textColor="#FE3A4A"
+                android:textSize="14mm"
+                android:textStyle="bold"
+                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceType) == true ? View.VISIBLE :  View.GONE}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_text_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_tip_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text='@{TextUtils.isEmpty(entity.selectedTypeText) == true ? "请选择" : "修改"}'
-                android:textColor="#CCCCCC" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceType) == true ? "请选择" : "修改"}'
+                android:textColor="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:onClick="@{(view) -> viewModel.clickChooseServiceDialog(view, entity)}"
-            android:layout_weight="1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0mm"
             android:layout_height="wrap_content"
             android:layout_marginStart="13mm"
-            android:layout_marginTop="20mm"
-            android:layout_marginEnd="16mm"
+            android:layout_weight="1"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
+            android:onClick="@{viewModel.clickServiceProduce}"
             android:orientation="horizontal"
             android:paddingStart="10mm"
             android:paddingTop="15mm"
@@ -69,22 +90,44 @@
             android:visibility="visible">
 
             <TextView
-                android:layout_width="0mm"
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:singleLine="true"
-                android:text='@{TextUtils.isEmpty(entity.seletedServiceText) == true ? "对应服务 *" : entity.seletedServiceText}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce) == true ? "对应服务" :  viewModel.mServiceProduce}'
                 android:textSize="14mm"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_tip_red"
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5mm"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="*"
+                android:textColor="#FE3A4A"
+                android:textSize="14mm"
+                android:textStyle="bold"
+                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceProduce) == true ? View.VISIBLE :  View.GONE}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text='@{TextUtils.isEmpty(entity.seletedServiceText) == true ? "请选择" : "修改"}'
-                android:textColor="#CCCCCC" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce) == true ? "请选择" : "修改"}'
+                android:textColor="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
