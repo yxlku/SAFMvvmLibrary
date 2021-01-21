@@ -57,5 +57,7 @@ dependencies {
     api 'com.github.hackware1993:MagicIndicator:1.7.0'
     //底部Tab
     api 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
+    //倒计时
+    api 'com.github.iwgang:countdownview:2.1.6'
 
 }

@@ -2,12 +2,10 @@ package com.deti.designer.order.popup.adapter
 
 import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.binder.QuickViewBindingItemBinder
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemOrderFilterItemBinding
 import com.safmvvm.utils.ResUtil
-import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 
 /**

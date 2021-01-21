@@ -2,28 +2,23 @@ package com.deti.designer.main
 
 import android.content.Context
 import android.graphics.Color
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.deti.designer.R
 import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentMainBinding
+import com.deti.designer.materiel.MaterielListFragment
 import com.deti.designer.order.OrderGrabFragment
-import com.deti.designer.order.popup.FilterOrderPopupView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
-import com.test.common.ui.popup.createDialogBase
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
 class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
     R.layout.designer_fragment_main,
@@ -42,7 +37,8 @@ class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
         OrderGrabFragment(OrderGrabFragment.STATE_GRAB),
         /** 派单*/
         OrderGrabFragment(OrderGrabFragment.STATE_DISPATCH),
-        OrderGrabFragment(),
+        /** 物料列表*/
+        MaterielListFragment(),
         OrderGrabFragment(),
         OrderGrabFragment(),
     )

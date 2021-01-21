@@ -7,7 +7,9 @@ import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.deti.brand.R
@@ -58,7 +60,11 @@ class SecondNodeProvider(
                     true,
                 ) { view: View, position: Int, entity: BaseDialogSingleEntity ->
                     testSelected = position
-                    ToastUtil.showShortToast("选中了：${entity.text}")
+                    if (entity.text.contains("齐色")) {
+                        clickColor()
+                    }else{
+                        ToastUtil.showShortToast("选中了：${entity.text}")
+                    }
                 }.show()
             }
         }
@@ -68,7 +74,16 @@ class SecondNodeProvider(
             }
             adapter = mAdapter
         }
-
+        mAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var entity = adapter.data[position] as SampleClothesListAllBtnEntity
+                if (entity.text.contains("齐色")) {
+                    clickColor()
+                }else{
+                    ToastUtil.showShortToast("选中了：${entity.text}")
+                }
+            }
+        })
         mAdapter.setList(btnDatas)
     }
 
@@ -184,4 +199,11 @@ class SecondNodeProvider(
         return BaseDialogSingleEntity(ss.id, ss.text)
     }
 
+
+    /**
+     * 齐色
+     */
+    fun clickColor(){
+
+    }
 }
