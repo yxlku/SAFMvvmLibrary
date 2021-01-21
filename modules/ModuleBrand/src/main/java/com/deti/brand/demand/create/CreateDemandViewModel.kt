@@ -6,6 +6,8 @@ import android.widget.EditText
 import androidx.databinding.ObservableField
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_ADDRESS
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
+import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
@@ -32,6 +34,11 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 快递单号输入监听*/
     var consumerExpressNum = BindingConsumer<String> { t -> mExpressNum.set(t) }
 
+    /** 面料文件地址*/
+    var mFilePathFabric = ""
+    /** 制版文件地址*/
+    var mFilePathPlate = ""
+
     /**
      * 服务类型
      */
@@ -57,7 +64,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 地址弹窗
      */
     fun clickAddress(view: View){
-        LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
+//        LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
+        LogUtil.d("面料地址：${mFilePathFabric}")
+        LogUtil.d("制版地址：${mFilePathPlate}")
     }
     /**
      * 获取快递列表
@@ -85,6 +94,13 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                     }
                 )
         }
+    }
+
+    /**
+     * 上传文件
+     */
+    fun clickUploadFile(view: View, entity: ItemUploadFileEntity){
+        LiveDataBus.send(UPLOAD_FILE, entity)
     }
 
     /**

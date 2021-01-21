@@ -13,6 +13,8 @@ import com.deti.brand.demand.create.item.express.ItemExpress
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFile
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
+import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_FABRIC
+import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_PLATE
 import com.deti.brand.demand.create.item.form.ItemFormChoose
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormInput
@@ -34,6 +36,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.view.BaseFragment
 import com.test.common.common.ConstantsFun
 import com.test.common.common.entity.UserInfoEntity
+import com.test.common.ext.chooseFile
 import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
@@ -58,9 +61,18 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val DIALOG_EXPRESS_LIST = "dialog_express_list"
         /** 地址弹窗*/
         const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
+        /** 上传文件*/
+        const val UPLOAD_FILE = "upload_file"
     }
 
+    /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
+
+    /** 服务类型弹窗*/
+    var mDialogServiceType: BasePopupView? = null
+
+    /** 对应服务弹窗*/
+    var mDialogServiceProduce: BasePopupView? = null
 
     override fun initData() {
         super.initData()
@@ -77,8 +89,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         initRecyclerView()
     }
 
-    var mDialogServiceType: BasePopupView? = null
-    var mDialogServiceProduce: BasePopupView? = null
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
         /** 通用单选弹窗*/
@@ -127,6 +137,21 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 }
             },
             false)
+        /** 上传文件*/
+        LiveDataBus.observe<ItemUploadFileEntity>(this, UPLOAD_FILE, {
+            chooseFile(activity as AppCompatActivity?){ filePath ->
+                it.filePath.set(filePath)
+                when (it.tag) {
+                    //TODO 这里选择后应该是请求接口
+                    FILE_FABRIC -> { //面料信息
+                        mViewModel.mFilePathFabric  = filePath
+                    }
+                    FILE_PLATE -> { //制版文件
+                        mViewModel.mFilePathPlate  = filePath
+                    }
+                }
+            }
+        }, false)
     }
 
     /**
@@ -142,16 +167,16 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemServiceEntity::class.java, ItemService(mViewModel))
             //快递
             addItemBinder(ItemExpressEntity::class.java, ItemExpress(mViewModel))
-
+            //上传文件
+            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(mViewModel))
 
             addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
             addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
-            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(activity as AppCompatActivity?))
+
             addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
 
             addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))
-
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
@@ -190,12 +215,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //透明分割线
             ItemTransparentLineEntity(context),
             //上传面料信息
-            ItemUploadFileEntity(),
+            ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息"),
 
             //透明分割线
             ItemTransparentLineEntity(context),
             //上传制版信息
-            ItemUploadFileEntity(),
+            ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件"),
 
             //分组标题 //请填写服务详细信息
             ItemGroupTitleEntity("请填写服务详细信息"),

@@ -1,24 +1,24 @@
 package com.deti.brand.demand.create.item.file
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemUploadFileBinding
+import com.deti.brand.demand.create.CreateDemandViewModel
 
+/**
+ * 上传文件
+ */
 class ItemUploadFile(
-    var mActivity: AppCompatActivity?
+    var mViewModel: CreateDemandViewModel? = null
 ): QuickDataBindingItemBinder<ItemUploadFileEntity, BrandItemUploadFileBinding>() {
-
 
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemUploadFileBinding>,
         data: ItemUploadFileEntity,
     ) {
-        var mViewModel = ItemUploadFileViewModel(mActivity, adapter)
         var binding = holder.dataBinding
-        binding.apply {
+        binding?.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()
