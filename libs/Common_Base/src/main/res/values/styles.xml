@@ -5,4 +5,23 @@
         <item name="android:textSize">13mm</item>
     </style>
 
+    <style name="popup_title_bottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48mm</item>
+        <!-- 圆角背景-->
+        <item name="titleBarBackground">@drawable/base_dialog_title_bg</item>
+        <!-- 分割线-->
+        <item name="lineVisible">false</item>
+        <!-- 默认开启返回按钮-->
+        <item name="backButton">true</item>
+        <!-- 关闭按钮-->
+        <item name="leftIcon">@mipmap/base_dialog_title_back</item>
+
+        <!-- 标题颜色-->
+        <item name="titleColor">#333333</item>
+        <!-- 标题文字大小-->
+        <item name="titleSize">16mm</item>
+        <item name="titleStyle">bold</item>
+
+    </style>
 </resources>

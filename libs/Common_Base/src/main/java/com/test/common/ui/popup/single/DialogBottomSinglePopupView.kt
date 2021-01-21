@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.bus.putValue
+import com.safmvvm.ui.titlebar.OnTitleBarListener
+import com.safmvvm.ui.titlebar.TitleBar
 import com.test.common.R
 import com.test.common.ui.dialog.single.adpater.SingleChoiceAdapter
 import com.test.common.ui.dialog.tip.createDialogTip
@@ -26,12 +28,14 @@ class DialogBottomSinglePopupView(
     var mTitle: String = "",
     var mData: List<BaseSingleChoiceEntity> = arrayListOf(),
     var selectedPosition: Int = 0,
-    @LayoutRes var listLayoutId: Int = R.layout.base_dialog_list,
+    @LayoutRes var listLayoutId: Int = R.layout.base_popup_list,
     @LayoutRes var itemLayoutId: Int = R.layout.base_item_dialog_common_single,
     var mHeightMultiple: Float = 0.7F,
     /** 选中后是否关闭弹窗*/
     var selectedIsDismiss: Boolean = true,
-    var callback: (entity: BaseSingleChoiceEntity) -> Unit
+    var callback: (entity: BaseSingleChoiceEntity) -> Unit,
+    /** 右侧按钮点击事件*/
+    var rightClick: (view: View?) -> Unit = {}
 ) : BottomPopupView(mActivit), View.OnClickListener {
 
     var mAdapter = DialogBottomSingleAdapter(itemLayoutId, selectedPosition)
@@ -41,14 +45,24 @@ class DialogBottomSinglePopupView(
     override fun onCreate() {
         super.onCreate()
 
-        var tv_title: TextView = findViewById(R.id.tv_title)
-        tv_title.text = mTitle
-        var iv_close: ImageFilterView = findViewById(R.id.iv_close)
+        var tb_title: TitleBar = findViewById(R.id.tb_title)
+        tb_title.title = mTitle
+        tb_title.setOnTitleBarListener(object : OnTitleBarListener{
+            override fun onLeftClick(v: View?) {
+                dismiss()
+            }
+
+            override fun onTitleClick(v: View?) {
+
+            }
+
+            override fun onRightClick(v: View?) {
+                rightClick(v)
+            }
+        })
+
         var tv_close: TextView = findViewById(R.id.tv_close)
-        var iv_tip: ImageFilterView = findViewById(R.id.iv_tip)
-        iv_close.setOnClickListener(this)
         tv_close.setOnClickListener(this)
-        iv_tip.setOnClickListener(this)
 
 
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
@@ -79,14 +93,7 @@ class DialogBottomSinglePopupView(
     override fun onClick(v: View) {
         when (v.id) {
             //关闭
-            R.id.tv_close, R.id.iv_close -> dismiss()
-            //右上角tip按钮
-            R.id.iv_tip -> {
-                "选择您目前有的信息给我们，根据已有信息提供报价。".createDialogTip(mActivit, v, block = {
-                    it.offsetY(AutoSizeUtils.mm2px(mActivit, -15F))
-                    it.offsetX(AutoSizeUtils.mm2px(mActivit, 8F))
-                }).show()
-            }
+            R.id.tv_close -> dismiss()
         }
     }
 
