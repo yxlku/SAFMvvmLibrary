@@ -1,9 +1,9 @@
-package com.test.common.base
+package com.deti.debug
 
 import com.safmvvm.http.entity.IBaseResponse
 import java.io.Serializable
 
-data class BaseNetEntityPost<T: Serializable?>(
+data class TestBaseNetEntityPost<T: Serializable?>(
     /**
      * 请求返回信息
      */

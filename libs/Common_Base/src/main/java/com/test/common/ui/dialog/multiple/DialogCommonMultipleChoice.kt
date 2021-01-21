@@ -6,7 +6,6 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.impl.BottomListPopupView
 import com.safmvvm.app.BaseApp
-import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
 
 /**
  * 通用底部弹窗-单选

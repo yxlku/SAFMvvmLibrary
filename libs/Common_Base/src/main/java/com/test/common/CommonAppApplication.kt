@@ -39,10 +39,9 @@ open class CommonAppApplication : ComponentBaseApp() {
             //关闭-默认打开、关闭页面动画
             .animIsOpen(false)
             //请求host
-            .requestBaseUrl("https://www.wanandroid.com/")
+            .requestBaseUrl("http://192.168.81.27:9001/DETI-System/")
             //请求成功code
-            .requestSuccessCode("0")
-//            .requestBaseUrl("https://api.apiopen.top/")
+            .requestSuccessCode("00")
             //应急版本更新地址 - 防止app下载不好用或者不适配机型导致无法应用内更新跳转到的页面
             .updateNoApkUrl("https://app.mi.com/")
             //初始化函数配置

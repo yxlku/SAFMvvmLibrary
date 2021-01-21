@@ -4,7 +4,9 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.SystemClock
 import android.view.View
+import android.widget.Chronometer
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.iwgang.countdownview.CountdownView
@@ -48,24 +50,33 @@ class MaterielListAdapter(
         super.onViewDetachedFromWindow(holder)
         holder.dataBinding?.apply {
             cvTime.stop()
+//            chronometer?.stop()
         }
     }
-    var runable: Runnable? = null
+//    var chronometer: Chronometer? = null
     fun refreshTime(cvView: CountdownView, leftTime: Long) {
         if(leftTime > 0){
             cvView.start(leftTime)
         }else{
             var addTime: Long = -leftTime
             LogUtil.d("${addTime} - 时间 - ${leftTime}")
-            runable = object : Runnable{
-                override fun run() {
-                    addTime += 1000
-                    cvView.updateShow(addTime)
-                    cvView.postDelayed(this, 1000)
-                    LogUtil.d("刷新：${addTime}")
-                }
+//            var runable = object : Runnable{
+//                override fun run() {
+//                    addTime += 1000
+//                    cvView.updateShow(addTime)
+//                    cvView.postDelayed(this, 1000)
+//                    LogUtil.d("刷新：${addTime}")
+//                }
+//            }
+//            cvView.post(runable)
+            var chronometer = Chronometer(context).apply {
+                base = addTime
             }
-            cvView.post(runable)
+            chronometer.setOnChronometerTickListener {
+                LogUtil.d("sssssssss: ${SystemClock.elapsedRealtime() - it.base}")
+                cvView.updateShow(SystemClock.elapsedRealtime() - it.base)
+            }
+            chronometer.start()
         }
     }
 

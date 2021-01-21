@@ -1,7 +1,7 @@
 package com.longpc.testapplication
 
 import com.test.common.base.BaseNetEntity
-import com.test.common.base.BaseNetEntityPost
+import com.deti.debug.TestBaseNetEntityPost
 import com.longpc.testapplication.datasource.TestApiService
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
@@ -43,12 +43,12 @@ class MainModel: BaseModel() {
     /**
      * 测试post请求
      */
-    suspend fun testPostFlow(): Flow<BaseNetEntityPost<ArrayList<MainPostEntity?>?>?>{
+    suspend fun testPostFlow(): Flow<TestBaseNetEntityPost<ArrayList<MainPostEntity?>?>?>{
         return flowOnIO {
             var body = HashMap<String, String>()
             body.put("page", "1")
             body.put("count", "5")
-            var d: BaseNetEntityPost<ArrayList<MainPostEntity?>?>? = mHttpDataSource?.testPost("one", "two")
+            var d: TestBaseNetEntityPost<ArrayList<MainPostEntity?>?>? = mHttpDataSource?.testPost("one", "two")
             return@flowOnIO d
         }
     }

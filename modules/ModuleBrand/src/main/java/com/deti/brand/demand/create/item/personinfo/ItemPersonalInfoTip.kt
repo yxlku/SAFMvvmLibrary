@@ -2,13 +2,9 @@ package com.deti.brand.demand.create.item.personinfo
 
 import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemPersonalInfoTipBinding
-import com.test.common.RouterActivityPath
-import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
-import com.test.common.ui.dialog.single.createDialogSelectedSingle
 
 class ItemPersonalInfoTip(
     var activty: Activity?

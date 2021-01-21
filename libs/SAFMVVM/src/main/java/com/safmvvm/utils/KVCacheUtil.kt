@@ -1,5 +1,6 @@
 package com.safmvvm.utils
 
+import android.app.Application
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 import java.util.*
@@ -7,7 +8,8 @@ import java.util.*
 object KVCacheUtil {
     var mmkv: MMKV? = null
 
-    init {
+    fun init(app: Application){
+        MMKV.initialize(app)
         mmkv = MMKV.defaultMMKV()
     }
 

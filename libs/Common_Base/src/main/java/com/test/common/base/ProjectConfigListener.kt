@@ -9,9 +9,12 @@ import com.safmvvm.http.ssl.SSLFactory
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.UUIDUtil
+import com.safmvvm.utils.KVCacheUtil
 import com.test.common.BuildConfig
+import com.test.common.common.Constants
 import com.test.common.RouterActivityPath
+import com.test.common.common.ConstantsFun
+import com.test.common.common.userInfoToken
 import okhttp3.Interceptor
 import java.lang.Exception
 import kotlin.system.exitProcess
@@ -22,12 +25,11 @@ class ProjectConfigListener: GlobalConfigInitListener {
      * 项目中用到的头信息
      */
     override fun initHeader(): ArrayMap<String, String> {
+        LogUtil.d("头信息token")
         var headers: ArrayMap<String, String> = arrayMapOf()
-        headers.put("test1", "我是测试Header1")
-        headers.put("test2", "我是测试Header2")
-        headers.put("test2", "我是测试Header3")
-        headers.put("UUID", UUIDUtil.getPhoneSign())
-        headers.put("User-Agent", "CHrome111")
+        headers.put("token", userInfoToken())
+//        headers.put("UUID", UUIDUtil.getPhoneSign())
+//        headers.put("User-Agent", "")
         return headers
     }
 
@@ -56,7 +58,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
      * 全局异常捕获处理
      */
     override fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?) {
-        ToastUtil.showShortToast("我擦，我崩溃了！！错误原因：" + ex?.message )
+        ToastUtil.showShortToast("我崩溃了！！错误原因：" + ex?.message )
         AppActivityManager.finishAllActivity()
         exitProcess(0)
     }
@@ -71,11 +73,6 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun requestDataGetDeal(dataSouce: HashMap<String, String?>): HashMap<String, String?> {
         var newDataSouce = HashMap<String, String?>()
-        dataSouce.forEach { (key, value) ->
-            newDataSouce.put(key, value+"添加")
-        }
-        newDataSouce.put("ty1", "tyc1")
-        newDataSouce.put("ty2", "tyc2")
         return newDataSouce
     }
 
@@ -87,9 +84,6 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun requestDataFormDeal(map: HashMap<String, Any>): HashMap<String, Any> {
         var dealMap: HashMap<String, Any> = HashMap()
-        for (mutableEntry in map) {
-            dealMap[mutableEntry.key] = "22222${mutableEntry.value}1111"
-        }
         return dealMap
     }
 
@@ -105,15 +99,17 @@ class ProjectConfigListener: GlobalConfigInitListener {
             //通用参数、
             var param = JsonUtil.getJsonParseMapResult(dataPlaintext)
             param?.let {
-                param.put("test", "ssss")
-                param.put("test1", "ssss2")
-                param.put("test3", "ssss3")
-                return JsonUtil.toJson(param)+"ssssss沙发上"
+//                param.put("timestamp", (System.currentTimeMillis() / 1000).toString())
+                param.put("timestamp", "2147483647")
+                return JsonUtil.toJson(param)
             }
         }
         return dataPlaintext+""
     }
 
+    /**
+     * 统一处理加密解密
+     */
     override fun responseDataDeal(dataSouce: String?): String {
         //返回统一处理
         dataSouce?.let {
@@ -125,10 +121,9 @@ class ProjectConfigListener: GlobalConfigInitListener {
              */
             var b: BaseNetEntity<*>? = JsonUtil.getJsonParseResult(dataSouce, BaseNetEntity::class.java)
             b?.let {
-                b.errorMsg = "我擦，我解析成功了！！！！！！！"
+//                b.errorMsg = "我擦，我解析成功了！！！！！！！"
 //                b.errorCode = "300"
                 return JsonUtil.toJson(b)
-//                return "我擦，啥情况啊！！！！！！"
             }
         }
         return dataSouce+""
@@ -147,9 +142,11 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun dealNetCode(code: String, msg: String?): Boolean {
         if (code == "300") {
-            ToastUtil.showShortToast(msg + "我擦，我退出登录了！！")
+            ToastUtil.showShortToast(msg + "我退出登录了！！")
             //清空内存
             //.....
+            //1、清空token
+            ConstantsFun.User.logoutClearInfo()
             //退出登录
             RouterUtil.startActivity(RouterActivityPath.ModuleBasis.PAGE_LOGIN)
             return true

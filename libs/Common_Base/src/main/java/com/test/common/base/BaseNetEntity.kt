@@ -8,21 +8,24 @@ data class BaseNetEntity<T: Serializable?>(
      * 请求返回信息
      */
     @JvmField
-    var errorMsg: String,
+    var message: String,
     /**
      * 请求返回码
      */
     @JvmField
-    var errorCode: String,
+    var code: String,
     /**
      * 请求返回数据，可空
      */
-    var data: T? = null
-
+    var data: T? = null,
+    /**
+     * 返回结果状态
+     */
+    var result: Boolean = true
 ) :Serializable, IBaseResponse<T>{
-    override fun code(): String = errorCode
+    override fun code(): String = code
 
-    override fun msg(): String = errorMsg
+    override fun msg(): String = message
 
     override fun data(): T? = data
 

@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.single
+package com.test.common.ui.popup.single
 
 import android.app.Activity
 import android.view.View
@@ -18,11 +18,14 @@ import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import me.jessyan.autosize.utils.AutoSizeUtils
 
-@kotlin.Deprecated("使用 DialogBubbleSinglePopupView")
-class SingleStringPopupView(
+/**
+ * 通用底部单选弹窗
+ */
+class DialogBottomSinglePopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var mData: List<BaseSingleChoiceEntity> = arrayListOf(),
+    var selectedPosition: Int = 0,
     @LayoutRes var listLayoutId: Int = R.layout.base_dialog_list,
     @LayoutRes var itemLayoutId: Int = R.layout.base_item_dialog_common_single,
     var mHeightMultiple: Float = 0.7F,
@@ -31,7 +34,7 @@ class SingleStringPopupView(
     var callback: (entity: BaseSingleChoiceEntity) -> Unit
 ) : BottomPopupView(mActivit), View.OnClickListener {
 
-    var mAdapter = SingleChoiceAdapter(itemLayoutId)
+    var mAdapter = DialogBottomSingleAdapter(itemLayoutId, selectedPosition)
 
     override fun getImplLayoutId(): Int = listLayoutId
 
@@ -56,10 +59,10 @@ class SingleStringPopupView(
         mAdapter.setList(mData)
         mAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var mAdapter = adapter as SingleChoiceAdapter
-                mAdapter.mViewModel.selectedPosition.putValue(position)
-                mAdapter.notifyDataSetChanged()
+                var mAdapter = adapter as DialogBottomSingleAdapter
+                mAdapter.selectedPosition = position
                 callback(mAdapter.getItem(position))
+                mAdapter.notifyDataSetChanged()
                 if (selectedIsDismiss) {
                     dismiss()
                 }

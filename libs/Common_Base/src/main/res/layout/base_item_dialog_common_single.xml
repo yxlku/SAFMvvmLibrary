@@ -7,11 +7,8 @@
 
         <variable
             name="entity"
-            type="com.test.common.ui.dialog.single.BaseSingleChoiceEntity" />
+            type="com.test.common.ui.popup.base.BaseSingleChoiceEntity" />
 
-        <variable
-            name="viewModel"
-            type="com.test.common.ui.dialog.single.adpater.SingleChoiceViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

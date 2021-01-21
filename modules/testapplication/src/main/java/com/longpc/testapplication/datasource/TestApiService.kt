@@ -3,7 +3,7 @@ package com.longpc.testapplication.datasource
 import com.longpc.testapplication.MainDataEntity
 import com.longpc.testapplication.MainPostEntity
 import com.test.common.base.BaseNetEntity
-import com.test.common.base.BaseNetEntityPost
+import com.deti.debug.TestBaseNetEntityPost
 import com.safmvvm.mvvm.model.datasource.IDataSource
 import retrofit2.http.*
 
@@ -19,5 +19,5 @@ interface TestApiService : IDataSource {
 //        @Body body: HashMap<String, String>,
         @Field("testFiled1") one: String,
         @Field("testFiled2") two: String,
-    ): BaseNetEntityPost<ArrayList<MainPostEntity?>?>
+    ): TestBaseNetEntityPost<ArrayList<MainPostEntity?>?>
 }

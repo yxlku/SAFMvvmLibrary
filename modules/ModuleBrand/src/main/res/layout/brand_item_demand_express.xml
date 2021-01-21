@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.safmvvm.utils.encrypt.base.TextUtils"/>
-        <variable
-            name="entity"
-            type="com.deti.brand.demand.create.item.express.ItemExpressEntity" />
+
+        <import type="android.view.View" />
+
+        <import type="com.safmvvm.utils.encrypt.base.TextUtils" />
+
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.item.express.ItemExpressViewModel" />
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginStart="16mm"
-        android:layout_marginEnd="16mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16mm"
+        android:layout_marginEnd="16mm"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -24,28 +26,29 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="#666666"
-                android:text="样衣寄送"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="样衣寄送"
+                android:textColor="#666666" />
+
             <TextView
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
                 android:onClick="@{viewModel.clickAddress}"
                 android:paddingBottom="15mm"
-                android:gravity="right"
-                android:textColor="#4389F1"
                 android:text="获取得体地址"
-                android:layout_weight="1"
-                android:layout_width="0mm"
-                android:layout_height="wrap_content"/>
+                android:textColor="#4389F1" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> viewModel.clickChooseExpressDialog(view, entity)}"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
+            android:onClick="@{viewModel.clickRequestExpressList}"
             android:orientation="horizontal"
             android:paddingStart="10mm"
             android:paddingTop="15mm"
@@ -54,22 +57,45 @@
             android:visibility="visible">
 
             <TextView
-                android:layout_width="0mm"
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:singleLine="true"
-                android:text='@{TextUtils.isEmpty(entity.selectedExpressText) == true ? "请选择快递  *" : entity.selectedExpressText}'
+                android:text='@{TextUtils.isEmpty(viewModel.mExpressSingleChoiceEntity.text) == true ? "请选择快递" :  viewModel.mExpressSingleChoiceEntity.text}'
                 android:textSize="14mm"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_tip_red"
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5mm"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="*"
+                android:textColor="#FE3A4A"
+                android:textSize="14mm"
+                android:textStyle="bold"
+                android:visibility='@{TextUtils.isEmpty(viewModel.mExpressSingleChoiceEntity.text) == true ? View.VISIBLE :  View.GONE}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text='@{TextUtils.isEmpty(entity.selectedExpressText) == true ? "请选择" : "修改"}'
-                android:textColor="#CCCCCC" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:text='@{TextUtils.isEmpty(viewModel.mExpressSingleChoiceEntity.text) == true ? "请选择" : "修改"}'
+                android:textColor="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -78,18 +104,20 @@
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingStart="10mm"
-            android:paddingTop="15mm"
-            android:paddingEnd="10mm"
-            android:paddingBottom="15mm"
             android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:background="@null"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
+                app:textChanged="@{viewModel.c}"
+                android:text="@{viewModel.mExpressNum}"
                 android:hint="请输入快递单号"
+                android:paddingStart="10mm"
+                android:paddingTop="15mm"
+                android:paddingEnd="10mm"
+                android:paddingBottom="15mm"
                 android:singleLine="true"
                 android:textColorHint="#CCCCCC" />
 

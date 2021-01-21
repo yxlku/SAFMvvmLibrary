@@ -2,9 +2,14 @@ package com.test.common.ui.popup
 
 import android.app.Activity
 import android.view.View
+import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupType
+import com.safmvvm.app.BaseApp
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.dialog.single.SingleStringPopupView
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
+import com.test.common.ui.popup.single.DialogBottomSinglePopupView
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 
 /****************************   项目中用到的所有单选弹窗    *******************************/
@@ -29,3 +34,26 @@ fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
         it.popupType(PopupType.AttachView)
     }
 }
+
+
+/**
+ * 通用底部单选弹窗
+ */
+fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
+    activity: Activity,
+    title: String,
+    selectedPosition: Int = 0,
+    selectedIsDismiss: Boolean = true,
+    block: () -> Unit = {},
+    callback: (entity: BaseSingleChoiceEntity) -> Unit = {},
+): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
+    //如果不加这个，评论弹窗会移动到软键盘上面
+    moveUpToKeyboard(false)
+    //允许拖拽
+    enableDrag(true)
+    //对于只使用一次的弹窗，推荐设置这个
+    isDestroyOnDismiss(false)
+
+}.apply {
+    block()
+}.asCustom(DialogBottomSinglePopupView(activity, title, this,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback))

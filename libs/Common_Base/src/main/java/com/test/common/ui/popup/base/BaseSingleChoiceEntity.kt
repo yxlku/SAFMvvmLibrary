@@ -1,6 +1,6 @@
-package com.test.common.ui.dialog.single
+package com.test.common.ui.popup.base
 
 data class BaseSingleChoiceEntity(
-    var id: Int = 0,
+    var id: String = "",
     var text: String = ""
 )

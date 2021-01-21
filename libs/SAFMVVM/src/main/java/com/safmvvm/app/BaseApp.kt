@@ -12,6 +12,7 @@ import com.safmvvm.ui.load.LoadSirUtil
 import com.safmvvm.ui.swipebacklayout.SwipebacklayoutUtil
 import com.safmvvm.ui.theme.ThemeUtil
 import com.safmvvm.utils.AppUtil
+import com.safmvvm.utils.KVCacheUtil
 import com.safmvvm.utils.LogUtil
 
 /**
@@ -80,6 +81,8 @@ open class BaseApp : Application(), CameraXConfig.Provider {
             CrashHandlerUtil.init()
             //初始化下载器
             AwesomeDownloader.init(app)
+            //缓存开启
+            KVCacheUtil.init(app)
         }
 
         private fun initResource(app: Application) {

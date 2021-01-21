@@ -111,11 +111,11 @@ abstract class BaseViewModel<M: BaseModel>(
         /** 等待状态 */
         loadingModel: LoadingModel = LoadingModel.LOAD_PAGESATE,
         /** 成功状态 */
-        onSuccess: (T)->Unit,
+        onSuccess: (T)->Unit = {},
         /** 请求成功但是返回错误*/
-        onFaile: (code: String, msg: String) -> Unit,
+        onFaile: (code: String, msg: String) -> Unit = {code: String, msg: String ->},
         /** 错误状态、不能成功请求（无网络） */
-        onError: (ex: Throwable) -> Unit?
+        onError: (ex: Throwable) -> Unit? = {}
     ){
         //基类所有操作都是遵循：1、统一封装；2、调用回调函数到调用者返回去处理自定义操作
         this.onStart {

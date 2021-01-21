@@ -3,16 +3,11 @@ package com.deti.brand.demand.create.item.demandtype
 import android.app.Activity
 import android.view.View
 import android.widget.CompoundButton
-import android.widget.Toast
 import com.chad.library.adapter.base.BaseBinderAdapter
-import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.lxj.xpopup.core.BasePopupView
-import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity
 import com.test.common.ui.dialog.multiple.createDialogSelectedMultiple
-import com.test.common.ui.dialog.single.BaseSingleChoiceEntity
-import com.test.common.ui.dialog.single.createDialogSelectedSingle
 import java.lang.StringBuilder
 
 class ItemDeamandTypeViewModel(

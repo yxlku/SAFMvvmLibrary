@@ -5,10 +5,12 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.impl.BottomListPopupView
 import com.safmvvm.app.BaseApp
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 
 /**
  * 通用底部弹窗-单选
  */
+@kotlin.Deprecated("使用 List<BaseSingleChoiceEntity>.dialogBottomSingle")
 fun List<String>.create(
     title: String,
     block: (position: Int, text: String) -> Unit
@@ -22,7 +24,7 @@ fun List<String>.create(
     block(position, text)
 }
 
-
+@kotlin.Deprecated("使用 List<BaseSingleChoiceEntity>.dialogBottomSingle")
 fun List<BaseSingleChoiceEntity>.createDialogSelectedSingle(
     activity: Activity,
     title: String,

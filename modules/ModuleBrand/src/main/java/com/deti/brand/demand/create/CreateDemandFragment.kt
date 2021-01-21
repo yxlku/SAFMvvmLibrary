@@ -1,10 +1,12 @@
 package com.deti.brand.demand.create
 
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
-import com.deti.brand.R
 import com.deti.brand.BR
+import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
@@ -19,7 +21,6 @@ import com.deti.brand.demand.create.item.form.ItemFormInputEntity
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitle
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
 import com.deti.brand.demand.create.item.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
 import com.deti.brand.demand.create.item.line.ItemTransparentLine
 import com.deti.brand.demand.create.item.line.ItemTransparentLineEntity
 import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity
@@ -32,7 +33,15 @@ import com.deti.brand.demand.create.item.remark.ItemRemark
 import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
+import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.view.BaseFragment
+import com.test.common.common.ConstantsFun
+import com.test.common.common.entity.UserInfoEntity
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.dialog.single.createDialogSelectedSingle
+import com.test.common.ui.dialog.tip.createDialogTip
+import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.ui.popup.dialogBottomSingle
 
 /**
  * 创建需求
@@ -41,13 +50,43 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
+    companion object{
+        /** 快递列表弹窗*/
+        const val DIALOG_EXPRESS_LIST = "dialog_express_list"
+        /** 地址弹窗*/
+        const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
+    }
+
     var mAdapter = BaseBinderAdapter()
 
     override fun initData() {
         super.initData()
-
+        ConstantsFun.User.logoutClearInfo()
+        ConstantsFun.User.loginSaveInfo(
+            UserInfoEntity(
+                "1611813195743",
+                "EMP",
+                "1d70741e554043a48285b311e1064753"
+            )
+        )
         //初始化列表
         initRecyclerView()
+
+        /** 地址提示弹窗*/
+        LiveDataBus.observe<Pair<View, String>>(this, DIALOG_TIP_ADDRESS, {
+            activity?.apply {
+                it.second.createDialogTip(this, it.first).show()
+            }
+        }, false)
+
+        /** 快递列表*/
+        LiveDataBus.observe<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>(this,DIALOG_EXPRESS_LIST, {
+            activity?.apply {
+                it.first.dialogBottomSingle(this, "请选择快递", it.second, callback = {
+                    mViewModel.mExpressSingleChoiceEntity.set(it)
+                }).show()
+            }
+        }, false)
     }
     /**
      * 初始化列表
@@ -66,7 +105,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
-            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity))
+            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity, mViewModel))
         }
 
         mBinding.rvContent.apply {
