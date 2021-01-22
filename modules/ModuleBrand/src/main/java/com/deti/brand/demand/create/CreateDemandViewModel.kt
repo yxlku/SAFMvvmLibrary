@@ -2,23 +2,25 @@ package com.deti.brand.demand.create
 
 import android.app.Application
 import android.view.View
-import android.widget.EditText
 import androidx.databinding.ObservableField
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_ADDRESS
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
+import com.deti.brand.demand.create.entity.DemandStyleEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseType
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
-import com.safmvvm.http.result.state.success
+import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.LogUtil
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.sql.Types
 
 
 @FlowPreview
@@ -41,6 +43,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mFilePathFabric = ""
     /** 制版文件地址*/
     var mFilePathPlate = ""
+
 
     /**
      * 服务类型
@@ -126,17 +129,50 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         }
     }
 
-    /** 尺码类型*/
+    /** 款式类型 TODO 数据转换待处理*/
     fun formClickChooseStyle(view: View, entity: ItemFormChooseEntity){
-//        launchRequest {
-//            mModel.requestExpressList()
-//                .flowDataDeal(
-//                    loadingModel = LoadingModel.NULL,
-//                    onSuccess = {
-//
-//                    }
-//                )
-//        }
+        LogUtil.d("请求了")
+        launchRequest {
+            mModel.requestStyleInfo()
+                .flowDataDeal(
+                    loadingModel = LoadingModel.NULL,
+                    onSuccess = {
+                        it?.data?.apply {
+                            var treeEntity = TypesTreeViewEntity()
+                            var levelOne = arrayListOf<TypesViewDataBean>()
+                            this.tree?.forEach {
+                                var levelTwo = arrayListOf<TypesViewDataBean>()
+                                it.children?.forEach {
+                                    var levelThree = arrayListOf<TypesViewDataBean>()
+                                    it.children?.forEach {
+                                        var levelFour = arrayListOf<TypesViewDataBean>()
+                                        it.children?.forEach {
+                                            var four = TypesViewDataBean(it.id, it.name, null)
+                                            levelFour.add(four)
+                                        }
+                                        var three = TypesViewDataBean(it.id, it.name, levelFour)
+                                        levelThree.add(three)
+                                    }
+                                    var two = TypesViewDataBean(it.id, it.name, levelThree)
+                                    levelTwo.add(two)
+                                }
+                                var one = TypesViewDataBean(it.id, it.name, levelTwo)
+                                levelOne.add(one)
+                            }
+                            treeEntity.childer = levelOne
+                            LiveDataBus.send(FORM_STYLE_TYPE, Pair(treeEntity, entity))
+                        }
+                        LogUtil.d("请求成功")
+                    },
+                    onFaile = {code: String, msg: String ->
+                        LogUtil.d("请求失败$code - $msg")
+                    },
+                    onError = {
+                        LogUtil.exception(ex = it)
+                    }
+
+                )
+        }
 
     }
 }

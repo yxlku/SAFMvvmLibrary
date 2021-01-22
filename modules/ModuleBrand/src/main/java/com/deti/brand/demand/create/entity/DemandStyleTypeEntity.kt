@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 data class DemandStyleTypeEntity(
     var tree: List<DemandStyleEntity>? = null,
-) : Serializable
+): Serializable
 
 data class DemandStyleEntity(
     var name: String = "",

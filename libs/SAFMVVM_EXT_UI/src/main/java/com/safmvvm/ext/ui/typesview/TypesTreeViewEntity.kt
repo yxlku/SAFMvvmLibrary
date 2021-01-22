@@ -10,8 +10,8 @@ data class TypesTreeViewEntity(
     var childer: List<TypesViewDataBean>? = null
 )
 
-data class TypesViewDataBean(
-    var id: String = "",
+open class TypesViewDataBean(
+    open var id: String = "",
     /**
      * 显示的文字
      */

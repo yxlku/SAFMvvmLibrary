@@ -28,7 +28,7 @@ class ItemFormChooseViewModel(
                 BaseSingleChoiceEntity("0", "数字码"),
                 BaseSingleChoiceEntity("0", "字母码")
             ).createDialogSelectedSingle(it, "请选择尺码类型", callback = {
-                entity.contentText = it.text
+                entity.contentText.set(it.text)
                 mAdapter.notifyDataSetChanged()
             }).show()
         }
@@ -40,7 +40,7 @@ class ItemFormChooseViewModel(
     fun clickChooseDateDialog(view: View, entity: ItemFormChooseEntity){
         mActivity?.let {
             createDialogDate(it,"请选择时间"){millisecond: Long, time: String ->
-                entity.contentText = time
+                entity.contentText.set(time)
                 mAdapter.notifyDataSetChanged()
             }.show()
         }
@@ -84,7 +84,7 @@ class ItemFormChooseViewModel(
                     }
 
                 }
-                entity.contentText = sb.toString()
+                entity.contentText.set(sb.toString())
                 mAdapter.notifyDataSetChanged()
             }.show()
         }

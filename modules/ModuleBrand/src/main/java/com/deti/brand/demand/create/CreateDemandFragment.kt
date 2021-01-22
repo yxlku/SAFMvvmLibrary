@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
+import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
 import com.deti.brand.demand.create.item.express.ItemExpress
@@ -64,6 +65,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
         /** 上传文件*/
         const val UPLOAD_FILE = "upload_file"
+        /** 款式分类*/
+        const val FORM_STYLE_TYPE = "form_style_type"
     }
 
     /** 主页适配器*/
@@ -97,55 +100,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             DIALOG_SERVICE_TYPE,
             {
                 activity?.apply {
-//                    if (mDialogServiceType == null) {
-//                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = {
-//                            mViewModel.mServiceType.set(it.text)
-//                        })
-//                    }
-//                    mDialogServiceType?.show()
-
-                    var testData = TypesTreeViewEntity()
-                    var onedatas = arrayListOf<TypesViewDataBean>()
-                    for (i in 0 until 4){
-                        var twodatas = arrayListOf<TypesViewDataBean>()
-                        for (j in 0 until 3){
-                            var threedatas = arrayListOf<TypesViewDataBean>()
-                            for (k in 0 until 2){
-                                var fourdatas = arrayListOf<TypesViewDataBean>()
-                                if(k % 2 == 1) {
-                                    for (l in 0 until 5) {
-                                        var fivDatas = arrayListOf<TypesViewDataBean>()
-                                        for (m in 0 until 6){
-                                            var fiv = TypesViewDataBean("m", "fiv$m")
-                                            fivDatas.add(fiv)
-                                        }
-                                        var four = TypesViewDataBean("l", "four:$l", fivDatas)
-                                        fourdatas.add(four)
-                                    }
-                                }else{
-                                    for (l in 0 until 2) {
-                                        var four = TypesViewDataBean("l", "four:$l")
-                                        fourdatas.add(four)
-                                    }
-                                }
-                                var three = TypesViewDataBean("k", "three:$k", fourdatas)
-                                threedatas.add(three)
-                            }
-                            var two = TypesViewDataBean("j", "two:$j", threedatas)
-                            twodatas.add(two)
-                        }
-                        var one = TypesViewDataBean("i", "one:$i", twodatas)
-                        onedatas.add(one)
-                        testData.childer = onedatas
+                    if (mDialogServiceType == null) {
+                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = {
+                            mViewModel.mServiceType.set(it.text)
+                        })
                     }
-                    createDialogLevelTypes(this, "请选择款式分类", testData, 4) {
-                        var sb: StringBuilder = StringBuilder()
-                        it.forEach { bean ->
-                            sb.append(bean?.text).append(" - ")
-                        }
-                        mViewModel.mServiceType.set(sb.toString())
-                        LogUtil.d("款式结果：${sb.toString()}")
-                    }.show()
+                    mDialogServiceType?.show()
                 }
             },
             false)
@@ -196,8 +156,28 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 }
             }
         }, false)
+        /** 款式分类*/
+        LiveDataBus.observe<Pair<TypesTreeViewEntity, ItemFormChooseEntity>>(this, FORM_STYLE_TYPE, {
+            activity?.apply {
+                if (mPopupStyle == null) {
+                    mPopupStyle = createDialogLevelTypes(this, "请选择款式分类", it.first, 4) { datas ->
+                        var sb: StringBuilder = StringBuilder()
+                        for(i in 0 until  datas.size){
+                            var bean = datas[i]
+                            sb.append(bean?.text)
+                            if (i != datas.size - 1) {
+                                sb.append(" - ")
+                            }
+                        }
+                        mViewModel.mServiceType.set(sb.toString())
+                        it.second.contentText.set(sb.toString())
+                    }
+                }
+                mPopupStyle?.show()
+            }
+        }, false)
     }
-
+    var mPopupStyle: BasePopupView? = null
     /**
      * 初始化列表
      */

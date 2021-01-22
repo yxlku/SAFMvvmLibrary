@@ -18,6 +18,7 @@ class TypesPopupView(
     var mTitle: String = "",
     var datas: TypesTreeViewEntity,
     var levelCount: Int = 2,
+    var autoDismiss: Boolean = true,
     /** 选择的结果*/
     var selectResultBlock: (result: ArrayList<TypesViewDataBean?>) -> Unit = {}
 ) : BottomPopupView(mActivit){
@@ -34,6 +35,9 @@ class TypesPopupView(
                 override fun onClickCompleteResult(resultData: ArrayList<TypesViewDataBean?>) {
                     //点击最后一条回调
                     selectResultBlock(resultData)
+                    if(autoDismiss){
+                        dismiss()
+                    }
                 }
             }
         }

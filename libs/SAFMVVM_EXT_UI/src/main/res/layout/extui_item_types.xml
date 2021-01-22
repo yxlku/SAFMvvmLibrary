@@ -23,7 +23,7 @@
         android:id="@+id/iv_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_play_arrow" />
+        android:src="@drawable/base_popup_level_types_arrow" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
