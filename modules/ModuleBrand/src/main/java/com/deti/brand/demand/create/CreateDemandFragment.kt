@@ -162,6 +162,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 if (mPopupStyle == null) {
                     mPopupStyle = createDialogLevelTypes(this, "请选择款式分类", it.first, 4) { datas ->
                         var sb: StringBuilder = StringBuilder()
+                        //选择后的数据 - 待提交需求时使用
+                        mViewModel.mStyleList = datas
                         for(i in 0 until  datas.size){
                             var bean = datas[i]
                             sb.append(bean?.text)
@@ -169,7 +171,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                                 sb.append(" - ")
                             }
                         }
-                        mViewModel.mServiceType.set(sb.toString())
                         it.second.contentText.set(sb.toString())
                     }
                 }

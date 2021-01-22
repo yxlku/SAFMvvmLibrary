@@ -44,6 +44,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 制版文件地址*/
     var mFilePathPlate = ""
 
+    /** 款式分类一*/
+    var mStyleList = arrayListOf<TypesViewDataBean?>()
+
 
     /**
      * 服务类型
