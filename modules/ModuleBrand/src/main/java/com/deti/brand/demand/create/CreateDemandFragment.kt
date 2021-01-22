@@ -36,13 +36,14 @@ import com.safmvvm.mvvm.view.BaseFragment
 import com.test.common.common.ConstantsFun
 import com.test.common.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
-import com.test.common.ui.popup.time.createDialogDate
+import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
 import com.test.common.ui.line.ItemTransparentLine
 import com.test.common.ui.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.type.createDialogLevelTypes
@@ -69,6 +70,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val FORM_STYLE_TYPE = "form_style_type"
         /** 尺码类型*/
         const val FORM_SIZE_TYPE = "form_size_type"
+        /** 选择尺码数量*/
+        const val FORM_SIZE_COUNT = "form_size_count"
+        /** 选择颜色*/
+        const val FORM_COLORS = "form_colors"
         /** 时间选择*/
         const val FORM_TIME = "form_time"
     }
@@ -194,17 +199,32 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         }, false)
         /** 时间选择*/
-        LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_TIME, {
+        LiveDataBus.observe<ItemFormChooseEntity>(this, FORM_TIME, {
             if (mPopupTime == null) {
                 activity?.apply {
                     mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String ->
                         var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
-                        it.second.contentText.set(time)
+                        it.contentText.set(time)
                         mViewModel.mTime = time
                     }
                 }
             }
             mPopupTime?.show()
+        }, false)
+        /** 选择颜色*/
+        LiveDataBus.observe<Pair<ItemFormChooseEntity, DemandColorListEntity>>(this, FORM_COLORS, {
+            activity?.apply {
+                if (mPopupColor == null) {
+                    mPopupColor = dialogChooseColors(this, "选择颜色", it.second) { datas ->
+                        var sb = java.lang.StringBuilder()
+                        datas.forEach {
+                            sb.append(it.name).append(" ")
+                        }
+                        it.first.contentText.set(sb.toString())
+                    }
+                }
+                mPopupColor?.show()
+            }
         }, false)
     }
     /** 弹窗：款式分类*/
@@ -213,6 +233,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     var mPopupSizeType: BasePopupView? = null
     /** 弹窗：时间*/
     var mPopupTime: BasePopupView? = null
+    /** 弹窗：颜色*/
+    var mPopupColor: BasePopupView? = null
     /**
      * 初始化列表
      */

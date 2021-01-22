@@ -7,6 +7,9 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.form.ItemFormInputEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +54,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="5mm"
             android:gravity="right"
+            app:textChanged="@{viewModel.consumerPrice}"
             android:hint="@{entity.hintText}"
             android:text="@{entity.contentText}"
             android:textColor="#F3B11C"

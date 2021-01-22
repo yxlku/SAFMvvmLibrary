@@ -3,11 +3,11 @@ package com.deti.brand.demand.create
 import com.deti.brand.BrandApiService
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
-import com.deti.debug.TestBaseNetEntityPost
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity
 import com.test.common.common.userInfoToken
+import com.test.common.ui.popup.color.DemandColorListEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -36,6 +36,16 @@ class CreateDemandModel: BaseModel(){
         return flowOnIO {
             var body = hashMapOf<String, String?>()
             return@flowOnIO mHttpDataSource?.requestStyleInfo(body) as BaseNetEntity<DemandStyleTypeEntity>
+        }
+    }
+
+    /**
+     * 颜色列表
+     */
+    fun requestColorsList(): Flow<BaseNetEntity<DemandColorListEntity>?>{
+        return flowOnIO {
+            var body = hashMapOf<String, String?>()
+            return@flowOnIO mHttpDataSource?.requestColorsList(body) as BaseNetEntity<DemandColorListEntity>
         }
     }
 }

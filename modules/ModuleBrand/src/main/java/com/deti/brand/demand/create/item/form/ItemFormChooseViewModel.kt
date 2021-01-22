@@ -3,7 +3,6 @@ package com.deti.brand.demand.create.item.form
 import android.app.Activity
 import android.view.View
 import com.chad.library.adapter.base.BaseBinderAdapter
-import com.test.common.ui.dialog.color.createDialogColors
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import java.lang.StringBuilder
@@ -12,27 +11,6 @@ class ItemFormChooseViewModel(
     var mActivity: Activity?,
     var mAdapter: BaseBinderAdapter,
 ) {
-    fun clickItem(view: View, entity: ItemFormChooseEntity){
-
-    }
-
-
-    /**
-     * 选择时间
-     */
-    fun clickChooseDateDialog(view: View, entity: ItemFormChooseEntity){
-        mActivity?.let {
-
-        }
-    }
-    /**
-     * 选择颜色
-     */
-    fun clickChooseColorsDialog(view: View, entity: ItemFormChooseEntity){
-        mActivity?.let {
-            createDialogColors(it,"选择颜色").show()
-        }
-    }
     /**
      * 选择尺码数量
      */

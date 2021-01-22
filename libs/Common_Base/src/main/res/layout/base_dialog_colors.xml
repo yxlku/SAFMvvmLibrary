@@ -7,38 +7,13 @@
     android:background="#00000000"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/ll_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/base_dialog_title_bg"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="选择颜色"
-            android:textColor="#999999"
-            android:textSize="16mm" />
-
-        <TextView
-            android:id="@+id/tv_sure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:padding="20mm"
-            android:text="确定"
-            android:textColor="#2171E8"
-            android:textSize="16mm" />
-    </RelativeLayout>
+    <com.safmvvm.ui.titlebar.TitleBar
+        android:id="@+id/tb_title"
+        style="@style/popup_title_bottom"
+        app:backButton="false"
+        app:leftIcon="@null"
+        app:rightColor="#2171E8"
+        app:rightTitle="确定" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -52,7 +27,9 @@
             android:layout_marginStart="24mm"
             android:paddingTop="14mm"
             android:paddingBottom="14mm"
-            android:text="已选的颜色：" />
+            android:text="已选的颜色："
+            android:textColor="#1B2643"
+            android:textSize="14mm" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_selected"
@@ -63,13 +40,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10mm"
-        android:background="#E5E5E5" />
+        android:layout_height="8mm"
+        android:background="#F8F8F8" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView

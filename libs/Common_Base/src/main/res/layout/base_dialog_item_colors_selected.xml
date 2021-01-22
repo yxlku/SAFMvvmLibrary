@@ -6,11 +6,8 @@
 
         <variable
             name="entity"
-            type="com.test.common.ui.dialog.color.ColorsSubEntity" />
+            type="com.test.common.ui.popup.color.DemandColorDataBean" />
 
-        <variable
-            name="viewModel"
-            type="com.test.common.ui.dialog.color.adapter.ColorSelectedViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -23,15 +20,15 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{entity.colorText}"
+            android:text="@{entity.name}"
             android:textColor="#F3B11C"
-            android:textSize="16mm" />
+            android:textSize="14mm" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10mm"
-            app:srcCompat="@drawable/base_dialog_tip" />
+            app:srcCompat="@mipmap/base_popup_color_del" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

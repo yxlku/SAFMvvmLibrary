@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.test.common.ui.popup.color.DemandColorListDataBean" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="58mm"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="20mm"
+        android:paddingEnd="20mm">
+
+        <TextView
+            android:id="@+id/cb_item"
+            android:layout_width="0mm"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@{entity.text}"
+            android:textColor="#1B2643"
+            android:textSize="14mm" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_popup_level_types_arrow" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</layout>

@@ -1,34 +1,43 @@
-package com.test.common.ui.dialog.color
+package com.test.common.ui.popup.color
 
 import android.app.Activity
 import android.view.View
-import android.widget.TextView
+import androidx.collection.ArraySet
+import androidx.collection.arraySetOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
-import com.safmvvm.bus.putValue
+import com.safmvvm.ui.titlebar.OnTitleBarListener
+import com.safmvvm.ui.titlebar.TitleBar
 import com.test.common.R
-import com.test.common.ui.dialog.color.adapter.ColorsAdapter
-import com.test.common.ui.dialog.color.adapter.ColorsSelectedAdapter
-import com.test.common.ui.dialog.color.adapter.ColorsSubAdapter
+import com.test.common.ui.popup.color.adapter.ColorsLeftAdapter
+import com.test.common.ui.popup.color.adapter.ColorsSelectedAdapter
+import com.test.common.ui.popup.color.adapter.ColorsRightAdapter
 
+/**
+ * 颜色选择弹窗
+ */
 class ColorsPopupView(
     var mActivit: Activity,
     var mTitle: String = "",
-    var mHeightMultiple: Float = 0.7F,
-) : BottomPopupView(mActivit), View.OnClickListener {
+    var datas: DemandColorListEntity,
+    var mHeightMultiple: Float = 0.8F,
+    /** 点击标题确定返回的结果*/
+    var resultBlock: (selectDatas: ArraySet<DemandColorDataBean>) -> Unit = {}
+) : BottomPopupView(mActivit) {
     var rv_selected: RecyclerView? = null
     var rv_left: RecyclerView? = null
     var rv_right: RecyclerView? = null
 
-    var adapterLeft: ColorsAdapter = ColorsAdapter()
-    var adapterRight: ColorsSubAdapter = ColorsSubAdapter()
+    var adapterLeft: ColorsLeftAdapter = ColorsLeftAdapter()
+    var adapterRight: ColorsRightAdapter = ColorsRightAdapter()
     var adapterSelected: ColorsSelectedAdapter = ColorsSelectedAdapter()
 
-    var selectedList = arrayListOf<ColorsSubEntity>()
+    /** 选择的列表数据*/
+    var selectColorEntity = arraySetOf<DemandColorDataBean>()
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_colors
 
@@ -38,39 +47,29 @@ class ColorsPopupView(
     override fun getMaxHeight(): Int =
         (XPopupUtils.getScreenHeight(mActivit) * mHeightMultiple).toInt()
 
-    fun testData(): List<ColorsEntity> {
-        var colors = arrayListOf<ColorsEntity>()
-        for (i in 0 until 10) {
-            var colorsSubEntity = arrayListOf<ColorsSubEntity>()
-            for (j in 0 until 20) {
-                var subColorsEntity = ColorsSubEntity(
-                    0,
-                    "色$i$j",
-                    false,
-                )
-                colorsSubEntity.add(subColorsEntity)
-            }
-            var colorsEntity = ColorsEntity(
-                0,
-                "颜色系$i",
-                false,
-                colorsSubEntity
-            )
-            colors.add(colorsEntity)
-        }
-        return colors
-    }
-
     override fun onCreate() {
         super.onCreate()
-        var tv_title: TextView = findViewById(R.id.tv_title)
-        var tv_sure: TextView = findViewById(R.id.tv_sure)
+        var tb_title = findViewById<TitleBar>(R.id.tb_title)
         rv_selected = findViewById(R.id.rv_selected)
         rv_left = findViewById(R.id.rv_left)
         rv_right = findViewById(R.id.rv_right)
 
-        tv_title.text = mTitle
-        tv_sure.setOnClickListener(this)
+        tb_title.title = mTitle
+        tb_title.setOnTitleBarListener(object : OnTitleBarListener{
+            override fun onLeftClick(v: View?) {
+                dismiss()
+            }
+
+            override fun onTitleClick(v: View?) {
+            }
+
+            override fun onRightClick(v: View?) {
+                //确定按钮
+                resultBlock(selectColorEntity)
+                dismiss()
+            }
+        })
+
 
         rv_left?.apply {
             layoutManager = LinearLayoutManager(context)
@@ -86,33 +85,33 @@ class ColorsPopupView(
             }
             adapter = adapterSelected
         }
-        adapterLeft.setList(testData())
+        adapterLeft.setList(datas.pageData)
         adapterLeft.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var mAdapter = adapter as ColorsAdapter
-                mAdapter.mViewModel.selectedPosition.putValue(position)
+                var mAdapter = adapter as ColorsLeftAdapter
+                mAdapter.selectedPosition = position
                 mAdapter.notifyDataSetChanged()
 
                 var firstData = mAdapter.data[position]
-                var secondData = firstData.colorsSubEntitys
+                var secondData = firstData.children
                 adapterRight.setList(secondData)
             }
         })
         adapterRight.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var mAdapter = adapter as ColorsSubAdapter
+                var mAdapter = adapter as ColorsRightAdapter
                 var data = mAdapter.data[position]
                 //刷新列表
-                data.isCheck = !data.isCheck
+                data.mIsCheck = !data.mIsCheck
                 mAdapter.notifyDataSetChanged()
 
                 //刷新选中区域列表
-                if (!selectedList.contains(data) && data.isCheck) {
-                    selectedList.add(data)
+                if (!selectColorEntity.contains(data) && data.mIsCheck) {
+                    selectColorEntity.add(data)
                 }else{
-                    selectedList.remove(data)
+                    selectColorEntity.remove(data)
                 }
-                adapterSelected.setList(selectedList)
+                adapterSelected.setList(selectColorEntity)
             }
         })
         adapterSelected.setOnItemClickListener(object : OnItemClickListener{
@@ -122,13 +121,6 @@ class ColorsPopupView(
                 mAdapter.notifyDataSetChanged()
             }
         })
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            //关闭
-//            R.id.iv_close -> dismiss()
-        }
     }
 
 

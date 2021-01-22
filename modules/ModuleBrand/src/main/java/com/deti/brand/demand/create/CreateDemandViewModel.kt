@@ -4,6 +4,8 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.ObservableField
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.entity.DemandStyleEntity
@@ -50,6 +52,11 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mSizeType = ""
     /** 交期*/
     var mTime = ""
+
+    /** 单价*/
+    var mPrice = ObservableField<String>()
+    var consumerPrice = BindingConsumer<String> { t -> mPrice.set(t)  }
+
 
 
     /**
@@ -117,13 +124,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     }
 
     /**
-     * 请求：获取颜色列表
-     */
-    fun requestColors() {
-
-    }
-
-    /**
      * 表单 - 选择
      */
     fun clickFormChoose(view: View, entity: ItemFormChooseEntity){
@@ -131,7 +131,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             ItemFormChooseType.CHOOSE_STYLE -> formClickChooseStyle(view, entity) //款式选择
             ItemFormChooseType.CHOOSE_SIZE_TYPE -> formClickChooseSizeType(view, entity) //尺码类型
             ItemFormChooseType.CHOOSE_TIME -> formClickChooseTime(view, entity) //尺码类型
-
+            ItemFormChooseType.CHOOSE_COLOR -> formClickChooseColor(view, entity) //选择颜色
+            ItemFormChooseType.CHOOSE_SIZE_COUNT -> formClickChooseSizeCount(view, entity) //选择尺码数量
         }
     }
 
@@ -182,17 +183,37 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     }
 
-    /** 尺码类型*/
-    fun formClickChooseSizeType(view: View, entity: ItemFormChooseEntity){
-        LiveDataBus.send(CreateDemandFragment.FORM_SIZE_TYPE, entity)
+    /** 选择颜色*/
+    fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
+        launchRequest {
+            mModel.requestColorsList()
+                .flowDataDeal(
+                    loadingModel = LoadingModel.NULL,
+                    onSuccess = {
+                        it?.data.apply {
+                            LiveDataBus.send(FORM_COLORS, Pair(entity, this))
+                        }
+                    }
+                )
+        }
     }
 
-    /** 交期*/
-    fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
+    /** 选择尺码数量*/
+    fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
+        FORM_SIZE_COUNT
+    }
+
+    /** 尺码类型*/
+    fun formClickChooseSizeType(view: View, entity: ItemFormChooseEntity){
         var datas = arrayListOf(
             BaseSingleChoiceEntity("0", "数字码"),
             BaseSingleChoiceEntity("1", "字母码")
         )
-        LiveDataBus.send(CreateDemandFragment.FORM_TIME, Pair(datas, entity))
+        LiveDataBus.send(CreateDemandFragment.FORM_SIZE_TYPE, Pair(datas, entity))
+    }
+
+    /** 交期*/
+    fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
+        LiveDataBus.send(CreateDemandFragment.FORM_TIME, entity)
     }
 }

@@ -6,35 +6,32 @@
 
         <variable
             name="entity"
-            type="com.test.common.ui.dialog.color.ColorsSubEntity" />
-
-        <variable
-            name="viewModel"
-            type="com.test.common.ui.dialog.color.adapter.ColorsSubViewModel" />
+            type="com.test.common.ui.popup.color.DemandColorDataBean" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:paddingStart="20mm"
+        android:paddingEnd="20mm"
         android:id="@+id/ll_layout"
         android:layout_width="match_parent"
+        android:layout_height="58mm"
         android:gravity="center"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0mm"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="20mm"
-            android:text="@{entity.colorText}"
+            android:text="@{entity.name}"
             android:textColor="#1B2643"
-            android:textSize="16mm" />
+            android:textSize="14mm" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/base_dialog_tip" />
+            app:srcCompat="@drawable/base_popup_level_selected" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

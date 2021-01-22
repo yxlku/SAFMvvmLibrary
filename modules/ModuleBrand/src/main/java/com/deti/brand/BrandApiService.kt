@@ -2,12 +2,9 @@ package com.deti.brand
 
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
-import com.deti.debug.TestBaseNetEntityPost
 import com.test.common.base.BaseNetEntity
-import kotlinx.coroutines.flow.Flow
+import com.test.common.ui.popup.color.DemandColorListEntity
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface BrandApiService {
@@ -27,6 +24,16 @@ interface BrandApiService {
     suspend fun requestStyleInfo(
         @Body body: HashMap<String, String?>,
     ):BaseNetEntity<DemandStyleTypeEntity?>
+
+    /**
+     * 获取颜色列表
+     */
+    @POST("client/color/findColorList")
+    suspend fun requestColorsList(
+        @Body body: HashMap<String, String?>,
+    ):BaseNetEntity<DemandColorListEntity?>
+
+
 
 
 }
