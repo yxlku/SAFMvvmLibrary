@@ -5,18 +5,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemFormChooseBinding
+import com.deti.brand.demand.create.CreateDemandViewModel
+import com.deti.brand.msg.MsgViewModel
 
+/**
+ * 表单-选择类型
+ */
 class ItemFormChoose(
-    var mActivity: Activity?
+    var mViewModel: CreateDemandViewModel? = null
 ): QuickDataBindingItemBinder<ItemFormChooseEntity, BrandItemFormChooseBinding>() {
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemFormChooseBinding>,
         data: ItemFormChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding.entity = data
-        binding.viewModel = ItemFormChooseViewModel(mActivity, adapter)
-        binding.executePendingBindings()
+        binding?.apply {
+            entity = data
+            viewModel = mViewModel
+            executePendingBindings()
+        }
     }
 
     override fun onCreateDataBinding(

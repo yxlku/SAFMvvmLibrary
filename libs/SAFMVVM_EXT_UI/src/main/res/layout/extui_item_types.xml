@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    android:id="@+id/ll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="48mm"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="8mm"
+    android:paddingEnd="8mm">
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/cb_item"
+        android:layout_width="0mm"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:button="@null"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="text"
+        android:textColor="#1B2643" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="31mm"
-        android:paddingTop="15mm"
-        android:paddingEnd="31mm"
-        android:paddingBottom="15mm"
-        android:text="text"
-        android:textColor="#1B2643"
-        android:textSize="16mm" />
+        android:src="@drawable/ic_baseline_play_arrow" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

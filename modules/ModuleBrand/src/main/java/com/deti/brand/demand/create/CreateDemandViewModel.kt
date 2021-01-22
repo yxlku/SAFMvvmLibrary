@@ -8,8 +8,11 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRES
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_ADDRESS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
+import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
+import com.deti.brand.demand.create.item.form.ItemFormChooseType
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.http.result.state.success
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.utils.LogUtil
@@ -111,10 +114,29 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     }
 
     /**
-     * 请求：获取款式列表
+     * 表单 - 选择
      */
-    fun requestStyles() {
-
+    fun clickFormChoose(view: View, entity: ItemFormChooseEntity){
+        when (entity.tag) {
+            ItemFormChooseType.CHOOSE_STYLE -> formClickChooseStyle(view, entity) //款式选择
+//            "设置交期" -> clickChooseDateDialog(view, entity)
+//            "款式分类" -> clickChooseTypesDialog(view, entity)
+//            "颜色选择" -> clickChooseColorsDialog(view, entity)
+//            "尺码数量" -> clickChooseSizeCountDialog(view, entity)
+        }
     }
 
+    /** 尺码类型*/
+    fun formClickChooseStyle(view: View, entity: ItemFormChooseEntity){
+//        launchRequest {
+//            mModel.requestExpressList()
+//                .flowDataDeal(
+//                    loadingModel = LoadingModel.NULL,
+//                    onSuccess = {
+//
+//                    }
+//                )
+//        }
+
+    }
 }

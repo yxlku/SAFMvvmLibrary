@@ -15,10 +15,7 @@ import com.deti.brand.demand.create.item.file.ItemUploadFile
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_FABRIC
 import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_PLATE
-import com.deti.brand.demand.create.item.form.ItemFormChoose
-import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
-import com.deti.brand.demand.create.item.form.ItemFormInput
-import com.deti.brand.demand.create.item.form.ItemFormInputEntity
+import com.deti.brand.demand.create.item.form.*
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitle
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
 import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity
@@ -33,7 +30,10 @@ import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
@@ -44,6 +44,7 @@ import com.test.common.ui.line.ItemTransparentLine
 import com.test.common.ui.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.dialogBottomSingle
+import com.test.common.ui.popup.type.createDialogLevelTypes
 
 /**
  * 创建需求
@@ -91,17 +92,60 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
-        /** 通用单选弹窗*/
+        /** 选择服务类型*/
         LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
             DIALOG_SERVICE_TYPE,
             {
                 activity?.apply {
-                    if (mDialogServiceType == null) {
-                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = {
-                            mViewModel.mServiceType.set(it.text)
-                        })
+//                    if (mDialogServiceType == null) {
+//                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = {
+//                            mViewModel.mServiceType.set(it.text)
+//                        })
+//                    }
+//                    mDialogServiceType?.show()
+
+                    var testData = TypesTreeViewEntity()
+                    var onedatas = arrayListOf<TypesViewDataBean>()
+                    for (i in 0 until 4){
+                        var twodatas = arrayListOf<TypesViewDataBean>()
+                        for (j in 0 until 3){
+                            var threedatas = arrayListOf<TypesViewDataBean>()
+                            for (k in 0 until 2){
+                                var fourdatas = arrayListOf<TypesViewDataBean>()
+                                if(k % 2 == 1) {
+                                    for (l in 0 until 5) {
+                                        var fivDatas = arrayListOf<TypesViewDataBean>()
+                                        for (m in 0 until 6){
+                                            var fiv = TypesViewDataBean("m", "fiv$m")
+                                            fivDatas.add(fiv)
+                                        }
+                                        var four = TypesViewDataBean("l", "four:$l", fivDatas)
+                                        fourdatas.add(four)
+                                    }
+                                }else{
+                                    for (l in 0 until 2) {
+                                        var four = TypesViewDataBean("l", "four:$l")
+                                        fourdatas.add(four)
+                                    }
+                                }
+                                var three = TypesViewDataBean("k", "three:$k", fourdatas)
+                                threedatas.add(three)
+                            }
+                            var two = TypesViewDataBean("j", "two:$j", threedatas)
+                            twodatas.add(two)
+                        }
+                        var one = TypesViewDataBean("i", "one:$i", twodatas)
+                        onedatas.add(one)
+                        testData.childer = onedatas
                     }
-                    mDialogServiceType?.show()
+                    createDialogLevelTypes(this, "请选择款式分类", testData, 4) {
+                        var sb: StringBuilder = StringBuilder()
+                        it.forEach { bean ->
+                            sb.append(bean?.text).append(" - ")
+                        }
+                        mViewModel.mServiceType.set(sb.toString())
+                        LogUtil.d("款式结果：${sb.toString()}")
+                    }.show()
                 }
             },
             false)
@@ -163,20 +207,24 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
             //透明线
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
+
+            //类型选择
+            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
             //服务
             addItemBinder(ItemServiceEntity::class.java, ItemService(mViewModel))
             //快递
             addItemBinder(ItemExpressEntity::class.java, ItemExpress(mViewModel))
             //上传文件
             addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(mViewModel))
+            //分组标题
+            addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
+            //选择条目
+            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(mViewModel))
+
 
             addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
-            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
 
-            addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
-
-            addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(activity))
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
@@ -227,22 +275,22 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //分割线
             ItemGrayLineEntity(context),
             //款式分类
-            ItemFormChooseEntity("款式分类", false, "请选择款式分类"),
+            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_STYLE,"款式分类", false, "请选择款式分类"),
 
             //分割线
             ItemGrayLineEntity(context),
             //尺码类型
-            ItemFormChooseEntity("尺码类型", false, "请选择所需要的尺码"),
+            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码"),
 
             //分割线
             ItemGrayLineEntity(context),
             //颜色选择
-            ItemFormChooseEntity("颜色选择", false, "可设置多个颜色"),
+            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色"),
 
             //分割线
             ItemGrayLineEntity(context),
             //颜色选择
-            ItemFormChooseEntity("尺码数量", false, "可设置多个"),
+            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个"),
 
             //透明分割线
             ItemTransparentLineEntity(context),
@@ -251,7 +299,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //分割线
             ItemGrayLineEntity(context),
             //设置交期
-            ItemFormChooseEntity("设置交期", false, "交期最低14天"),
+            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天"),
 
             //透明分割线
             ItemTransparentLineEntity(context),

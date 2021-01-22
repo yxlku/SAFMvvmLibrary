@@ -2,6 +2,7 @@ package com.deti.brand.demand.create
 
 import com.deti.brand.BrandApiService
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
+import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.debug.TestBaseNetEntityPost
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
@@ -25,6 +26,16 @@ class CreateDemandModel: BaseModel(){
             body.put("sign","2147483647") //暂时这么写
             body.put("key", "expressType")
             return@flowOnIO  mHttpDataSource?.requestExpressList(body) as BaseNetEntity<DemandExpressListEntity>
+        }
+    }
+
+    /**
+     * 款式分类
+     */
+    fun requestStyleInfo(): Flow<BaseNetEntity<DemandStyleTypeEntity>?>{
+        return flowOnIO {
+            var body = hashMapOf<String, String?>()
+            return@flowOnIO mHttpDataSource?.requestStyleInfo(body) as BaseNetEntity<DemandStyleTypeEntity>
         }
     }
 }

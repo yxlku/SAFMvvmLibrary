@@ -7,7 +7,7 @@
 
     <style name="popup_title_bottom">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48mm</item>
+        <item name="android:layout_height">50mm</item>
         <!-- 圆角背景-->
         <item name="titleBarBackground">@drawable/base_dialog_title_bg</item>
         <!-- 分割线-->
@@ -20,7 +20,7 @@
         <!-- 标题颜色-->
         <item name="titleColor">#333333</item>
         <!-- 标题文字大小-->
-        <item name="titleSize">16mm</item>
+        <item name="titleSize">14mm</item>
         <item name="titleStyle">bold</item>
 
     </style>

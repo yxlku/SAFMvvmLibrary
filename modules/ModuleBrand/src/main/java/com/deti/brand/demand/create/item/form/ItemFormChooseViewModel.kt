@@ -9,7 +9,6 @@ import com.test.common.ui.dialog.single.createDialogSelectedSingle
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import com.test.common.ui.dialog.time.createDialogDate
-import com.test.common.ui.dialog.types.createDialogTypes
 import java.lang.StringBuilder
 
 class ItemFormChooseViewModel(
@@ -17,15 +16,7 @@ class ItemFormChooseViewModel(
     var mAdapter: BaseBinderAdapter,
 ) {
     fun clickItem(view: View, entity: ItemFormChooseEntity){
-        when (entity.title) {
-            "尺码类型" -> clickChooseSizeTypeDialog(view, entity)
-            "设置交期" -> clickChooseDateDialog(view, entity)
-            "款式分类" -> clickChooseTypesDialog(view, entity)
-            "颜色选择" -> clickChooseColorsDialog(view, entity)
-            "尺码数量" -> clickChooseSizeCountDialog(view, entity)
-            else -> {
-            }
-        }
+
     }
 
     /**
@@ -59,7 +50,8 @@ class ItemFormChooseViewModel(
      */
     fun clickChooseTypesDialog(view: View, entity: ItemFormChooseEntity){
         mActivity?.let {
-            createDialogTypes(it,"选择款式分类").show()
+
+
         }
     }
     /**
