@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.time
+package com.test.common.ui.popup.time
 
 import android.app.Activity
 import android.view.View
@@ -7,33 +7,49 @@ import androidx.constraintlayout.utils.widget.ImageFilterView
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.DateTimePicker
 import com.loper7.date_time_picker.StringUtils
-import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.lxj.xpopup.core.BottomPopupView
-import com.lxj.xpopupext.popup.TimePickerPopup
+import com.safmvvm.ui.titlebar.OnTitleBarListener
+import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.currentTimeMills
 import com.test.common.R
-import com.test.common.ui.dialog.tip.createDialogTip
-import me.jessyan.autosize.utils.AutoSizeUtils
 import java.util.*
 
+/**
+ * 时间选择
+ */
 class DatePopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var block: (millisecond: Long, time: String) -> Unit = {millisecond: Long, time: String->}
-) : BottomPopupView(mActivit), View.OnClickListener {
+) : BottomPopupView(mActivit) {
     private var mMillisecond: Long = 0
     override fun getImplLayoutId(): Int = R.layout.base_dialog_date
 
     override fun onCreate() {
         super.onCreate()
-        var tv_title: TextView = findViewById(R.id.tv_title)
-        var tv_sure: TextView = findViewById(R.id.tv_sure)
-        var iv_close: ImageFilterView = findViewById(R.id.iv_close)
-        var dtp_content: DateTimePicker = findViewById(R.id.dtp_content)
 
-        tv_title.text = mTitle
-        iv_close.setOnClickListener(this)
-        tv_sure.setOnClickListener(this)
+        var tb_title: TitleBar = findViewById(R.id.tb_title)
+        var dtp_content: DateTimePicker = findViewById(R.id.dtp_content)
+        tb_title.title = mTitle
+
+        tb_title.setOnTitleBarListener(object : OnTitleBarListener{
+            override fun onLeftClick(v: View?) {
+                dismiss()
+            }
+
+            override fun onTitleClick(v: View?) {
+            }
+
+            override fun onRightClick(v: View?) {
+                block(
+                    mMillisecond,
+                    StringUtils.conversionTime(mMillisecond, "yyyy 年 MM 月 dd 日 ")
+                )
+                dismiss()
+            }
+
+        })
+
         dtp_content.apply {
             //格式
             setDisplayType(intArrayOf(
@@ -54,19 +70,4 @@ class DatePopupView(
     }
 
 
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            //关闭
-            R.id.iv_close -> dismiss()
-            //确定 -- 选中
-            R.id.tv_sure -> {
-                block(
-                    mMillisecond,
-                    StringUtils.conversionTime(mMillisecond, "yyyy 年 MM 月 dd 日 ")
-                )
-                dismiss()
-            }
-        }
-    }
 }

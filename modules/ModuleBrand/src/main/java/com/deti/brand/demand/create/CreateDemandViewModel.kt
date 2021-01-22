@@ -46,6 +46,10 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 款式分类一*/
     var mStyleList = arrayListOf<TypesViewDataBean?>()
+    /** 尺码类型*/
+    var mSizeType = ""
+    /** 交期*/
+    var mTime = ""
 
 
     /**
@@ -125,10 +129,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     fun clickFormChoose(view: View, entity: ItemFormChooseEntity){
         when (entity.tag) {
             ItemFormChooseType.CHOOSE_STYLE -> formClickChooseStyle(view, entity) //款式选择
-//            "设置交期" -> clickChooseDateDialog(view, entity)
-//            "款式分类" -> clickChooseTypesDialog(view, entity)
-//            "颜色选择" -> clickChooseColorsDialog(view, entity)
-//            "尺码数量" -> clickChooseSizeCountDialog(view, entity)
+            ItemFormChooseType.CHOOSE_SIZE_TYPE -> formClickChooseSizeType(view, entity) //尺码类型
+            ItemFormChooseType.CHOOSE_TIME -> formClickChooseTime(view, entity) //尺码类型
+
         }
     }
 
@@ -177,5 +180,19 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                 )
         }
 
+    }
+
+    /** 尺码类型*/
+    fun formClickChooseSizeType(view: View, entity: ItemFormChooseEntity){
+        LiveDataBus.send(CreateDemandFragment.FORM_SIZE_TYPE, entity)
+    }
+
+    /** 交期*/
+    fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
+        var datas = arrayListOf(
+            BaseSingleChoiceEntity("0", "数字码"),
+            BaseSingleChoiceEntity("1", "字母码")
+        )
+        LiveDataBus.send(CreateDemandFragment.FORM_TIME, Pair(datas, entity))
     }
 }

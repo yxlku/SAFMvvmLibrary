@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickViewBindingItemBinder
-import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.databinding.BaseDialogItemGoodsDetailInfoBinding
-import com.test.common.ui.dialog.time.createDialogDate
+import com.test.common.ui.popup.time.createDialogDate
 
 class ItemInfo(
     var mActivity: Activity

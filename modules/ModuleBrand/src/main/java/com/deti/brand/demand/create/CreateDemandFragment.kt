@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
-import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
 import com.deti.brand.demand.create.item.express.ItemExpress
@@ -29,15 +28,15 @@ import com.deti.brand.demand.create.item.remark.ItemRemark
 import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
+import com.loper7.date_time_picker.StringUtils
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
-import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseFragment
-import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
+import com.test.common.ui.popup.time.createDialogDate
 import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
@@ -45,6 +44,7 @@ import com.test.common.ui.line.ItemTransparentLine
 import com.test.common.ui.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.dialogBottomSingle
+import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.type.createDialogLevelTypes
 
 /**
@@ -67,6 +67,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val UPLOAD_FILE = "upload_file"
         /** 款式分类*/
         const val FORM_STYLE_TYPE = "form_style_type"
+        /** 尺码类型*/
+        const val FORM_SIZE_TYPE = "form_size_type"
+        /** 时间选择*/
+        const val FORM_TIME = "form_time"
     }
 
     /** 主页适配器*/
@@ -177,8 +181,38 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 mPopupStyle?.show()
             }
         }, false)
+        /** 尺码类型*/
+        LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_TYPE, {
+            activity?.apply {
+                if(mPopupSizeType == null) {
+                    mPopupSizeType = it.first.dialogBottomSingle(this, "选择尺码类型", callback = { data->
+                        mViewModel.mSizeType = data.text
+                        it.second.contentText.set(data.text)
+                    })
+                }
+                mPopupSizeType?.show()
+            }
+        }, false)
+        /** 时间选择*/
+        LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_TIME, {
+            if (mPopupTime == null) {
+                activity?.apply {
+                    mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String ->
+                        var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
+                        it.second.contentText.set(time)
+                        mViewModel.mTime = time
+                    }
+                }
+            }
+            mPopupTime?.show()
+        }, false)
     }
+    /** 弹窗：款式分类*/
     var mPopupStyle: BasePopupView? = null
+    /** 弹窗：尺码类型*/
+    var mPopupSizeType: BasePopupView? = null
+    /** 弹窗：时间*/
+    var mPopupTime: BasePopupView? = null
     /**
      * 初始化列表
      */

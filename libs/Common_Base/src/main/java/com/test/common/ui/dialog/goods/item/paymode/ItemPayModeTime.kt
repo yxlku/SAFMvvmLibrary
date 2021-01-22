@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.loper7.date_time_picker.StringUtils
-import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.databinding.BaseDialogItemGoodsDetailPaymodeTimeBinding
-import com.test.common.ui.dialog.time.createDialogDate
+import com.test.common.ui.popup.time.createDialogDate
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.test.common.ui.popup.dialogBubbleSingle
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView

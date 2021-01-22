@@ -1,10 +1,28 @@
-package com.test.common.ui.dialog.time
+package com.test.common.ui.popup.time
 
 import android.app.Activity
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.app.BaseApp
+import com.test.common.ui.popup.createDialogBase
 
+
+/**
+ * 时间选择器
+ */
+fun dialogTimeWheel(
+    activity: Activity,
+    title: String,
+    block: (millisecond: Long, time: String) -> Unit = {millisecond: Long, time: String->}
+): BasePopupView {
+    return createDialogBase(
+        DatePopupView(activity, title, block)
+    ){
+
+    }
+}
+
+@Deprecated("请使用 dialogTimeWheel() ")
 fun createDialogDate(
     activity: Activity,
     title: String,

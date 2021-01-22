@@ -45,6 +45,7 @@ fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
     selectedPosition: Int = -1,
     selectedIsDismiss: Boolean = true,
     block: () -> Unit = {},
+    /** 选中条目点击回调*/
     callback: (entity: BaseSingleChoiceEntity) -> Unit = {},
     /** 右侧按钮点击事件*/
     rightClick: (view: View?) -> Unit = {}
