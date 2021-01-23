@@ -6,6 +6,7 @@ import androidx.collection.ArraySet
 import androidx.databinding.ObservableField
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_ADDRESS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
@@ -100,7 +101,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 地址弹窗
      */
     fun clickAddress(view: View){
-//        LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
+        LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
         LogUtil.d("面料地址：${mFilePathFabric}")
         LogUtil.d("制版地址：${mFilePathPlate}")
     }
@@ -171,16 +172,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                                     it.children?.forEach {
                                         var levelFour = arrayListOf<TypesViewDataBean>()
                                         it.children?.forEach {
-                                            var four = TypesViewDataBean(it.id, it.name, null)
+                                            var four = TypesViewDataBean(it.code, it.name, null)
                                             levelFour.add(four)
                                         }
-                                        var three = TypesViewDataBean(it.id, it.name, levelFour)
+                                        var three = TypesViewDataBean(it.code, it.name, levelFour)
                                         levelThree.add(three)
                                     }
-                                    var two = TypesViewDataBean(it.id, it.name, levelThree)
+                                    var two = TypesViewDataBean(it.code, it.name, levelThree)
                                     levelTwo.add(two)
                                 }
-                                var one = TypesViewDataBean(it.id, it.name, levelTwo)
+                                var one = TypesViewDataBean(it.code, it.name, levelTwo)
                                 levelOne.add(one)
                             }
                             treeEntity.childer = levelOne
@@ -208,7 +209,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             return
         }
         //2、获取尺码组数据
-        if (cFindSizeEntityData == null) {
+//        if (cFindSizeEntityData == null) {
             launchRequest {
                 mModel.requestFindSize(mStyleList)
                     .flowDataDeal(
@@ -218,7 +219,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                             showChooseSizeTypeShow(view, entity)
                         }
                     )
-            }
+//            }
         }
         showChooseSizeTypeShow(view, entity)
     }
@@ -248,10 +249,10 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             ToastUtil.showShortToast("请选择颜色")
             return
         }
-        var firstNode = arrayListOf<FirstNodeEntity>()
-        var secondNode = arrayListOf<BaseNode>()
 
+        var firstNode = arrayListOf<FirstNodeEntity>()
         mSelectColorDatas?.forEach {
+            var secondNode = arrayListOf<BaseNode>()
             mSizeTypeData?.sizeRangeList?.forEach {size ->
                 secondNode.add(SecondNodeEntity(0, size, 0, it.name))
             }

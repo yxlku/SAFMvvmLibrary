@@ -43,6 +43,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="0mm"
             android:layout_height="wrap_content"
             android:layout_marginStart="5mm"

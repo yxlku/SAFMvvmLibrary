@@ -7,6 +7,7 @@ import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.ui.titlebar.OnTitleBarListener
@@ -21,7 +22,7 @@ class SizeCountPopupView(
     var mTitle: String = "",
     var datas: List<FirstNodeEntity> = arrayListOf(),
     var mHeightMultiple: Float = 0.7F,
-    var block: (nodes: List<BaseNode>)->Unit = {}
+    var block: (nodes: List<BaseNode>, popupView: BottomPopupView)->Unit = {nodes: List<BaseNode>, popupView: BasePopupView ->}
 ) : BottomPopupView(mActivit) {
     var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_sizecount_first)
 
@@ -41,8 +42,7 @@ class SizeCountPopupView(
             }
 
             override fun onRightClick(v: View?) {
-                block(mAdapter.data)
-                dismiss()
+                block(mAdapter.data, this@SizeCountPopupView)
             }
 
         })

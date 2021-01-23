@@ -59,9 +59,9 @@ class CreateDemandModel: BaseModel(){
             var body = hashMapOf<String, String?>()
             try {
                 body.apply {
-                    put("size.gender", data[0]?.text)
-                    put("size.category", data[1]?.text)
-                    put("size.suitType", data[2]?.text)
+                    put("size.gender", data[0]?.id)
+                    put("size.category", data[1]?.id)
+                    put("size.suitType", data[2]?.id)
                 }
             } catch (e: Exception) {
                 LogUtil.exception("", e)
