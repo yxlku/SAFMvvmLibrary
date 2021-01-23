@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.entity.node.BaseExpandNode
 import com.chad.library.adapter.base.entity.node.BaseNode
 
 class FirstNodeEntity(
-    var id: Int = 0,
+    var id: String = "",
     /** 颜色*/
     var color: String = "",
     /** 数量*/

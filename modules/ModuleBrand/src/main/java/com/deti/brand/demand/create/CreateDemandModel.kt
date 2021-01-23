@@ -3,10 +3,13 @@ package com.deti.brand.demand.create
 import com.deti.brand.BrandApiService
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity
 import com.test.common.common.userInfoToken
+import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.popup.color.DemandColorListEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -48,4 +51,24 @@ class CreateDemandModel: BaseModel(){
             return@flowOnIO mHttpDataSource?.requestColorsList(body) as BaseNetEntity<DemandColorListEntity>
         }
     }
+    /**
+     * 根据类别找尺码组
+     */
+    fun requestFindSize(data: ArrayList<TypesViewDataBean?>): Flow<BaseNetEntity<CommonFindSizeEntity>?>{
+        return flowOnIO {
+            var body = hashMapOf<String, String?>()
+            try {
+                body.apply {
+                    put("size.gender", data[0]?.text)
+                    put("size.category", data[1]?.text)
+                    put("size.suitType", data[2]?.text)
+                }
+            } catch (e: Exception) {
+                LogUtil.exception("", e)
+            }
+            return@flowOnIO mHttpDataSource?.requestFindSize(body) as BaseNetEntity<CommonFindSizeEntity>
+        }
+    }
+
+
 }

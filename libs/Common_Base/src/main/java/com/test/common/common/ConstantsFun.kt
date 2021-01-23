@@ -1,7 +1,7 @@
 package com.test.common.common
 
 import com.safmvvm.utils.KVCacheUtil
-import com.test.common.common.entity.UserInfoEntity
+import com.test.common.entity.UserInfoEntity
 
 /**
  * 通用方法

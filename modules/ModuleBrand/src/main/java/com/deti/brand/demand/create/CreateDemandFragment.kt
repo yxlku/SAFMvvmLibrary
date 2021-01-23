@@ -34,8 +34,11 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.view.BaseFragment
 import com.test.common.common.ConstantsFun
-import com.test.common.common.entity.UserInfoEntity
+import com.test.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
+import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
+import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.line.ItemGrayLine
@@ -110,8 +113,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             {
                 activity?.apply {
                     if (mDialogServiceType == null) {
-                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = {
-                            mViewModel.mServiceType.set(it.text)
+                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = { data, position->
+                            mViewModel.mServiceType.set(data.text)
                         })
                     }
                     mDialogServiceType?.show()
@@ -124,8 +127,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             {
                 activity?.apply {
                     if (mDialogServiceProduce == null) {
-                        mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = {
-                            mViewModel.mServiceProduce.set(it.text)
+                        mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = { data, position->
+                            mViewModel.mServiceProduce.set(data.text)
                         })
                     }
                     mDialogServiceProduce?.show()
@@ -144,8 +147,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             DIALOG_EXPRESS_LIST,
             {
                 activity?.apply {
-                    it.first.dialogBottomSingle(this, "请选择快递", it.second, callback = {
-                        mViewModel.mExpressSingleChoiceEntity.set(it)
+                    it.first.dialogBottomSingle(this, "请选择快递", it.second, callback = { data, position->
+                        mViewModel.mExpressSingleChoiceEntity.set(data)
                     }).show()
                 }
             },
@@ -173,6 +176,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                         var sb: StringBuilder = StringBuilder()
                         //选择后的数据 - 待提交需求时使用
                         mViewModel.mStyleList = datas
+                        //拼接展示使用
                         for(i in 0 until  datas.size){
                             var bean = datas[i]
                             sb.append(bean?.text)
@@ -181,6 +185,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                             }
                         }
                         it.second.contentText.set(sb.toString())
+                        //1、清空尺码类型
+                        clearInfoSizeType()
+                        //2、清空颜色
+                        clearInfoColors()
+                        //3、清空尺码数量
+                        clearInfoSizeCount()
                     }
                 }
                 mPopupStyle?.show()
@@ -190,13 +200,61 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_TYPE, {
             activity?.apply {
                 if(mPopupSizeType == null) {
-                    mPopupSizeType = it.first.dialogBottomSingle(this, "选择尺码类型", callback = { data->
-                        mViewModel.mSizeType = data.text
+                    mPopupSizeType = it.first.dialogBottomSingle(this, "选择尺码类型", callback = { data, position->
+                        mViewModel.mSizeTypeData = mViewModel.cFindSizeEntityData?.list?.get(position)
                         it.second.contentText.set(data.text)
+                        //1、清空颜色
+                        clearInfoColors()
+                        //2、清空尺码数量
+                        clearInfoSizeCount()
                     })
                 }
                 mPopupSizeType?.show()
             }
+        }, false)
+        /** 选择颜色*/
+        LiveDataBus.observe<Pair<ItemFormChooseEntity, DemandColorListEntity>>(this, FORM_COLORS, {
+            activity?.apply {
+                if (mPopupColor == null) {
+                    mPopupColor = dialogChooseColors(this, "选择颜色", it.second) { datas ->
+                        var sb = java.lang.StringBuilder()
+                        datas.forEach {
+                            sb.append(it.name).append(" ")
+                        }
+                        it.first.contentText.set(sb.toString())
+                        mViewModel.mSelectColorDatas = datas
+                        //1、清空尺码数量
+                        clearInfoSizeCount()
+                    }
+                }
+                mPopupColor?.show()
+            }
+        }, false)
+        /** 尺码数量选择*/
+        LiveDataBus.observe<Pair<ArrayList<FirstNodeEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_COUNT, {
+              activity?.apply {
+                  if (mPopupColorSizeCount == null) {
+                      mPopupColorSizeCount = createDialogSizeCount(this, "选择尺码和设置数量", it.first){datas->
+                          var sb = StringBuilder()
+                          datas.forEach {
+                              it.childNode?.forEach {
+                                  var secondEntity = it as SecondNodeEntity
+                                  if(secondEntity.count > 0) {
+                                      sb.append("【")
+                                          .append(secondEntity.color)
+                                          .append(": ")
+                                          .append(secondEntity.size)
+                                          .append(": ")
+                                          .append(secondEntity.count)
+                                          .append("】 ")
+                                  }
+                              }
+                          }
+                          it.second.contentText.set(sb.toString())
+                      }
+                  }
+                  mPopupColorSizeCount?.show()
+              }
         }, false)
         /** 时间选择*/
         LiveDataBus.observe<ItemFormChooseEntity>(this, FORM_TIME, {
@@ -211,21 +269,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
             mPopupTime?.show()
         }, false)
-        /** 选择颜色*/
-        LiveDataBus.observe<Pair<ItemFormChooseEntity, DemandColorListEntity>>(this, FORM_COLORS, {
-            activity?.apply {
-                if (mPopupColor == null) {
-                    mPopupColor = dialogChooseColors(this, "选择颜色", it.second) { datas ->
-                        var sb = java.lang.StringBuilder()
-                        datas.forEach {
-                            sb.append(it.name).append(" ")
-                        }
-                        it.first.contentText.set(sb.toString())
-                    }
-                }
-                mPopupColor?.show()
-            }
-        }, false)
     }
     /** 弹窗：款式分类*/
     var mPopupStyle: BasePopupView? = null
@@ -235,6 +278,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     var mPopupTime: BasePopupView? = null
     /** 弹窗：颜色*/
     var mPopupColor: BasePopupView? = null
+    /** 弹窗：尺寸数量*/
+    var mPopupColorSizeCount: BasePopupView? = null
     /**
      * 初始化列表
      */
@@ -277,7 +322,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     override fun onStart() {
         super.onStart()
         //VM
-        var listData = arrayListOf(
+        var basicsListData = arrayListOf(
             //提示完善个人信息
             ItemPersonalInfoEntity(),
 
@@ -306,7 +351,9 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemTransparentLineEntity(context),
             //上传制版信息
             ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件"),
+        )
 
+        colorInfoList = arrayListOf(
             //分组标题 //请填写服务详细信息
             ItemGroupTitleEntity("请填写服务详细信息"),
             //分割线
@@ -323,15 +370,16 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemGrayLineEntity(context),
             //颜色选择
             ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色"),
-
             //分割线
             ItemGrayLineEntity(context),
             //颜色选择
             ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个"),
+        )
 
+        var otherList = arrayListOf(
             //透明分割线
             ItemTransparentLineEntity(context),
-            ItemFormInputEntity("预算单价", true, "请输入价格", unitText = "元"),
+            ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元"),
 
             //分割线
             ItemGrayLineEntity(context),
@@ -348,8 +396,50 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //下单按钮
             ItemPlaceOrderEntity(),
             ItemTransparentLineEntity(context),
+        )
+        basicsListData.addAll(colorInfoList)
+        basicsListData.addAll(otherList)
+        mAdapter.setList(basicsListData)
+    }
+    var colorInfoList = arrayListOf<Any>()
 
-            )
-        mAdapter.setList(listData)
+    /** 清除信息：尺寸类型*/
+    fun clearInfoSizeType(){
+        colorInfoList.forEach {
+            if (it is ItemFormChooseEntity) {
+                if (it.tag == ItemFormChooseType.CHOOSE_SIZE_TYPE) {
+                    mViewModel.mSizeTypeData = null
+                    mPopupSizeType = null
+                    it.contentText.set("")
+                }
+            }
+        }
+    }
+
+    /** 清除信息：选择的颜色*/
+    fun clearInfoColors(){
+        colorInfoList.forEach {
+            if (it is ItemFormChooseEntity) {
+                if (it.tag == ItemFormChooseType.CHOOSE_COLOR) {
+                    mViewModel.mSelectColorDatas = null
+                    mPopupColor = null
+                    it.contentText.set("")
+                }
+            }
+        }
+    }
+    /** 清除信息：尺码数量*/
+    fun clearInfoSizeCount(){
+        colorInfoList.forEach {
+            if (it is ItemFormChooseEntity) {
+                if (it.tag == ItemFormChooseType.CHOOSE_SIZE_COUNT) {
+                    //尺码数量
+//                    mViewModel.cFindSizeEntityData = null
+//                    mViewModel.mSizeTypeData = null
+                    mPopupColorSizeCount = null
+                    it.contentText.set("")
+                }
+            }
+        }
     }
 }

@@ -2,7 +2,9 @@ package com.deti.brand.demand.create
 
 import android.app.Application
 import android.view.View
+import androidx.collection.ArraySet
 import androidx.databinding.ObservableField
+import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
@@ -18,8 +20,14 @@ import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
+import com.test.common.entity.CommonFindSizeDataBean
+import com.test.common.entity.CommonFindSizeEntity
+import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
+import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.popup.color.DemandColorDataBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.sql.Types
@@ -48,8 +56,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 款式分类一*/
     var mStyleList = arrayListOf<TypesViewDataBean?>()
+
     /** 尺码类型*/
-    var mSizeType = ""
+    /** 全局尺码组数据*/
+    var cFindSizeEntityData: CommonFindSizeEntity? = null
+    /** 选中的尺码类型*/
+    var mSizeTypeData: CommonFindSizeDataBean? = null
+
+    /** 选择的颜色*/
+    var mSelectColorDatas: ArraySet<DemandColorDataBean>? = null
+
     /** 交期*/
     var mTime = ""
 
@@ -136,6 +152,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         }
     }
 
+
     /** 款式类型 TODO 数据转换待处理*/
     fun formClickChooseStyle(view: View, entity: ItemFormChooseEntity){
         LogUtil.d("请求了")
@@ -183,8 +200,35 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     }
 
+    /** 尺码类型*/
+    fun formClickChooseSizeType(view: View, entity: ItemFormChooseEntity){
+        //1、先判断是否选了款式分类
+        if (mStyleList == null || mStyleList.size < 3) {
+            ToastUtil.showShortToast("请选择款式分类")
+            return
+        }
+        //2、获取尺码组数据
+        if (cFindSizeEntityData == null) {
+            launchRequest {
+                mModel.requestFindSize(mStyleList)
+                    .flowDataDeal(
+                        loadingModel = LoadingModel.LOADING,
+                        onSuccess = {
+                            cFindSizeEntityData = it?.data
+                            showChooseSizeTypeShow(view, entity)
+                        }
+                    )
+            }
+        }
+        showChooseSizeTypeShow(view, entity)
+    }
+
     /** 选择颜色*/
     fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
+        if (cFindSizeEntityData == null || mSizeTypeData == null) {
+            ToastUtil.showShortToast("请选择尺码类型")
+            return
+        }
         launchRequest {
             mModel.requestColorsList()
                 .flowDataDeal(
@@ -200,17 +244,41 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择尺码数量*/
     fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
-        FORM_SIZE_COUNT
+        if (mSelectColorDatas == null || mSelectColorDatas?.size!! <= 0) {
+            ToastUtil.showShortToast("请选择颜色")
+            return
+        }
+        var firstNode = arrayListOf<FirstNodeEntity>()
+        var secondNode = arrayListOf<BaseNode>()
+
+        mSelectColorDatas?.forEach {
+            mSizeTypeData?.sizeRangeList?.forEach {size ->
+                secondNode.add(SecondNodeEntity(0, size, 0, it.name))
+            }
+            firstNode.add(
+                FirstNodeEntity(
+                    it.id,
+                    it.name,
+                    0,
+                    secondNode
+                )
+            )
+        }
+        LiveDataBus.send(FORM_SIZE_COUNT, Pair(firstNode, entity))
     }
 
-    /** 尺码类型*/
-    fun formClickChooseSizeType(view: View, entity: ItemFormChooseEntity){
-        var datas = arrayListOf(
-            BaseSingleChoiceEntity("0", "数字码"),
-            BaseSingleChoiceEntity("1", "字母码")
-        )
-        LiveDataBus.send(CreateDemandFragment.FORM_SIZE_TYPE, Pair(datas, entity))
+    /** 尺码类型：弹窗*/
+    fun showChooseSizeTypeShow(view: View, entity: ItemFormChooseEntity){
+        //弹窗
+        cFindSizeEntityData?.apply {
+            var chooseData = arrayListOf<BaseSingleChoiceEntity>()
+            this.list.forEach { bean ->
+                chooseData.add(BaseSingleChoiceEntity(bean.id, bean.label))
+            }
+            LiveDataBus.send(CreateDemandFragment.FORM_SIZE_TYPE, Pair(chooseData, entity))
+        }
     }
+
 
     /** 交期*/
     fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){

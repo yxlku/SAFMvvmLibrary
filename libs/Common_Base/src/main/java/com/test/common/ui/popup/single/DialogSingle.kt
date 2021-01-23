@@ -46,7 +46,7 @@ fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
     selectedIsDismiss: Boolean = true,
     block: () -> Unit = {},
     /** 选中条目点击回调*/
-    callback: (entity: BaseSingleChoiceEntity) -> Unit = {},
+    callback: (entity: BaseSingleChoiceEntity, position: Int) -> Unit,
     /** 右侧按钮点击事件*/
     rightClick: (view: View?) -> Unit = {}
 ): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {

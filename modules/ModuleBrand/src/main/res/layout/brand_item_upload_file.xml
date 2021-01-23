@@ -54,7 +54,7 @@
             android:paddingEnd="14mm"
             android:paddingBottom="9mm"
             android:onClick="@{(view) -> viewModel.clickUploadFile(view, entity)}"
-            android:text='@{TextUtils.isEmpty(entity.filePath) == true ? entity.btnText : "已上传")}'
+            android:text='@{TextUtils.isEmpty(entity.filePath) == true ? entity.btnText : "已上传"}'
             android:textColor="#1B2643"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

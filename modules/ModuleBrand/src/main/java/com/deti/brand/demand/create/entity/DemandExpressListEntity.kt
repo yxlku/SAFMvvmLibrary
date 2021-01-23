@@ -1,6 +1,6 @@
 package com.deti.brand.demand.create.entity
 
-import com.test.common.common.entity.CommonDataDictionaryEntity
+import com.test.common.entity.CommonDataDictionaryEntity
 import java.io.Serializable
 
 /**

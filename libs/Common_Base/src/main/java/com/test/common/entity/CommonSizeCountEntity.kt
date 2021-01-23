@@ -1,4 +1,4 @@
-package com.test.common.common.entity
+package com.test.common.entity
 
 import java.io.Serializable
 

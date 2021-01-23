@@ -33,7 +33,7 @@ class DialogBottomSinglePopupView(
     var mHeightMultiple: Float = 0.7F,
     /** 选中后是否关闭弹窗*/
     var selectedIsDismiss: Boolean = true,
-    var callback: (entity: BaseSingleChoiceEntity) -> Unit,
+    var callback: (entity: BaseSingleChoiceEntity, position: Int) -> Unit,
     /** 右侧按钮点击事件*/
     var rightClick: (view: View?) -> Unit = {}
 ) : BottomPopupView(mActivit), View.OnClickListener {
@@ -75,7 +75,7 @@ class DialogBottomSinglePopupView(
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                 var mAdapter = adapter as DialogBottomSingleAdapter
                 mAdapter.selectedPosition = position
-                callback(mAdapter.getItem(position))
+                callback(mAdapter.getItem(position), position)
                 mAdapter.notifyDataSetChanged()
                 if (selectedIsDismiss) {
                     dismiss()

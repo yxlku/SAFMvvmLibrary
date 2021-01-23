@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemFormChooseBinding
 import com.deti.brand.demand.create.CreateDemandViewModel
-import com.deti.brand.msg.MsgViewModel
 
 /**
  * 表单-选择类型

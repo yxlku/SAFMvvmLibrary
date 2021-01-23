@@ -50,7 +50,7 @@ class ItemGoodsSizeCount: QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, B
                 )
                 secondNodes.add(secondNodeEntity)
             }
-            firstNode.add(FirstNodeEntity(i, "屎黄$i", 0, secondNodes))
+            firstNode.add(FirstNodeEntity("i", "屎黄$i", 0, secondNodes))
         }
         return firstNode
     }
