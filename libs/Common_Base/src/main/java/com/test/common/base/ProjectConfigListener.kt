@@ -27,7 +27,9 @@ class ProjectConfigListener: GlobalConfigInitListener {
     override fun initHeader(): ArrayMap<String, String> {
         LogUtil.d("头信息token")
         var headers: ArrayMap<String, String> = arrayMapOf()
-        headers.put("token", userInfoToken())
+//        headers.put("token", userInfoToken())
+        //TODO 不能及时更换
+        headers.put("token", "4d68ee97deef4d6297d167fd2f17b37f")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
         return headers

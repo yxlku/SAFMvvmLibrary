@@ -9,5 +9,7 @@ class FirstNodeEntity(
     var color: String = "",
     /** 数量*/
     var count: Int = 0,
+    /** 颜色代码*/
+    var colorCode: String = "",
     override val childNode: MutableList<BaseNode>,
 ) : BaseExpandNode()

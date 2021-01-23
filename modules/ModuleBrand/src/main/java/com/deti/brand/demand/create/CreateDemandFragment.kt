@@ -35,7 +35,12 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.JsonUtil
+import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.format2DateString
 import com.test.common.common.ConstantsFun
+import com.test.common.entity.CommonColorEntity
+import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
@@ -52,6 +57,8 @@ import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.type.createDialogLevelTypes
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 创建需求
@@ -98,9 +105,9 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         ConstantsFun.User.logoutClearInfo()
         ConstantsFun.User.loginSaveInfo(
             UserInfoEntity(
-                "1611813195743",
+                "1612008247901",
                 "EMP",
-                "1d70741e554043a48285b311e1064753"
+                "4d68ee97deef4d6297d167fd2f17b37f"
             )
         )
         //初始化列表
@@ -136,7 +143,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
-            addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder())
+            addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder(mViewModel))
 
         }
 
@@ -238,7 +245,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 activity?.apply {
                     if (mDialogServiceType == null) {
                         mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = { data, position->
-                            mViewModel.mServiceType.set(data.text)
+                            mViewModel.mServiceType.set(data)
+
                         })
                     }
                     mDialogServiceType?.show()
@@ -252,7 +260,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 activity?.apply {
                     if (mDialogServiceProduce == null) {
                         mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = { data, position->
-                            mViewModel.mServiceProduce.set(data.text)
+                            mViewModel.mServiceProduce.set(data)
                         })
                     }
                     mDialogServiceProduce?.show()
@@ -360,16 +368,22 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                   if (mPopupColorSizeCount == null) {
                       mPopupColorSizeCount = createDialogSizeCount(this, "选择尺码和设置数量", it.first){datas: List<BaseNode>, popupView: BasePopupView ->
                           var sb = StringBuilder()
+                          mViewModel.mColorSizeCountDatas.clear()
                           datas.forEach {
                               //1、点击的时候颜色数量不能为空
                               if(it is FirstNodeEntity && it.count <= 0){
                                   ToastUtil.showShortToast("${it.color} 未选择数量")
                                   return@createDialogSizeCount
                               }
+                              //尺码对应数量
+                              var sizeCountList = arrayListOf<CommonSizeCountEntity>()
                               //2、所有颜色都不为空的时候，拼接所有已选择的数据，展示到布局上
                               it.childNode?.forEach {
                                   var secondEntity = it as SecondNodeEntity
                                   if(secondEntity.count > 0) {
+                                      sizeCountList.add(
+                                          CommonSizeCountEntity(secondEntity.size, secondEntity.count)
+                                      )
                                       sb.append("【")
                                           .append(secondEntity.color)
                                           .append(": ")
@@ -378,6 +392,18 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                                           .append(secondEntity.count)
                                           .append("】 ")
                                   }
+                              }
+                              //提交数据数据拼接
+                              if (it is FirstNodeEntity) {
+                                  var colorEntity = CommonColorEntity(
+                                      mViewModel.mSizeTypeData?.id,
+                                      it.color,
+                                      it.colorCode,
+                                      sizeCountList
+                                  )
+                                  mViewModel.mColorSizeCountDatas.add(colorEntity)
+
+                                  LogUtil.d("colorsSizes: ${JsonUtil.toJson(mViewModel.mColorSizeCountDatas)}")
                               }
                           }
                           it.second.contentText.set(sb.toString())

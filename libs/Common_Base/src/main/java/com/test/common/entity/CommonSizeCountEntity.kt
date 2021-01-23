@@ -9,5 +9,5 @@ data class CommonSizeCountEntity(
     /** 尺码*/
     var size: String = "",
     /** 数量*/
-    var count: String = ""
+    var count: Int = 0
 ): Serializable

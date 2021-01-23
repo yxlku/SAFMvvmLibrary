@@ -4,6 +4,7 @@ import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
+import com.test.common.entity.CommoneEmpty
 import com.test.common.ui.popup.color.DemandColorListEntity
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -40,6 +41,16 @@ interface BrandApiService {
     suspend fun requestFindSize(
         @Body body: HashMap<String, String?>,
     ):BaseNetEntity<CommonFindSizeEntity?>
+
+    /**
+     * 需求单下单
+     */
+    @POST("http://192.168.81.27:9002/DETI-Demand/client/demandIndent/saveDemandIndentAPP")
+    suspend fun requestDemandSubmit(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<CommoneEmpty?>
+
+
 
 
 

@@ -6,12 +6,16 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16mm"
+        android:onClick="@{viewModel.clickPlaceOrder}"
         android:layout_marginEnd="16mm"
         android:background="@drawable/base_btn_yellow_bg">
 

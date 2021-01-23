@@ -23,6 +23,7 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
+import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
@@ -32,16 +33,17 @@ import com.test.common.ui.popup.color.DemandColorDataBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.sql.Types
+import java.util.*
 
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
 
-    /** 服务类型*/
-    var mServiceType = ObservableField<String>()
+    /** 服务类型*/    //TODO 统一改到Item中赋值
+    var mServiceType = ObservableField<BaseSingleChoiceEntity>()
     /** 对应服务*/
-    var mServiceProduce = ObservableField<String>()
+    var mServiceProduce = ObservableField<BaseSingleChoiceEntity>()
 
     /** 快递选择信息 -- 最后的数据信息 */
     var mExpressSingleChoiceEntity = ObservableField<BaseSingleChoiceEntity>()
@@ -68,11 +70,14 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mSelectColorDatas: ArraySet<DemandColorDataBean>? = null
 
     /** 交期*/
-    var mTime = ""
+    var mTime: String? = null
 
     /** 单价*/
     var mPrice = ObservableField<String>()
     var consumerPrice = BindingConsumer<String> { t -> mPrice.set(t)  }
+
+    /** 颜色-尺码-数量*/
+    var mColorSizeCountDatas = arrayListOf<CommonColorEntity>()
 
 
 
@@ -81,8 +86,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickServiceType(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("0", "包工包料"),
-            BaseSingleChoiceEntity("1", "纯加工"),
+            BaseSingleChoiceEntity("fob", "包工包料"),
+            BaseSingleChoiceEntity("cmt", "纯加工"),
         )
         LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
     }
@@ -91,8 +96,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickServiceProduce(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("0", "打版 + 生产"),
-            BaseSingleChoiceEntity("1", "仅生产"),
+            BaseSingleChoiceEntity("sample_bulk", "打版 + 生产"),
+            BaseSingleChoiceEntity("bulk", "仅生产"),
         )
         var pos = datas.indexOf(mServiceProduce.get())
         LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
@@ -156,7 +161,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 款式类型 TODO 数据转换待处理*/
     fun formClickChooseStyle(view: View, entity: ItemFormChooseEntity){
-        LogUtil.d("请求了")
         launchRequest {
             mModel.requestStyleInfo()
                 .flowDataDeal(
@@ -165,6 +169,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         it?.data?.apply {
                             var treeEntity = TypesTreeViewEntity()
                             var levelOne = arrayListOf<TypesViewDataBean>()
+
                             this.tree?.forEach {
                                 var levelTwo = arrayListOf<TypesViewDataBean>()
                                 it.children?.forEach {
@@ -172,18 +177,19 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                                     it.children?.forEach {
                                         var levelFour = arrayListOf<TypesViewDataBean>()
                                         it.children?.forEach {
-                                            var four = TypesViewDataBean(it.code, it.name, null)
+                                            var four = TypesViewDataBean(it.id, it.name, it.code, null)
                                             levelFour.add(four)
                                         }
-                                        var three = TypesViewDataBean(it.code, it.name, levelFour)
+                                        var three = TypesViewDataBean(it.id, it.name, it.code, levelFour)
                                         levelThree.add(three)
                                     }
-                                    var two = TypesViewDataBean(it.code, it.name, levelThree)
+                                    var two = TypesViewDataBean(it.id, it.name, it.code, levelThree)
                                     levelTwo.add(two)
                                 }
-                                var one = TypesViewDataBean(it.code, it.name, levelTwo)
+                                var one = TypesViewDataBean(it.id, it.name, it.code, levelTwo)
                                 levelOne.add(one)
                             }
+
                             treeEntity.childer = levelOne
                             LiveDataBus.send(FORM_STYLE_TYPE, Pair(treeEntity, entity))
                         }
@@ -261,6 +267,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                     it.id,
                     it.name,
                     0,
+                    it.code,
                     secondNode
                 )
             )
@@ -284,5 +291,55 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 交期*/
     fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
         LiveDataBus.send(CreateDemandFragment.FORM_TIME, entity)
+    }
+
+    /**
+     * 提交需求
+     */
+    fun clickPlaceOrder(view: View){
+
+        var testProvideList = arrayListOf(
+            "picture",//图片
+            "sample",//样衣
+            "fabric",//面料信息
+            "layout",//设计稿
+            "production_standard" //制版文件
+        )
+
+        var testPicList = arrayListOf(
+            "",
+            "",
+            "",
+        )
+        var testRem = ""
+        launchRequest {
+            mModel.requestDemandSubmit(
+                testProvideList,
+                mServiceType.get()?.id,
+                mServiceProduce.get()?.id,
+                mFilePathFabric,
+                mExpressSingleChoiceEntity.get()?.id,
+                mExpressNum.get(),
+                mFilePathPlate,
+                testPicList[0],
+                testPicList[1],
+                testPicList,
+                mStyleList[0]?.code,
+                mStyleList[1]?.code,
+                mStyleList[2]?.code,
+                mStyleList[3]?.code,
+                mColorSizeCountDatas,
+                mPrice.get()?.toDouble(),
+                mTime,
+                testRem
+            ).flowDataDeal(
+                loadingModel = LoadingModel.LOADING,
+                onSuccess = {
+                    ToastUtil.showShortToast("需求提交成功")
+                }
+            )
+        }
+
+
     }
 }

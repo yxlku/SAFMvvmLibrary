@@ -17,6 +17,10 @@ open class TypesViewDataBean(
      */
     var text: String = "",
     /**
+     * code
+     */
+    var code: String = "",
+    /**
      * 子列表，这个层级控制有基层rv
      */
     var childer: List<TypesViewDataBean>? = null

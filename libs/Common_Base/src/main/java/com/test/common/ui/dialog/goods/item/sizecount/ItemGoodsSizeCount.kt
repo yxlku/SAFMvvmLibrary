@@ -31,27 +31,27 @@ class ItemGoodsSizeCount: QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, B
                 adapter = mAdapter
             }
             //模拟数据
-            mAdapter.setList(testData())
+//            mAdapter.setList(testData())
             executePendingBindings()
         }
     }
 
 
-    fun testData(): List<FirstNodeEntity> {
-        var firstNode = arrayListOf<FirstNodeEntity>()
-        for (i in 0 until 3) {
-            var secondNodes = arrayListOf<BaseNode>()
-            for (j in 0 until 5) {
-                var secondNodeEntity = SecondNodeEntity(
-                    j,
-                    "${j}xs",
-                    0,
-                    "屎黄$i"
-                )
-                secondNodes.add(secondNodeEntity)
-            }
-            firstNode.add(FirstNodeEntity("i", "屎黄$i", 0, secondNodes))
-        }
-        return firstNode
-    }
+//    fun testData(): List<FirstNodeEntity> {
+//        var firstNode = arrayListOf<FirstNodeEntity>()
+//        for (i in 0 until 3) {
+//            var secondNodes = arrayListOf<BaseNode>()
+//            for (j in 0 until 5) {
+//                var secondNodeEntity = SecondNodeEntity(
+//                    j,
+//                    "${j}xs",
+//                    0,
+//                    "屎黄$i"
+//                )
+//                secondNodes.add(secondNodeEntity)
+//            }
+//            firstNode.add(FirstNodeEntity("i", "屎黄$i", 0, secondNodes))
+//        }
+//        return firstNode
+//    }
 }
