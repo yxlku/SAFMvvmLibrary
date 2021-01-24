@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text='@{TextUtils.isEmpty(entity.showText)? "选择已有信息 * " : entity.showText}'
+            android:text='@{TextUtils.isEmpty(entity.showText)? "选择已有信息" : entity.showText}'
             android:textSize="14mm"
             android:textStyle="bold" />
 
@@ -56,7 +56,8 @@
             android:layout_weight="1"
             android:visibility='@{TextUtils.isEmpty(entity.showText)? View.VISIBLE : View.GONE}'
             android:text="*"
-            android:textSize="14mm"
+            android:textSize="16mm"
+            android:textColor="#FE3A4A"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

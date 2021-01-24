@@ -25,10 +25,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16mm"
-            android:text="请上传图片 *"
+            android:text="请上传图片"
             android:textColor="#1B2643"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5mm"
+            android:text="*"
+            android:textColor="#FE3A4A"
+            android:textSize="16mm"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/brand_textview2"
+            app:layout_constraintBottom_toBottomOf="@id/brand_textview2"
+            app:layout_constraintTop_toTopOf="@id/brand_textview2" />
 
         <TextView
             android:layout_marginEnd="16mm"

@@ -38,7 +38,6 @@ import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.format2DateString
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
@@ -61,7 +60,6 @@ import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.type.createDialogLevelTypes
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * 创建需求
@@ -156,43 +154,23 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
+
     }
 
     override fun onStart() {
         super.onStart()
         //VM
-        var basicsListData = arrayListOf(
-            //提示完善个人信息
-            ItemPersonalInfoEntity(),
+        //初始化列表
+        var listInitItem = arrayListOf(
 
             //选择需求类型
-            ItemDeamandTypeChooseEntity(),
+            itemEntityTypeChoose,
 
             //透明分割线
             ItemTransparentLineEntity(context),
             //服务
-            ItemServiceEntity(),
+            itemEntityService,
 
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //快递
-            ItemExpressEntity(),
-
-            //图片
-            ItemPicChooseEntity(),
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //上传面料信息
-            ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息"),
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //上传制版信息
-            ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件"),
-        )
-
-        colorInfoList = arrayListOf(
             //分组标题 //请填写服务详细信息
             ItemGroupTitleEntity("请填写服务详细信息"),
             //分割线
@@ -203,19 +181,17 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //分割线
             ItemGrayLineEntity(context),
             //尺码类型
-            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码"),
+            itemEntityFormSizeType,
 
             //分割线
             ItemGrayLineEntity(context),
             //颜色选择
-            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色"),
+            itemEntityFormColor,
             //分割线
             ItemGrayLineEntity(context),
-            //颜色选择
-            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个"),
-        )
+            //尺码数量
+            itemEntityFormSizeCount,
 
-        var otherList = arrayListOf(
             //透明分割线
             ItemTransparentLineEntity(context),
             ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元"),
@@ -236,11 +212,59 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             ItemPlaceOrderEntity(),
             ItemTransparentLineEntity(context),
         )
-        basicsListData.addAll(colorInfoList)
-        basicsListData.addAll(otherList)
-        mAdapter.setList(basicsListData)
+        mAdapter.setList(listInitItem)
+
+        //TODO 个人信息完善，需要判断显示
+        addOrRemove(itemEntityPersonal, true, 0)
+    }
+    //完善个人信息
+    var itemEntityPersonal = ItemPersonalInfoEntity()
+    //服务
+    var itemEntityService = ItemServiceEntity()
+    //类型选择
+    var itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
+    //图片
+    var itemEntityPic = ItemPicChooseEntity()
+    //面料信息
+    var itemEntityFabric = ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
+    //样衣 TODO 还没有在Vm中设置值
+    var itemEntitySamplelothes = ItemUploadFileEntity(FILE_FABRIC, "请上传样衣信息", "(选填)", "上传样衣信息")
+    //设计稿 TODO 还没有在Vm中设置值
+    var itemEntityDesignDraft = ItemUploadFileEntity(FILE_FABRIC, "请上传设计稿信息", "(选填)", "上传设计稿信息")
+    //制版文件
+    var itemEntityPlate = ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
+    //快递
+    var itemEntityExpress = ItemExpressEntity()
+
+    //尺码类型
+    var itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
+    //颜色选择
+    var itemEntityFormColor = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色")
+    //尺码数量
+    var itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
+
+    /** 类型选择控制显示隐藏对应的布局*/
+    fun controlListFunction(checkEntity: BaseMultipleChoiceEntity){
+        var pos = mAdapter.getItemPosition(itemEntityTypeChoose) + 1
+        when (checkEntity.id) {
+            "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
+            "sample" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
+            "fabric" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
+            "layout" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
+            "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
+        }
     }
 
+    /**
+     * 添加或删除item
+     */
+    fun addOrRemove(item: Any, isShow: Boolean, pos: Int = 0){
+        if (isShow) {
+            mAdapter.addData(pos, item)
+        }else{
+            mAdapter.remove(item)
+        }
+    }
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
         /** 类型选择*/
@@ -261,19 +285,23 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                                     if (!it.types.contains(checkEntity.text)) {
                                         it.types.add(checkEntity.text)
                                         mViewModel.mChooseTypes.add(checkEntity)
+                                        //控制布局
+                                        controlListFunction(checkEntity)
                                     }
                                 }else{
                                     if (it.types.contains(checkEntity.text)) {
                                         it.types.remove(checkEntity.text)
                                         mViewModel.mChooseTypes.remove(checkEntity)
+                                        //控制布局
+                                        controlListFunction(checkEntity)
                                     }
                                 }
+
                                 var showTextSb = java.lang.StringBuilder()
                                 it.types.forEach {
                                     showTextSb.append(it).append(" / ")
                                 }
                                 it.showText.set(showTextSb.toString())
-
                             }
                         )
                     }
@@ -288,7 +316,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                     if (mDialogServiceType == null) {
                         mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = { data, position->
                             mViewModel.mServiceType.set(data)
-
                         })
                     }
                     mDialogServiceType?.show()
@@ -303,6 +330,14 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                     if (mDialogServiceProduce == null) {
                         mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = { data, position->
                             mViewModel.mServiceProduce.set(data)
+                            if (data.id == "sample_bulk") {
+                                if (mAdapter.getItemPosition(itemEntityExpress) == -1) {
+                                    //打板+生产的时候要显示快递单号和地址
+                                    addOrRemove(itemEntityExpress, true, mAdapter.getItemPosition(itemEntityService)+1)
+                                }
+                            }else{
+                                addOrRemove(itemEntityExpress, false, mAdapter.getItemPosition(itemEntityService)+1)
+                            }
                         })
                     }
                     mDialogServiceProduce?.show()
@@ -483,44 +518,24 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     /** 弹窗：尺寸数量*/
     var mPopupColorSizeCount: BasePopupView? = null
 
-    /** 颜色信息相关组件列表*/
-    var colorInfoList = arrayListOf<Any>()
 
-    /** 清除信息：尺寸类型*/
+    /** 清除信息：尺码类型*/
     fun clearInfoSizeType(){
-        colorInfoList.forEach {
-            if (it is ItemFormChooseEntity) {
-                if (it.tag == ItemFormChooseType.CHOOSE_SIZE_TYPE) {
-                    mViewModel.mSizeTypeData = null
-                    mPopupSizeType = null
-                    it.contentText.set("")
-                }
-            }
-        }
+        mViewModel.mSizeTypeData = null
+        mPopupSizeType = null
+        itemEntityFormSizeType.contentText.set("")
     }
 
     /** 清除信息：选择的颜色*/
     fun clearInfoColors(){
-        colorInfoList.forEach {
-            if (it is ItemFormChooseEntity) {
-                if (it.tag == ItemFormChooseType.CHOOSE_COLOR) {
-                    mViewModel.mSelectColorDatas = null
-                    mPopupColor = null
-                    it.contentText.set("")
-                }
-            }
-        }
+        mViewModel.mSelectColorDatas = null
+        mPopupColor = null
+        itemEntityFormColor.contentText.set("")
     }
     /** 清除信息：尺码数量*/
     fun clearInfoSizeCount(){
-        colorInfoList.forEach {
-            if (it is ItemFormChooseEntity) {
-                if (it.tag == ItemFormChooseType.CHOOSE_SIZE_COUNT) {
-                    //尺码数量
-                    mPopupColorSizeCount = null
-                    it.contentText.set("")
-                }
-            }
-        }
+        //尺码数量
+        mPopupColorSizeCount = null
+        itemEntityFormSizeCount.contentText.set("")
     }
 }

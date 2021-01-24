@@ -24,15 +24,6 @@ class ItemPicChoose(
 ): QuickDataBindingItemBinder<ItemPicChooseEntity, BrandItemPicChooseBinding>() {
     var mViewMode = ItemPicChooseViewModel(mActivity)
 
-    var mSpannableGridLayoutManager = SpannableGridLayoutManager(object : SpannableGridLayoutManager.GridSpanLookup {
-        override fun getSpanInfo(position: Int): SpanInfo {
-            return if (position === 0) {
-                SpanInfo(2, 2)
-            } else {
-                SpanInfo(1, 1)
-            }
-        }
-    }, 4, 0.9F)
 
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemPicChooseBinding>,
@@ -45,7 +36,15 @@ class ItemPicChoose(
 
         var mAdapter = ItemPicChooseItemAdapter(mActivity, adapter)
         binding.rvPics.apply {
-            layoutManager = mSpannableGridLayoutManager
+            layoutManager = SpannableGridLayoutManager(object : SpannableGridLayoutManager.GridSpanLookup {
+                override fun getSpanInfo(position: Int): SpanInfo {
+                    return if (position === 0) {
+                        SpanInfo(2, 2)
+                    } else {
+                        SpanInfo(1, 1)
+                    }
+                }
+            }, 4, 0.9F)
             adapter = mAdapter
         }
         var list = arrayListOf<ItemPicChooseItemEntity>()
