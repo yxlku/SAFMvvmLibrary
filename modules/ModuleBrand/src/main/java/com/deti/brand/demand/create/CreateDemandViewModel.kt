@@ -24,6 +24,7 @@ import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
@@ -33,6 +34,8 @@ import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorDataBean
+import com.test.common.ui.popup.color.DemandColorListDataBean
+import com.test.common.ui.popup.color.DemandColorListEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.lang.Exception
@@ -245,22 +248,49 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择颜色*/
     fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
-        if (cFindSizeEntityData == null || mSizeTypeData == null) {
-            ToastUtil.showShortToast("请选择尺码类型")
-            return
-        }
-        launchRequest {
-            mModel.requestColorsList()
-                .flowDataDeal(
-                    loadingModel = LoadingModel.NULL,
-                    onSuccess = {
-                        it?.data.apply {
-                            LiveDataBus.send(FORM_COLORS, Pair(entity, this))
-                        }
-                    }
-                )
-        }
+//        if (cFindSizeEntityData == null || mSizeTypeData == null) {
+//            ToastUtil.showShortToast("请选择尺码类型")
+//            return
+//        }
+//        launchRequest {
+//            mModel.requestColorsList()
+//                .flowDataDeal(
+//                    loadingModel = LoadingModel.NULL,
+//                    onSuccess = {
+//                        it?.data.apply {
+//                            LiveDataBus.send(FORM_COLORS, Pair(entity, this))
+//                        }
+//                    }
+//                )
+//        }
+
+        LiveDataBus.send(FORM_COLORS, Pair(entity, testData()))
+
     }
+
+    fun testData(): DemandColorListEntity {
+        var entity = DemandColorListEntity()
+        var pageDatas = arrayListOf<DemandColorListDataBean>()
+        for (i in 0 until  5){
+            var twos = arrayListOf<DemandColorDataBean>()
+            for (j in 0 until 6){
+                var two = DemandColorDataBean(
+                    "id:$i$j",
+                    name = "name:$i$j"
+                )
+                twos.add(two)
+            }
+            var one = DemandColorListDataBean(
+                "code$i",
+                text = "颜色$i",
+                children = twos
+            )
+            pageDatas.add(one)
+        }
+        entity.pageData = pageDatas
+        return entity
+    }
+
 
     /** 选择尺码数量*/
     fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
