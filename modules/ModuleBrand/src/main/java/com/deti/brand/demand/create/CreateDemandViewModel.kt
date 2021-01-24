@@ -5,6 +5,7 @@ import android.view.View
 import androidx.collection.ArraySet
 import androidx.databinding.ObservableField
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_CHOOSE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_ADDRESS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
@@ -12,6 +13,7 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COU
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.entity.DemandStyleEntity
+import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseType
@@ -26,12 +28,15 @@ import com.safmvvm.utils.LogUtil
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
+import com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorDataBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.lang.Exception
+import java.lang.StringBuilder
 import java.sql.Types
 import java.util.*
 
@@ -39,6 +44,9 @@ import java.util.*
 @FlowPreview
 @ExperimentalCoroutinesApi
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
+
+    /** 类型选择*/
+    var mChooseTypes = arrayListOf<BaseMultipleChoiceEntity>()
 
     /** 服务类型*/    //TODO 统一改到Item中赋值
     var mServiceType = ObservableField<BaseSingleChoiceEntity>()
@@ -80,7 +88,12 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mColorSizeCountDatas = arrayListOf<CommonColorEntity>()
 
 
-
+    /**
+     * 类型选择
+     */
+    fun clickChooseTypeDialog(view: View, entity: ItemDeamandTypeChooseEntity){
+        LiveDataBus.send(DIALOG_CHOOSE_TYPE, entity)
+    }
     /**
      * 服务类型
      */
@@ -164,7 +177,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         launchRequest {
             mModel.requestStyleInfo()
                 .flowDataDeal(
-                    loadingModel = LoadingModel.NULL,
+                    loadingModel = LoadingModel.LOADING,
                     onSuccess = {
                         it?.data?.apply {
                             var treeEntity = TypesTreeViewEntity()
@@ -297,7 +310,11 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
-
+        var sb = StringBuilder()
+        mChooseTypes.forEach {
+            sb.append("id: ${it.id} - text: ${it.text}")
+        }
+        LogUtil.d(sb.toString())
         var testProvideList = arrayListOf(
             "picture",//图片
             "sample",//样衣
@@ -313,33 +330,44 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         )
         var testRem = ""
         launchRequest {
-            mModel.requestDemandSubmit(
-                testProvideList,
-                mServiceType.get()?.id,
-                mServiceProduce.get()?.id,
-                mFilePathFabric,
-                mExpressSingleChoiceEntity.get()?.id,
-                mExpressNum.get(),
-                mFilePathPlate,
-                testPicList[0],
-                testPicList[1],
-                testPicList,
-                mStyleList[0]?.code,
-                mStyleList[1]?.code,
-                mStyleList[2]?.code,
-                mStyleList[3]?.code,
-                mColorSizeCountDatas,
-                mPrice.get()?.toDouble(),
-                mTime,
-                testRem
-            ).flowDataDeal(
-                loadingModel = LoadingModel.LOADING,
-                onSuccess = {
-                    ToastUtil.showShortToast("需求提交成功")
-                }
-            )
+            try {
+                mModel.requestDemandSubmit(
+                    testProvideList,
+                    mServiceType.get()?.id,
+                    mServiceProduce.get()?.id,
+                    mFilePathFabric,
+                    mExpressSingleChoiceEntity.get()?.id,
+                    mExpressNum.get(),
+                    mFilePathPlate,
+                    testPicList[0],
+                    testPicList[1],
+                    testPicList,
+                    mStyleList[0]?.code,
+                    mStyleList[1]?.code,
+                    mStyleList[2]?.code,
+                    mStyleList[3]?.code,
+                    mColorSizeCountDatas,
+                    mPrice.get()?.toDouble(),
+                    mTime,
+                    testRem
+                ).flowDataDeal(
+                    loadingModel = LoadingModel.LOADING,
+                    onSuccess = {
+                        ToastUtil.showShortToast("需求提交成功")
+                    }
+                )
+            }catch (ex: Exception){
+                ex.printStackTrace()
+            }
         }
+    }
 
+    /**
+     * 提交前的限制 和 提醒
+     */
+    fun submitLimit(): Boolean{
+        var isAllowSubmit = true
 
+        return isAllowSubmit
     }
 }

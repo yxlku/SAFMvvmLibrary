@@ -34,7 +34,7 @@
             android:drawableRight="@drawable/base_dialog_checkbox_selector"
             android:text="@{entity.text}"
             android:textColor="#1B2643"
-            android:textSize="18mm" />
+            android:textSize="14mm" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -22,12 +22,12 @@ class MultipleChoiceAdapter(
 
         holder.dataBinding?.apply {
             entity = item.apply {
-                mViewModel.selectedPosition.putValue(item.isS)
+                mViewModel.selectedPosition.putValue(item.isSelected)
             }
             viewModel = mViewModel
             cbItem.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                 override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                    item.isS = isChecked
+                    item.isSelected = isChecked
                     mViewModel.selectedPosition.putValue(isChecked)
                     callback?.let { it(buttonView, isChecked, item) }
                 }

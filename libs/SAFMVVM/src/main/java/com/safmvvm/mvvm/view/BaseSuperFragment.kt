@@ -70,6 +70,8 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         initViewObservable()
         //初始化数据
         initData()
+        //等待弹窗初始化
+        initLoadDialog()
     }
 
     /**

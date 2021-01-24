@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create
 
 import android.view.View
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
@@ -43,6 +44,8 @@ import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
+import com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity
+import com.test.common.ui.dialog.multiple.createDialogSelectedMultiple
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
@@ -68,6 +71,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     BR.viewModel
 ) {
     companion object {
+        /** 类型选择*/
+        const val DIALOG_CHOOSE_TYPE = "dialog_choose_type"
         /** 服务类型弹窗*/
         const val DIALOG_SERVICE_TYPE = "dialog_service_type"
         /** 对应服务弹窗*/
@@ -125,7 +130,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
 
             //类型选择
-            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity))
+            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(mViewModel))
             //服务
             addItemBinder(ItemServiceEntity::class.java, ItemService(mViewModel))
             //快递
@@ -238,6 +243,43 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
+        /** 类型选择*/
+        LiveDataBus.observe<ItemDeamandTypeChooseEntity>(this, DIALOG_CHOOSE_TYPE, {
+                activity?.apply {
+                    if(mPopupChooseType == null){
+                        mPopupChooseType = arrayListOf(
+                            BaseMultipleChoiceEntity("picture","图片", true),
+                            BaseMultipleChoiceEntity("sample", "面料信息", false),
+                            BaseMultipleChoiceEntity("fabric", "样衣", false),
+                            BaseMultipleChoiceEntity("layout", "设计稿", false),
+                            BaseMultipleChoiceEntity("production_standard", "制版文件", false),
+                        ).createDialogSelectedMultiple(
+                            this, "请选择服务类型",
+                            callback = { buttonView: CompoundButton?, isChecked: Boolean, checkEntity: BaseMultipleChoiceEntity ->
+                                //选中状态更新
+                                if (checkEntity.isSelected) {
+                                    if (!it.types.contains(checkEntity.text)) {
+                                        it.types.add(checkEntity.text)
+                                        mViewModel.mChooseTypes.add(checkEntity)
+                                    }
+                                }else{
+                                    if (it.types.contains(checkEntity.text)) {
+                                        it.types.remove(checkEntity.text)
+                                        mViewModel.mChooseTypes.remove(checkEntity)
+                                    }
+                                }
+                                var showTextSb = java.lang.StringBuilder()
+                                it.types.forEach {
+                                    showTextSb.append(it).append(" / ")
+                                }
+                                it.showText.set(showTextSb.toString())
+
+                            }
+                        )
+                    }
+                    mPopupChooseType?.show()
+                }
+        }, false)
         /** 选择服务类型*/
         LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
             DIALOG_SERVICE_TYPE,
@@ -428,7 +470,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             mPopupTime?.show()
         }, false)
     }
-
+    /** 弹窗： 类型选择*/
+    var mPopupChooseType: BasePopupView? = null
     /** 弹窗：款式分类*/
     var mPopupStyle: BasePopupView? = null
     /** 弹窗：尺码类型*/

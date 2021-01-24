@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemDemandTypeChooseBinding
+import com.deti.brand.demand.create.CreateDemandViewModel
 
 class ItemDeamndTypeChoose(
-    var mActivity: Activity?
+    var mViewModel: CreateDemandViewModel
 ): QuickDataBindingItemBinder<ItemDeamandTypeChooseEntity, BrandItemDemandTypeChooseBinding>() {
-
-    var mViewModel = ItemDeamandTypeViewModel(mActivity)
 
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemDemandTypeChooseBinding>,
@@ -18,9 +17,7 @@ class ItemDeamndTypeChoose(
     ) {
         var binding = holder.dataBinding
         binding.entity = data
-        binding.viewModel = mViewModel.apply {
-            mAdapter = adapter
-        }
+        binding.viewModel = mViewModel
         binding.executePendingBindings()
     }
 

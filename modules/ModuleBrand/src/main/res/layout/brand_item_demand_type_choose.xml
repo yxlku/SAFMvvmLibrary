@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.safmvvm.utils.encrypt.base.TextUtils"/>
+
+        <import type="com.safmvvm.utils.encrypt.base.TextUtils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity" />
+
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeViewModel" />
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:onClick="@{(view) -> viewModel.clickChooseTypeDialog(view, entity)}"
         android:id="@+id/ll_top_2"
         android:layout_width="match_parent"
@@ -29,7 +35,14 @@
         android:visibility="visible">
 
         <TextView
-            android:layout_width="0mm"
+            android:id="@+id/tv_text"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="270mm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text='@{TextUtils.isEmpty(entity.showText)? "选择已有信息 * " : entity.showText}'
@@ -37,11 +50,29 @@
             android:textStyle="bold" />
 
         <TextView
+            app:layout_constraintStart_toEndOf="@id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility='@{TextUtils.isEmpty(entity.showText)? View.VISIBLE : View.GONE}'
+            android:text="*"
+            android:textSize="14mm"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/brand_memand_create_arrow_gray"
             android:drawablePadding="2mm"
             android:text="请选择"
             android:textColor="#CCCCCC" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

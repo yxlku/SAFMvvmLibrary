@@ -55,7 +55,8 @@ open class CommonAppApplication : ComponentBaseApp() {
             //标题栏通用返回按钮
             .titleBarBackIcon(R.drawable.base_title_back_white)
 
-            .loadingLayoutText("等待中。。。")
+            .loadingLayoutText("加载中")
+            .loadingLayoutId(R.layout.saf_loading_layout)
             .pageStateLoading(CusLoadStatePage::class.java)
 
             .pageStateDefErrorMsg("Error了，肯定是手机有问题！代码没问题")
