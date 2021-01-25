@@ -135,7 +135,6 @@ class ColorsPopupView(
                     }
                 }
                 adapterSelected.notifyDataSetChanged()
-
             }
         })
         //点击选中列表只代表删除对应子项

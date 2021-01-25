@@ -9,6 +9,9 @@
         <import type="com.safmvvm.utils.encrypt.base.TextUtils" />
 
         <variable
+            name="entity"
+            type="com.deti.brand.demand.create.item.express.ItemExpressEntity" />
+        <variable
             name="viewModel"
             type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
@@ -17,6 +20,7 @@
         android:layout_marginTop="20mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="@{entity.isShow == true? View.VISIBLE: View.GONE}"
         android:layout_marginStart="16mm"
         android:layout_marginEnd="16mm"
         android:orientation="vertical">

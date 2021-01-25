@@ -242,7 +242,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                     )
 //            }
         }
-        showChooseSizeTypeShow(view, entity)
+//        showChooseSizeTypeShow(view, entity)
     }
 
     /** 选择颜色*/

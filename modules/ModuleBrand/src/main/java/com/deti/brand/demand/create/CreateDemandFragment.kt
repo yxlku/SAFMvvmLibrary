@@ -59,6 +59,7 @@ import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.type.createDialogLevelTypes
+import com.zlylib.fileselectorlib.utils.DateUtils
 import java.util.*
 
 /**
@@ -223,6 +224,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     var itemEntityService = ItemServiceEntity()
     //类型选择
     var itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
+
     //图片
     var itemEntityPic = ItemPicChooseEntity()
     //面料信息
@@ -245,13 +247,14 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     fun controlListFunction(checkEntity: BaseMultipleChoiceEntity){
         var pos = mAdapter.getItemPosition(itemEntityTypeChoose) + 1
         when (checkEntity.id) {
-            "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
-            "sample" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
-            "fabric" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
-            "layout" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
-            "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
+            "PICTURE" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
+            "SAMPLE" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
+            "FABRIC" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
+            "LAYOUT" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
+            "PRODUCTION_STANDARD" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
         }
     }
+
 
     /**
      * 添加或删除item
@@ -487,8 +490,13 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 activity?.apply {
                     mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String ->
                         var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
-                        it.contentText.set(time)
-                        mViewModel.mTime = time
+                        var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
+                        if(day >= 14) {
+                            it.contentText.set(time)
+                            mViewModel.mTime = time
+                        }else{
+                            ToastUtil.showShortToast("交期最低14天")
+                        }
                     }
                 }
             }

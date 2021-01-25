@@ -18,6 +18,7 @@ class ItemExpress(
     ) {
         var binding = holder.dataBinding
         binding?.apply {
+            entity = data
             viewModel = mViewModel
             executePendingBindings()
         }
