@@ -26,6 +26,7 @@ import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.encrypt.base.TextUtils
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
@@ -67,6 +68,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mFilePathFabric = ""
     /** 制版文件地址*/
     var mFilePathPlate = ""
+    /** 设计稿*/
+    var mFilePathDesign = ""
 
     /** 款式分类一*/
     var mStyleList = arrayListOf<TypesViewDataBean?>()
@@ -78,7 +81,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mSizeTypeData: CommonFindSizeDataBean? = null
 
     /** 选择的颜色*/
-    var mSelectColorDatas: ArrayList<DemandColorDataBean>? = null
+    var mSelectColorDatas: ArrayList<DemandColorDataBean> = arrayListOf()
 
     /** 交期*/
     var mTime: String? = null
@@ -89,6 +92,10 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 颜色-尺码-数量*/
     var mColorSizeCountDatas = arrayListOf<CommonColorEntity>()
+
+    /** 备注*/
+    var mRemark = ObservableField<String>()
+    var consumerRemark = BindingConsumer<String> { t -> mRemark.set(t) }
 
 
     /**
@@ -315,46 +322,50 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
-        var sb = StringBuilder()
-        mChooseTypes.forEach {
-            sb.append("id: ${it.id} - text: ${it.text}")
+        //提交前的限制 和 提醒
+        if(mChooseTypes.size <= 0){
+            ToastUtil.showShortToast("请先选择需求类型")
+            return
         }
-        LogUtil.d(sb.toString())
-        var testProvideList = arrayListOf(
-            "PICTURE",//图片
-            "SAMPLE",//样衣
-            "FABRIC",//面料信息
-            "LAYOUT",//设计稿
-            "PRODUCTION_STANDARD" //制版文件
-        )
+        if(mServiceProduce.get() == null || mServiceProduce.get()?.id.isNullOrEmpty()){
+            ToastUtil.showShortToast("请先选择服务类型")
+            return
+        }
+        if(mServiceType.get() == null || mServiceType.get()?.id.isNullOrEmpty()){
+            ToastUtil.showShortToast("请先选择对应服务")
+            return
+        }
+        //TODO 正面图片判断
 
-        var testPicList = arrayListOf(
-            "111",
-            "22222",
-            "",
-        )
-        var testRem = ""
+        if(mStyleList.size <= 0){
+            ToastUtil.showShortToast("请添加款式分类")
+            return
+        }
+        if (mSizeTypeData == null) {
+            ToastUtil.showShortToast("请选择尺码类型")
+            return
+        }
+        if (mSelectColorDatas.size <= 0) {
+            ToastUtil.showShortToast("请选择颜色")
+            return
+        }
+        if(mColorSizeCountDatas.size <= 0){
+            ToastUtil.showShortToast("请添加尺码数量")
+            return
+        }
+        if (mPrice.get().isNullOrEmpty()) {
+            ToastUtil.showShortToast("请输入预算单价")
+            return
+        }
+        if (mTime.isNullOrEmpty()) {
+            ToastUtil.showShortToast("请设置交期")
+            return
+        }
+
         launchRequest {
             try {
                 mModel.requestDemandSubmit(
-                    testProvideList,
-                    mServiceType.get()?.id,
-                    mServiceProduce.get()?.id,
-                    mFilePathFabric,
-                    mExpressSingleChoiceEntity.get()?.id,
-                    mExpressNum.get(),
-                    mFilePathPlate,
-                    testPicList[0],
-                    testPicList[1],
-                    testPicList,
-                    mStyleList[0]?.code,
-                    mStyleList[1]?.code,
-                    mStyleList[2]?.code,
-                    mStyleList[3]?.code,
-                    mColorSizeCountDatas,
-                    mPrice.get()?.toDouble(),
-                    mTime,
-                    testRem
+                    this@CreateDemandViewModel,
                 ).flowDataDeal(
                     loadingModel = LoadingModel.LOADING,
                     onSuccess = {
@@ -367,12 +378,4 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         }
     }
 
-    /**
-     * 提交前的限制 和 提醒
-     */
-    fun submitLimit(): Boolean{
-        var isAllowSubmit = true
-
-        return isAllowSubmit
-    }
 }

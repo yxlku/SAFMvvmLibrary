@@ -24,4 +24,6 @@ object ItemUploadFileEnum{
     var FILE_FABRIC = 0
     /** 制版文件*/
     var FILE_PLATE = 1
+    /** 设计稿*/
+    var FILE_DESIGN = 2
 }

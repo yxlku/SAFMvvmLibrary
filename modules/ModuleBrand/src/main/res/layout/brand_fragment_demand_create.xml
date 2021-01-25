@@ -11,6 +11,8 @@
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:srlEnableRefresh="false"
         app:srlEnableLoadMore="false"
         app:srlEnableOverScrollDrag="true"

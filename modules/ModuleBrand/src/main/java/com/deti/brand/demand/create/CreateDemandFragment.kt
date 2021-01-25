@@ -15,6 +15,7 @@ import com.deti.brand.demand.create.item.express.ItemExpress
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFile
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
+import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_DESIGN
 import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_FABRIC
 import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_PLATE
 import com.deti.brand.demand.create.item.form.*
@@ -232,7 +233,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     //样衣 TODO 还没有在Vm中设置值
     var itemEntitySamplelothes = ItemExpressEntity()
     //设计稿 TODO 还没有在Vm中设置值
-    var itemEntityDesignDraft = ItemUploadFileEntity(FILE_FABRIC, "请上传设计稿信息", "(选填)", "上传设计稿信息")
+    var itemEntityDesignDraft = ItemUploadFileEntity(FILE_DESIGN, "请上传设计稿", "(选填)", "上传设计稿")
     //制版文件
     var itemEntityPlate = ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
 
@@ -367,6 +368,9 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                     FILE_PLATE -> { //制版文件
                         mViewModel.mFilePathPlate  = filePath
                     }
+                    FILE_DESIGN -> { //设计稿
+                        mViewModel.mFilePathDesign = filePath
+                    }
                 }
             }
         }, false)
@@ -488,12 +492,13 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         LiveDataBus.observe<ItemFormChooseEntity>(this, FORM_TIME, {
             if (mPopupTime == null) {
                 activity?.apply {
-                    mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String ->
+                    mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
                         var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
                         var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
                         if(day >= 14) {
                             it.contentText.set(time)
                             mViewModel.mTime = time
+                            popupView.dismiss()
                         }else{
                             ToastUtil.showShortToast("交期最低14天")
                         }
@@ -526,7 +531,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
     /** 清除信息：选择的颜色*/
     fun clearInfoColors(){
-        mViewModel.mSelectColorDatas = null
+        mViewModel.mSelectColorDatas = arrayListOf()
         mPopupColor = null
         itemEntityFormColor.contentText.set("")
     }

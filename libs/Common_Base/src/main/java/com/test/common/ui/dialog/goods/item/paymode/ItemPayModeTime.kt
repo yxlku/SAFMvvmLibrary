@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.loper7.date_time_picker.StringUtils
+import com.lxj.xpopup.core.BasePopupView
 import com.test.common.databinding.BaseDialogItemGoodsDetailPaymodeTimeBinding
 import com.test.common.ui.popup.time.createDialogDate
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
@@ -26,7 +27,7 @@ class ItemPayModeTime(
         binding.apply {
             entity = data
             llTime.setOnClickListener {
-                createDialogDate(mActivity, "请选择时间") { millisecond: Long, time: String ->
+                createDialogDate(mActivity, "请选择时间") { millisecond: Long, time: String, popupView: BasePopupView ->
                     binding?.entity?.time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
                     adapter.notifyDataSetChanged()
                 }.show()

@@ -13,7 +13,7 @@ import com.test.common.ui.popup.createDialogBase
 fun dialogTimeWheel(
     activity: Activity,
     title: String,
-    block: (millisecond: Long, time: String) -> Unit = {millisecond: Long, time: String->}
+    block: (millisecond: Long, time: String, popupView: BasePopupView) -> Unit = {millisecond: Long, time: String, popupView: BasePopupView->}
 ): BasePopupView {
     return createDialogBase(
         DatePopupView(activity, title, block)
@@ -26,7 +26,7 @@ fun dialogTimeWheel(
 fun createDialogDate(
     activity: Activity,
     title: String,
-    block: (millisecond: Long, time: String) -> Unit = {millisecond: Long, time: String->}
+    block: (millisecond: Long, time: String, popupView: BasePopupView) -> Unit = {millisecond: Long, time: String, popupView: BasePopupView->}
 ): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
     //如果不加这个，评论弹窗会移动到软键盘上面
     moveUpToKeyboard(false)

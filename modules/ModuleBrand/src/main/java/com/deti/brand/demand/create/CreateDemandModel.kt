@@ -79,67 +79,49 @@ class CreateDemandModel: BaseModel(){
      * 提交需求
      */
     fun requestDemandSubmit(
-        /** 可提供信息*/
-        provideList: List<String> = arrayListOf(),
-        /** 服务类型：包工包料:fob、纯加工 cmt*/
-        serviceType: String? = "",
-        /** 生产类型：打板+生产sample_bulk、生产bulk */
-        productionType: String? = "",
-        /** 面料信息*/
-        fabricInfo: String = "",
-        /** 样衣快递类型 DataDictionary - code*/
-        sampleDressExpressType: String? = "",
-        /** 快递单单号*/
-        sampleDressExpressId: String? = "",
-        /** 制版文件*/
-        makeFilePath: String = "",
-        /** 正面图片*/
-        frontImage: String = "",
-        /** 背面图片*/
-        backImage: String = "",
-        /** 详细图片列表*/
-        detailsImageList: List<String> = arrayListOf(),
-        /** 性别-款式分类一级*/
-        gender: String? = "",
-        /** 品类-款式分类二级*/
-        category: String? = "",
-        /** 套装类型-款式分类三级*/
-        suitType: String? = "",
-        /** 款式分类*/
-        classify: String? = "",
-        /** 颜色列表*/
-        colorList: List<CommonColorEntity> = arrayListOf(),
-        /** 单价*/
-        unitPrice: Double? = 0.0,
-        /** 交期*/
-        deliveryDate: String?,
-        /** 备注*/
-        comment: String = ""
+        mViewModel: CreateDemandViewModel,
     ): Flow<BaseNetEntity<CommoneEmpty>?>{
+        //选择类型
+        var provideList = arrayListOf<String>()
+        mViewModel.mChooseTypes.forEach {
+            provideList.add(it.id)
+        }
+        //正面照
+        var frontImage = ""
+        //背面照
+        var backImage = ""
+        //其他图片列表
+        var detailsImageList = arrayListOf<String>()
+
         return flowOnIO {
             var body = hashMapOf<String, Any?>()
             body.apply {
                 put("sign", "2147483647")
                 put("token", userInfoToken())
                 put("timestamp", "2147483647")
-                put("demandIndent.provideList", provideList)
-                put("demandIndent.serviceType", serviceType)
-                put("demandIndent.productionType", productionType)
-                put("demandIndent.fabricInfo", fabricInfo)
-                put("demandIndent.sampleDressExpressType", sampleDressExpressType)
-                put("demandIndent.sampleDressExpressId", sampleDressExpressId)
-                put("demandIndent.makeFilePath", makeFilePath)
-                put("demandIndent.frontImage", frontImage)
+                put("demandIndent.provideList", provideList)        //选择的类型
+                put("demandIndent.serviceType", mViewModel.mServiceType)
+                put("demandIndent.productionType", mViewModel.mServiceProduce)
+                put("demandIndent.fabricInfo", mViewModel.mFilePathFabric)
+                put("demandIndent.sampleDressExpressType", mViewModel.mExpressSingleChoiceEntity.get()?.id)
+                put("demandIndent.sampleDressExpressId", mViewModel.mExpressNum)
+                put("demandIndent.makeFilePath", mViewModel.mFilePathPlate) //制版文件
+
+                put("demandIndent.frontImage", frontImage)          //图片
                 put("demandIndent.backImage", backImage)
                 put("demandIndent.detailsImageList", detailsImageList)
-                put("demandIndent.gender", gender)
-                put("demandIndent.category", category)
-                put("demandIndent.suitType", suitType)
-                put("demandIndent.classify", classify)
-                put("demandIndent.unitPrice", unitPrice)
-                put("demandIndent.deliveryDate", deliveryDate)
-                put("demandIndent.comment", comment)
-                put("demandIndent.colorList", colorList)
+
+                put("demandIndent.gender", mViewModel.mStyleList[0])        //款式分类
+                put("demandIndent.category", mViewModel.mStyleList[1])
+                put("demandIndent.suitType", mViewModel.mStyleList[2])
+                put("demandIndent.classify", mViewModel.mStyleList[3])
+
+                put("demandIndent.unitPrice", mViewModel.mPrice)    //单价
+                put("demandIndent.deliveryDate", mViewModel.mTime)
+
+                put("demandIndent.comment", mViewModel.mRemark) //备注
+
+                put("demandIndent.colorList", mViewModel.mSelectColorDatas)
             }
             return@flowOnIO mHttpDataSource?.requestDemandSubmit(body) as BaseNetEntity<CommoneEmpty>
         }

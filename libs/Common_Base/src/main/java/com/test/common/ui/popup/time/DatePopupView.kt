@@ -7,6 +7,7 @@ import androidx.constraintlayout.utils.widget.ImageFilterView
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.DateTimePicker
 import com.loper7.date_time_picker.StringUtils
+import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
@@ -20,7 +21,7 @@ import java.util.*
 class DatePopupView(
     var mActivit: Activity,
     var mTitle: String = "",
-    var block: (millisecond: Long, time: String) -> Unit = {millisecond: Long, time: String->}
+    var block: (millisecond: Long, time: String, popupView: BasePopupView) -> Unit = {millisecond: Long, time: String, popupView: BasePopupView->}
 ) : BottomPopupView(mActivit) {
     private var mMillisecond: Long = 0
     override fun getImplLayoutId(): Int = R.layout.base_dialog_date
@@ -43,9 +44,9 @@ class DatePopupView(
             override fun onRightClick(v: View?) {
                 block(
                     mMillisecond,
-                    StringUtils.conversionTime(mMillisecond, "yyyy 年 MM 月 dd 日 ")
+                    StringUtils.conversionTime(mMillisecond, "yyyy 年 MM 月 dd 日 "),
+                    this@DatePopupView
                 )
-                dismiss()
             }
 
         })

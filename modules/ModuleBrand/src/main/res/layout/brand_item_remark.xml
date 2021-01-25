@@ -7,6 +7,9 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.remark.ItemRemarkEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,13 +28,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="0mm"
             android:layout_height="wrap_content"
             android:layout_marginTop="15mm"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="top|left"
             android:hint="请输入更多备注信息"
+            app:textChanged="@{viewModel.consumerRemark}"
             android:minHeight="146mm"
             android:padding="16mm"
             android:textColor="#999999"

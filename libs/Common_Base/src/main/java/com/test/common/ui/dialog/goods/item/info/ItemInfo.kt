@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickViewBindingItemBinder
+import com.lxj.xpopup.core.BasePopupView
 import com.test.common.databinding.BaseDialogItemGoodsDetailInfoBinding
 import com.test.common.ui.popup.time.createDialogDate
 
@@ -23,7 +24,7 @@ class ItemInfo(
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 if (data.tagId == ItemInfoTagIds.ID_GOODS_TIME) {
-                    createDialogDate(mActivity, "请选择时间"){millisecond: Long, time: String->
+                    createDialogDate(mActivity, "请选择时间"){millisecond: Long, time: String, popupView: BasePopupView->
                         binding?.entity?.content = time
                         adapter.notifyDataSetChanged()
                     }.show()
