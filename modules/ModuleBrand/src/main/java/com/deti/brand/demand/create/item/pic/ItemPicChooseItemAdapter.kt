@@ -34,6 +34,8 @@ class ItemPicChooseItemAdapter(
             }
             entity = item
             viewModel = mViewModel
+
+            GlideEngine.createGlideEngine().loadImage(context, item.picPath.get()+"", ivImg)
             executePendingBindings()
         }
     }

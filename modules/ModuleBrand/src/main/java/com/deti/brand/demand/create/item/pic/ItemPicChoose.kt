@@ -30,17 +30,25 @@ class ItemPicChoose(
     var mViewModel: CreateDemandViewModel
 ): QuickDataBindingItemBinder<ItemPicChooseEntity, BrandItemPicChooseBinding>() {
 
-
+    var mAdapter = ItemPicChooseItemAdapter(mViewModel)
+    var list = arrayListOf<ItemPicChooseItemEntity>(
+        ItemPicChooseItemEntity("款式正面图"),
+        ItemPicChooseItemEntity("款式背面图"),
+        ItemPicChooseItemEntity("款式细节图"),
+        ItemPicChooseItemEntity("款式细节图"),
+        ItemPicChooseItemEntity("款式细节图"),
+    )
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemPicChooseBinding>,
         data: ItemPicChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding.entity = data
-        binding.viewModel = mViewModel
-        binding.executePendingBindings()
+        binding?.apply {
+            entity = data
+            viewModel = mViewModel
+            executePendingBindings()
+        }
 
-        var mAdapter = ItemPicChooseItemAdapter(mViewModel)
         binding.rvPics.apply {
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
@@ -55,12 +63,7 @@ class ItemPicChoose(
             }
             adapter = mAdapter
         }
-        var list = arrayListOf<ItemPicChooseItemEntity>()
-        list.add(ItemPicChooseItemEntity("款式正面图"))
-        list.add(ItemPicChooseItemEntity("款式背面图"))
-        list.add(ItemPicChooseItemEntity("款式细节图"))
-        list.add(ItemPicChooseItemEntity("款式细节图"))
-        list.add(ItemPicChooseItemEntity("款式细节图"))
+
         mAdapter.setList(list)
         mAdapter.setOnItemClickListener(object : OnItemClickListener{
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -80,7 +83,7 @@ class ItemPicChoose(
 
     fun clickChoosePic(adapter: BaseQuickAdapter<*, *>, entity: ItemPicChooseItemEntity) {
         mActivity?.apply {
-            if (mPopupChoosePic == null) {
+//            if (mPopupChoosePic == null) {
                 mPopupChoosePic = createDialogPhotoSelect(this, 5,
                     takePhotoClick = {
                         takePhoto(adapter, entity)
@@ -94,7 +97,7 @@ class ItemPicChoose(
                         adapter.notifyDataSetChanged()
                     }
                 )
-            }
+//            }
             mPopupChoosePic?.show()
         }
     }
@@ -112,14 +115,12 @@ class ItemPicChoose(
                             var path =
                                 if (TextUtils.isEmpty(localMedia.androidQToPath)) localMedia.path else localMedia.androidQToPath
                             item.picPath.set(path)
-                            adapter.notifyDataSetChanged()
                         }
                     }else{
                         var localMedia = this[0]
                         var path =
                             if (TextUtils.isEmpty(localMedia.androidQToPath)) localMedia.path else localMedia.androidQToPath
                         entity.picPath.set(path)
-                        adapter.notifyDataSetChanged()
                     }
                 }
             },
@@ -138,7 +139,6 @@ class ItemPicChoose(
                         if (TextUtils.isEmpty(it.androidQToPath)) it.path else it.androidQToPath
                     LogUtil.d("拍照: $path / ${it.fileName}")
                     entity.picPath.set(path)
-                    adapter.notifyDataSetChanged()
                 }
             },
             cancel = {
