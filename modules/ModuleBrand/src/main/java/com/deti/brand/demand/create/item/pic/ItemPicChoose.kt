@@ -63,14 +63,12 @@ class ItemPicChoose(
             }
             adapter = mAdapter
         }
-
         mAdapter.setList(list)
         mAdapter.setOnItemClickListener(object : OnItemClickListener{
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                 clickChoosePic(adapter, adapter.data[position] as ItemPicChooseItemEntity)
             }
         })
-
     }
 
     override fun onCreateDataBinding(
