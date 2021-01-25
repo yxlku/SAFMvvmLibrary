@@ -39,7 +39,7 @@
             android:layout_width="0mm"
             android:layout_height="0mm"
             android:scaleType="fitXY"
-            android:src="@{entity.picPath}"
+            app:url="@{entity.picPath}"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

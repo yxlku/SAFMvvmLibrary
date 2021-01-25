@@ -129,6 +129,9 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             //透明线
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
 
+            //图片选择
+            addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity, mViewModel))
+
             //类型选择
             addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(mViewModel))
             //服务
@@ -144,7 +147,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 
 
             addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
-            addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity))
+
 
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())

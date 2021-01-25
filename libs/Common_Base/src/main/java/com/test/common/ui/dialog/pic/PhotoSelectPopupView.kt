@@ -5,21 +5,29 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
-import com.luck.picture.lib.entity.LocalMediaFolder
 import com.luck.picture.lib.listener.OnQueryDataResultListener
 import com.luck.picture.lib.model.LocalMediaPageLoader
+import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.R
 
 class PhotoSelectPopupView(
     var mActivit: Activity,
+    /** 最多选几个*/
+    var maxSelectCount: Int = 5,
     /** 拍照*/
     var takePhotoClick: () -> Unit = {},
     /** 相册*/
     var photoAlbumClick: () -> Unit = {},
+    /** 点击图片*/
+    var photoSelectBlock: (data: PhotoSelectEntity, position: Int, view: View, popupView: BasePopupView) -> Unit = {data: PhotoSelectEntity, position: Int, view: View, popupView: BasePopupView->}
 ) : BottomPopupView(mActivit), View.OnClickListener {
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_photo_select
@@ -33,10 +41,11 @@ class PhotoSelectPopupView(
                     currentPage: Int,
                     isHasMore: Boolean,
                 ) {
-                    var newData: MutableList<LocalMedia> = mutableListOf()
+                    var newData: MutableList<PhotoSelectEntity> = mutableListOf()
                     data?.forEach {
                         if (PictureMimeType.isHasImage(it.mimeType)) {
-                            newData.add(it)
+                            var data = PhotoSelectEntity(it, false)
+                            newData.add(data)
                         }
                     }
                     itemAdapter.setList(newData)
@@ -44,10 +53,20 @@ class PhotoSelectPopupView(
                 }
 
             })
-
-
     }
 
+    /**
+     * 选中了几个
+     */
+    fun selectCount(): Int{
+        var selectSize = 0
+        itemAdapter.data.forEach {
+            if(it.isSelect) {
+                selectSize += 1
+            }
+        }
+        return selectSize
+    }
     var itemAdapter = DialogPhotSelectItemAdapter()
     override fun onCreate() {
         super.onCreate()
@@ -61,11 +80,22 @@ class PhotoSelectPopupView(
         tv_photo_album.setOnClickListener(this)
 
         rv_pics.apply {
-            layoutManager = LinearLayoutManager(mActivit).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             adapter = itemAdapter
         }
+
+        itemAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                var data: PhotoSelectEntity = adapter.data[position] as PhotoSelectEntity
+                if(selectCount() < maxSelectCount || data.isSelect) {
+                    data.isSelect = !data.isSelect
+                    itemAdapter.notifyDataSetChanged()
+                    photoSelectBlock(data, position, view, this@PhotoSelectPopupView)
+                }else{
+                    ToastUtil.showShortToast("最多选 ${selectCount()} 张")
+                }
+            }
+        })
     }
 
     override fun onClick(v: View) {

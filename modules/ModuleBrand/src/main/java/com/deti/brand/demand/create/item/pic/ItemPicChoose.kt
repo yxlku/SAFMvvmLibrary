@@ -10,19 +10,22 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPicChooseBinding
+import com.deti.brand.demand.create.CreateDemandViewModel
 import com.deti.brand.demand.create.item.pic.SpannableGridLayoutManager.SpanInfo
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
+import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
+import com.test.common.ui.dialog.pic.PhotoSelectEntity
 import com.test.common.ui.dialog.pic.createDialogPhotoSelect
 
 class ItemPicChoose(
     var mActivity: Activity?,
+    var mViewModel: CreateDemandViewModel
 ): QuickDataBindingItemBinder<ItemPicChooseEntity, BrandItemPicChooseBinding>() {
-    var mViewMode = ItemPicChooseViewModel(mActivity)
 
 
     override fun convert(
@@ -31,7 +34,7 @@ class ItemPicChoose(
     ) {
         var binding = holder.dataBinding
         binding.entity = data
-        binding.viewModel = mViewMode
+        binding.viewModel = mViewModel
         binding.executePendingBindings()
 
         var mAdapter = ItemPicChooseItemAdapter(mActivity, adapter)
@@ -70,12 +73,15 @@ class ItemPicChoose(
 
     fun clickChoosePic(adapter: BaseQuickAdapter<*, *>, entity: ItemPicChooseItemEntity) {
         mActivity?.apply {
-            createDialogPhotoSelect(this,
+            createDialogPhotoSelect(this, 5,
                 takePhotoClick = {
                     takePhoto(adapter, entity)
                 },
                 photoAlbumClick = {
                     photoAlbum(adapter, entity)
+                },
+                photoSelectBlock = { data: PhotoSelectEntity, position: Int, view: View, popupView: BasePopupView ->
+                    //选择图片
                 }
             ).show()
         }

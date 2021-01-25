@@ -6,24 +6,33 @@
 
         <variable
             name="entity"
-            type="com.luck.picture.lib.entity.LocalMedia" />
+            type="com.test.common.ui.dialog.pic.PhotoSelectEntity" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:padding="2mm">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/iv_img"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"
             android:scaleType="fitXY"
-            app:url="@{entity.path}" />
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{entity.localMedia.path}" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:padding="10mm"
-            app:srcCompat="@drawable/base_dialog_tip" />
-    </RelativeLayout>
+            app:layout_constraintEnd_toEndOf="@id/iv_img"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -23,7 +23,6 @@
         android:paddingBottom="18mm"
         android:text="拍照"
         android:textColor="#333333"
-        android:textSize="18mm"
         android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -38,7 +37,6 @@
         android:paddingBottom="18mm"
         android:text="从相册选择图片"
         android:textColor="#333333"
-        android:textSize="18mm"
         android:textStyle="bold" />
 
     <View
@@ -55,8 +53,7 @@
         android:gravity="center"
         android:paddingTop="16mm"
         android:paddingBottom="16mm"
-        android:text="取消"
-        android:textSize="16mm" />
+        android:text="取消" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

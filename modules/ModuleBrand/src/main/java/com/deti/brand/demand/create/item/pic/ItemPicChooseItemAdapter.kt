@@ -14,7 +14,6 @@ class ItemPicChooseItemAdapter(
     R.layout.brand_item_pic_choose_item
 ) {
 
-
     override fun convert(
         holder: BaseDataBindingHolder<BrandItemPicChooseItemBinding>,
         item: ItemPicChooseItemEntity,
