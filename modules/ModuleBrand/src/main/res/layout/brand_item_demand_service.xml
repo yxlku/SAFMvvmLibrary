@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
-            android:onClick="@{viewModel.clickServiceType}"
+            android:onClick="@{viewModel.clickServiceProduce}"
             android:orientation="horizontal"
             android:paddingStart="10mm"
             android:paddingTop="15mm"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? "服务类型" :  viewModel.mServiceType.text}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? "服务类型" :  viewModel.mServiceProduce.text}'
                 android:textSize="14mm"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
                 android:textColor="#FE3A4A"
                 android:textSize="14mm"
                 android:textStyle="bold"
-                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? View.VISIBLE :  View.GONE}'
+                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? View.VISIBLE :  View.GONE}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_text_type"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? "请选择" : "修改"}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? "请选择" : "修改"}'
                 android:textColor="#CCCCCC"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
             android:layout_weight="1"
             android:background="@drawable/brand_demand_create_item_bg"
             android:gravity="center_vertical"
-            android:onClick="@{viewModel.clickServiceProduce}"
+            android:onClick="@{viewModel.clickServiceType}"
             android:orientation="horizontal"
             android:paddingStart="10mm"
             android:paddingTop="15mm"
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? "对应服务" :  viewModel.mServiceProduce.text}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? "对应服务" :  viewModel.mServiceType.text}'
                 android:textSize="14mm"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +112,7 @@
                 android:textColor="#FE3A4A"
                 android:textSize="14mm"
                 android:textStyle="bold"
-                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? View.VISIBLE :  View.GONE}'
+                android:visibility='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? View.VISIBLE :  View.GONE}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_text"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/brand_memand_create_arrow_gray"
                 android:drawablePadding="2mm"
-                android:text='@{TextUtils.isEmpty(viewModel.mServiceProduce.text) == true ? "请选择" : "修改"}'
+                android:text='@{TextUtils.isEmpty(viewModel.mServiceType.text) == true ? "请选择" : "修改"}'
                 android:textColor="#CCCCCC"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -228,13 +228,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     //面料信息
     var itemEntityFabric = ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
     //样衣 TODO 还没有在Vm中设置值
-    var itemEntitySamplelothes = ItemUploadFileEntity(FILE_FABRIC, "请上传样衣信息", "(选填)", "上传样衣信息")
+    var itemEntitySamplelothes = ItemExpressEntity()
     //设计稿 TODO 还没有在Vm中设置值
     var itemEntityDesignDraft = ItemUploadFileEntity(FILE_FABRIC, "请上传设计稿信息", "(选填)", "上传设计稿信息")
     //制版文件
     var itemEntityPlate = ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
-    //快递
-    var itemEntityExpress = ItemExpressEntity()
 
     //尺码类型
     var itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
@@ -272,11 +270,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 activity?.apply {
                     if(mPopupChooseType == null){
                         mPopupChooseType = arrayListOf(
-                            BaseMultipleChoiceEntity("picture","图片", true),
-                            BaseMultipleChoiceEntity("sample", "面料信息", false),
-                            BaseMultipleChoiceEntity("fabric", "样衣", false),
-                            BaseMultipleChoiceEntity("layout", "设计稿", false),
-                            BaseMultipleChoiceEntity("production_standard", "制版文件", false),
+                            BaseMultipleChoiceEntity("PICTURE","图片", true),
+                            BaseMultipleChoiceEntity("SAMPLE", "面料信息", false),
+                            BaseMultipleChoiceEntity("FABRIC", "样衣", false),
+                            BaseMultipleChoiceEntity("LAYOUT", "设计稿", false),
+                            BaseMultipleChoiceEntity("PRODUCTION_STANDARD", "制版文件", false),
                         ).createDialogSelectedMultiple(
                             this, "请选择服务类型",
                             callback = { buttonView: CompoundButton?, isChecked: Boolean, checkEntity: BaseMultipleChoiceEntity ->
@@ -310,12 +308,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         }, false)
         /** 选择服务类型*/
         LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
-            DIALOG_SERVICE_TYPE,
+            DIALOG_SERVICE_PRODUCE,
             {
                 activity?.apply {
                     if (mDialogServiceType == null) {
                         mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = { data, position->
-                            mViewModel.mServiceType.set(data)
+                            mViewModel.mServiceProduce.set(data)
                         })
                     }
                     mDialogServiceType?.show()
@@ -324,20 +322,12 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             false)
         /** 对应服务*/
         LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
-            DIALOG_SERVICE_PRODUCE,
+            DIALOG_SERVICE_TYPE,
             {
                 activity?.apply {
                     if (mDialogServiceProduce == null) {
                         mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = { data, position->
-                            mViewModel.mServiceProduce.set(data)
-                            if (data.id == "sample_bulk") {
-                                if (mAdapter.getItemPosition(itemEntityExpress) == -1) {
-                                    //打板+生产的时候要显示快递单号和地址
-                                    addOrRemove(itemEntityExpress, true, mAdapter.getItemPosition(itemEntityService)+1)
-                                }
-                            }else{
-                                addOrRemove(itemEntityExpress, false, mAdapter.getItemPosition(itemEntityService)+1)
-                            }
+                            mViewModel.mServiceType.set(data)
                         })
                     }
                     mDialogServiceProduce?.show()
@@ -351,7 +341,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         }, false)
 
-        /** 快递列表*/
+        /** 样衣 - 快递列表*/
         LiveDataBus.observe<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>(this,
             DIALOG_EXPRESS_LIST,
             {
@@ -426,7 +416,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             activity?.apply {
                 if (mPopupColor == null) {
                     mPopupColor = dialogChooseColors(this, "选择颜色", it.second) { datas ->
-                        var sb = java.lang.StringBuilder()
+                        var sb = StringBuilder()
                         datas.forEach {
                             sb.append(it.name).append(" ")
                         }

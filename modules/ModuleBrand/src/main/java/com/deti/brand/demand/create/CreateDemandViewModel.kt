@@ -52,11 +52,11 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mChooseTypes = arrayListOf<BaseMultipleChoiceEntity>()
 
     /** 服务类型*/    //TODO 统一改到Item中赋值
-    var mServiceType = ObservableField<BaseSingleChoiceEntity>()
-    /** 对应服务*/
     var mServiceProduce = ObservableField<BaseSingleChoiceEntity>()
+    /** 对应服务*/
+    var mServiceType = ObservableField<BaseSingleChoiceEntity>()
 
-    /** 快递选择信息 -- 最后的数据信息 */
+    /** 样衣 - 快递选择信息 -- 最后的数据信息 */
     var mExpressSingleChoiceEntity = ObservableField<BaseSingleChoiceEntity>()
     /** 快递单号*/
     var mExpressNum = ObservableField<String>()
@@ -78,7 +78,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mSizeTypeData: CommonFindSizeDataBean? = null
 
     /** 选择的颜色*/
-    var mSelectColorDatas: ArraySet<DemandColorDataBean>? = null
+    var mSelectColorDatas: ArrayList<DemandColorDataBean>? = null
 
     /** 交期*/
     var mTime: String? = null
@@ -100,23 +100,22 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /**
      * 服务类型
      */
-    fun clickServiceType(view: View){
+    fun clickServiceProduce(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("fob", "包工包料"),
-            BaseSingleChoiceEntity("cmt", "纯加工"),
+            BaseSingleChoiceEntity("FOB", "包工包料"),
+            BaseSingleChoiceEntity("CMT", "纯加工"),
         )
-        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
+        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
     }
     /**
      * 对应服务
      */
-    fun clickServiceProduce(view: View){
+    fun clickServiceType(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("sample_bulk", "打版 + 生产"),
-            BaseSingleChoiceEntity("bulk", "仅生产"),
+            BaseSingleChoiceEntity("SAMPLE_BULK", "打版 + 生产"),
+            BaseSingleChoiceEntity("BULK", "仅生产"),
         )
-        var pos = datas.indexOf(mServiceProduce.get())
-        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
+        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
     }
     /**
      * 地址弹窗
@@ -248,48 +247,24 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择颜色*/
     fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
-//        if (cFindSizeEntityData == null || mSizeTypeData == null) {
-//            ToastUtil.showShortToast("请选择尺码类型")
-//            return
-//        }
-//        launchRequest {
-//            mModel.requestColorsList()
-//                .flowDataDeal(
-//                    loadingModel = LoadingModel.NULL,
-//                    onSuccess = {
-//                        it?.data.apply {
-//                            LiveDataBus.send(FORM_COLORS, Pair(entity, this))
-//                        }
-//                    }
-//                )
-//        }
-
-        LiveDataBus.send(FORM_COLORS, Pair(entity, testData()))
-
-    }
-
-    fun testData(): DemandColorListEntity {
-        var entity = DemandColorListEntity()
-        var pageDatas = arrayListOf<DemandColorListDataBean>()
-        for (i in 0 until  5){
-            var twos = arrayListOf<DemandColorDataBean>()
-            for (j in 0 until 6){
-                var two = DemandColorDataBean(
-                    "id:$i$j",
-                    name = "name:$i$j"
-                )
-                twos.add(two)
-            }
-            var one = DemandColorListDataBean(
-                "code$i",
-                text = "颜色$i",
-                children = twos
-            )
-            pageDatas.add(one)
+        if (cFindSizeEntityData == null || mSizeTypeData == null) {
+            ToastUtil.showShortToast("请选择尺码类型")
+            return
         }
-        entity.pageData = pageDatas
-        return entity
+        launchRequest {
+            mModel.requestColorsList()
+                .flowDataDeal(
+                    loadingModel = LoadingModel.NULL,
+                    onSuccess = {
+                        it?.data.apply {
+                            LiveDataBus.send(FORM_COLORS, Pair(entity, this))
+                        }
+                    }
+                )
+        }
+
     }
+
 
 
     /** 选择尺码数量*/
@@ -346,16 +321,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         }
         LogUtil.d(sb.toString())
         var testProvideList = arrayListOf(
-            "picture",//图片
-            "sample",//样衣
-            "fabric",//面料信息
-            "layout",//设计稿
-            "production_standard" //制版文件
+            "PICTURE",//图片
+            "SAMPLE",//样衣
+            "FABRIC",//面料信息
+            "LAYOUT",//设计稿
+            "PRODUCTION_STANDARD" //制版文件
         )
 
         var testPicList = arrayListOf(
-            "",
-            "",
+            "111",
+            "22222",
             "",
         )
         var testRem = ""

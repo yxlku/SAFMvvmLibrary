@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import androidx.collection.ArraySet
 import androidx.collection.arraySetOf
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -27,14 +28,11 @@ class ColorsPopupView(
     var datas: DemandColorListEntity,
     var mHeightMultiple: Float = 0.8F,
     /** 点击标题确定返回的结果*/
-    var resultBlock: (selectDatas: ArraySet<DemandColorDataBean>) -> Unit = {}
+    var resultBlock: (selectDatas: ArrayList<DemandColorDataBean>) -> Unit = {}
 ) : BottomPopupView(mActivit) {
     var rv_selected: RecyclerView? = null
     var rv_left: RecyclerView? = null
     var rv_right: RecyclerView? = null
-
-    /** 选择的列表数据*/
-    var selectColorEntity = arraySetOf<DemandColorDataBean>()
 
     var adapterLeft: ColorsLeftAdapter = ColorsLeftAdapter()
     var adapterRight: ColorsRightAdapter = ColorsRightAdapter()
@@ -67,7 +65,7 @@ class ColorsPopupView(
 
             override fun onRightClick(v: View?) {
                 //确定按钮
-                resultBlock(selectColorEntity)
+                resultBlock(adapterSelected.data as ArrayList<DemandColorDataBean>)
                 dismiss()
             }
         })
@@ -82,12 +80,12 @@ class ColorsPopupView(
             adapter = adapterRight
         }
         rv_selected?.apply {
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
+            layoutManager = GridLayoutManager(context, 3)
             adapter = adapterSelected
         }
-        adapterSelected.setList(selectColorEntity)
+        //选中数据初始化
+        adapterSelected.setList(arrayListOf<DemandColorDataBean>())
+        //左侧数据初始化
         adapterLeft.setList(datas.pageData)
         adapterLeft.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -126,13 +124,13 @@ class ColorsPopupView(
                 mAdapter.notifyDataSetChanged()
                 if (data.mIsCheck) {
                     adapterSelected.addData(data)
-                    selectColorEntity.add(data)
                 }else{
-                    selectColorEntity.forEach {
-                        if (it.name == data.name) {
+                    var iterator = adapterSelected.data.iterator()
+                    while (iterator.hasNext()){
+                        var itD = iterator.next()
+                        if (itD.name == data.name) {
                             //存在就删除选中数据
-                            adapterSelected.remove(data)
-                            selectColorEntity.remove(data)
+                            iterator.remove()
                         }
                     }
                 }
@@ -152,7 +150,14 @@ class ColorsPopupView(
                         adapterRight.notifyDataSetChanged()
                     }
                 }
-                mAdapter.data.removeAt(position)
+                var iterator = adapterSelected.data.iterator()
+                while (iterator.hasNext()){
+                    var itD = iterator.next()
+                    if (itD.name == itemData.name) {
+                        //存在就删除选中数据
+                        iterator.remove()
+                    }
+                }
                 mAdapter.notifyDataSetChanged()
             }
         })
