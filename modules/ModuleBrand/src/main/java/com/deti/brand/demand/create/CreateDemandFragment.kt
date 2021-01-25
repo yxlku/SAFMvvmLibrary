@@ -25,6 +25,7 @@ import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity
 import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoTip
 import com.deti.brand.demand.create.item.pic.ItemPicChoose
 import com.deti.brand.demand.create.item.pic.ItemPicChooseEntity
+import com.deti.brand.demand.create.item.pic.ItemPicChooseItemEntity
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrder
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity
 import com.deti.brand.demand.create.item.remark.ItemRemark
@@ -81,6 +82,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val DIALOG_EXPRESS_LIST = "dialog_express_list"
         /** 地址弹窗*/
         const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
+
+        /** 选择图片布局中的删除*/
+        const val PIC_DEL = "pic_del"
+
         /** 上传文件*/
         const val UPLOAD_FILE = "upload_file"
         /** 款式分类*/
@@ -272,6 +277,10 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     }
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
+        /** 删除图片*/
+        LiveDataBus.observe<ItemPicChooseItemEntity>(this, PIC_DEL, {
+            it.picPath.set("")
+        }, false)
         /** 类型选择*/
         LiveDataBus.observe<ItemDeamandTypeChooseEntity>(this, DIALOG_CHOOSE_TYPE, {
                 activity?.apply {

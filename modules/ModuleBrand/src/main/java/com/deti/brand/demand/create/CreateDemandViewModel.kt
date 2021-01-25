@@ -11,12 +11,14 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_AD
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.PIC_DEL
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.entity.DemandStyleEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseType
+import com.deti.brand.demand.create.item.pic.ItemPicChooseItemEntity
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
@@ -97,6 +99,13 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mRemark = ObservableField<String>()
     var consumerRemark = BindingConsumer<String> { t -> mRemark.set(t) }
 
+
+    /**
+     * 选择图片中。删除图片
+     */
+    fun clickDel(v: View, entity: ItemPicChooseItemEntity) {
+        LiveDataBus.send(PIC_DEL, entity)
+    }
 
     /**
      * 类型选择

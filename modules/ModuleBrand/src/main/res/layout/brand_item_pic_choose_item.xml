@@ -14,7 +14,7 @@
 
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.item.pic.ItemPicChooseItemViewModel" />
+            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,9 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5mm"
-        android:background="@drawable/brand_pic_choose_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brand_textview2">
+        android:background="@drawable/brand_pic_choose_bg">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:layout_width="wrap_content"

@@ -10,6 +10,6 @@ data class ItemPicChooseEntity(
 
 data class ItemPicChooseItemEntity(
     var tipText: String = "",
-    var picPath: String = "",
+    var picPath: ObservableField<String> = ObservableField(),
 
 )

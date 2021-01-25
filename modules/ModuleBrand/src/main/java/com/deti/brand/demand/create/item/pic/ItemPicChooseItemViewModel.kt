@@ -12,10 +12,7 @@ class ItemPicChooseItemViewModel(
     var mActivity: Activity?,
     var mAdapter: ItemPicChooseItemAdapter,
 ) : BaseViewModel<BaseModel>(BaseApp.getInstance()) {
-    fun clickDel(v: View, entity: ItemPicChooseItemEntity) {
-        entity.picPath = ""
-        mAdapter.notifyDataSetChanged()
-    }
+
 
 
 
