@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create
 
 import android.app.Application
+import android.util.Log
 import android.view.View
 import androidx.collection.ArraySet
 import androidx.databinding.ObservableField
@@ -11,7 +12,6 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_TIP_AD
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.PIC_DEL
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.entity.DemandStyleEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
@@ -99,13 +99,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     var mRemark = ObservableField<String>()
     var consumerRemark = BindingConsumer<String> { t -> mRemark.set(t) }
 
-
-    /**
-     * 选择图片中。删除图片
-     */
-    fun clickDel(v: View, entity: ItemPicChooseItemEntity) {
-        LiveDataBus.send(PIC_DEL, entity)
-    }
+    /** 图片列表*/
+    var mPicListDatas = arrayListOf<String>("", "", "", "", "")
 
     /**
      * 类型选择
@@ -285,13 +280,13 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择尺码数量*/
     fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
-        if (mSelectColorDatas == null || mSelectColorDatas?.size!! <= 0) {
+        if (mSelectColorDatas == null || mSelectColorDatas.size <= 0) {
             ToastUtil.showShortToast("请选择颜色")
             return
         }
 
         var firstNode = arrayListOf<FirstNodeEntity>()
-        mSelectColorDatas?.forEach {
+        mSelectColorDatas.forEach {
             var secondNode = arrayListOf<BaseNode>()
             mSizeTypeData?.sizeRangeList?.forEach {size ->
                 secondNode.add(SecondNodeEntity(0, size, 0, it.name))

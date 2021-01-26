@@ -20,7 +20,7 @@ class ItemRadioType(
         data: ItemRadioTypeEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             viewModel = mViewModel
             rbType.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener{
                 override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {

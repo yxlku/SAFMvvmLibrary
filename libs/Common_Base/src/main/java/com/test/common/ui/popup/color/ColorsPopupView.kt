@@ -98,10 +98,10 @@ class ColorsPopupView(
                 //展开子列表时整理一遍是否选中
                 for (i in secondData?.indices!!){
                     var secItem = secondData[i]
-                    if(adapterSelected.data?.size <= 0){
+                    if(adapterSelected.data.size <= 0){
                         secItem.mIsCheck = false
                     }else{
-                        for (j in adapterSelected.data?.indices){
+                        for (j in adapterSelected.data.indices){
                             var sItem = adapterSelected.data[j]
                             if (secItem.name == sItem.name) {
                                 secItem.mIsCheck = true

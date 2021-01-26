@@ -14,7 +14,7 @@ class ItemPlaceOrder(
         data: ItemPlaceOrderEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             viewModel = mViewModel
             executePendingBindings()
         }

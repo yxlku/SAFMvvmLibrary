@@ -24,14 +24,14 @@ class ItemGoodsSizeCount: QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, B
         data: ItemGoodsSizeCountEntity,
     ) {
         var binding = holder.viewBinding
-        binding?.apply {
+        binding.apply {
             var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_goods_sizecount_first)
             rvContent.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = mAdapter
             }
             //模拟数据
-//            mAdapter.setList(testData())
+    //            mAdapter.setList(testData())
             executePendingBindings()
         }
     }

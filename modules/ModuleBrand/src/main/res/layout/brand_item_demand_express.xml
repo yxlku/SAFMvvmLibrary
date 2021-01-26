@@ -51,7 +51,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/brand_demand_create_item_bg"
+            android:background="@drawable/base_bg_white"
             android:gravity="center_vertical"
             android:onClick="@{viewModel.clickRequestExpressList}"
             android:orientation="horizontal"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10mm"
-            android:background="@drawable/brand_demand_create_item_bg"
+            android:background="@drawable/base_bg_white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:visibility="visible">

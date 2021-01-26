@@ -45,7 +45,7 @@ class TypesThreeView : LinearLayoutCompat {
             var adapterOne = rvOne.adapter as TypesTreeViewAdapter
             adapterOne.onItemClickListener = itemClick(adapterOne)
 
-            datas?.childer?.apply {
+            datas.childer?.apply {
                 adapterOne.setList(this)
             } ?: apply {
                 //无数据

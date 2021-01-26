@@ -10,7 +10,7 @@ import com.test.common.R
 import com.test.common.databinding.BaseDialogItemColorsRightBinding
 import com.test.common.ui.popup.color.DemandColorDataBean
 
-class ColorsRightAdapter(): BaseQuickAdapter<DemandColorDataBean, BaseDataBindingHolder<BaseDialogItemColorsRightBinding>>(
+class ColorsRightAdapter : BaseQuickAdapter<DemandColorDataBean, BaseDataBindingHolder<BaseDialogItemColorsRightBinding>>(
     R.layout.base_dialog_item_colors_right
 ) {
     override fun convert(

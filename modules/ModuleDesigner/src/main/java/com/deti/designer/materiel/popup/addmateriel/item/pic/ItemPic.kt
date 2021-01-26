@@ -17,7 +17,7 @@ class ItemPic(
         data: ItemPicEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entiy = data
             viewModel = mViewModel
             executePendingBindings()

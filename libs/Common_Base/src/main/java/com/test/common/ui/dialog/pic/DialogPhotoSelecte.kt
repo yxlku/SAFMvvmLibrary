@@ -9,7 +9,7 @@ import com.safmvvm.app.BaseApp
 fun createDialogPhotoSelect(
     activity: Activity,
     /** 最多选几个*/
-    maxSelectCount: Int = 5,
+    maxSelectCount: Int = 1,
     /** 拍照*/
     takePhotoClick: () -> Unit = {},
     /** 相册*/

@@ -11,7 +11,7 @@ class ItemPayModeTitle: QuickViewBindingItemBinder<ItemPayModeTitleEntity, BaseD
         data: ItemPayModeTitleEntity,
     ) {
         var binding = holder.viewBinding
-        binding?.apply {
+        binding.apply {
             executePendingBindings()
         }
     }

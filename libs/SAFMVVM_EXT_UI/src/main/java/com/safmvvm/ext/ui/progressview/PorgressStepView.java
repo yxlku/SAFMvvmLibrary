@@ -140,8 +140,8 @@ public class PorgressStepView extends RecyclerView {
 
         StepViewHolder(View itemView) {
             super(itemView);
-            itemMsg = (TextView) itemView.findViewById(R.id.itemMsg);
-            itemDate = (TextView) itemView.findViewById(R.id.itemDate);
+            itemMsg = itemView.findViewById(R.id.itemMsg);
+            itemDate = itemView.findViewById(R.id.itemDate);
         }
     }
 

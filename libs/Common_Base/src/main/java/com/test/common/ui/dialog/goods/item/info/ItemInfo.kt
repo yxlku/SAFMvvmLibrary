@@ -17,7 +17,7 @@ class ItemInfo(
         data: ItemInfoEntity,
     ) {
         var binding = holder.viewBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             executePendingBindings()
         }
@@ -25,7 +25,7 @@ class ItemInfo(
             override fun onClick(v: View?) {
                 if (data.tagId == ItemInfoTagIds.ID_GOODS_TIME) {
                     createDialogDate(mActivity, "请选择时间"){millisecond: Long, time: String, popupView: BasePopupView->
-                        binding?.entity?.content = time
+                        binding.entity?.content = time
                         adapter.notifyDataSetChanged()
                     }.show()
                 }

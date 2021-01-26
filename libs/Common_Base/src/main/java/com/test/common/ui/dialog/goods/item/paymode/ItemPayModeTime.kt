@@ -28,7 +28,7 @@ class ItemPayModeTime(
             entity = data
             llTime.setOnClickListener {
                 createDialogDate(mActivity, "请选择时间") { millisecond: Long, time: String, popupView: BasePopupView ->
-                    binding?.entity?.time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
+                    binding.entity?.time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
                     adapter.notifyDataSetChanged()
                 }.show()
             }
@@ -45,7 +45,7 @@ class ItemPayModeTime(
                     BaseDialogSingleEntity(0, "90%"),
                     BaseDialogSingleEntity(0, "100%"),
                 )
-                mActivity?.apply {
+                mActivity.apply {
                     listData.dialogBubbleSingle(
                         this,
                         it,
@@ -55,7 +55,7 @@ class ItemPayModeTime(
                         200F,
                     ){ view: View, position: Int, entity: BaseDialogSingleEntity ->
                         testSelected = position
-                        binding?.entity?.proportion = entity.text
+                        binding.entity?.proportion = entity.text
                         adapter.notifyDataSetChanged()
                     }.show()
                 }

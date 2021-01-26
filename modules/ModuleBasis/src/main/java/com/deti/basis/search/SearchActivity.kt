@@ -31,6 +31,6 @@ class SearchActivity: BaseActivity<BasisActivitySearchBinding, SearchViewModel>(
             "KFC",
             "麦当劳"
         )
-        mBinding.tagHistory.setTags(chacheTagList)
+        mBinding.tagHistory.tags = chacheTagList
     }
 }

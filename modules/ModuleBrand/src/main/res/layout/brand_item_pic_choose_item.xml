@@ -39,20 +39,21 @@
             android:layout_height="0mm"
             android:scaleType="fitXY"
             android:visibility="visible"
+            app:url="@{entity.picPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_del"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> viewModel.clickDel(view, entity)}"
             android:padding="10mm"
             android:visibility="@{TextUtils.isEmpty(entity.picPath) == false? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/base_dialog_tip" />
+            app:srcCompat="@drawable/brand_demand_pic_del" />
 
         <TextView
             android:id="@+id/tv"

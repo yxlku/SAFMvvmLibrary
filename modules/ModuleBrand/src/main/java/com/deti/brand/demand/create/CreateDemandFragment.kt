@@ -84,7 +84,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
 
         /** 选择图片布局中的删除*/
-        const val PIC_DEL = "pic_del"
+        const val PIC_CHOOSE = "pic_choose"
 
         /** 上传文件*/
         const val UPLOAD_FILE = "upload_file"
@@ -277,9 +277,14 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     }
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
-        /** 删除图片*/
-        LiveDataBus.observe<ItemPicChooseItemEntity>(this, PIC_DEL, {
-            it.picPath.set("")
+        LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, PIC_CHOOSE, {
+            var entity = it.first
+            var picFilePath = it.second
+            var clickItemPos = it.third
+
+            //请求后的地址
+            entity.picPath.set(picFilePath)
+            mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
         /** 类型选择*/
         LiveDataBus.observe<ItemDeamandTypeChooseEntity>(this, DIALOG_CHOOSE_TYPE, {

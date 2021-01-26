@@ -87,11 +87,11 @@ class CreateDemandModel: BaseModel(){
             provideList.add(it.id)
         }
         //正面照
-        var frontImage = ""
+        var frontImage = mViewModel.mPicListDatas[0]
         //背面照
-        var backImage = ""
+        var backImage = mViewModel.mPicListDatas[1]
         //其他图片列表
-        var detailsImageList = arrayListOf<String>()
+        var detailsImageList = mViewModel.mPicListDatas.slice(2..4)
 
         return flowOnIO {
             var body = hashMapOf<String, Any?>()

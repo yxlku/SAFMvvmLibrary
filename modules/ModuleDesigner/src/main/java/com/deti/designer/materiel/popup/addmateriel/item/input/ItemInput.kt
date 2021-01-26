@@ -19,7 +19,7 @@ class ItemInput(
         data: ItemInputEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             etContent.inputType = data.inputType

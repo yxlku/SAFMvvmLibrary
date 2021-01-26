@@ -12,12 +12,14 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPicChooseBinding
+import com.deti.brand.demand.create.CreateDemandFragment
 import com.deti.brand.demand.create.CreateDemandViewModel
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.lxj.xpopup.core.BasePopupView
+import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.ext.photoAlbum
@@ -30,7 +32,10 @@ class ItemPicChoose(
     var mViewModel: CreateDemandViewModel
 ): QuickDataBindingItemBinder<ItemPicChooseEntity, BrandItemPicChooseBinding>() {
 
-    var mAdapter = ItemPicChooseItemAdapter(mViewModel)
+    var mAdapter = ItemPicChooseItemAdapter(mViewModel){entity: ItemPicChooseItemEntity, pos: Int->
+        mViewModel.mPicListDatas[pos] = ""
+        entity.picPath.set("")
+    }
     var list = arrayListOf<ItemPicChooseItemEntity>(
         ItemPicChooseItemEntity("款式正面图"),
         ItemPicChooseItemEntity("款式背面图"),
@@ -43,7 +48,7 @@ class ItemPicChoose(
         data: ItemPicChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()
@@ -66,7 +71,25 @@ class ItemPicChoose(
         mAdapter.setList(list)
         mAdapter.setOnItemClickListener(object : OnItemClickListener{
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                clickChoosePic(adapter, adapter.data[position] as ItemPicChooseItemEntity)
+                var entity = adapter.data[position] as ItemPicChooseItemEntity
+                mActivity?.apply {
+//            if (mPopupChoosePic == null) {
+                    mPopupChoosePic = createDialogPhotoSelect(this, 5,
+                        takePhotoClick = {
+                            takePhoto(adapter, entity, position)
+                        },
+                        photoAlbumClick = {
+                            photoAlbum(adapter, entity, position)
+                        },
+                        photoSelectBlock = { data: PhotoSelectEntity, position: Int, view: View, popupView: BasePopupView ->
+                            //选择图片
+                            entity.picPath.set(data.localMedia?.path)
+                            popupView.dismiss()
+                        }
+                    )
+//            }
+                    mPopupChoosePic?.show()
+                }
             }
         })
     }
@@ -79,29 +102,8 @@ class ItemPicChoose(
 
     var mPopupChoosePic: BasePopupView? = null
 
-    fun clickChoosePic(adapter: BaseQuickAdapter<*, *>, entity: ItemPicChooseItemEntity) {
-        mActivity?.apply {
-//            if (mPopupChoosePic == null) {
-                mPopupChoosePic = createDialogPhotoSelect(this, 5,
-                    takePhotoClick = {
-                        takePhoto(adapter, entity)
-                    },
-                    photoAlbumClick = {
-                        photoAlbum(adapter, entity)
-                    },
-                    photoSelectBlock = { data: PhotoSelectEntity, position: Int, view: View, popupView: BasePopupView ->
-                        //选择图片
-                        entity.picPath.set(data.localMedia?.path)
-                        adapter.notifyDataSetChanged()
-                    }
-                )
-//            }
-            mPopupChoosePic?.show()
-        }
-    }
-
     //相册
-    private fun photoAlbum(adapter: BaseQuickAdapter<*, *>, entity: ItemPicChooseItemEntity) {
+    private fun photoAlbum(adapter: BaseQuickAdapter<*, *>, entity: ItemPicChooseItemEntity, pos: Int) {
         mActivity?.photoAlbum(
             block = {result: MutableList<LocalMedia>?->
                 result?.apply {
@@ -116,9 +118,10 @@ class ItemPicChoose(
                         }
                     }else{
                         var localMedia = this[0]
-                        var path =
-                            if (TextUtils.isEmpty(localMedia.androidQToPath)) localMedia.path else localMedia.androidQToPath
-                        entity.picPath.set(path)
+                        var path = if (TextUtils.isEmpty(localMedia.androidQToPath)) localMedia.path else localMedia.androidQToPath
+//                        entity.picPath.set(path)
+//                        mViewModel.mPicListDatas[pos] = path
+                        LiveDataBus.send(CreateDemandFragment.PIC_CHOOSE, Triple(entity, path, pos))
                     }
                 }
             },
@@ -129,14 +132,16 @@ class ItemPicChoose(
     }
 
 
-    fun takePhoto(adapter :BaseQuickAdapter<*, *>,entity: ItemPicChooseItemEntity) {
+    fun takePhoto(adapter :BaseQuickAdapter<*, *>,entity: ItemPicChooseItemEntity, pos: Int) {
         mActivity?.takePhoto(
             block = {result: MutableList<LocalMedia>?->
                 result?.forEach {
                     var path =
                         if (TextUtils.isEmpty(it.androidQToPath)) it.path else it.androidQToPath
                     LogUtil.d("拍照: $path / ${it.fileName}")
-                    entity.picPath.set(path)
+//                    entity.picPath.set(path)
+//                    mViewModel.mPicListDatas[pos] = path
+                    LiveDataBus.send(CreateDemandFragment.PIC_CHOOSE, Triple(entity, path, pos))
                 }
             },
             cancel = {

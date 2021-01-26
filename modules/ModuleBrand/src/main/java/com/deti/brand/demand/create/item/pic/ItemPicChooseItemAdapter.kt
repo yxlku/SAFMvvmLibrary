@@ -13,6 +13,7 @@ import me.jessyan.autosize.utils.ScreenUtils
 
 class ItemPicChooseItemAdapter(
     var mViewModel: CreateDemandViewModel,
+    var delBlock: (entity: ItemPicChooseItemEntity, pos: Int) -> Unit
 ): BaseQuickAdapter<ItemPicChooseItemEntity, BaseDataBindingHolder<BrandItemPicChooseItemBinding>>(
     R.layout.brand_item_pic_choose_item
 ) {
@@ -34,8 +35,9 @@ class ItemPicChooseItemAdapter(
             }
             entity = item
             viewModel = mViewModel
-
-            GlideEngine.createGlideEngine().loadImage(context, item.picPath.get()+"", ivImg)
+            ivDel.setOnClickListener {
+                delBlock(item, holder.adapterPosition)
+            }
             executePendingBindings()
         }
     }

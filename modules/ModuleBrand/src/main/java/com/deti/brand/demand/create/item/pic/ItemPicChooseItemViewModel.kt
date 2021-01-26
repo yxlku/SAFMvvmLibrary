@@ -11,9 +11,4 @@ import com.test.common.ui.dialog.pic.createDialogPhotoSelect
 class ItemPicChooseItemViewModel(
     var mActivity: Activity?,
     var mAdapter: ItemPicChooseItemAdapter,
-) : BaseViewModel<BaseModel>(BaseApp.getInstance()) {
-
-
-
-
-}
+) : BaseViewModel<BaseModel>(BaseApp.getInstance())

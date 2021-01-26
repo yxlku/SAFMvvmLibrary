@@ -37,7 +37,7 @@ class MaterielListAdapter(
     override fun onViewAttachedToWindow(holder: BaseDataBindingHolder<DesignerItemMaterielListBinding>) {
         super.onViewAttachedToWindow(holder)
         holder.dataBinding?.apply {
-            var data = data[holder.adapterPosition] as MaterielListEntity
+            var data = data[holder.adapterPosition]
             var tm = data.time.toLong() - System.currentTimeMillis()
 
             //控制背景颜色
