@@ -27,36 +27,31 @@ class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>
     BR.viewModel
 ), ITabTop {
 
-    var titles = arrayListOf<String>(
+    var titles = arrayListOf(
         "抢单",
         "派单",
         "物料",
         "版单",
         "款式",
     )
-    var fragments = arrayListOf<Fragment>(
-        /** 抢单*/
-        OrderGrabFragment(OrderGrabFragment.STATE_GRAB),
-        /** 派单*/
-        OrderGrabFragment(OrderGrabFragment.STATE_DISPATCH),
-        /** 物料列表*/
-        MaterielListFragment(),
-        OrderGrabFragment(),
-        OrderGrabFragment(),
-    )
-
-    override fun initData() {
-        super.initData()
-        LogUtil.d("初始化：mainFragment")
-        fragments.createViewPager(childFragmentManager, mBinding.vpContent)
-
-        initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
-
-    }
+    var fragments = arrayListOf<Fragment>()
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
-        LogUtil.d("初始化：mainFragment1")
+        fragments.apply {
+            /** 抢单*/
+            add(OrderGrabFragment(OrderGrabFragment.STATE_GRAB))
+            /** 派单*/
+            add(OrderGrabFragment(OrderGrabFragment.STATE_DISPATCH))
+            /** 物料列表*/
+            add(MaterielListFragment())
+
+            add(OrderGrabFragment())
+            add(OrderGrabFragment())
+        }
+        fragments.createViewPager(childFragmentManager, mBinding.vpContent)
+
+        initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
     }
 
     /**

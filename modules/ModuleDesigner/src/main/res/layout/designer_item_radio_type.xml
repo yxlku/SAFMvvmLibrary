@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.deti.designer.materiel.MaterielListViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16mm"
+        android:paddingTop="16mm"
+        android:paddingEnd="16mm"
+        android:paddingBottom="16mm">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:text="选择添加物料类型"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333" />
+
+        <RadioGroup
+            android:layout_marginStart="16mm"
+            android:id="@+id/rb_type"
+            android:layout_width="0mm"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_z"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:checked="true"
+                android:drawableLeft="@drawable/designer_popup_materiel_add_radio_selector"
+                android:drawablePadding="4mm"
+                android:text="主料"
+                android:textColor="#333333"
+                android:textSize="12mm" />
+
+            <RadioButton
+                android:id="@+id/rb_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16mm"
+                android:button="@null"
+                android:checked="false"
+                android:drawableLeft="@drawable/designer_popup_materiel_add_radio_selector"
+                android:drawablePadding="4mm"
+                android:text="辅料"
+                android:textColor="#333333"
+                android:textSize="12mm" />
+
+            <RadioButton
+                android:id="@+id/rb_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16mm"
+                android:button="@null"
+                android:checked="false"
+                android:drawableLeft="@drawable/designer_popup_materiel_add_radio_selector"
+                android:drawablePadding="4mm"
+                android:text="里布"
+                android:textColor="#333333"
+                android:textSize="12mm" />
+
+        </RadioGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

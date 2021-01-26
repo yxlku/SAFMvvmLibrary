@@ -12,8 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:paddingStart="16mm">
+        android:background="#FFFFFF">
 
         <View
             android:id="@+id/v_line"

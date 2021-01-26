@@ -22,7 +22,7 @@ class MaterielListFragment: BaseLazyFragment<DesignerFragmentMaterielListBinding
 
     override fun initData() {
         super.initData()
-        var mAdapter = MaterielListAdapter(activity)
+        var mAdapter = MaterielListAdapter(activity, mViewModel)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context).apply {
                 var lineD = LinearDividerItemDecoration.Builder()

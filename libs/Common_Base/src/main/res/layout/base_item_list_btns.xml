@@ -5,7 +5,7 @@
         <import type="com.safmvvm.utils.ResUtil"/>
         <variable
             name="entity"
-            type="com.deti.designer.materiel.entity.MaterielListBtnsEntity" />
+            type="com.test.common.adapter.CommonListBtnsEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

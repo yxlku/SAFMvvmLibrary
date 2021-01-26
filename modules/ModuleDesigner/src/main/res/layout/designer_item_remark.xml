@@ -6,10 +6,11 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.demand.create.item.remark.ItemRemarkEntity" />
+            type="com.deti.designer.materiel.popup.addmateriel.item.remark.ItemRemarkEntity" />
+
         <variable
             name="viewModel"
-            type="com.deti.brand.demand.create.CreateDemandViewModel" />
+            type="com.deti.designer.materiel.MaterielListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,9 @@
         android:layout_height="wrap_content"
         android:background="#F8F8F8"
         android:paddingStart="16mm"
-        android:paddingEnd="16mm">
+        android:paddingTop="21mm"
+        android:paddingEnd="16mm"
+        android:paddingBottom="12mm">
 
         <TextView
             android:id="@+id/tv_title"
@@ -35,8 +38,7 @@
             android:background="@drawable/base_bg_white"
             android:gravity="top|left"
             android:hint="请输入更多备注信息"
-            app:textChanged="@{viewModel.consumerRemark}"
-            android:minHeight="146mm"
+            android:minHeight="78mm"
             android:padding="16mm"
             android:textColor="#999999"
             android:textColorHint="#666666"

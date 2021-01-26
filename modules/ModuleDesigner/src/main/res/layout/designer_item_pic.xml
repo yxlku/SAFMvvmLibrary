@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.safmvvm.utils.encrypt.base.TextUtils" />
+        <variable
+            name="entiy"
+            type="com.deti.designer.materiel.popup.addmateriel.item.pic.ItemPicEntity" />
+        <variable
+            name="viewModel"
+            type="com.deti.designer.materiel.MaterielListViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16mm"
+        android:paddingTop="12mm"
+        android:paddingEnd="16mm">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片"
+            android:textColor="#1B2643" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9mm"
+            android:background="@drawable/base_btn_gray_bg"
+            android:paddingStart="26mm"
+            android:paddingTop="8mm"
+            android:paddingEnd="26mm"
+            android:paddingBottom="8mm"
+            android:text="上传图片"
+            android:textColor="#1B2643" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18mm"
+            android:text='@{TextUtils.isEmpty(entiy.picFileName) == true ? "未选择任何文件" : entiy.picFileName }'
+            android:textColor="#999999" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
