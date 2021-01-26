@@ -8,6 +8,7 @@ import com.deti.designer.order.adapter.OrderGrabAdapter
 import com.deti.designer.order.entity.OrderGrabEntity
 import com.deti.designer.order.popup.FilterOrderPopupView
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.test.common.ui.popup.createDialogBase
 
 /**
@@ -15,7 +16,7 @@ import com.test.common.ui.popup.createDialogBase
  */
 class OrderGrabFragment(
     var mState: Int = STATE_GRAB
-): BaseFragment<DesignerFragmentOrderGrabBinding, OrderGrabViewModel>(
+): BaseLazyFragment<DesignerFragmentOrderGrabBinding, OrderGrabViewModel>(
     R.layout.designer_fragment_order_grab,
     BR.viewModel
 ) {

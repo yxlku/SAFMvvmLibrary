@@ -13,14 +13,16 @@ import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
+import com.safmvvm.utils.LogUtil
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator
 
-class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
+class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>(
     R.layout.designer_fragment_main,
     BR.viewModel
 ), ITabTop {
@@ -45,11 +47,16 @@ class MainFragment: BaseFragment<DesignerFragmentMainBinding, MainViewModel>(
 
     override fun initData() {
         super.initData()
-
+        LogUtil.d("初始化：mainFragment")
         fragments.createViewPager(childFragmentManager, mBinding.vpContent)
 
         initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
 
+    }
+
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
+        LogUtil.d("初始化：mainFragment1")
     }
 
     /**

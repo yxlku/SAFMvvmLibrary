@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.ui.viewpager.FragmentViewPagerAdapter
 
 /**
  * 1、创建ViewPager2
@@ -17,22 +19,12 @@ fun ArrayList<Fragment>.createViewPager(
     viewPager: ViewPager,
     block: (viewPager: ViewPager) -> Unit = {},
 ): ViewPager {
-    var viewPagerFragmentAdapter = ViewPagerFragmentAdapter(fragmentManager, this)
+    var viewPagerFragmentAdapter = FragmentViewPagerAdapter(fragmentManager, viewPager, this)
     return viewPager.apply {
-        offscreenPageLimit = 5
+//        offscreenPageLimit = 5
         adapter = viewPagerFragmentAdapter
         block(this)
     }
 }
-
-class ViewPagerFragmentAdapter(
-    fragmentManager: FragmentManager,
-    var mFragments: ArrayList<Fragment>
-): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getCount(): Int = mFragments.size
-
-    override fun getItem(position: Int): Fragment = mFragments[position]
-}
-
 
 

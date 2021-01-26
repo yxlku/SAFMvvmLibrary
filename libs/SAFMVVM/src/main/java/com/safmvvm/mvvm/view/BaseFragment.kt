@@ -27,7 +27,7 @@ import com.zy.multistatepage.OnNotifyListener
 
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
-    val mViewModelId: Int? = null
+    private val mViewModelId: Int? = null
 ) : BaseSuperFragment<V, VM>(mLayoutId, mViewModelId), ILoad{
 
     //状态：弹窗模式

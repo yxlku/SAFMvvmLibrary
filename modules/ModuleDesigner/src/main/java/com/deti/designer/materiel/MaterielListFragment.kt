@@ -9,12 +9,13 @@ import com.deti.designer.materiel.adapter.MaterielListAdapter
 import com.deti.designer.materiel.entity.MaterielListEntity
 import com.safmvvm.ext.ui.progressview.item.LinearDividerItemDecoration
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import me.jessyan.autosize.utils.AutoSizeUtils
 
 /**
  * 物料列表
  */
-class MaterielListFragment: BaseFragment<DesignerFragmentMaterielListBinding, MaterielListViewModel>(
+class MaterielListFragment: BaseLazyFragment<DesignerFragmentMaterielListBinding, MaterielListViewModel>(
     R.layout.designer_fragment_materiel_list,
     BR.viewModel
 ) {
