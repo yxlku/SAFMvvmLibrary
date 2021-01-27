@@ -57,8 +57,8 @@ fun Activity.photoAlbum(
         .imageEngine(GlideEngine.createGlideEngine()) // 请参考Demo GlideEngine.java
         .theme(R.style.picture_default_style)
         .isUseCustomCamera(true)// 是否使用自定义相机
-        .minSelectNum(1)// 最小选择数量
-        .maxSelectNum(5)// 最大图片选择数量
+        .minSelectNum(0)// 最小选择数量
+        .maxSelectNum(1)// 最大图片选择数量
         .isEnableCrop(false)// 是否裁剪
         .apply {
             configProperty(this)
