@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#FFFFFF"
+    app:cardCornerRadius="4mm">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24mm"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textSize="14mm"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tip_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24mm"
+            android:layout_marginTop="20mm"
+            android:layout_marginEnd="24mm"
+            android:text="温馨提示：二次拒绝报价，需求将自动关闭"
+            android:textColor="#333333"
+            android:textSize="12mm"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tip_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24mm"
+            android:layout_marginTop="20mm"
+            android:layout_marginEnd="24mm"
+            android:text="拒绝报价原因（选填）"
+            android:textColor="#999999"
+            android:textSize="12mm"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip_one"
+            app:layout_goneMarginTop="15mm" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_content"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24mm"
+            android:layout_marginTop="10mm"
+            android:layout_marginEnd="24mm"
+            android:layout_marginBottom="45mm"
+            android:background="@drawable/base_et_gray_bg"
+            android:minHeight="96mm"
+            android:padding="10mm"
+            android:textColor="#333333"
+            android:textSize="14mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip_two" />
+
+        <View
+            android:id="@+id/v_line_h"
+            android:layout_width="match_parent"
+            android:layout_height="1mm"
+            android:layout_marginTop="12mm"
+            android:background="#E5E5E5"
+            app:layout_constraintTop_toBottomOf="@id/et_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_btn_left"
+            android:layout_width="0mm"
+            android:layout_height="48mm"
+            android:gravity="center"
+            android:text="取消"
+            app:layout_constraintEnd_toStartOf="@id/v_line_v"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_line_h" />
+
+        <View
+            android:id="@+id/v_line_v"
+            android:layout_width="1mm"
+            android:layout_height="48mm"
+            android:background="#E5E5E5"
+            app:layout_constraintEnd_toStartOf="@id/tv_btn_right"
+            app:layout_constraintStart_toEndOf="@id/tv_btn_left"
+            app:layout_constraintTop_toBottomOf="@id/et_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_btn_right"
+            android:layout_width="0mm"
+            android:layout_height="48mm"
+            android:gravity="center"
+            android:text="确认完成"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_line_h"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -26,7 +26,7 @@ fun createDialogBase(
 /**
  * 设置带标题的自定义页面底部弹窗
  */
-fun createDialogPageTitleBae(
+fun ComfirmAndCancelPopupView(
     customView: BasePopupView,
     block:(builder: XPopup.Builder) -> Unit = {}
 ): BasePopupView = createDialogBase(customView, block)

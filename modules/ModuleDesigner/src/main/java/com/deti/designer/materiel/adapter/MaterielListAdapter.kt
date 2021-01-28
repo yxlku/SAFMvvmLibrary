@@ -18,11 +18,15 @@ import com.deti.designer.databinding.DesignerItemMaterielListBinding
 import com.deti.designer.materiel.MaterielListViewModel
 import com.deti.designer.materiel.entity.MaterielListEntity
 import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielFragment
+import com.lxj.xpopup.core.CenterPopupView
+import com.safmvvm.ui.dialog.DialogUtil
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.adapter.CommonListBtnsAdapter
 import com.test.common.adapter.CommonListBtnsEntity
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancel
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelInput
 import com.test.common.ui.popup.dialogBubbleSingle
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 import kotlin.collections.ArrayList
@@ -102,12 +106,51 @@ class MaterielListAdapter(
                 override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                     var data = adapter.data[position] as CommonListBtnsEntity
                     when (data.id) {
-                        "materiel_add" -> {
+                        BTN_MATERIEL_ADD -> {
                             //添加物料
                             mActivity?.apply {
                                 PopupAddMaterielFragment().show(supportFragmentManager, "")
                             }
                         }
+                        BTN_MATERIEL_PUSH -> {
+                            //物料推送
+                            mActivity?.apply {
+                                dialogComfirmAndCancel(
+                                    this,
+                                    mTitle = "添加物料确认",
+                                    mContent = "确定物料已经添加完毕了吗？",
+                                    mLeftText = "取消",
+                                    mRightText = "确认完成",
+                                    mLeftClickBlock = {view: View, pop: CenterPopupView ->
+                                        pop.dismiss()
+                                    },
+                                    mRightClickBlock = {view: View, pop: CenterPopupView ->
+                                        ToastUtil.showShortToast("确定完成")
+                                    }
+                                ).show()
+                            }
+                        }
+
+                        BTN_MATERIEL_BACK -> {
+                            mActivity?.apply {
+                                dialogComfirmAndCancelInput(
+                                    this,
+                                    mTitle = "退回需求单",
+                                    mTipOne = "",
+                                    mTipTwo = "请填写退回此单的原因",
+                                    mLeftText = "取消",
+                                    mRightText = "确定退回",
+                                    mLeftClickBlock = {view: View, pop: CenterPopupView, inputText: String ->
+                                        pop.dismiss()
+                                    },
+                                    mRightClickBlock = {view: View, pop: CenterPopupView, inputText: String ->
+                                        ToastUtil.showShortToast("退回原因:${inputText}")
+                                    }
+
+                                ).show()
+                            }
+                        }
+
                     }
                 }
             })
@@ -156,15 +199,22 @@ class MaterielListAdapter(
             .build()
         ct.dynamicShow(ds)
     }
-
+    companion object{
+        /** 按钮：物料添加*/
+        const val BTN_MATERIEL_ADD = "bt_materiel_add"
+        /** 按钮：物料推送*/
+        const val BTN_MATERIEL_PUSH = "bt_materiel_push"
+        /** 按钮：退回*/
+        const val BTN_MATERIEL_BACK = "bt_materiel_back"
+    }
     fun controlBtns(data: MaterielListEntity): ArrayList<CommonListBtnsEntity>{
         var list = arrayListOf<CommonListBtnsEntity>()
         when (data.state) {
             0 -> {
                 list.apply {
-                    add(CommonListBtnsEntity("materiel_add", "添加物料", R.drawable.base_btn_yellow_bg))
-                    add(CommonListBtnsEntity("0", "物料推送"))
-                    add(CommonListBtnsEntity("0", "退回该单"))
+                    add(CommonListBtnsEntity(BTN_MATERIEL_ADD, "添加物料", R.drawable.base_btn_yellow_bg))
+                    add(CommonListBtnsEntity(BTN_MATERIEL_PUSH, "物料推送"))
+                    add(CommonListBtnsEntity(BTN_MATERIEL_BACK, "退回该单"))
                 }
             }
             1 -> {
