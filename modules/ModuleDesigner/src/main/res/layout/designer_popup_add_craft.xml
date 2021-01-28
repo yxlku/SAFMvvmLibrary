@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.deti.designer.materiel.popup.craft.AddCraftViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
+            style="@style/popup_title_bottom"
+            app:rightColor="#2171E8"
+            app:rightSize="14mm"
+            app:rightTitle="+添加"
+            app:title="添加特殊工艺" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

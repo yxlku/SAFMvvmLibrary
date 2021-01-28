@@ -4,6 +4,7 @@ import com.deti.designer.R
 import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentMsgBinding
 import com.deti.designer.main.MainFragment
+import com.deti.designer.materiel.popup.craft.AddCraftFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.utils.LogUtil
 
@@ -29,6 +30,7 @@ class MsgFragment: BaseLazyFragment<DesignerFragmentMsgBinding, MsgViewModel>(
             }
 
 //            MainFragment().show(childFragmentManager, "1")
+            AddCraftFragment().show(childFragmentManager, "")
         }
     }
 }

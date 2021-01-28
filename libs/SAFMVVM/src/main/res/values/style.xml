@@ -33,11 +33,15 @@
     </style>
     <!-- bottomSheetFragment主题-->
     <style name="TransBottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
-<!--        <item name="android:windowFrame">@null</item>-->
+        <item name="android:windowFrame">@null</item>
 <!--        <item name="android:windowIsFloating">true</item>-->
 <!--        <item name="android:windowIsTranslucent">true</item>-->
-<!--        &lt;!&ndash;        <item name="android:background">@android:color/transparent</item>&ndash;&gt;-->
+<!--        <item name="android:background">@android:color/transparent</item>-->
 <!--        <item name="android:backgroundDimEnabled">false</item>-->
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
     </style>
-
+    <!-- 重点在这，解决圆角问题 - 显示区域的背景色-->
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

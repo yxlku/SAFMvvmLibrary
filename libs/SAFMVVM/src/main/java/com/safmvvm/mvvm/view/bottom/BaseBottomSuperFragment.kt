@@ -57,12 +57,22 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
     }
 
     /**
-     * 设置最大高度
+     * 设置最大高度 - 比例
      */
     fun setMaxHeight(maxHeight: Float){
-        //设置宽度
+        //设置高度
         mBinding.root.layoutParams.apply {
             height = (maxHeight * ScreenUtils.getScreenSize(context)[1]).toInt()
+        }
+    }
+
+    /**
+     * 设置高度
+     */
+    fun setHeight(pHeight: Int){
+        //设置宽度
+        mBinding.root.layoutParams.apply {
+            height = pHeight
         }
     }
 
@@ -74,7 +84,7 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         //Router注入初始化
         RouterUtil.inject(this)
         //默认最大高度为屏幕一半
-        setMaxHeight(0.5F)
+//        setMaxHeight(0.5F)
 
         //初始化viewModel
         initViewModel()
@@ -115,13 +125,13 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
 
     /** 初始化状态栏 */
     private fun initTitleBar(view: View){
-        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+//        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(view)
         mTitleBar?.let {
-            StatusBarUtil.immersionPageView(this, it)
+//            StatusBarUtil.immersionPageView(this, it)
             it.setOnTitleBarListener(object : OnTitleBarListener {
                 override fun onLeftClick(v: View?) {
-                    if (titleBackFinish()) finish()
+                    if (titleBackFinish()) dismiss()
                 }
 
                 override fun onTitleClick(v: View?) {
