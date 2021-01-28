@@ -1,14 +1,15 @@
 package com.deti.designer.materiel.popup.addmateriel
 
-import android.app.Activity
 import android.graphics.Color
 import android.text.InputType
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.designer.R
-import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.BR
+import com.deti.designer.databinding.DesignerPopupMaterielAddBinding
 import com.deti.designer.materiel.popup.addmateriel.item.btn.ItemBtn
 import com.deti.designer.materiel.popup.addmateriel.item.btn.ItemBtnEntity
 import com.deti.designer.materiel.popup.addmateriel.item.choose.ItemChoose
@@ -21,54 +22,25 @@ import com.deti.designer.materiel.popup.addmateriel.item.radio.ItemRadioType
 import com.deti.designer.materiel.popup.addmateriel.item.radio.ItemRadioTypeEntity
 import com.deti.designer.materiel.popup.addmateriel.item.remark.ItemRemark
 import com.deti.designer.materiel.popup.addmateriel.item.remark.ItemRemarkEntity
-import com.lxj.xpopup.core.BottomPopupView
-import com.lxj.xpopup.util.XPopupUtils
+import com.safmvvm.mvvm.view.bottom.BaseBottomFragment
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
-import me.jessyan.autosize.utils.AutoSizeUtils
 
 /**
  * 添加物料
  */
-class AddMaterielPopupView(
-    var mActivity: Activity,
-    var mViewModel: MaterielListViewModel,
-    var mTitle: String = "",
-): BottomPopupView(mActivity) {
+class PopupAddMaterielFragment : BaseBottomFragment<DesignerPopupMaterielAddBinding, PopupAddMaterielViewModel>(
+    R.layout.designer_popup_materiel_add,
+    BR.viewModel
+){
 
     var mAdapter = BaseBinderAdapter()
     var listData = arrayListOf<Any>()
 
-    override fun getImplLayoutId(): Int = R.layout.designer_popup_materiel_add
-
-    /**
-     * 弹窗最高高度
-     */
-    override fun getMaxHeight(): Int = (XPopupUtils.getScreenHeight(mActivity) * 0.9F).toInt()
-
-    override fun onCreate() {
-        super.onCreate()
-
-        var tb_title = findViewById<TitleBar>(R.id.tb_title)
-        var rv_content = findViewById<RecyclerView>(R.id.rv_content)
-
-        tb_title.title = mTitle
-
-        tb_title.setOnTitleBarListener(object : OnTitleBarListener{
-            override fun onLeftClick(v: View?) {
-                dismiss()
-            }
-
-            override fun onTitleClick(v: View?) {
-            }
-
-            override fun onRightClick(v: View?) {
-            }
-        })
+    override fun initData() {
+        super.initData()
 
         mAdapter.apply {
             addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
@@ -87,10 +59,10 @@ class AddMaterielPopupView(
             addItemBinder(ItemPicEntity::class.java, ItemPic(mViewModel))
 
             //底部按钮
-            addItemBinder(ItemBtnEntity::class.java, ItemBtn(mViewModel))
+            addItemBinder(ItemBtnEntity::class.java, ItemBtn(activity as AppCompatActivity, mViewModel))
         }
 
-        rv_content.apply {
+        mBinding.rvContent.apply {
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int {

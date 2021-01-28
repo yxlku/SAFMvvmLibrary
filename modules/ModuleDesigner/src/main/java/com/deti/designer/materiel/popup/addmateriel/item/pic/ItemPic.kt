@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.databinding.DesignerItemPicBinding
 import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel
 
 /**
  * 上传图片
  */
 class ItemPic(
-    var mViewModel: MaterielListViewModel
+    var mViewModel: PopupAddMaterielViewModel
 ): QuickDataBindingItemBinder<ItemPicEntity, DesignerItemPicBinding>() {
     override fun convert(
         holder: BinderDataBindingHolder<DesignerItemPicBinding>,

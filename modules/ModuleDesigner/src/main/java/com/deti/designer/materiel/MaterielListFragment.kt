@@ -1,6 +1,7 @@
 package com.deti.designer.materiel
 
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deti.designer.R
 import com.deti.designer.BR
@@ -22,7 +23,7 @@ class MaterielListFragment: BaseLazyFragment<DesignerFragmentMaterielListBinding
 
     override fun initData() {
         super.initData()
-        var mAdapter = MaterielListAdapter(activity, mViewModel)
+        var mAdapter = MaterielListAdapter(activity as AppCompatActivity?, mViewModel)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context).apply {
                 var lineD = LinearDividerItemDecoration.Builder()

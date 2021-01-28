@@ -8,7 +8,7 @@
             type="com.deti.designer.materiel.popup.addmateriel.item.pic.ItemPicEntity" />
         <variable
             name="viewModel"
-            type="com.deti.designer.materiel.MaterielListViewModel" />
+            type="com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

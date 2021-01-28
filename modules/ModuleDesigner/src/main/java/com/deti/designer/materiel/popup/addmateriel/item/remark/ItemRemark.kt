@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.databinding.DesignerItemRemarkBinding
 import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel
 
 class ItemRemark(
-    var mViewModel: MaterielListViewModel
+    var mViewModel: PopupAddMaterielViewModel
 ): QuickDataBindingItemBinder<ItemRemarkEntity, DesignerItemRemarkBinding>() {
     override fun convert(
         holder: BinderDataBindingHolder<DesignerItemRemarkBinding>,

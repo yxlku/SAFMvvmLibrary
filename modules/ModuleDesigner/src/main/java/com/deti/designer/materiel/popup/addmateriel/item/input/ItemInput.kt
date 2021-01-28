@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.databinding.DesignerTiemAddMaterielInputBinding
 import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel
 
 
 /**
  * Item 输入
  */
 class ItemInput(
-    var mViewModel: MaterielListViewModel,
+    var mViewModel: PopupAddMaterielViewModel,
 ): QuickDataBindingItemBinder<ItemInputEntity, DesignerTiemAddMaterielInputBinding>(){
     override fun convert(
         holder: BinderDataBindingHolder<DesignerTiemAddMaterielInputBinding>,

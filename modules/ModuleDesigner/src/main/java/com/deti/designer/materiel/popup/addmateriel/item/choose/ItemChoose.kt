@@ -6,12 +6,13 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.databinding.DesignerTiemAddMaterielChooseBinding
 import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel
 
 /**
  * 选择模式
  */
 class ItemChoose(
-    var mViewModel: MaterielListViewModel
+    var mViewModel: PopupAddMaterielViewModel
 ): QuickDataBindingItemBinder<ItemChooseEntity, DesignerTiemAddMaterielChooseBinding>() {
     override fun convert(
         holder: BinderDataBindingHolder<DesignerTiemAddMaterielChooseBinding>,

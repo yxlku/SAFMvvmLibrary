@@ -45,7 +45,7 @@ interface BrandApiService {
     /**
      * 需求单下单
      */
-    @POST("http://192.168.81.27:9002/DETI-Demand/client/demandIndent/saveDemandIndentAPP")
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/saveDemandIndentAPP")
     suspend fun requestDemandSubmit(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>

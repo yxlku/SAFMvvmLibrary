@@ -56,7 +56,7 @@
             android:gravity="right"
             app:textChanged="@{viewModel.consumerPrice}"
             android:hint="@{entity.hintText}"
-            android:text="@{entity.contentText}"
+            android:text="@{viewModel.mPrice}"
             android:textColor="#F3B11C"
             android:textColorHint="#CCCCCC"
             app:layout_constraintBottom_toBottomOf="parent"

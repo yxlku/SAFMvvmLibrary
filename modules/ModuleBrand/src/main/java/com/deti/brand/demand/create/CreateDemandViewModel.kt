@@ -276,8 +276,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     }
 
-
-
     /** 选择尺码数量*/
     fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
         if (mSelectColorDatas == null || mSelectColorDatas.size <= 0) {
@@ -357,14 +355,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             ToastUtil.showShortToast("请添加尺码数量")
             return
         }
-        if (mPrice.get().isNullOrEmpty()) {
-            ToastUtil.showShortToast("请输入预算单价")
-            return
-        }
-        if (mTime.isNullOrEmpty()) {
-            ToastUtil.showShortToast("请设置交期")
-            return
-        }
+
+        LogUtil.d("钱：${mPrice.get()}，备注：${mRemark.get()}")
+//        if (mPrice.get()?.isEmpty()) {
+//            ToastUtil.showShortToast("请输入预算单价")
+//            return
+//        }
+//        if (mTime.isNullOrEmpty()) {
+//            ToastUtil.showShortToast("请设置交期")
+//            return
+//        }
 
         launchRequest {
             try {

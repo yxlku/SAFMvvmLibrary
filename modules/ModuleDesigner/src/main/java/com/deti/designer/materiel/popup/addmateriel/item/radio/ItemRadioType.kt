@@ -7,12 +7,13 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemRadioTypeBinding
 import com.deti.designer.materiel.MaterielListViewModel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel
 
 /**
  * 类型选择
  */
 class ItemRadioType(
-    var mViewModel: MaterielListViewModel,
+    var mViewModel: PopupAddMaterielViewModel,
 ) : QuickDataBindingItemBinder<ItemRadioTypeEntity, DesignerItemRadioTypeBinding>() {
 
     override fun convert(

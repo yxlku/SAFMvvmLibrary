@@ -100,28 +100,28 @@ class CreateDemandModel: BaseModel(){
                 put("token", userInfoToken())
                 put("timestamp", "2147483647")
                 put("demandIndent.provideList", provideList)        //选择的类型
-                put("demandIndent.serviceType", mViewModel.mServiceType)
-                put("demandIndent.productionType", mViewModel.mServiceProduce)
+                put("demandIndent.serviceType", mViewModel.mServiceType.get()?.id)
+                put("demandIndent.productionType", mViewModel.mServiceProduce.get()?.id)
                 put("demandIndent.fabricInfo", mViewModel.mFilePathFabric)
                 put("demandIndent.sampleDressExpressType", mViewModel.mExpressSingleChoiceEntity.get()?.id)
-                put("demandIndent.sampleDressExpressId", mViewModel.mExpressNum)
+                put("demandIndent.sampleDressExpressId", mViewModel.mExpressNum.get())
                 put("demandIndent.makeFilePath", mViewModel.mFilePathPlate) //制版文件
 
                 put("demandIndent.frontImage", frontImage)          //图片
                 put("demandIndent.backImage", backImage)
                 put("demandIndent.detailsImageList", detailsImageList)
 
-                put("demandIndent.gender", mViewModel.mStyleList[0])        //款式分类
-                put("demandIndent.category", mViewModel.mStyleList[1])
-                put("demandIndent.suitType", mViewModel.mStyleList[2])
-                put("demandIndent.classify", mViewModel.mStyleList[3])
+                put("demandIndent.gender", mViewModel.mStyleList[0]?.code)        //款式分类
+                put("demandIndent.category", mViewModel.mStyleList[1]?.code)
+                put("demandIndent.suitType", mViewModel.mStyleList[2]?.code)
+                put("demandIndent.classify", mViewModel.mStyleList[3]?.code)
 
-                put("demandIndent.unitPrice", mViewModel.mPrice)    //单价
+                put("demandIndent.unitPrice", mViewModel.mPrice.get())    //单价
                 put("demandIndent.deliveryDate", mViewModel.mTime)
 
-                put("demandIndent.comment", mViewModel.mRemark) //备注
-
-                put("demandIndent.colorList", mViewModel.mSelectColorDatas)
+                put("demandIndent.comment", mViewModel.mRemark.get()) //备注
+                LogUtil.d("1钱：${mViewModel.mPrice.get()}，备注：${mViewModel.mRemark.get()}")
+                put("demandIndent.colorList", mViewModel.mColorSizeCountDatas)
             }
             return@flowOnIO mHttpDataSource?.requestDemandSubmit(body) as BaseNetEntity<CommoneEmpty>
         }

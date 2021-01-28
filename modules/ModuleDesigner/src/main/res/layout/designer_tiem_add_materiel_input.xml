@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.deti.designer.materiel.MaterielListViewModel" />
+            type="com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel" />
     </data>
 
 

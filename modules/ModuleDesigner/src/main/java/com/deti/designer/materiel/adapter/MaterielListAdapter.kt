@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.Chronometer
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.iwgang.countdownview.CountdownView
 import cn.iwgang.countdownview.DynamicConfig
@@ -16,7 +17,7 @@ import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemMaterielListBinding
 import com.deti.designer.materiel.MaterielListViewModel
 import com.deti.designer.materiel.entity.MaterielListEntity
-import com.deti.designer.materiel.popup.addmateriel.dialogAddMateriel
+import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.adapter.CommonListBtnsAdapter
@@ -27,7 +28,7 @@ import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 import kotlin.collections.ArrayList
 
 class MaterielListAdapter(
-    var mActivity: Activity?,
+    var mActivity: AppCompatActivity?,
     var mViewModel: MaterielListViewModel
 ) :
     BaseQuickAdapter<MaterielListEntity, BaseDataBindingHolder<DesignerItemMaterielListBinding>>(
@@ -104,7 +105,7 @@ class MaterielListAdapter(
                         "materiel_add" -> {
                             //添加物料
                             mActivity?.apply {
-                                dialogAddMateriel(this, mViewModel, "添加物料").show()
+                                PopupAddMaterielFragment().show(supportFragmentManager, "")
                             }
                         }
                     }
