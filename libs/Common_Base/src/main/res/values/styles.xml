@@ -22,6 +22,6 @@
         <!-- 标题文字大小-->
         <item name="titleSize">14mm</item>
         <item name="titleStyle">bold</item>
-
     </style>
+
 </resources>

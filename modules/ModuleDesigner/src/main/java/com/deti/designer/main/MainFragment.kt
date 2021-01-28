@@ -1,19 +1,21 @@
 package com.deti.designer.main
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.deti.designer.R
 import com.deti.designer.BR
+import com.deti.designer.R
 import com.deti.designer.databinding.DesignerFragmentMainBinding
 import com.deti.designer.materiel.MaterielListFragment
 import com.deti.designer.order.OrderGrabFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
 import com.safmvvm.ext.ui.viewpager.createViewPager
-import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.mvvm.view.bottom.BaseBottomFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
 import com.safmvvm.utils.LogUtil
 import me.jessyan.autosize.utils.AutoSizeUtils
@@ -21,6 +23,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator
+
 
 class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>(
     R.layout.designer_fragment_main,
@@ -53,6 +56,7 @@ class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>
 
         initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
     }
+
 
     /**
      * 2、实现此方法，来自定义titleItemView
@@ -92,4 +96,5 @@ class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>
             lineColor = Color.parseColor("#FFFFFF")
         }
     }
+
 }
