@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.deti.designer.materiel.popup.push.PushMaterielViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
+            style="@style/popup_title_bottom"
+            app:title="物料推送" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="40mm"
+            android:background="#FFFFFF"
+            android:gravity="center">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/mi_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.safmvvm.ui.viewpager.CustomViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

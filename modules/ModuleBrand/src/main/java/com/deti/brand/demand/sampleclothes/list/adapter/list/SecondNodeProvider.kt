@@ -196,7 +196,7 @@ class SecondNodeProvider(
      * 生成更多弹窗中的按钮
      */
     fun generateBtnMore(ss: StateBtnsSampleClothes): BaseDialogSingleEntity{
-        return BaseDialogSingleEntity(ss.id, ss.text)
+        return BaseDialogSingleEntity(ss.id.toString(), ss.text)
     }
 
 

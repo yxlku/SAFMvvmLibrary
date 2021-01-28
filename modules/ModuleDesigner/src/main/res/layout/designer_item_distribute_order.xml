@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="entity"
+            type="com.deti.designer.materiel.popup.push.entity.DistributeOrderEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20mm"
+        android:paddingStart="15mm"
+        android:paddingTop="10mm"
+        android:paddingEnd="15mm"
+        android:paddingBottom="10mm">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_dialog_checkbox_unselect"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_info"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15mm"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_check"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.github.xiaofeidev.round.RoundImageView
+                android:id="@+id/iv_img"
+                android:layout_width="100mm"
+                android:layout_height="110mm"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:rd_radius="4mm" />
+
+            <include
+                layout="@layout/designer_includ_item_input"
+                app:layout_constraintBottom_toBottomOf="@id/iv_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_img" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="0mm"
+            app:layout_constraintEnd_toEndOf="@id/ll_info"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5mm"
+            android:background="@drawable/base_btn_gray_bg"
+            android:gravity="left"
+            app:layout_constraintStart_toStartOf="@id/ll_info"
+            android:hint="填写备注"
+            android:minHeight="56mm"
+            android:padding="12mm"
+            app:layout_constraintTop_toBottomOf="@id/ll_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

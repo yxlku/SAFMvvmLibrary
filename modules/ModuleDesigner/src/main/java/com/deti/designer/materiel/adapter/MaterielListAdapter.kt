@@ -18,6 +18,7 @@ import com.deti.designer.databinding.DesignerItemMaterielListBinding
 import com.deti.designer.materiel.MaterielListViewModel
 import com.deti.designer.materiel.entity.MaterielListEntity
 import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielFragment
+import com.deti.designer.materiel.popup.push.PushMaterielFragment
 import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.ui.dialog.DialogUtil
 import com.safmvvm.ui.toast.ToastUtil
@@ -114,21 +115,7 @@ class MaterielListAdapter(
                         }
                         BTN_MATERIEL_PUSH -> {
                             //物料推送
-                            mActivity?.apply {
-                                dialogComfirmAndCancel(
-                                    this,
-                                    mTitle = "添加物料确认",
-                                    mContent = "确定物料已经添加完毕了吗？",
-                                    mLeftText = "取消",
-                                    mRightText = "确认完成",
-                                    mLeftClickBlock = {view: View, pop: CenterPopupView ->
-                                        pop.dismiss()
-                                    },
-                                    mRightClickBlock = {view: View, pop: CenterPopupView ->
-                                        ToastUtil.showShortToast("确定完成")
-                                    }
-                                ).show()
-                            }
+                            clickMaterielPush()
                         }
 
                         BTN_MATERIEL_BACK -> {
@@ -166,7 +153,14 @@ class MaterielListAdapter(
                         -1,
                         true,
                     ) { view: View, position: Int, entity: BaseDialogSingleEntity ->
-                        ToastUtil.showShortToast("选中了：${entity.text}")
+                        when (entity.id) {
+                            BTN_MATERIEL_PUSH -> {
+                                //物料推送
+                                clickMaterielPush()
+                            }
+                            else -> {
+                            }
+                        }
                     }.show()
                 }
             }
@@ -234,8 +228,8 @@ class MaterielListAdapter(
             1 -> {
                 moreTv.visibility = View.VISIBLE
                 btnsList.apply {
-                    add(BaseDialogSingleEntity(0, "物料推送"))
-                    add(BaseDialogSingleEntity(0, "退回该单"))
+                    add(BaseDialogSingleEntity(BTN_MATERIEL_PUSH, "物料推送"))
+                    add(BaseDialogSingleEntity("0", "退回该单"))
                 }
             }
             else -> {
@@ -243,5 +237,33 @@ class MaterielListAdapter(
             }
         }
         return btnsList
+    }
+
+    /** 物料 推送*/
+    fun clickMaterielPush(){
+        mActivity?.apply {
+            PushMaterielFragment().show(this.supportFragmentManager, "")
+        }
+    }
+
+    /**
+     * 添加确认
+     */
+    fun clickSure(){
+        mActivity?.apply {
+            dialogComfirmAndCancel(
+                this,
+                mTitle = "添加物料确认",
+                mContent = "确定物料已经添加完毕了吗？",
+                mLeftText = "取消",
+                mRightText = "确认完成",
+                mLeftClickBlock = {view: View, pop: CenterPopupView ->
+                    pop.dismiss()
+                },
+                mRightClickBlock = {view: View, pop: CenterPopupView ->
+                    ToastUtil.showShortToast("确定完成")
+                }
+            ).show()
+        }
     }
 }

@@ -34,16 +34,16 @@ class ItemPayModeTime(
             }
             llProportion.setOnClickListener{
                 var listData = arrayListOf<BaseDialogSingleEntity>(
-                    BaseDialogSingleEntity(0, "10%"),
-                    BaseDialogSingleEntity(0, "20%"),
-                    BaseDialogSingleEntity(0, "30%"),
-                    BaseDialogSingleEntity(0, "40%"),
-                    BaseDialogSingleEntity(0, "50%"),
-                    BaseDialogSingleEntity(0, "60%"),
-                    BaseDialogSingleEntity(0, "70%"),
-                    BaseDialogSingleEntity(0, "80%"),
-                    BaseDialogSingleEntity(0, "90%"),
-                    BaseDialogSingleEntity(0, "100%"),
+                    BaseDialogSingleEntity("0", "10%"),
+                    BaseDialogSingleEntity("0", "20%"),
+                    BaseDialogSingleEntity("0", "30%"),
+                    BaseDialogSingleEntity("0", "40%"),
+                    BaseDialogSingleEntity("0", "50%"),
+                    BaseDialogSingleEntity("0", "60%"),
+                    BaseDialogSingleEntity("0", "70%"),
+                    BaseDialogSingleEntity("0", "80%"),
+                    BaseDialogSingleEntity("0", "90%"),
+                    BaseDialogSingleEntity("0", "100%"),
                 )
                 mActivity.apply {
                     listData.dialogBubbleSingle(

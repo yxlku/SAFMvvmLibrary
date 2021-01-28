@@ -116,10 +116,10 @@ class CreateDemandModel: BaseModel(){
                 put("demandIndent.suitType", mViewModel.mStyleList[2]?.code)
                 put("demandIndent.classify", mViewModel.mStyleList[3]?.code)
 
-                put("demandIndent.unitPrice", mViewModel.mPrice.get())    //单价
+                put("demandIndent.unitPrice", "99999")    //单价
                 put("demandIndent.deliveryDate", mViewModel.mTime)
 
-                put("demandIndent.comment", mViewModel.mRemark.get()) //备注
+                put("demandIndent.comment", "bz") //备注
                 LogUtil.d("1钱：${mViewModel.mPrice.get()}，备注：${mViewModel.mRemark.get()}")
                 put("demandIndent.colorList", mViewModel.mColorSizeCountDatas)
             }

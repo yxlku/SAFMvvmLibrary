@@ -51,20 +51,20 @@ class FilterOrderPopupView(
 
     fun typeData(): ArrayList<BaseDialogSingleEntity> {
         var list = arrayListOf<BaseDialogSingleEntity>(
-            BaseDialogSingleEntity(0, "女装"),
-            BaseDialogSingleEntity(1, "男装"),
-            BaseDialogSingleEntity(2, "女童"),
-            BaseDialogSingleEntity(3, "男童"),
+            BaseDialogSingleEntity("0", "女装"),
+            BaseDialogSingleEntity("1", "男装"),
+            BaseDialogSingleEntity("2", "女童"),
+            BaseDialogSingleEntity("3", "男童"),
         )
         return list
     }
 
     fun costData(): ArrayList<BaseDialogSingleEntity> {
         var list = arrayListOf<BaseDialogSingleEntity>(
-            BaseDialogSingleEntity(0, "0-50"),
-            BaseDialogSingleEntity(1, "50-100"),
-            BaseDialogSingleEntity(2, "100-200"),
-            BaseDialogSingleEntity(3, "200以上"),
+            BaseDialogSingleEntity("0", "0-50"),
+            BaseDialogSingleEntity("1", "50-100"),
+            BaseDialogSingleEntity("2", "100-200"),
+            BaseDialogSingleEntity("3", "200以上"),
         )
         return list
     }
