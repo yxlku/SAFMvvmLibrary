@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.deti.designer.version.entity.DemandOrderEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="10mm"
+        android:paddingStart="16mm"
+        android:paddingEnd="16mm">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_num"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14mm"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="需求单号：123"
+            android:textSize="14mm"
+            app:layout_constraintEnd_toStartOf="@id/tv_time_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5mm"
+            android:layout_marginTop="14mm"
+            android:text="剩余时间"
+            android:textColor="#999999"
+            android:textSize="12mm"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_num"
+            app:layout_constraintEnd_toStartOf="@id/cv_time"
+            app:layout_constraintStart_toEndOf="@id/tv_order_num"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/cv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="0mm"
+            android:layout_marginStart="6mm"
+            app:isHideTimeBackground="false"
+            app:isShowDay="false"
+            app:isShowHour="true"
+            app:isShowMillisecond="false"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isShowTimeBgDivisionLine="false"
+            app:layout_constraintBottom_toBottomOf="@id/tv_time_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_time_title"
+            app:suffixTextColor="#1F2438"
+            app:timeBgColor="#1F2438"
+            app:timeBgRadius="2mm"
+            app:timeTextColor="#FFFFFF"
+            app:timeTextSize="12mm" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_num" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_btns"
+            android:paddingTop="10mm"
+            android:paddingBottom="15mm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            app:layout_constraintTop_toBottomOf="@id/rv_goods_list" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
