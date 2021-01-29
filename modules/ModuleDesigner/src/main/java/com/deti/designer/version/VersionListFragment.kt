@@ -9,6 +9,7 @@ import com.deti.designer.version.datalist.VersionDataListFragment.Companion.TYPE
 import com.deti.designer.version.datalist.VersionDataListFragment.Companion.TYPE_ALL
 import com.deti.designer.version.datalist.VersionDataListFragment.Companion.TYPE_COMPLETE
 import com.deti.designer.version.datalist.VersionDataListFragment.Companion.TYPE_COMPLETE_UN
+import com.deti.designer.version.popup.VersionListFilterDialogFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
@@ -41,6 +42,10 @@ class VersionListFragment: BaseLazyFragment<DesignerFragmentVersionListBinding, 
 
         fragments.createViewPager(childFragmentManager, mBinding.vpContent)
         initTabTop(context, mBinding.miTab, mBinding.vpContent, titles, true)
+
+        mBinding.tvListTitleFilter.setOnClickListener {
+            VersionListFilterDialogFragment().show(childFragmentManager, "")
+        }
     }
 
 

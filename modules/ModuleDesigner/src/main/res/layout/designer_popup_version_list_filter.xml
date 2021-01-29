@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.deti.designer.version.popup.VersionListFilterDialogViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
+            style="@style/popup_title_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="筛选" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/tb_title">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16mm"
+                android:text="剩余时间："
+                android:textColor="#666666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/tv_time_least"
+                android:layout_width="148mm"
+                android:layout_height="32mm"
+                android:layout_marginStart="16mm"
+                android:layout_marginTop="12mm"
+                android:background="@drawable/base_btn_gray_bg_round"
+                android:gravity="center"
+                android:hint="剩余时间最少"
+                app:layout_constraintEnd_toStartOf="@+id/v_line_time"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_time_title" />
+
+            <View
+                android:id="@+id/v_line_time"
+                android:layout_width="27mm"
+                android:layout_height="1mm"
+                android:layout_marginStart="10mm"
+                android:background="#979797"
+                app:layout_constraintBottom_toBottomOf="@id/tv_time_least"
+                app:layout_constraintEnd_toStartOf="@+id/tv_time_most"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_time_least"
+                app:layout_constraintTop_toTopOf="@id/tv_time_least" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/tv_time_most"
+                android:layout_width="148mm"
+                android:layout_height="32mm"
+                android:layout_marginStart="10mm"
+                android:layout_marginEnd="16mm"
+                android:background="@drawable/base_btn_gray_bg_round"
+                android:gravity="center"
+                android:hint="剩余时间最多"
+                app:layout_constraintBottom_toBottomOf="@id/tv_time_least"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/v_line_time"
+                app:layout_constraintTop_toTopOf="@id/tv_time_least" />
+
+            <RadioGroup
+                android:id="@+id/rg_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16mm"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_time_least">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16mm"
+                    android:background="@drawable/base_btn_gray_bg_round"
+                    android:gravity="center"
+                    android:paddingStart="12mm"
+                    android:paddingTop="9mm"
+                    android:paddingEnd="12mm"
+                    android:paddingBottom="9mm"
+                    android:text="已超时"
+                    android:textColor="#666666"
+                    android:textSize="12mm" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13mm"
+                    android:background="@drawable/base_btn_gray_bg_round"
+                    android:gravity="center"
+                    android:paddingStart="12mm"
+                    android:paddingTop="9mm"
+                    android:paddingEnd="12mm"
+                    android:paddingBottom="9mm"
+                    android:text="0-10分钟"
+                    android:textColor="#666666"
+                    android:textSize="12mm" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13mm"
+                    android:background="@drawable/base_btn_gray_bg_round"
+                    android:gravity="center"
+                    android:paddingStart="12mm"
+                    android:paddingTop="9mm"
+                    android:paddingEnd="12mm"
+                    android:paddingBottom="9mm"
+                    android:text="10-30分钟"
+                    android:textColor="#666666"
+                    android:textSize="12mm" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13mm"
+                    android:background="@drawable/base_btn_gray_bg_round"
+                    android:gravity="center"
+                    android:paddingStart="12mm"
+                    android:paddingTop="9mm"
+                    android:paddingEnd="12mm"
+                    android:paddingBottom="9mm"
+                    android:text="30分钟以上"
+                    android:textColor="#666666"
+                    android:textSize="12mm" />
+
+            </RadioGroup>
+
+
+            <View
+                android:id="@+id/v_line"
+                android:layout_width="match_parent"
+                android:layout_height="10mm"
+                android:layout_marginTop="20mm"
+                android:background="#F7F7F7"
+                app:layout_constraintTop_toBottomOf="@id/rg_time" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="26mm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="43mm"
+                android:id="@+id/tv_cancel"
+                android:layout_width="96mm"
+                android:layout_height="36mm"
+                android:background="@drawable/base_btn_gray_bg"
+                android:gravity="center"
+                android:text="取消"
+                app:layout_constraintEnd_toStartOf="@+id/tv_sure"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_line" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="26mm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="43mm"
+                android:id="@+id/tv_sure"
+                android:layout_width="96mm"
+                android:layout_height="36mm"
+                android:background="@drawable/base_btn_yellow_bg"
+                android:gravity="center"
+                android:text="确定筛选 "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cancel"
+                app:layout_constraintTop_toBottomOf="@id/v_line" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
