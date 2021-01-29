@@ -19,6 +19,7 @@ import com.deti.designer.materiel.MaterielListViewModel
 import com.deti.designer.materiel.entity.MaterielListEntity
 import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielFragment
 import com.deti.designer.materiel.popup.push.PushMaterielFragment
+import com.deti.designer.materiel.popup.revoke.DialogRevokeFragment
 import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.ui.dialog.DialogUtil
 import com.safmvvm.ui.toast.ToastUtil
@@ -158,6 +159,10 @@ class MaterielListAdapter(
                                 //物料推送
                                 clickMaterielPush()
                             }
+                            BTN_MATERIEL_REVOKE -> {
+                                //撤回
+                                clickRevoke()
+                            }
                             else -> {
                             }
                         }
@@ -200,6 +205,8 @@ class MaterielListAdapter(
         const val BTN_MATERIEL_PUSH = "bt_materiel_push"
         /** 按钮：退回*/
         const val BTN_MATERIEL_BACK = "bt_materiel_back"
+        /** 按钮：撤回*/
+        const val BTN_MATERIEL_REVOKE = "bt_materiel_revoke"
     }
     fun controlBtns(data: MaterielListEntity): ArrayList<CommonListBtnsEntity>{
         var list = arrayListOf<CommonListBtnsEntity>()
@@ -230,6 +237,7 @@ class MaterielListAdapter(
                 btnsList.apply {
                     add(BaseDialogSingleEntity(BTN_MATERIEL_PUSH, "物料推送"))
                     add(BaseDialogSingleEntity("0", "退回该单"))
+                    add(BaseDialogSingleEntity(BTN_MATERIEL_REVOKE, "撤回"))
                 }
             }
             else -> {
@@ -266,4 +274,14 @@ class MaterielListAdapter(
             ).show()
         }
     }
+
+    /**
+     * 撤回
+     */
+    fun clickRevoke(){
+        mActivity?.apply {
+            DialogRevokeFragment().show(supportFragmentManager, "")
+        }
+    }
+
 }

@@ -3,30 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielViewModel" />
+            type="com.deti.designer.materiel.popup.revoke.DialogRevokeViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <com.safmvvm.ui.titlebar.TitleBar
             android:id="@+id/tb_title"
-            app:title="添加物料"
             style="@style/popup_title_bottom"
-            app:leftIcon="@mipmap/designer_popup_close_down" />
+            app:title="物料撤回" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="20mm"
+            android:text="需求单号：Z042345453222" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="#FFFFFF"
             android:id="@+id/rv_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
