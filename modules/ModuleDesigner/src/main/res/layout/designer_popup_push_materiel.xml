@@ -20,6 +20,7 @@
             app:title="物料推送" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_tab"
             android:layout_width="match_parent"
             android:layout_height="40mm"
             android:background="#FFFFFF"
@@ -28,15 +29,17 @@
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/mi_tab"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="40mm"
                 android:layout_gravity="center" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <com.safmvvm.ui.viewpager.CustomViewPager
-            android:id="@+id/vp_content"
+        <FrameLayout
+            android:background="#FFFFFF"
+            android:id="@+id/fl_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF" />
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

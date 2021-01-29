@@ -10,7 +10,10 @@ import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerItemPopupDistributeOrderBinding
 import com.deti.designer.materiel.popup.push.adapter.DistributeOrderAdapter
 import com.deti.designer.materiel.popup.push.entity.DistributeOrderEntity
+import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.utils.LogUtil
+import java.util.ArrayList
 
 /**
  * 派单、抢单
@@ -18,17 +21,12 @@ import com.safmvvm.mvvm.view.BaseLazyFragment
 class DistributeOrderFragment(
     /** 页面类型*/
     var type: String = ORDER_DISPATCH
-): BaseLazyFragment<DesignerItemPopupDistributeOrderBinding, DistributeOrderViewModel>(
+): BaseFragment<DesignerItemPopupDistributeOrderBinding, DistributeOrderViewModel>(
     R.layout.designer_item_popup_distribute_order,
     BR.viewModel
 ) {
-    var mAdapter = DistributeOrderAdapter()
-    var listData = arrayListOf(
-        DistributeOrderEntity(),
-        DistributeOrderEntity(),
-        DistributeOrderEntity(),
-        DistributeOrderEntity(),
-    )
+    var mAdapter = DistributeOrderAdapter(type)
+
     companion object{
         /** 派单*/
         const val ORDER_DISPATCH = "order_Dispatch"
@@ -39,23 +37,55 @@ class DistributeOrderFragment(
     override fun initData() {
         super.initData()
         var footerView = LayoutInflater.from(context).inflate(R.layout.designer_footer_distribute_order, null, false)
-        mAdapter.addFooterView(footerView)
+
+        if (type != ORDER_GRAB) {
+            mBinding.tvOrderNum.text = "需求单号：123"
+        }else{
+            mBinding.tvOrderNum.text = "需求单号：234"
+        }
+        var listData = arrayListOf(
+            DistributeOrderEntity(),
+            DistributeOrderEntity(),
+            DistributeOrderEntity(),
+            DistributeOrderEntity(),
+        )
 
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
         mAdapter.setList(listData)
-        mAdapter.setOnItemClickListener(object : OnItemClickListener{
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var data = adapter.data[position] as DistributeOrderEntity
+        mAdapter.addFooterView(footerView)
 
-                data.isChecked = !data.isChecked
-                adapter.notifyDataSetChanged()
+        mBinding.tvDel.setOnClickListener {
+            var delItemData = arrayListOf<DistributeOrderEntity>()
+            var sb = StringBuilder()
+            mAdapter.data.forEach {
+                if (it.isChecked) {
+                    sb.append("删除的备注：${it.remark.get()}")
+                    delItemData.add(it)
+                }
             }
-        })
+            LogUtil.d(sb.toString())
+            delCheckData(delItemData)
+        }
+        mBinding.tvAdd.setOnClickListener {
+            mAdapter.addData(DistributeOrderEntity())
+        }
     }
 
+    private fun delCheckData(delItemData: ArrayList<DistributeOrderEntity>) {
+        mAdapter.apply {
+            data.removeAll(delItemData)
+            notifyDataSetChanged()
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        LogUtil.d("test销毁了")
+    }
 
 
 }

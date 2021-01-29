@@ -1,5 +1,6 @@
 package com.safmvvm.mvvm.view.bottom
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
@@ -25,6 +26,7 @@ import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
+import me.jessyan.autosize.utils.AutoSizeUtils
 import me.jessyan.autosize.utils.ScreenUtils
 
 /**
@@ -47,13 +49,14 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         setStyle(STYLE_NORMAL, R.style.TransBottomSheetDialogStyle)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mBinding = initDatabinding(inflater, container)
-        return mBinding.root
+    /**
+     * 设置高度
+     */
+    fun setHeight(pHeight: Float){
+        //设置宽度
+        mBinding.root.layoutParams.apply {
+            height = AutoSizeUtils.mm2px(context, pHeight)
+        }
     }
 
     /**
@@ -76,20 +79,19 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         }
     }
 
-    override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =
-        DataBindingUtil.inflate(inflater, mLayoutId, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    @SuppressLint("RestrictedApi")
+    override fun setupDialog(dialog: Dialog, style: Int) {
+        super.setupDialog(dialog, style)
+        mBinding = initDatabinding(LayoutInflater.from(context), null)
         //Router注入初始化
         RouterUtil.inject(this)
-        //默认最大高度为屏幕一半
-//        setMaxHeight(0.5F)
+//        //默认最大高度为屏幕一半
+//        setMaxHeight(1F)
 
         //初始化viewModel
         initViewModel()
         //沉浸式标题栏
-        initTitleBar(view)
+        initTitleBar(mBinding.root)
         //接收的参数
         initParams()
         //livedata接收处理
@@ -100,9 +102,10 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         initData()
         //等待弹窗初始化
         initLoadDialog()
-
-
+        dialog.setContentView(mBinding.root)
     }
+    override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =
+        DataBindingUtil.inflate(inflater, mLayoutId, container, false)
 
     /**
      * 初始化ViewModel

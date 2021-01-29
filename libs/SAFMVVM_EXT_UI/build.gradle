@@ -60,4 +60,6 @@ dependencies {
     //倒计时
     api 'com.github.iwgang:countdownview:2.1.6'
 
+    api "biz.laenger.android:vpbs:0.0.6"
+
 }

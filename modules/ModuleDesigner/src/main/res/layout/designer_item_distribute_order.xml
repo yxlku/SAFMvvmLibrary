@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="entity"
             type="com.deti.designer.materiel.popup.push.entity.DistributeOrderEntity" />
@@ -12,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20mm"
-        android:paddingStart="15mm"
         android:paddingTop="10mm"
         android:paddingEnd="15mm"
         android:paddingBottom="10mm">
@@ -21,6 +21,9 @@
             android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="15mm"
+            android:paddingEnd="15mm"
+            android:paddingBottom="15mm"
             android:src="@drawable/base_dialog_checkbox_unselect"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +32,6 @@
             android:id="@+id/ll_info"
             android:layout_width="0mm"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15mm"
             android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,26 +48,120 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:rd_radius="4mm" />
 
-            <include
-                layout="@layout/designer_includ_item_input"
-                app:layout_constraintBottom_toBottomOf="@id/iv_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_img" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_one_title"
+                        android:layout_width="70mm"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="面料类型" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_one"
+                        android:layout_width="0mm"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12mm"
+                        android:layout_weight="1"
+                        android:background="@drawable/base_btn_gray_bg"
+                        android:drawableRight="@mipmap/designer_popup_arrow_right"
+                        android:gravity="center"
+                        android:padding="5mm" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16mm"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_two_title"
+                        android:layout_width="70mm"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+                        android:text="找版费" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12mm"
+                        android:background="@drawable/base_btn_gray_bg"
+                        android:padding="5mm">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_two"
+                            android:layout_width="0mm"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_two_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5mm"
+                            android:gravity="center"
+                            android:text="元" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/ll_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16mm"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_three_title"
+                        android:layout_width="70mm"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="代采商" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12mm"
+                        android:background="@drawable/base_btn_gray_bg"
+                        android:drawableRight="@mipmap/designer_popup_arrow_right"
+                        android:gravity="center"
+                        android:padding="5mm" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_remark"
             android:layout_width="0mm"
-            app:layout_constraintEnd_toEndOf="@id/ll_info"
             android:layout_height="wrap_content"
             android:layout_marginTop="5mm"
             android:background="@drawable/base_btn_gray_bg"
             android:gravity="left"
-            app:layout_constraintStart_toStartOf="@id/ll_info"
             android:hint="填写备注"
             android:minHeight="56mm"
             android:padding="12mm"
+            app:layout_constraintEnd_toEndOf="@id/ll_info"
+            app:layout_constraintStart_toStartOf="@id/ll_info"
             app:layout_constraintTop_toBottomOf="@id/ll_info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
