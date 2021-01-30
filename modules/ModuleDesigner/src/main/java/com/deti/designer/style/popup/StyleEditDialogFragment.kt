@@ -9,6 +9,8 @@ import com.deti.designer.style.popup.item.choose.ItemChoose
 import com.deti.designer.style.popup.item.choose.ItemChooseEntity
 import com.deti.designer.style.popup.item.input.ItemInput
 import com.deti.designer.style.popup.item.input.ItemInputEntity
+import com.deti.designer.style.popup.item.other.ItemOther
+import com.deti.designer.style.popup.item.other.ItemOtherEntity
 import com.deti.designer.style.popup.item.radio.ItemRadio
 import com.deti.designer.style.popup.item.radio.ItemRadioData
 import com.deti.designer.style.popup.item.radio.ItemRadioEntity
@@ -32,6 +34,7 @@ class StyleEditDialogFragment :
             addItemBinder(ItemInputEntity::class.java, ItemInput())
             addItemBinder(ItemChooseEntity::class.java, ItemChoose())
             addItemBinder(ItemRadioEntity::class.java, ItemRadio())
+            addItemBinder(ItemOtherEntity::class.java, ItemOther())
         }
 
         mBinding.rvContent.apply {
@@ -60,6 +63,8 @@ class StyleEditDialogFragment :
             itemRadioSkinFriendly(),
             itemRadioThickness(),
 
+            //其他
+            ItemOtherEntity()
         )
         mAdapter.setList(list)
     }
