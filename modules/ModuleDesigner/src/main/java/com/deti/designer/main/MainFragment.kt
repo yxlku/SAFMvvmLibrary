@@ -11,6 +11,7 @@ import com.deti.designer.R
 import com.deti.designer.databinding.DesignerFragmentMainBinding
 import com.deti.designer.materiel.MaterielListFragment
 import com.deti.designer.order.OrderGrabFragment
+import com.deti.designer.style.StyleListFragment
 import com.deti.designer.version.VersionListFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.tab.top.ScaleTransitionPagerTitleView
@@ -51,7 +52,8 @@ class MainFragment: BaseLazyFragment<DesignerFragmentMainBinding, MainViewModel>
             add(MaterielListFragment())
             /** 版单*/
             add(VersionListFragment())
-            add(OrderGrabFragment())
+            /** 款式列表*/
+            add(StyleListFragment())
         }
         fragments.createViewPager(childFragmentManager, mBinding.vpContent)
 

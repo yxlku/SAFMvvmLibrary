@@ -122,6 +122,8 @@ class CreateDemandModel: BaseModel(){
                 put("demandIndent.comment", "bz") //备注
                 LogUtil.d("1钱：${mViewModel.mPrice.get()}，备注：${mViewModel.mRemark.get()}")
                 put("demandIndent.colorList", mViewModel.mColorSizeCountDatas)
+                //TODO 临时
+                put("demandIndent.sizeId", mViewModel.mSizeId)
             }
             return@flowOnIO mHttpDataSource?.requestDemandSubmit(body) as BaseNetEntity<CommoneEmpty>
         }

@@ -94,6 +94,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 颜色-尺码-数量*/
     var mColorSizeCountDatas = arrayListOf<CommonColorEntity>()
+    var mSizeId: String? = ""
 
     /** 备注*/
     var mRemark = ObservableField<String>()
@@ -113,8 +114,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickServiceProduce(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("FOB", "包工包料"),
-            BaseSingleChoiceEntity("CMT", "纯加工"),
+            BaseSingleChoiceEntity("fob", "包工包料"),
+            BaseSingleChoiceEntity("cmt", "纯加工"),
         )
         LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
     }
@@ -123,8 +124,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickServiceType(view: View){
         var datas = arrayListOf(
-            BaseSingleChoiceEntity("SAMPLE_BULK", "打版 + 生产"),
-            BaseSingleChoiceEntity("BULK", "仅生产"),
+            BaseSingleChoiceEntity("sample_bulk", "打版 + 生产"),
+            BaseSingleChoiceEntity("bulk", "仅生产"),
         )
         LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
     }

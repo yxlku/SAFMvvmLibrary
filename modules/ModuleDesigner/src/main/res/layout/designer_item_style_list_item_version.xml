@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.deti.designer.style.entity.StyleVersionData" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10mm"
+        android:paddingEnd="16mm">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="货号："
+            android:textColor="#999999"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{entity.goodsNum}"
+            android:textColor="#333333"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0mm"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20mm"
+            android:text="霜白/105"
+            android:textColor="#333333"
+            android:textSize="12mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20mm"
+            android:text="已添加版单"
+            android:textColor="#333333"
+            android:textSize="12mm" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

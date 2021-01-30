@@ -256,11 +256,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     fun controlListFunction(checkEntity: BaseMultipleChoiceEntity){
         var pos = mAdapter.getItemPosition(itemEntityTypeChoose) + 1
         when (checkEntity.id) {
-            "PICTURE" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
-            "SAMPLE" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
-            "FABRIC" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
-            "LAYOUT" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
-            "PRODUCTION_STANDARD" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
+            "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
+            "sample" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
+            "fabric" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
+            "layout" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
+            "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
         }
     }
 
@@ -291,11 +291,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 activity?.apply {
                     if(mPopupChooseType == null){
                         mPopupChooseType = arrayListOf(
-                            BaseMultipleChoiceEntity("PICTURE","图片", true),
-                            BaseMultipleChoiceEntity("SAMPLE", "面料信息", false),
-                            BaseMultipleChoiceEntity("FABRIC", "样衣", false),
-                            BaseMultipleChoiceEntity("LAYOUT", "设计稿", false),
-                            BaseMultipleChoiceEntity("PRODUCTION_STANDARD", "制版文件", false),
+                            BaseMultipleChoiceEntity("picture","图片", true),
+                            BaseMultipleChoiceEntity("sample", "面料信息", false),
+                            BaseMultipleChoiceEntity("fabric", "样衣", false),
+                            BaseMultipleChoiceEntity("layout", "设计稿", false),
+                            BaseMultipleChoiceEntity("production_standard", "制版文件", false),
                         ).createDialogSelectedMultiple(
                             this, "请选择服务类型",
                             callback = { buttonView: CompoundButton?, isChecked: Boolean, checkEntity: BaseMultipleChoiceEntity ->
@@ -485,6 +485,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                                   }
                               }
                               //提交数据数据拼接
+                              mViewModel.mSizeId = mViewModel.mSizeTypeData?.id
                               if (it is FirstNodeEntity) {
                                   var colorEntity = CommonColorEntity(
                                       mViewModel.mSizeTypeData?.id,

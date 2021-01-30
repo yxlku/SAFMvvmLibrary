@@ -89,7 +89,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_top_bg"
             android:layout_width="match_parent"
-            android:layout_height="25mm"
+            android:layout_height="15mm"
             android:background="@drawable/designer_img_main_top_round"
             app:layout_constraintBottom_toBottomOf="@id/iv_bg"
             app:layout_constraintEnd_toEndOf="parent"
