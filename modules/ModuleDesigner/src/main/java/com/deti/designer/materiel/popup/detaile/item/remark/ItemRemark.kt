@@ -1,9 +1,8 @@
-package com.deti.designer.materiel.popup.detaile.item
+package com.deti.designer.materiel.popup.detaile.item.remark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
-import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.databinding.DesignerItemMaterielDetailRemarkBinding
 
 class ItemRemark: QuickDataBindingItemBinder<ItemRemarksEntity, DesignerItemMaterielDetailRemarkBinding>() {

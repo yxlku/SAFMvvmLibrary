@@ -6,8 +6,9 @@ import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.designer.R
 import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerActivityMaterielDetailBinding
-import com.deti.designer.materiel.popup.detaile.item.ItemRemark
-import com.deti.designer.materiel.popup.detaile.item.ItemRemarksEntity
+import com.deti.designer.materiel.popup.detaile.item.remark.ItemRemark
+import com.deti.designer.materiel.popup.detaile.item.remark.ItemRemarksEntity
+import com.deti.designer.materiel.popup.detaile.item.type.ItemMaterielType
 import com.safmvvm.mvvm.view.BaseActivity
 
 /**
@@ -23,6 +24,7 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
 
         mAdapter.apply {
             addItemBinder(ItemRemarksEntity::class.java, ItemRemark())
+            addItemBinder(MaterielDeatilEntity::class.java, ItemMaterielType())
         }
 
         mBinding.rvContent.apply {
@@ -30,7 +32,8 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
             adapter = mAdapter
         }
         var listData = arrayListOf(
-
+            //物料类型
+            testData(),
             //备注
             ItemRemarksEntity()
         )
@@ -41,7 +44,17 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
                 //主料辅料选择
             }
         })
-
     }
 
+    fun testData(): MaterielDeatilEntity{
+        var data = MaterielDeatilEntity()
+        var typesData = arrayListOf<MaterielDeatilTypeEntity>()
+        for (i in 0 until 3){
+            var infoData = MaterielDeatilTypeData("供应商$i", "品名$i")
+            var entity = MaterielDeatilTypeEntity("tabName:$i", infoData)
+            typesData.add(entity)
+        }
+        data.typeList = typesData
+        return data
+    }
 }

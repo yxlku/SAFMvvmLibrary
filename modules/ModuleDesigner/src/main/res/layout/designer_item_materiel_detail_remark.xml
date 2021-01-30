@@ -5,7 +5,7 @@
 
         <variable
             name="entity"
-            type="com.deti.designer.materiel.popup.detaile.item.ItemRemarksEntity" />
+            type="com.deti.designer.materiel.popup.detaile.item.remark.ItemRemarksEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
