@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".DesignerIndexActivity" />
+        <activity android:name=".materiel.popup.detaile.MaterielDetailActivity" />
     </application>
 
 </manifest>

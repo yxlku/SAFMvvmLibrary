@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.deti.designer.materiel.popup.detaile.MaterielDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="40mm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            android:id="@+id/tb_title"
+            android:layout_width="match_parent"
+            android:layout_height="48mm"
+            app:title="物料详情"
+            app:titleColor="#333333"
+            android:background="#FFFFFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftIcon="@mipmap/base_dialog_title_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_num_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="15mm"
+            android:text="需求单号："
+            android:textColor="#666666"
+            android:textSize="12mm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_num"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6mm"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="12345678"
+            android:textColor="#333333"
+            android:textSize="12mm"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_num_title"
+            app:layout_constraintEnd_toStartOf="@id/tv_more"
+            app:layout_constraintStart_toEndOf="@id/tv_order_num_title"
+            app:layout_constraintTop_toTopOf="@id/tv_order_num_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6mm"
+            android:layout_marginEnd="16mm"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="更多"
+            android:textColor="#4389F1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_num_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_order_num"
+            app:layout_constraintTop_toTopOf="@id/tv_order_num_title" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+
+            android:text="已添加的物料类型"
+            android:textColor="#666666"
+            app:layout_constraintBottom_toBottomOf="@id/rg_type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rg_type" />
+
+        <RadioGroup
+            android:id="@+id/rg_type"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20mm"
+            android:layout_marginTop="20mm"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/tv_type_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_num_title">
+
+            <RadioButton
+                android:layout_width="46mm"
+                android:layout_height="22mm"
+                android:background="@drawable/designer_materiel_type_radio_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="主料"
+                android:textSize="12mm" />
+
+            <RadioButton
+                android:background="@drawable/designer_materiel_type_radio_bg_selector"
+                android:layout_width="46mm"
+                android:layout_height="22mm"
+                android:layout_marginStart="20mm"
+                android:button="@null"
+                android:gravity="center"
+                android:text="辅料"
+                android:textSize="12mm" />
+
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rg_type" />
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="150mm"
+            android:layout_height="40mm"
+            android:layout_marginTop="16mm"
+            android:layout_marginBottom="37mm"
+            android:background="@drawable/base_btn_gray_bg"
+            android:gravity="center"
+            android:text="直接添加物料"
+            app:layout_constraintEnd_toStartOf="@+id/tv_push"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_content" />
+
+        <TextView
+            android:id="@+id/tv_push"
+            android:layout_width="118mm"
+            android:layout_height="40mm"
+            android:background="@drawable/base_btn_yellow_bg"
+            android:gravity="center"
+            android:text="物料推送"
+            app:layout_constraintBottom_toBottomOf="@id/tv_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_add"
+            app:layout_constraintTop_toTopOf="@id/tv_add" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

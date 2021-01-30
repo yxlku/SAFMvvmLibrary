@@ -8,6 +8,7 @@ import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerFragmentMaterielListBinding
 import com.deti.designer.materiel.adapter.MaterielListAdapter
 import com.deti.designer.materiel.entity.MaterielListEntity
+import com.deti.designer.materiel.popup.detaile.MaterielDetailActivity
 import com.safmvvm.ext.ui.progressview.item.LinearDividerItemDecoration
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
@@ -36,6 +37,10 @@ class MaterielListFragment: BaseLazyFragment<DesignerFragmentMaterielListBinding
             adapter = mAdapter
         }
         mAdapter.setList(testData())
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            //详情
+            startActivity(MaterielDetailActivity::class.java)
+        }
     }
 
     fun testData(): ArrayList<MaterielListEntity>{
