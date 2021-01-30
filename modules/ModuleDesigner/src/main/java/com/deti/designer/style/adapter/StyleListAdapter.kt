@@ -1,15 +1,19 @@
 package com.deti.designer.style.adapter
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemStyleListBinding
 import com.deti.designer.style.entity.StyleListEntity
+import com.deti.designer.style.popup.StyleEditDialogFragment
 import com.test.common.adapter.CommonListBtnsAdapter
 import com.test.common.adapter.CommonListBtnsEntity
 
-class StyleListAdapter: BaseQuickAdapter<StyleListEntity, BaseDataBindingHolder<DesignerItemStyleListBinding>>(
+class StyleListAdapter(
+    var mActivivity: AppCompatActivity
+): BaseQuickAdapter<StyleListEntity, BaseDataBindingHolder<DesignerItemStyleListBinding>>(
     R.layout.designer_item_style_list
 ) {
     override fun convert(
@@ -36,6 +40,15 @@ class StyleListAdapter: BaseQuickAdapter<StyleListEntity, BaseDataBindingHolder<
                 adapter = btnsAdapter
             }
             btnsAdapter.setList(controlBtns())
+            btnsAdapter.setOnItemClickListener { adapter, view, position ->
+                var data = adapter.data[position] as CommonListBtnsEntity
+                when (data.id) {
+                    TYPE_BTN_STYLE_EDIT -> {
+                        //编辑款式
+                        StyleEditDialogFragment().show(mActivivity.supportFragmentManager, "")
+                    }
+                }
+            }
             executePendingBindings()
         }
     }

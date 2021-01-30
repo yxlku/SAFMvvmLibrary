@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.deti.designer.style.popup.item.radio.ItemRadioData" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16mm"
+        android:paddingEnd="14mm"
+        android:paddingBottom="16mm">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/designer_style_edit_radio_unselect" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5mm"
+            android:button="@null"
+            android:checked="false"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{entity.text}"
+            android:textColor="#666666"
+            android:textSize="12mm" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

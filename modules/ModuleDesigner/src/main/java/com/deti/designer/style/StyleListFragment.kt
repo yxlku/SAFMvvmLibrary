@@ -1,5 +1,6 @@
 package com.deti.designer.style
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deti.designer.R
 import com.deti.designer.BR
@@ -17,11 +18,9 @@ class StyleListFragment: BaseFragment<DesignerFragmentStyleListBinding, StyleLis
     BR.viewModel
 ) {
 
-    var mAdapter = StyleListAdapter()
-    var listData : ArrayList<StyleListEntity> = arrayListOf()
-
     override fun initData() {
         super.initData()
+        var mAdapter = StyleListAdapter(activity as AppCompatActivity)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

@@ -6,6 +6,7 @@
     </style>
 
     <style name="popup_title_bottom">
+        <item name="android:id">@id/tb_title</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50mm</item>
         <!-- 圆角背景-->
