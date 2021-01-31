@@ -8,8 +8,12 @@ import com.deti.designer.BR
 import com.deti.designer.databinding.DesignerActivityMaterielDetailBinding
 import com.deti.designer.materiel.popup.detaile.item.remark.ItemRemark
 import com.deti.designer.materiel.popup.detaile.item.remark.ItemRemarksEntity
+import com.deti.designer.materiel.popup.detaile.item.type.ItemCraftEntity
+import com.deti.designer.materiel.popup.detaile.item.type.ItemCraftType
 import com.deti.designer.materiel.popup.detaile.item.type.ItemMaterielType
+import com.deti.designer.materiel.popup.detaile.item.type.ItemMaterielTypeEntity
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.ui.theme.StatusBarUtil
 
 /**
  * 物料详情：本来是弹窗，改为页面了
@@ -22,9 +26,13 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
     override fun initData() {
         super.initData()
 
+        StatusBarUtil.init(this, true)
+
+
         mAdapter.apply {
             addItemBinder(ItemRemarksEntity::class.java, ItemRemark())
-            addItemBinder(MaterielDeatilEntity::class.java, ItemMaterielType())
+            addItemBinder(ItemMaterielTypeEntity::class.java, ItemMaterielType())
+            addItemBinder(ItemCraftEntity::class.java, ItemCraftType())
         }
 
         mBinding.rvContent.apply {
@@ -33,7 +41,9 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
         }
         var listData = arrayListOf(
             //物料类型
-            testData(),
+            ItemMaterielTypeEntity(testData()),
+            //工艺
+            ItemCraftEntity(testCratfData()),
             //备注
             ItemRemarksEntity()
         )
@@ -46,15 +56,23 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
         })
     }
 
-    fun testData(): MaterielDeatilEntity{
-        var data = MaterielDeatilEntity()
+    fun testData(): ArrayList<MaterielDeatilTypeEntity>{
         var typesData = arrayListOf<MaterielDeatilTypeEntity>()
         for (i in 0 until 3){
             var infoData = MaterielDeatilTypeData("供应商$i", "品名$i")
-            var entity = MaterielDeatilTypeEntity("tabName:$i", infoData)
+            var entity = MaterielDeatilTypeEntity("主料:$i", infoData)
             typesData.add(entity)
         }
-        data.typeList = typesData
-        return data
+        return typesData
+    }
+
+    fun testCratfData(): ArrayList<CraftDeatileTypeEntity>{
+        var typesData = arrayListOf<CraftDeatileTypeEntity>()
+        for (i in 0 until 3){
+            var infoData = CraftDeatilTypeData("提供方$i")
+            var entity = CraftDeatileTypeEntity("工艺:$i", infoData)
+            typesData.add(entity)
+        }
+        return typesData
     }
 }

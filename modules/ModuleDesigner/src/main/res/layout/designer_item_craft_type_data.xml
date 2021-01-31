@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.designer.materiel.popup.detaile.item.type.ItemMaterielTypeEntity" />
+            type="com.deti.designer.materiel.popup.detaile.item.type.ItemCraftEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,8 +6,9 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemMaterielTabBinding
 import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
+import com.deti.designer.materiel.popup.detaile.TabEntity
 
-class TabAdapter: BaseQuickAdapter<MaterielDeatilTypeEntity, BaseDataBindingHolder<DesignerItemMaterielTabBinding>>(
+class TabAdapter: BaseQuickAdapter<TabEntity, BaseDataBindingHolder<DesignerItemMaterielTabBinding>>(
     R.layout.designer_item_materiel_tab
 ) {
     /** 是否显示删除*/
@@ -18,7 +19,7 @@ class TabAdapter: BaseQuickAdapter<MaterielDeatilTypeEntity, BaseDataBindingHold
 
     override fun convert(
         holder: BaseDataBindingHolder<DesignerItemMaterielTabBinding>,
-        item: MaterielDeatilTypeEntity,
+        item: TabEntity,
     ) {
         var binding = holder.dataBinding
         binding?.apply {

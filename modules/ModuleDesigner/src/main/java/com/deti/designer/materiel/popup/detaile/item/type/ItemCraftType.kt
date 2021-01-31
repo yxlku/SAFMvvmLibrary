@@ -1,27 +1,27 @@
 package com.deti.designer.materiel.popup.detaile.item.type
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
-import com.deti.designer.databinding.DesignerItemMaterielTypeDataBinding
-import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeData
-import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
+import com.deti.designer.databinding.DesignerItemCraftTypeDataBinding
+import com.deti.designer.materiel.popup.detaile.CraftDeatilTypeData
+import com.deti.designer.materiel.popup.detaile.CraftDeatileTypeEntity
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChoose
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChooseEntity
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
 
 /**
- * 物料详情 - 类型 - 主料、辅料
+ * 工艺详情信息
  */
-class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, DesignerItemMaterielTypeDataBinding>() {
+class ItemCraftType() :
+    QuickDataBindingItemBinder<ItemCraftEntity, DesignerItemCraftTypeDataBinding>() {
     override fun convert(
-        holder: BinderDataBindingHolder<DesignerItemMaterielTypeDataBinding>,
-        data: ItemMaterielTypeEntity,
+        holder: BinderDataBindingHolder<DesignerItemCraftTypeDataBinding>,
+        data: ItemCraftEntity,
     ) {
         var binding = holder.dataBinding
         binding?.apply {
@@ -34,7 +34,7 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
                 }
                 adapter = tabAdapter
             }
-            tabAdapter.setList(data.typeList)
+            tabAdapter.setList(data.craftList)
 
             //信息适配器
             var infoAdapter = BaseBinderAdapter()
@@ -43,17 +43,7 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
                 addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
             }
             rvContent.apply {
-                layoutManager = GridLayoutManager(context, 2).apply {
-                    spanSizeLookup= object : GridLayoutManager.SpanSizeLookup(){
-                        override fun getSpanSize(position: Int): Int {
-                            if(position <= 3 || position == 16){
-                                return 2
-                            }else{
-                                return 1
-                            }
-                        }
-                    }
-                }
+                layoutManager = GridLayoutManager(context, 1)
                 adapter = infoAdapter
             }
             infoAdapter.setOnItemClickListener { adapter, view, position ->
@@ -72,7 +62,7 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
                 tabAdapter.isShowDel = isDel
                 if (isDel) {
                     tvDel.text = "完成"
-                }else{
+                } else {
                     tvDel.text = "删除"
                 }
                 tabAdapter.notifyDataSetChanged()
@@ -82,42 +72,32 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
         }
     }
 
-    fun switchInfoPage(tabAdapter: TabAdapter, infoAdapter: BaseBinderAdapter, position: Int){
+    fun switchInfoPage(tabAdapter: TabAdapter, infoAdapter: BaseBinderAdapter, position: Int) {
         //刷新列表
         tabAdapter.isSelectedPosition = position
         tabAdapter.notifyDataSetChanged()
 
         //更新信息数据
-        var info = tabAdapter.data[position] as MaterielDeatilTypeEntity
-        infoAdapter.setList(typeInfo(info.materielTypeData))
+        var info = tabAdapter.data[position] as CraftDeatileTypeEntity
+        infoAdapter.setList(typeInfo(info.craftTypeData))
     }
 
     override fun onCreateDataBinding(
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
-    ): DesignerItemMaterielTypeDataBinding = DesignerItemMaterielTypeDataBinding.inflate(layoutInflater, parent, false)
+    ): DesignerItemCraftTypeDataBinding =
+        DesignerItemCraftTypeDataBinding.inflate(layoutInflater, parent, false)
 
-    fun typeInfo(info: MaterielDeatilTypeData): ArrayList<Any>{
+    fun typeInfo(info: CraftDeatilTypeData): ArrayList<Any> {
         var infos = arrayListOf<Any>()
         infos.apply {
-            add(ItemChooseEntity("0", "供应商", info.productName))
-            add(ItemChooseEntity("0", "品名", info.supplierName))
-            add(ItemChooseEntity("0", "编号", "123"))
-            add(ItemGrayLineEntity(context, 8F))
-            add(ItemChooseEntity("0", "产地", "123"))
-            add(ItemChooseEntity("0", "幅宽", "123", "cm"))
-            add(ItemChooseEntity("0", "成分", "123"))
-            add(ItemChooseEntity("0", "克重", "123"))
-            add(ItemChooseEntity("0", "颜色", "123"))
-            add(ItemChooseEntity("0", "色号", "123"))
-            add(ItemChooseEntity("0", "用量", "123"))
-            add(ItemChooseEntity("0", "单位", "123", "米"))
-            add(ItemChooseEntity("0", "损耗", "123", "%"))
-            add(ItemChooseEntity("0", "缩率", "123", "%"))
-            add(ItemChooseEntity("0", "总用量", "123"))
-            add(ItemChooseEntity("0", "单价", "123", "元"))
-            add(ItemChooseEntity("0", "总金额", "123", "元"))
+            add(ItemChooseEntity("0", "提供方", info.craftTGF))
+            add(ItemChooseEntity("0", "品名", "234"))
+            add(ItemChooseEntity("0", "总金额", "234"))
+            add(ItemChooseEntity("0", "处理阶段", "234"))
+            add(ItemChooseEntity("0", "工艺单位", "234"))
+            add(ItemChooseEntity("0", "工艺供应商", "234"))
         }
         return infos
     }

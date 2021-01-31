@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity" />
+            type="com.deti.designer.materiel.popup.detaile.TabEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="5mm"
             android:textSize="15mm"
-            android:text="@{entity.materielTypeName}"
+            android:text="@{entity.tabName}"
             android:textColor="#666666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

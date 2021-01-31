@@ -62,7 +62,7 @@
             android:paddingBottom="14mm"
             android:text="@{entity.unit}"
             android:textColor="#333333"
-            android:visibility="@{TextUtils.isEmpty(entity.unit) == true ? View.VISIBLE : View.GONE}"
+            android:visibility="@{TextUtils.isEmpty(entity.unit) == true ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_content"
             app:layout_constraintTop_toTopOf="parent" />
