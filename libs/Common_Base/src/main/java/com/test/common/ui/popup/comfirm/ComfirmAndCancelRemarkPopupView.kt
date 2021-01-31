@@ -10,10 +10,11 @@ import com.test.common.R
 /**
  * 确定取消弹窗
  */
-class ComfirmAndCancelInputPopupView(
+class ComfirmAndCancelRemarkPopupView(
     var mActivity: Activity,
     var mTitle: String? = "温馨提示",
     var mTipOne: String? = "",
+    var mTipTwo: String? = "",
     var mLeftText: String? = "取消",
     var mRightText: String? = "确定",
     /** 左侧文字颜色*/
@@ -24,7 +25,7 @@ class ComfirmAndCancelInputPopupView(
     var mRightCancelBlock: (view: View, pop: CenterPopupView, inputText: String) -> Unit = {view: View, pop: CenterPopupView, inputText: String ->},
 ) : CenterPopupView(mActivity){
 
-    override fun getImplLayoutId(): Int = R.layout.base_dialog_comfirm_and_cancel_input
+    override fun getImplLayoutId(): Int = R.layout.base_dialog_comfirm_and_cancel_remark
 
     override fun onCreate() {
         super.onCreate()
@@ -34,12 +35,14 @@ class ComfirmAndCancelInputPopupView(
         var tv_btn_left = findViewById<TextView>(R.id.tv_btn_left)
         var tv_btn_right = findViewById<TextView>(R.id.tv_btn_right)
         var tv_tip_one = findViewById<TextView>(R.id.tv_tip_one)
+        var tv_tip_two = findViewById<TextView>(R.id.tv_tip_two)
 
         tv_title.text = mTitle
 //        tv_content.text = mContent
         tv_btn_left.text = mLeftText
         tv_btn_right.text = mRightText
         tv_tip_one.text = mTipOne
+        tv_tip_two.text = mTipTwo
 
         tv_btn_left.setTextColor(mLeftBtnColor)
         tv_btn_right.setTextColor(mRightBtnColor)

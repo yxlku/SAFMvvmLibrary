@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.databinding.DesignerItemCraftTypeDataBinding
 import com.deti.designer.materiel.popup.detaile.CraftDeatilTypeData
 import com.deti.designer.materiel.popup.detaile.CraftDeatileTypeEntity
+import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChoose
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChooseEntity
 import com.test.common.ui.line.ItemGrayLine
@@ -78,8 +79,16 @@ class ItemCraftType() :
         tabAdapter.notifyDataSetChanged()
 
         //更新信息数据
-        var info = tabAdapter.data[position] as CraftDeatileTypeEntity
-        infoAdapter.setList(typeInfo(info.craftTypeData))
+
+
+        if(tabAdapter.data.size > 0) {
+            var info = tabAdapter.data[position] as CraftDeatileTypeEntity
+            if (info.craftTypeData != null) {
+                infoAdapter.setList(typeInfo(info.craftTypeData))
+            }
+        }else{
+            infoAdapter.setList(arrayListOf())
+        }
     }
 
     override fun onCreateDataBinding(

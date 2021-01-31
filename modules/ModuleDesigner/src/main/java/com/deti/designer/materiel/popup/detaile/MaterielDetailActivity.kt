@@ -31,7 +31,7 @@ class MaterielDetailActivity: BaseActivity<DesignerActivityMaterielDetailBinding
 
         mAdapter.apply {
             addItemBinder(ItemRemarksEntity::class.java, ItemRemark())
-            addItemBinder(ItemMaterielTypeEntity::class.java, ItemMaterielType())
+            addItemBinder(ItemMaterielTypeEntity::class.java, ItemMaterielType(this@MaterielDetailActivity))
             addItemBinder(ItemCraftEntity::class.java, ItemCraftType())
         }
 

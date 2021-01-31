@@ -1,7 +1,9 @@
 package com.deti.designer.materiel.popup.detaile.item.type
 
+import android.app.Activity
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,13 +14,27 @@ import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeData
 import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChoose
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChooseEntity
+import com.lxj.xpopup.core.CenterPopupView
+import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.LogUtil
 import com.test.common.ui.line.ItemGrayLine
 import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelInput
 
 /**
  * 物料详情 - 类型 - 主料、辅料
  */
-class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, DesignerItemMaterielTypeDataBinding>() {
+class ItemMaterielType(
+    var mActivity: Activity
+): QuickDataBindingItemBinder<ItemMaterielTypeEntity, DesignerItemMaterielTypeDataBinding>() {
+
+    override fun onCreateDataBinding(
+        layoutInflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int,
+    ): DesignerItemMaterielTypeDataBinding = DesignerItemMaterielTypeDataBinding.inflate(layoutInflater, parent, false)
+
+
     override fun convert(
         holder: BinderDataBindingHolder<DesignerItemMaterielTypeDataBinding>,
         data: ItemMaterielTypeEntity,
@@ -58,13 +74,42 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
             }
             infoAdapter.setOnItemClickListener { adapter, view, position ->
                 //弹窗
+                var itemChooseEntity = adapter.getItem(position) as ItemChooseEntity
+                dialogComfirmAndCancelInput(
+                    mActivity,
+                    "修改信息",
+                    itemChooseEntity.title,
+                    mRightBtnColor = Color.parseColor("#F3B11C"),
+                    mLeftClickBlock = { view: View, pop: CenterPopupView, inputText: String ->
+                        pop.dismiss()
+                    },
+                    mRightClickBlock = { view: View, pop: CenterPopupView, inputText: String ->
+                        //确定
+                        //改Item的UI信息
+                        itemChooseEntity.content = inputText
+                        adapter.notifyDataSetChanged()
+                        //改版数据信息
+                        var tabPos = tabAdapter.isSelectedPosition
+                        var tabData = data.typeList[tabPos].materielTypeData
+                        tabData::class.java.declaredFields.forEach {
+                            if (it.name == itemChooseEntity.id) {
+                                var type = it.genericType.toString()
+                                if("class java.lang.String" == type){
+                                    var name = it.name.substring(0, 1).toUpperCase() + it.name.substring(1);
+                                    var method = tabData::class.java.getMethod("set${name}", String::class.java)
+                                    method.invoke(tabData, inputText)
+                                }
+                            }
+                        }
+                        pop.dismiss()
+                    }
+                ).show()
             }
             switchInfoPage(tabAdapter, infoAdapter, 0)
 
             tabAdapter.setOnItemClickListener { adapter, view, position ->
                 switchInfoPage(tabAdapter, infoAdapter, position)
             }
-
 
             tvDel.setOnClickListener {
                 //tab删除
@@ -81,28 +126,30 @@ class ItemMaterielType(): QuickDataBindingItemBinder<ItemMaterielTypeEntity, Des
             executePendingBindings()
         }
     }
-
+    var currTypeInfo: MaterielDeatilTypeEntity? = null
     fun switchInfoPage(tabAdapter: TabAdapter, infoAdapter: BaseBinderAdapter, position: Int){
         //刷新列表
         tabAdapter.isSelectedPosition = position
         tabAdapter.notifyDataSetChanged()
 
         //更新信息数据
-        var info = tabAdapter.data[position] as MaterielDeatilTypeEntity
-        infoAdapter.setList(typeInfo(info.materielTypeData))
+        if(tabAdapter.data.size > 0) {
+            var info = tabAdapter.data[position] as MaterielDeatilTypeEntity
+            if (info.materielTypeData != null) {
+                currTypeInfo = info
+                infoAdapter.setList(typeInfo(info.materielTypeData))
+            }
+        }else{
+            infoAdapter.setList(arrayListOf())
+        }
     }
 
-    override fun onCreateDataBinding(
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup,
-        viewType: Int,
-    ): DesignerItemMaterielTypeDataBinding = DesignerItemMaterielTypeDataBinding.inflate(layoutInflater, parent, false)
 
     fun typeInfo(info: MaterielDeatilTypeData): ArrayList<Any>{
         var infos = arrayListOf<Any>()
         infos.apply {
-            add(ItemChooseEntity("0", "供应商", info.productName))
-            add(ItemChooseEntity("0", "品名", info.supplierName))
+            add(ItemChooseEntity("supplierName", "供应商", info.supplierName))
+            add(ItemChooseEntity("productName", "品名", info.productName))
             add(ItemChooseEntity("0", "编号", "123"))
             add(ItemGrayLineEntity(context, 8F))
             add(ItemChooseEntity("0", "产地", "123"))

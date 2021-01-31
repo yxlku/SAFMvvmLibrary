@@ -29,6 +29,7 @@ import com.test.common.adapter.CommonListBtnsEntity
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancel
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelInput
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelRemark
 import com.test.common.ui.popup.dialogBubbleSingle
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 import kotlin.collections.ArrayList
@@ -121,7 +122,7 @@ class MaterielListAdapter(
 
                         BTN_MATERIEL_BACK -> {
                             mActivity?.apply {
-                                dialogComfirmAndCancelInput(
+                                dialogComfirmAndCancelRemark(
                                     this,
                                     mTitle = "退回需求单",
                                     mTipOne = "",
