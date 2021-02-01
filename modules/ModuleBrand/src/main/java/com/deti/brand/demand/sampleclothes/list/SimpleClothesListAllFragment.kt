@@ -9,11 +9,12 @@ import com.deti.brand.demand.sampleclothes.list.adapter.list.SimpleClothesListAl
 import com.deti.brand.demand.sampleclothes.list.entity.FirstNodeEntity
 import com.deti.brand.demand.sampleclothes.list.entity.SecondNodeEntity
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 
 class SimpleClothesListAllFragment(
     /** 列表状态*/
     var mStateList: Int = StateListSimpleClothesEnum.STATE_ALL
-): BaseFragment<BrandFragmentSimpleClothesListAllBinding, SimpleClothesListAllViewModel>(
+): BaseLazyFragment<BrandFragmentSimpleClothesListAllBinding, SimpleClothesListAllViewModel>(
     R.layout.brand_fragment_simple_clothes_list_all,
     BR.viewModel
 ) {

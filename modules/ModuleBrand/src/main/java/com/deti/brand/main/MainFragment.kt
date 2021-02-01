@@ -11,13 +11,14 @@ import com.deti.brand.main.odm.ODMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
-class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
+class MainFragment: BaseLazyFragment<BrandFragmentMainBinding, MainViewModel>(
     R.layout.brand_fragment_main,
     BR.viewModel
 ), ITabTop {
@@ -26,9 +27,8 @@ class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     var titles = arrayListOf("ODM")
     var fragments = arrayListOf<Fragment>(ODMFragment())
 
-    override fun initData() {
-        super.initData()
-
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
         initViewPager()
         initTab()
     }

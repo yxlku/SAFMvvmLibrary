@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="@id/iv_title"
             app:layout_constraintTop_toTopOf="@id/iv_title" />
 
-        <androidx.viewpager.widget.ViewPager
+        <com.safmvvm.ui.viewpager.CustomViewPager
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="0mm"

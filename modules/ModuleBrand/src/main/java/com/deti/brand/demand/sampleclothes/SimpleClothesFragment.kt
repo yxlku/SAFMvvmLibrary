@@ -12,12 +12,13 @@ import com.deti.brand.demand.sampleclothes.list.StateListSimpleClothesEnum
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
-class SimpleClothesFragment: BaseFragment<BrandFragmentSimpleClothesBinding, SimpleClothesViewModel>(
+class SimpleClothesFragment: BaseLazyFragment<BrandFragmentSimpleClothesBinding, SimpleClothesViewModel>(
     R.layout.brand_fragment_simple_clothes,
     BR.viewModel
 ), ITabTop {
@@ -40,9 +41,9 @@ class SimpleClothesFragment: BaseFragment<BrandFragmentSimpleClothesBinding, Sim
         /** 待收款*/
         SimpleClothesListAllFragment(StateListSimpleClothesEnum.STATE_PAYMENT),
     )
-    override fun initData() {
-        super.initData()
 
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
         fragments.createViewPager(childFragmentManager, mBinding.vpContent)
         initTabTop(
             context,

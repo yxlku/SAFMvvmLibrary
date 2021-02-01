@@ -16,6 +16,7 @@ import com.deti.brand.main.odm.ODMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -24,7 +25,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator.MODE_EXACTLY
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
-class PriceDemandFragment: BaseFragment<BrandFragmentDemandPriceBinding, PriceDemandViewModel>(
+class PriceDemandFragment: BaseLazyFragment<BrandFragmentDemandPriceBinding, PriceDemandViewModel>(
     R.layout.brand_fragment_demand_price,
     BR.viewModel
 ), ITabTop{

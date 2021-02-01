@@ -37,6 +37,7 @@ import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
@@ -67,7 +68,7 @@ import java.util.*
 /**
  * 创建需求
  */
-class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
+class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
@@ -109,8 +110,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     /** 对应服务弹窗*/
     var mDialogServiceProduce: BasePopupView? = null
 
-    override fun initData() {
-        super.initData()
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
         //TODO testLoginData
         ConstantsFun.User.logoutClearInfo()
         ConstantsFun.User.loginSaveInfo(
@@ -123,6 +124,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         //初始化列表
         initRecyclerView()
     }
+
 
     /**
      * 初始化列表

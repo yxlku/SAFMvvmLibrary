@@ -15,13 +15,14 @@ import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator
 
-class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
+class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     R.layout.brand_fragment_index_odm,
     BR.viewModel
 ), ITabTop {

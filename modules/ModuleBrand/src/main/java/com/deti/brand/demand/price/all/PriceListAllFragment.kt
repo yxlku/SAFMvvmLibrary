@@ -7,11 +7,12 @@ import com.deti.brand.databinding.BrandFragmentPriceListAllBinding
 import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter
 import com.deti.brand.demand.price.all.entity.PriceListAllEntity
 import com.safmvvm.mvvm.view.BaseFragment
+import com.safmvvm.mvvm.view.BaseLazyFragment
 
 /**
  * 报价全部列表
  */
-class PriceListAllFragment: BaseFragment<BrandFragmentPriceListAllBinding, PriceListAllViewModel>(
+class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, PriceListAllViewModel>(
     R.layout.brand_fragment_price_list_all,
     BR.viewModel
 ) {
