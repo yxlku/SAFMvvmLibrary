@@ -30,6 +30,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
 //        headers.put("token", userInfoToken())
         //TODO 不能及时更换
         headers.put("token", "c7cf65bea6a2410d826f05a4f9256ae4")
+        headers.put("X-Requested-With", "XMLHttpRequest")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
         return headers

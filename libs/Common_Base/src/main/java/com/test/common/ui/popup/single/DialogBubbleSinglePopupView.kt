@@ -3,11 +3,14 @@ package com.test.common.ui.popup.single
 import android.app.Activity
 import android.view.View
 import android.view.animation.Animation
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.animator.PopupAnimator
 import com.lxj.xpopup.core.AttachPopupView
 import com.lxj.xpopup.core.BasePopupView
+import com.safmvvm.ui.decoraction.CustomDecoration
+import com.safmvvm.ui.decoraction.MarginDecoration
 import com.test.common.R
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.xujiaji.happybubble.BubbleLayout
@@ -72,6 +75,7 @@ class DialogBubbleSinglePopupView(
 
         rv_content.apply {
             layoutManager = LinearLayoutManager(context)
+            addItemDecoration(CustomDecoration(context, DividerItemDecoration.VERTICAL, false))
             adapter = mAdapter
         }
         //单选点击事件

@@ -30,6 +30,7 @@ fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
         DialogBubbleSinglePopupView(mActivity, v, selectedMode, selectedPosition, clickDismiss,this, layoutWidth, block)
     ){
         it.hasBlurBg(false)
+        it.hasShadowBg(false)
         it.atView(v)
         it.popupType(PopupType.AttachView)
     }

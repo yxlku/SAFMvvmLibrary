@@ -5,14 +5,11 @@
     android:background="#00000000"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:bubbleArrowDownLeftRadius="10mm"
-    app:bubbleArrowDownRightRadius="10mm"
-    app:bubbleArrowTopLeftRadius="10mm"
-    app:bubbleArrowTopRightRadius="10mm"
     app:bubbleRadius="4mm"
+    app:bubblePadding="4mm"
     app:lookAt="left"
-    app:lookLength="15mm"
-    app:lookWidth="5mm">
+    app:lookLength="8mm"
+    app:lookWidth="8mm">
 
     <com.lxj.xpopup.widget.VerticalRecyclerView
         android:id="@+id/rv_content"

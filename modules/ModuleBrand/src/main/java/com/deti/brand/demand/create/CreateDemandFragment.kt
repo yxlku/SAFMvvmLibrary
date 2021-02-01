@@ -257,8 +257,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         var pos = mAdapter.getItemPosition(itemEntityTypeChoose) + 1
         when (checkEntity.id) {
             "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
-            "sample" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
-            "fabric" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
+            "fabric" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
+            "sample" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
             "layout" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
             "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
         }
@@ -292,8 +292,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                     if(mPopupChooseType == null){
                         mPopupChooseType = arrayListOf(
                             BaseMultipleChoiceEntity("picture","图片", true),
-                            BaseMultipleChoiceEntity("sample", "面料信息", false),
-                            BaseMultipleChoiceEntity("fabric", "样衣", false),
+                            BaseMultipleChoiceEntity("fabric", "面料信息", false),
+                            BaseMultipleChoiceEntity("sample", "样衣", false),
                             BaseMultipleChoiceEntity("layout", "设计稿", false),
                             BaseMultipleChoiceEntity("production_standard", "制版文件", false),
                         ).createDialogSelectedMultiple(
