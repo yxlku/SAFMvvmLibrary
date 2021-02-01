@@ -1,4 +1,4 @@
-package com.test.common.ui.line
+package com.test.common.ui.item.line
 
 import android.content.Context
 

@@ -2,10 +2,8 @@ package com.deti.designer.materiel.popup.addmateriel
 
 import android.graphics.Color
 import android.text.InputType
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.designer.R
 import com.deti.designer.BR
@@ -23,10 +21,8 @@ import com.deti.designer.materiel.popup.addmateriel.item.radio.ItemRadioTypeEnti
 import com.deti.designer.materiel.popup.addmateriel.item.remark.ItemRemark
 import com.deti.designer.materiel.popup.addmateriel.item.remark.ItemRemarkEntity
 import com.safmvvm.mvvm.view.bottom.BaseBottomFragment
-import com.safmvvm.ui.titlebar.OnTitleBarListener
-import com.safmvvm.ui.titlebar.TitleBar
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
 
 /**
  * 添加物料

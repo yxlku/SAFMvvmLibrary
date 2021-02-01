@@ -2,6 +2,7 @@ package com.deti.brand
 
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
+import com.deti.brand.demand.price.all.entity.DemandIndentListApp
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.entity.CommoneEmpty
@@ -49,6 +50,16 @@ interface BrandApiService {
     suspend fun requestDemandSubmit(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
+
+    /**
+     * 品牌商侧-获取需求单列表(APP)
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/findDemandIndentListAPP")
+    suspend fun findDemandIndentListAPP(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<DemandIndentListApp?>
+
+
 
 
 

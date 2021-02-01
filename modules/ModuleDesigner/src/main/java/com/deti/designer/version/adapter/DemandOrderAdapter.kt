@@ -7,8 +7,8 @@ import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemDemandOrderBinding
 import com.deti.designer.version.entity.DemandOrderEntity
 import com.deti.designer.version.entity.GoodsDataEntity
-import com.test.common.adapter.CommonListBtnsAdapter
-import com.test.common.adapter.CommonListBtnsEntity
+import com.test.common.ui.adapter.CommonListBtnsAdapter
+import com.test.common.ui.adapter.CommonListBtnsEntity
 
 class DemandOrderAdapter :
     BaseQuickAdapter<DemandOrderEntity, BaseDataBindingHolder<DesignerItemDemandOrderBinding>>(

@@ -109,7 +109,7 @@ abstract class BaseViewModel<M: BaseModel>(
      */
     suspend fun <T> Flow<out T>.flowDataDeal(
         /** 等待状态 */
-        loadingModel: LoadingModel = LoadingModel.LOAD_PAGESATE,
+        loadingModel: LoadingModel = LoadingModel.NULL,
         /** 成功状态 */
         onSuccess: (T)->Unit = {},
         /** 请求成功但是返回错误*/

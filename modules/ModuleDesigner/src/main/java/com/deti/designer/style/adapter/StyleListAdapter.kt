@@ -8,8 +8,8 @@ import com.deti.designer.R
 import com.deti.designer.databinding.DesignerItemStyleListBinding
 import com.deti.designer.style.entity.StyleListEntity
 import com.deti.designer.style.popup.StyleEditDialogFragment
-import com.test.common.adapter.CommonListBtnsAdapter
-import com.test.common.adapter.CommonListBtnsEntity
+import com.test.common.ui.adapter.CommonListBtnsAdapter
+import com.test.common.ui.adapter.CommonListBtnsEntity
 
 class StyleListAdapter(
     var mActivivity: AppCompatActivity

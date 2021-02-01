@@ -9,11 +9,10 @@ import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.designer.databinding.DesignerItemCraftTypeDataBinding
 import com.deti.designer.materiel.popup.detaile.CraftDeatilTypeData
 import com.deti.designer.materiel.popup.detaile.CraftDeatileTypeEntity
-import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChoose
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChooseEntity
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
 
 /**
  * 工艺详情信息

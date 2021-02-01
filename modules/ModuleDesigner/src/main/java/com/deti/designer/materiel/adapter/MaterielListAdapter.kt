@@ -1,6 +1,5 @@
 package com.deti.designer.materiel.adapter
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.SystemClock
 import android.view.View
@@ -21,14 +20,12 @@ import com.deti.designer.materiel.popup.addmateriel.PopupAddMaterielFragment
 import com.deti.designer.materiel.popup.push.PushMaterielFragment
 import com.deti.designer.materiel.popup.revoke.DialogRevokeFragment
 import com.lxj.xpopup.core.CenterPopupView
-import com.safmvvm.ui.dialog.DialogUtil
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
-import com.test.common.adapter.CommonListBtnsAdapter
-import com.test.common.adapter.CommonListBtnsEntity
+import com.test.common.ui.adapter.CommonListBtnsAdapter
+import com.test.common.ui.adapter.CommonListBtnsEntity
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancel
-import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelInput
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelRemark
 import com.test.common.ui.popup.dialogBubbleSingle
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView

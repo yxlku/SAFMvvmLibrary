@@ -1,4 +1,4 @@
-package com.test.common.ui.line
+package com.test.common.ui.item.line
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

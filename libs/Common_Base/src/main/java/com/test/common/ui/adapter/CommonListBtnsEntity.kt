@@ -1,4 +1,4 @@
-package com.test.common.adapter
+package com.test.common.ui.adapter
 
 import androidx.annotation.DrawableRes
 import com.test.common.R

@@ -16,10 +16,10 @@ import com.test.common.ui.dialog.goods.item.paytitle.ItemPayModeTitle
 import com.test.common.ui.dialog.goods.item.paytitle.ItemPayModeTitleEntity
 import com.test.common.ui.dialog.goods.item.sizecount.ItemGoodsSizeCount
 import com.test.common.ui.dialog.goods.item.sizecount.ItemGoodsSizeCountEntity
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 
 class GoodsDetailBottomPopupView(
     var mActivity: Activity,

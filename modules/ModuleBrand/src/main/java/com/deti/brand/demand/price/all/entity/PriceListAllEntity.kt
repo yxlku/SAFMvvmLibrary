@@ -1,9 +1,22 @@
 package com.deti.brand.demand.price.all.entity
 
+import java.io.Serializable
+
 /**
- * 全部列表实体类
+ * 品牌商侧-获取需求单列表(APP)
+ */
+data class DemandIndentListApp(
+    var result: DemandIndentResult
+):Serializable
+
+data class DemandIndentResult(
+    var list: ArrayList<PriceListAllEntity> = arrayListOf()
+):Serializable
+
+/**
+ * 报价列表实体类
  */
 data class PriceListAllEntity(
-    var id: Int = 0,
-    var state: Int = 0,
-)
+    var id: String = "",
+    var state: String = "",
+):Serializable

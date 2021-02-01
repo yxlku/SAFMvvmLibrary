@@ -9,12 +9,11 @@ import com.deti.basis.personal.adapter.ItemFormPersonalEntity
 import com.deti.basis.personal.adapter.ItemFormPersonalPerfect
 import com.deti.basis.personal.adapter.ItemTitlePersonalEntity
 import com.deti.basis.personal.adapter.ItemTitlePersonalPerfect
-import com.deti.basis.personal.perfect.PerfectPersonalFragment
 import com.safmvvm.mvvm.view.BaseFragment
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 
 class AddSubAccountFragment: BaseFragment<BasisFragmentAddSubAccountBinding, AddSubAccountViewModel>(
     R.layout.basis_fragment_add_sub_account,

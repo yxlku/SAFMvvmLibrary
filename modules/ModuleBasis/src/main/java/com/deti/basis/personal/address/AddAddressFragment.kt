@@ -1,20 +1,18 @@
 package com.deti.basis.personal.address
 
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.basis.R
 import com.deti.basis.BR
 import com.deti.basis.databinding.BasisFragmentAddAddressBinding
 import com.deti.basis.personal.adapter.*
-import com.deti.basis.personal.subaccount.AddSubAccountFragment
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.utils.LogUtil
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 
 class AddAddressFragment: BaseFragment<BasisFragmentAddAddressBinding, AddAddressViewModel>(
     R.layout.basis_fragment_add_address,

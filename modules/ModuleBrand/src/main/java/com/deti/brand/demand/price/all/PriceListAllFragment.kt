@@ -17,15 +17,35 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
     BR.viewModel
 ) {
 
+
+    companion object{
+        /** 全部*/
+        const val PRICE_LIST_ALL = "Price_list_all"
+        /** 未确认*/
+        const val PRICE_LIST_UNCONFIRMED = "Price_list_unconfirmed"
+        /** 已确认*/
+        const val PRICE_LIST_CONFIRMED = "Price_list_confirmed"
+        /** 已关闭*/
+        const val PRICE_LIST_CLOSED = "Price_list_closed"
+    }
+
     var mAdapter = PriceListAllAdapter(activity)
+
     override fun initData() {
         super.initData()
 
+
+    }
+
+    override fun onFragmentFirstVisible() {
+        super.onFragmentFirstVisible()
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
         mAdapter.setList(testData())
+        //第一显示的时候才会请求数据
+        mViewModel.requestFindDemandIndentListAPP()
     }
 
     fun testData(): ArrayList<PriceListAllEntity>{
@@ -33,8 +53,8 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
         for (i in 0 until 10){
             list.add(
                 PriceListAllEntity(
-                    i,
-                    i
+                    "i",
+                    "i"
                 )
             )
         }

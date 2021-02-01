@@ -7,10 +7,6 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.price.all.entity.PriceListAllEntity" />
-
-        <variable
-            name="viewModel"
-            type="com.deti.brand.demand.price.all.adapter.PriceListAllItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

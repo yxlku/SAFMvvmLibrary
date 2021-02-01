@@ -15,10 +15,8 @@ import com.deti.designer.materiel.popup.detaile.MaterielDeatilTypeEntity
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChoose
 import com.deti.designer.materiel.popup.detaile.item.choose.ItemChooseEntity
 import com.lxj.xpopup.core.CenterPopupView
-import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.LogUtil
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelInput
 
 /**

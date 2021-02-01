@@ -10,8 +10,8 @@ import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfoEntity
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgress
 import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgressEntity
 import com.safmvvm.mvvm.view.BaseActivity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 
 /**
  * 订单详情

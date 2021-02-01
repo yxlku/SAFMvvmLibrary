@@ -151,7 +151,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         it?.data?.dataDictionaryList?.forEach { dataDictionaryEntity ->
                             baseSingleChoiceEntitys.add(
                                 BaseSingleChoiceEntity(
-                                    dataDictionaryEntity.id,
+                                    dataDictionaryEntity.code,
                                     dataDictionaryEntity.text
                                 )
                             )

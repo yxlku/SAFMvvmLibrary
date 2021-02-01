@@ -36,7 +36,6 @@ import com.loper7.date_time_picker.StringUtils
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
-import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.JsonUtil
@@ -52,10 +51,10 @@ import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import com.test.common.ui.dialog.tip.createDialogTip
-import com.test.common.ui.line.ItemGrayLine
-import com.test.common.ui.line.ItemGrayLineEntity
-import com.test.common.ui.line.ItemTransparentLine
-import com.test.common.ui.line.ItemTransparentLineEntity
+import com.test.common.ui.item.line.ItemGrayLine
+import com.test.common.ui.item.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors

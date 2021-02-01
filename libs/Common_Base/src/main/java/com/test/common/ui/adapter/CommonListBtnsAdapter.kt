@@ -1,4 +1,4 @@
-package com.test.common.adapter
+package com.test.common.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
