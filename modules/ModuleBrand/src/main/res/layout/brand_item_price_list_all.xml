@@ -215,21 +215,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line" />
 
-        <TextView
-            android:id="@+id/brand_textview13"
+        <com.xujiaji.happybubble.BubbleLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2mm"
-            android:background="@drawable/brand_tip_order_num"
-            android:paddingStart="10mm"
-            android:paddingTop="5mm"
-            android:paddingEnd="10mm"
-            android:paddingBottom="2mm"
-            android:text="已报价：¥860.00"
-            android:textColor="#FFFFFF"
-            android:textSize="12mm"
+            app:bubbleColor="#F74B60"
+            app:bubblePadding="2mm"
+            app:lookWidth="8mm"
+            app:lookLength="5mm"
             app:layout_constraintStart_toStartOf="@+id/tv_order_time"
-            app:layout_constraintTop_toBottomOf="@+id/tv_order_num" />
+            app:bubbleRadius="10mm"
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_num"
+            app:lookAt="top"
+            app:lookPosition="20mm">
+
+            <TextView
+                android:id="@+id/brand_textview13"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2mm"
+                android:paddingStart="5mm"
+                android:paddingEnd="5mm"
+                android:text="已报价：¥860.00"
+                android:textColor="#FFFFFF"
+                android:textSize="12mm" />
+
+        </com.xujiaji.happybubble.BubbleLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
