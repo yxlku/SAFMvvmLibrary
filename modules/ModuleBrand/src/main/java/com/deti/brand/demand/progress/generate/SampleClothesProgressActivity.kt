@@ -1,5 +1,8 @@
 package com.deti.brand.demand.progress.generate
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.widget.TextView
 import com.deti.brand.BR
 import com.deti.brand.R
@@ -16,6 +19,16 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
     R.layout.brand_activity_sample_clothes_progress,
     BR.viewModel
 ) {
+
+    companion object{
+        fun startAction(activity: Activity?){
+            activity?.apply {
+                var intent = Intent(this, SampleClothesProgressActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
     val stepsList = arrayListOf(
         "样衣发货",
         "样衣运输",

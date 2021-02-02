@@ -29,7 +29,6 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
         const val PRICE_LIST_CLOSED = "Price_list_closed"
     }
 
-    var mAdapter = PriceListAllAdapter(activity)
 
     override fun initData() {
         super.initData()
@@ -39,6 +38,7 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
+        var mAdapter = PriceListAllAdapter(activity)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
@@ -50,14 +50,10 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
 
     fun testData(): ArrayList<PriceListAllEntity>{
         var list = arrayListOf<PriceListAllEntity>()
-        for (i in 0 until 10){
-            list.add(
-                PriceListAllEntity(
-                    "i",
-                    "i"
-                )
-            )
-        }
+        //待得体报价
+        list.add(PriceListAllEntity("0", PriceListAllAdapter.STATE_OFFER_WAIT_DETI))
+        //待得体报价 - 倒计时
+        list.add(PriceListAllEntity("1", PriceListAllAdapter.STATE_OFFER_WAIT_DETI_TIME))
         return list
     }
 }

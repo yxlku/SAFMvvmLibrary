@@ -1,5 +1,8 @@
 package com.deti.brand.demand.progress.logistics
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.R
@@ -20,6 +23,15 @@ class LogisticsActivity: BaseActivity<BrandActivityLogisticsBinding, LogisticsVi
     R.layout.brand_activity_logistics,
     BR.viewModel
 ) {
+
+    companion object{
+        fun startAction(context: Activity?){
+            context?.apply {
+                var intent = Intent(this, LogisticsActivity::class.java)
+                this.startActivity(intent)
+            }
+        }
+    }
 
     var mAdapter = BaseBinderAdapter()
 

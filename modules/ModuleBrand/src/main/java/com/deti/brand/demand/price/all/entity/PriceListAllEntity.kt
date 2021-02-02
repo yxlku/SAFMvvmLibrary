@@ -18,5 +18,11 @@ data class DemandIndentResult(
  */
 data class PriceListAllEntity(
     var id: String = "",
+    /** 需求单号*/
+    var serialNumber: String = "",
+
+
     var state: String = "",
+    /** 服务类型*/
+    var productionType: String = ""
 ):Serializable
