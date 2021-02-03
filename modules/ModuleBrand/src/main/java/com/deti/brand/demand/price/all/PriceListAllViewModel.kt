@@ -1,8 +1,6 @@
 package com.deti.brand.demand.price.all
 
 import android.app.Application
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_CONFIRMED_WAIT
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_DETI
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.utils.LogUtil

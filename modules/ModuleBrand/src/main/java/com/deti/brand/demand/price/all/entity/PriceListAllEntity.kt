@@ -54,8 +54,8 @@ data class PriceListAllEntity(
     var service: String = "",
     /** 服务类型 - key*/
     var serviceType: String = "",
-    /** 1待得体报价 2得体报价中 3待确认 5需求已取消 10已确认报价 11已拒绝报价*/
-    var status: String = "",
+    /** 1待报价 2待报价(报价中) 3待确认 4待报价(无样衣时显示) 5已关闭 10已确认 12待报价(二次报价)*/
+    var status: Int = -1,
     /** 状态名字：得体报价中。。。。*/
     var statusName: String = "",
     /** 预算*/

@@ -1,6 +1,7 @@
 package com.deti.brand.demand.price.all.adapter
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
@@ -28,17 +29,17 @@ class PriceListAllAdapter(
         /**********************报价状态***********************/
         /** //1待报价 2待报价(报价中) - 此类型不用 3待确认 4待报价(无样衣时显示) 5已关闭 10已确认 12待报价(二次报价)*/
         /** 待报价 - 需要判断是否已签收，然后显示对应按钮*/
-        const val STATE_OFFER_WAIT = "1"
+        const val STATE_OFFER_WAIT = 1
         /** 待报价 - 无样衣*/
-        const val STATE_OFFER_WAIT_NO_SAMPLE = "4"
+        const val STATE_OFFER_WAIT_NO_SAMPLE = 4
         /** 待报价 - 二次报价*/
-        const val STATE_OFFER_WAIT_SECOND = "12"
+        const val STATE_OFFER_WAIT_SECOND = 12
         /** 待确认*/
-        const val STATE_CONFIRMED_WAIT = "3"
+        const val STATE_CONFIRMED_WAIT = 3
         /** 已确认报价*/
-        const val STATE_CONFIRMED = "10"
+        const val STATE_CONFIRMED = 10
         /** 需求已关闭*/
-        const val STATE_DEMAND_CLOSE = "5"
+        const val STATE_DEMAND_CLOSE = 5
 
         /**********************按钮状态***********************/
         /** 查看物流*/
@@ -128,11 +129,11 @@ class PriceListAllAdapter(
             add(ItemListInfoEntity("1", "款式：", item.classifyName))
             add(ItemListInfoEntity("2", "颜色：", item.colorStr))
             add(ItemListInfoEntity("3", "货期：", item.deliveryTime))
-            add(ItemListInfoEntity("4", "预算：", item.price))
+            add(ItemListInfoEntity("4", "预算：", item.price+"(元)", contentColor = Color.parseColor("#333333")))
 
             if (item.status == STATE_CONFIRMED) {
                 //已确认报价
-                add(ItemListInfoEntity("5", "报价：", item.quotePrice))
+                add(ItemListInfoEntity("5", "报价：", item.quotePrice+"(元)", contentColor = Color.parseColor("#333333")))
             }
         }
         return infos
