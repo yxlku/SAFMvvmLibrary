@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="entity"
+            type="com.test.common.ui.item.listinfo.ItemListInfoEntity" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:paddingBottom="@{entity.interval}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_budget_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{entity.title}"
+            android:textColor="@{entity.titleColor}"
+            android:textSize="@{entity.titleSize}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_service"
+            android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:layout_marginStart="5mm"
+            android:text="@{entity.content}"
+            android:textColor="@{entity.contentColor}"
+            android:textSize="@{entity.contentSize}" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

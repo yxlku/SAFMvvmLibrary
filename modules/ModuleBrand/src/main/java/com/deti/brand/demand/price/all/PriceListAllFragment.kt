@@ -6,6 +6,7 @@ import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentPriceListAllBinding
 import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter
 import com.deti.brand.demand.price.all.entity.PriceListAllEntity
+import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 
@@ -20,20 +21,16 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
 
     companion object{
         /** 全部*/
-        const val PRICE_LIST_ALL = "Price_list_all"
+        const val PRICE_LIST_ALL = "1"
         /** 未确认*/
-        const val PRICE_LIST_UNCONFIRMED = "Price_list_unconfirmed"
+        const val PRICE_LIST_UNCONFIRMED = "2"
         /** 已确认*/
-        const val PRICE_LIST_CONFIRMED = "Price_list_confirmed"
+        const val PRICE_LIST_CONFIRMED = "3"
         /** 已关闭*/
-        const val PRICE_LIST_CLOSED = "Price_list_closed"
-    }
+        const val PRICE_LIST_CLOSED = "4"
 
-
-    override fun initData() {
-        super.initData()
-
-
+        /** 添加数据*/
+        const val DATA_ADD = "data_add"
     }
 
     override fun onFragmentFirstVisible() {
@@ -43,17 +40,13 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
-        mAdapter.setList(testData())
         //第一显示的时候才会请求数据
-        mViewModel.requestFindDemandIndentListAPP()
+        mViewModel.requestFindDemandIndentListAPP(PRICE_LIST_ALL)
+
+        //刷新数据
+        LiveDataBus.observe<ArrayList<PriceListAllEntity>>(this, DATA_ADD, {
+              mAdapter.setList(it)
+        }, false)
     }
 
-    fun testData(): ArrayList<PriceListAllEntity>{
-        var list = arrayListOf<PriceListAllEntity>()
-        //待得体报价
-        list.add(PriceListAllEntity("0", PriceListAllAdapter.STATE_OFFER_WAIT_DETI))
-        //待得体报价 - 倒计时
-        list.add(PriceListAllEntity("1", PriceListAllAdapter.STATE_OFFER_WAIT_DETI_TIME))
-        return list
-    }
 }

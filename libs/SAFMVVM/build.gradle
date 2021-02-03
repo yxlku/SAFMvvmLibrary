@@ -149,6 +149,8 @@ dependencies {
     api Deps.bubbleView
     //列表库
     api Deps.adapter
+    //列表分割线
+    api Deps.rvDivider
 
 
     //组件中依赖阿里路由编译框架

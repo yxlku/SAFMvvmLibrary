@@ -26,7 +26,7 @@
             android:id="@+id/tv_order_num"
             android:layout_width="0mm"
             android:layout_height="wrap_content"
-            android:text="需求单号：X2020111314391496"
+            android:text='@{"需求单号：" + entity.serialNumber}'
             app:layout_constraintEnd_toStartOf="@id/tv_state"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:id="@+id/tv_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="状态"
+            android:text="@{entity.statusName}"
             android:textColor="#F74B60"
             android:textSize="12mm"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,131 +70,21 @@
             android:id="@+id/iv_img"
             android:layout_width="96mm"
             android:layout_height="96mm"
-            android:layout_marginTop="21mm"
+            android:layout_marginTop="15mm"
             android:scaleType="fitXY"
             android:src="@drawable/base_btn_yellow_bg"
             app:layout_constraintStart_toStartOf="@+id/tv_order_time"
             app:layout_constraintTop_toBottomOf="@+id/tv_order_time" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_service_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_marginStart="16mm"
-            android:text="服务："
-            android:textColor="#AAAAAA"
-            android:textSize="12mm"
-            app:layout_constraintStart_toEndOf="@+id/iv_img"
-            app:layout_constraintTop_toTopOf="@+id/iv_img" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_style_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/rv_info"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8mm"
-            android:text="款式："
-            android:textColor="#AAAAAA"
-            android:textSize="12mm"
-            app:layout_constraintStart_toStartOf="@+id/tv_service_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_service_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_color_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8mm"
-            android:text="颜色："
-            android:textColor="#AAAAAA"
-            android:textSize="12mm"
-            app:layout_constraintStart_toStartOf="@+id/tv_style_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_style_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_delivery_time_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8mm"
-            android:text="货期："
-            android:textColor="#AAAAAA"
-            android:textSize="12mm"
-            app:layout_constraintStart_toStartOf="@+id/tv_color_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_color_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_budget_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8mm"
-            android:text="预期："
-            android:textColor="#AAAAAA"
-            android:textSize="12mm"
-            app:layout_constraintStart_toStartOf="@+id/tv_delivery_time_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_delivery_time_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_service"
-            android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="样衣+打版+生产"
-            android:textColor="#666666"
-            android:textSize="12mm"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_service_title"
+            android:minHeight="96mm"
+            app:layout_constraintStart_toEndOf="@id/iv_img"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_service_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_service_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_style"
             android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="样衣+打版+生产样衣"
-            android:textColor="#666666"
-            android:textSize="12mm"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_style_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_style_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_style_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_color"
-            android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="样衣+打版+生产"
-            android:textColor="#666666"
-            android:textSize="12mm"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_color_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_color_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_color_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_delivery_time"
-            android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="样衣+打版+生产"
-            android:textColor="#666666"
-            android:textSize="12mm"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_time_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_delivery_time_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_delivery_time_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_budget"
-            android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="样衣+打版+生产"
-            android:textColor="#666666"
-            android:textSize="12mm"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_budget_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_budget_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_budget_title" />
+            app:layout_constraintTop_toTopOf="@id/iv_img" />
 
         <View
             android:id="@+id/line"
@@ -202,7 +92,7 @@
             android:layout_height="1mm"
             android:layout_marginTop="15mm"
             android:background="#E0E0E0"
-            app:layout_constraintTop_toBottomOf="@id/tv_budget" />
+            app:layout_constraintTop_toBottomOf="@id/rv_info" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_btns"
@@ -216,11 +106,13 @@
             app:layout_constraintTop_toBottomOf="@+id/line" />
 
         <com.xujiaji.happybubble.BubbleLayout
+            android:id="@+id/rl_quote_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:bubbleColor="#F74B60"
             app:bubblePadding="2mm"
             app:lookWidth="8mm"
+            android:visibility="gone"
             app:lookLength="5mm"
             app:layout_constraintStart_toStartOf="@+id/tv_order_time"
             app:bubbleRadius="10mm"
@@ -235,7 +127,7 @@
                 android:layout_marginStart="2mm"
                 android:paddingStart="5mm"
                 android:paddingEnd="5mm"
-                android:text="已报价：¥860.00"
+                android:text='@{"已报价：" + entity.quotePrice}'
                 android:textColor="#FFFFFF"
                 android:textSize="12mm" />
 

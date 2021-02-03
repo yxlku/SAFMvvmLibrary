@@ -150,6 +150,8 @@ ext {
             refreshLayoutFooterClassics:"com.scwang.smart:refresh-footer-classics:${Versions.refreshLayout}",
             //列表适配器
             adapter                    :"com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
+            //列表分割线
+            rvDivider                 : "com.github.fondesa:recycler-view-divider:3.3.0",
 
             //阿里路由框架
             "arouterApi"              : "com.alibaba:arouter-api:1.5.1",
