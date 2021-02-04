@@ -39,13 +39,14 @@ class PriceListAllViewModel(app: Application): BaseViewModel<PriceListAllModel>(
                                 this.quotePrice = "12366"
                                 this.receiveFlag = "30"
                                 this.receiveTime = "2021-01-31 11:26:52签收"
-                                this.receiveTimestamp = 1612435260
+                                this.receiveTimestamp = 1612436700
                             }
                             this[2].apply {
                                 this.status = STATE_OFFER_WAIT_NO_SAMPLE  //待报价 - 无样衣
                                 this.statusName = "待报价"
                                 this.quotePrice = "12366"
                                 this.receiveFlag = "10"
+                                this.orderTimestamp = 1612435620
                             }
                             this[3].apply {
                                 this.status = STATE_OFFER_WAIT_SECOND  //待报价 - 二次

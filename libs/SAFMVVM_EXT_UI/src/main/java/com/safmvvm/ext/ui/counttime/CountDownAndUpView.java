@@ -139,9 +139,9 @@ public class CountDownAndUpView extends View {
 //                // countdown end
 //                allShowZero();
 //                // callback
-//                if (null != mOnCountdownEndListener) {
-//                    mOnCountdownEndListener.onEnd(CountDownAndUpView.this);
-//                }
+                if (null != mOnCountdownEndListener) {
+                    mOnCountdownEndListener.onEnd(CountDownAndUpView.this);
+                }
             }
         };
         mCustomCountDownTimer.start();

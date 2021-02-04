@@ -125,10 +125,10 @@ class PriceListAllAdapter(
             var data = data[holder.adapterPosition]
             if (data.status == STATE_OFFER_WAIT) {
                 //一次报价 - 有样衣 - 使用样衣签收的字段
-                controlTime(cvTime, data.receiveTimestamp, 1)
+                controlTime(cvTime, data.receiveTimestamp)
             }else if (data.status == STATE_OFFER_WAIT_NO_SAMPLE) {
                 //一次报价 - 无样衣 - 使用下单时间的字段
-                controlTime(cvTime, data.orderTimestamp, 2)
+                controlTime(cvTime, data.orderTimestamp)
             }else{
                 //其他
             }
@@ -146,9 +146,9 @@ class PriceListAllAdapter(
     /**
      * 控制倒计时 、 或正计时
      */
-    fun controlTime(cvTime: CountDownAndUpView, time: Long, tag: Int){
+    fun controlTime(cvTime: CountDownAndUpView, time: Long){
         var tm = (time - (System.currentTimeMillis() / 1000)) * 1000
-        LogUtil.d("$tag 剩余时间：$tm 、 初始时间：${time}、 当前时间： ${(System.currentTimeMillis() / 1000)}")
+        LogUtil.d("剩余时间：$tm 、 初始时间：${time}、 当前时间： ${(System.currentTimeMillis() / 1000)}")
         cvTime.start(tm)
 //        if(tm > 0){
 //            //倒计时
@@ -194,7 +194,10 @@ class PriceListAllAdapter(
             gpOrderTime.visibility = View.GONE
             cvTime.visibility = View.GONE //倒计时文字，默认隐藏 TODO 还需要设置个默认值
             tvCountdown.text = "" //倒计时提示文字（还剩、签收后倒计时）
-            controlTime(cvTime, 0, -1) //开始倒计时
+            cvTime.setOnCountdownEndListener {
+                tvCountdown.text = "超时："
+            }
+//            controlTime(cvTime, 0) //开始倒计时
             when (item.status) {
                 STATE_OFFER_WAIT -> {
                     //待报价 -- 需要判断是否已签收，然后显示对应按钮
@@ -204,7 +207,7 @@ class PriceListAllAdapter(
                         tvCountdown.text = "还剩："
                         cvTime.visibility = View.VISIBLE
                         tvOrderTime.text = item.receiveTime //签收后 - 显示签收时间
-                        controlTime(cvTime, item.receiveTimestamp, 0) //开始倒计时
+                        controlTime(cvTime, item.receiveTimestamp) //开始倒计时
                     }else{
                         //未签收 -- 提示签收后倒计时文字
                         tvCountdown.text = item.prompt
@@ -217,7 +220,7 @@ class PriceListAllAdapter(
                     tvCountdown.text = "还剩："
                     cvTime.visibility = View.VISIBLE
                     tvOrderTime.text = item.orderTime //无样衣 显示下单时间
-                    controlTime(cvTime, item.orderTimestamp, -2) //开始倒计时
+                    controlTime(cvTime, item.orderTimestamp) //开始倒计时
                 }
                 STATE_CONFIRMED_WAIT -> {
                     //待确认
