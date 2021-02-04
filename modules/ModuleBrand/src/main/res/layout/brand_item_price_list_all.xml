@@ -73,7 +73,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_order_time"
             app:layout_constraintTop_toTopOf="@+id/tv_order_time" />
 
-        <cn.iwgang.countdownview.CountdownView
+        <com.safmvvm.ext.ui.counttime.CountDownAndUpView
             android:id="@+id/cv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_countdown"
             app:layout_constraintTop_toTopOf="@id/tv_countdown"
-            app:suffixTextColor="#F74B60"
+            app:suffixTextColors="#F74B60"
             app:timeBgRadius="2mm"
             app:timeTextColor="#F74B60"
             app:timeTextSize="12mm" />

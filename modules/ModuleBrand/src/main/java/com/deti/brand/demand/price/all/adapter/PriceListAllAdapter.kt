@@ -2,10 +2,8 @@ package com.deti.brand.demand.price.all.adapter
 
 import android.app.Activity
 import android.graphics.Color
-import android.os.SystemClock
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.iwgang.countdownview.CountdownView
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -14,13 +12,13 @@ import com.deti.brand.databinding.BrandItemPriceListAllBinding
 import com.deti.brand.demand.price.all.entity.PriceListAllEntity
 import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
 import com.deti.brand.demand.progress.logistics.LogisticsActivity
+import com.safmvvm.ext.ui.counttime.CountDownAndUpView
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.ui.adapter.CommonListBtnsAdapter
 import com.test.common.ui.adapter.CommonListBtnsEntity
 import com.test.common.ui.item.listinfo.ItemListInfo
 import com.test.common.ui.item.listinfo.ItemListInfoEntity
-import com.test.common.util.TimingX
 
 class PriceListAllAdapter(
     var mActivity: Activity?
@@ -142,25 +140,22 @@ class PriceListAllAdapter(
         //停止计时
         holder.dataBinding?.apply {
             cvTime.stop()
-            TimingX.builder().stop()
         }
     }
 
     /**
      * 控制倒计时 、 或正计时
      */
-    fun controlTime(cvTime: CountdownView, time: Long, tag: Int){
+    fun controlTime(cvTime: CountDownAndUpView, time: Long, tag: Int){
         var tm = (time - (System.currentTimeMillis() / 1000)) * 1000
         LogUtil.d("$tag 剩余时间：$tm 、 初始时间：${time}、 当前时间： ${(System.currentTimeMillis() / 1000)}")
-        if(tm > 0){
-            cvTime.start(tm)
-        }else{
-            TimingX.builder()
-                .setTimingDataListener {
-                    cvTime.updateShow(it + (-tm))
-                }
-                .start()
-        }
+        cvTime.start(tm)
+//        if(tm > 0){
+//            //倒计时
+//
+//        }else{
+//            //正计时 - 超时
+//        }
     }
 
     /**
