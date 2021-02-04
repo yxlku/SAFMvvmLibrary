@@ -42,6 +42,13 @@
             app:layout_constraintStart_toEndOf="@id/tv_order_num"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/gp_order_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_order_time, tv_countdown"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_num" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_order_time"
             android:layout_width="0mm"
@@ -58,13 +65,35 @@
             android:id="@+id/tv_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="还剩 23:59:59"
+            android:text="还剩："
             android:textColor="#F74B60"
             android:textSize="12mm"
+            app:layout_constraintEnd_toStartOf="@id/cv_time"
             app:layout_constraintBottom_toBottomOf="@+id/tv_order_time"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_order_time"
             app:layout_constraintTop_toTopOf="@+id/tv_order_time" />
+
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/cv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6mm"
+            app:isHideTimeBackground="true"
+            app:isShowDay="false"
+            app:isShowHour="true"
+            app:isShowMillisecond="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isShowTimeBgDivisionLine="false"
+            app:layout_constraintBottom_toBottomOf="@id/tv_countdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_countdown"
+            app:layout_constraintTop_toTopOf="@id/tv_countdown"
+            app:suffixTextColor="#F74B60"
+            app:timeBgRadius="2mm"
+            app:timeTextColor="#F74B60"
+            app:timeTextSize="12mm" />
+
 
         <ImageView
             android:id="@+id/iv_img"

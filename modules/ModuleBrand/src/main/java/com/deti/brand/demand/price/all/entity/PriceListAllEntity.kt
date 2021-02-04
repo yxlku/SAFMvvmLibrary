@@ -33,7 +33,7 @@ data class PriceListAllEntity(
     /** 下单时间*/
     var orderTime: String = "",
     /** 下单时间戳*/
-    var orderTimestamp: String = "",
+    var orderTimestamp: Long = 0,
     /** 报价单id*/
     var quoteId: String = "",
     /** 报价*/
@@ -47,7 +47,7 @@ data class PriceListAllEntity(
     /** 签收时间*/
     var receiveTime: String = "",
     /** 签收时间戳*/
-    var receiveTimestamp: String = "",
+    var receiveTimestamp: Long = 0,
     /** 需求单号*/
     var serialNumber: String = "",
     /** 服务类型*/
