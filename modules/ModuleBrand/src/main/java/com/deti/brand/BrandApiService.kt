@@ -3,6 +3,7 @@ package com.deti.brand
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.detail.entity.MaterialCostEntity
+import com.deti.brand.demand.detail.entity.OtherCostEntity
 import com.deti.brand.demand.price.all.entity.DemandIndentListApp
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
@@ -70,7 +71,13 @@ interface BrandApiService {
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<MaterialCostEntity?>
 
-
+    /**
+     * 其他费用
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/otherQuoteInfo")
+    suspend fun otherQuoteInfo(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<OtherCostEntity?>
 
 
 }

@@ -47,13 +47,14 @@ class MaterialCostFragment :
         }
 
         mBinding?.apply {
+            //tab
             rvTab.apply {
                 layoutManager = LinearLayoutManager(context).apply {
                     orientation = LinearLayoutManager.HORIZONTAL
                 }
                 adapter = tabAdapter
             }
-
+            //详情列表
             rvContent.apply {
                 layoutManager = GridLayoutManager(context, 2).apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
