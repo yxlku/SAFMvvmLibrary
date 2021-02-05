@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".demand.progress.generate.SampleClothesProgressActivity" />
         <activity android:name=".demand.progress.logistics.LogisticsActivity" />
+        <activity android:name=".demand.detail.PriceDetailActivity" />
     </application>
 
 </manifest>

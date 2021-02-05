@@ -53,7 +53,7 @@ open class CommonAppApplication : ComponentBaseApp() {
             //自定义Toast显示位置
             .toastCustomToastGravity(Gravity.CENTER)
             //标题栏通用返回按钮
-            .titleBarBackIcon(R.drawable.base_title_back_white)
+            .titleBarBackIcon(R.mipmap.base_title_back)
 
             .loadingLayoutText("加载中")
             .loadingLayoutId(R.layout.saf_loading_layout)

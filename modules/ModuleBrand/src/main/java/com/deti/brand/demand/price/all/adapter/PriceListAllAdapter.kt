@@ -195,11 +195,13 @@ class PriceListAllAdapter(
             cvTime.visibility = View.GONE //倒计时文字，默认隐藏 TODO 还需要设置个默认值
             tvCountdown.text = "" //倒计时提示文字（还剩、签收后倒计时）
             cvTime.setOnCountdownEndListener {
+                //倒计时结束
                 if ((item.status == STATE_OFFER_WAIT && item.receiveFlag == "30")
                     || item.status == STATE_OFFER_WAIT_NO_SAMPLE) {
                     tvCountdown.text = "超时："
                 }
             }
+            //各种状态下的item对应UI的控制
             when (item.status) {
                 STATE_OFFER_WAIT -> {
                     //待报价 -- 需要判断是否已签收，然后显示对应按钮

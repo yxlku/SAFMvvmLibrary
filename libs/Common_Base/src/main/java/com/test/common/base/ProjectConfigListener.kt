@@ -29,7 +29,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
         var headers: ArrayMap<String, String> = arrayMapOf()
 //        headers.put("token", userInfoToken())
         //TODO 不能及时更换
-        headers.put("token", "61bb259e26624cab9085f6ff8a96cc44")
+        headers.put("token", "4e89e708108645ebabccd7125b8a89e3")
         headers.put("X-Requested-With", "XMLHttpRequest")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
@@ -104,6 +104,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
             param?.let {
 //                param.put("timestamp", (System.currentTimeMillis() / 1000).toString())
                 param.put("timestamp", "2147483647")
+                param.put("sign", "2147483647")
                 return JsonUtil.toJson(param)
             }
         }

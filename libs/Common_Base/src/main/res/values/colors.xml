@@ -12,9 +12,9 @@
     <!-- 全局背景颜色-->
     <color name="background">#F9F9F9</color>
     <!-- 标题栏颜色-->
-    <color name="navigationBg">#1F2438</color>
+    <color name="navigationBg">#FFFFFF</color>
     <!-- 标题栏按钮文字颜色-->
-    <color name="navigationMenuColor">#FFFFFF</color>
+    <color name="navigationMenuColor">#333333</color>
 
 
 </resources>

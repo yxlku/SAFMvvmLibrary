@@ -1,9 +1,13 @@
 package com.deti.brand.demand.price.all
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentPriceListAllBinding
+import com.deti.brand.demand.detail.PriceDetailActivity
 import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter
 import com.deti.brand.demand.price.all.entity.PriceListAllEntity
 import com.safmvvm.bus.LiveDataBus
@@ -40,6 +44,14 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
+
+        mAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                //报价详情
+                PriceDetailActivity.startAction(activity)
+            }
+        })
+
         //第一显示的时候才会请求数据
         mViewModel.requestFindDemandIndentListAPP(PRICE_LIST_ALL)
 

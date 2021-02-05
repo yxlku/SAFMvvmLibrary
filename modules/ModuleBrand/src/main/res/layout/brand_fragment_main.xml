@@ -16,6 +16,7 @@
             android:id="@+id/tb_title"
             app:lineVisible="false"
             app:backButton="false"
+            android:background="#1F2438"
             android:layout_width="match_parent"
             android:layout_height="44mm"
             android:gravity="center"
