@@ -7,6 +7,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.http.result.state.success
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.load.LoadingModel
 
 class MaterialCostViewModel(app: Application): BaseViewModel<MaterialCostModel>(app) {
 
@@ -16,6 +17,7 @@ class MaterialCostViewModel(app: Application): BaseViewModel<MaterialCostModel>(
             mModel.findFabricList(
                 "1", "lixtext"
             ).flowDataDeal(
+                loadingModel = LoadingModel.LOADING,
                 onSuccess = {
                     it.data?.apply {
                         LiveDataBus.send(LIVE_TAB_INFO, this.list)

@@ -112,7 +112,7 @@ class MaterialCostFragment :
             ItemChooseEntity("", "总用量",data.totalQuantity),
             ItemChooseEntity("", "单价",data.unitPrice, "元"),
             ItemChooseEntity("", "总金额",data.totalPrice, "元"),
-            ItemChooseEntity("", "物料金额合计",materialPrice, "元"),
+            ItemChooseEntity("", "物料金额合计",materialPrice, "元", isShowLine = false),
         )
         //工艺列表
         var craftList = arrayListOf<Any>()
@@ -122,7 +122,7 @@ class MaterialCostFragment :
             data.attributes.technology.forEach {
                 add(ItemChooseEntity("", it.provider, it.price, "元"))
             }
-            add(ItemChooseEntity("", "总金额", data.attributes.technologyPrice, "元"))
+            add(ItemChooseEntity("", "总金额", data.attributes.technologyPrice, "元", isShowLine = false))
             add(ItemTransparentLineEntity(context, 10F))
             add(ItemChooseEntity("", "特殊工艺金额合计", technologyPrice, "元"))
         }
