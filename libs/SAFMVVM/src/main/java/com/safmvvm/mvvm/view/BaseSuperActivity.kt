@@ -3,7 +3,9 @@ package com.safmvvm.mvvm.view
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +39,11 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
+import com.safmvvm.utils.DensityUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.Utils
+import me.jessyan.autosize.AutoSizeCompat
+import me.jessyan.autosize.internal.CustomAdapt
 
 /**
  * 所有Activity的基类
@@ -46,7 +51,7 @@ import com.safmvvm.utils.Utils
 abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null
-): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IResultFinishCallback{
+): AppCompatActivity(), IView<V, VM>, IArgumentsFromIntent, IArgumentsFromBundle, IResultFinishCallback {
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
@@ -248,5 +253,11 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
             .removeAllConsumers()
             .addConsumer(ActivitySlidingBackConsumer(this))
             .disableAllDirections()
+    }
+    override fun getResources() : Resources {
+        //需要升级到 v1.1.2 及以上版本才能使用 AutoSizeCompat
+        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())//如果没有自定义需求用这个方法
+//        AutoSizeCompat.autoConvertDensity(super.getResources(),  375F, true);//如果有自定义需求就用这个方法
+        return super.getResources();
     }
 }

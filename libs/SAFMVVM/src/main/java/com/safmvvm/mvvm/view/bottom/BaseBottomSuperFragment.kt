@@ -11,6 +11,7 @@ import androidx.annotation.LayoutRes
 import androidx.collection.ArrayMap
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
@@ -26,6 +27,7 @@ import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
+import me.jessyan.autosize.AutoSizeCompat
 import me.jessyan.autosize.utils.AutoSizeUtils
 import me.jessyan.autosize.utils.ScreenUtils
 
@@ -227,5 +229,9 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         startPageAnim()
     }
 
+    override fun show(manager: FragmentManager, tag: String?) {
+        super.show(manager, tag)
+        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())//如果没有自定义需求用这个方法
+    }
 
 }

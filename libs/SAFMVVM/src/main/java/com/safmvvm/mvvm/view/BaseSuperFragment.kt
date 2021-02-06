@@ -1,13 +1,10 @@
 package com.safmvvm.mvvm.view
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.collection.ArrayMap
 import androidx.databinding.DataBindingUtil
@@ -25,15 +22,18 @@ import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
+import me.jessyan.autosize.AutoSize
+import me.jessyan.autosize.AutoSizeCompat
+import me.jessyan.autosize.internal.CustomAdapt
 
 /**
  * 所有Fragment的基类
  */
-abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseModel>>(
+abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseModel>>(
     @LayoutRes private val mLayoutId: Int,
     private val mViewModelId: Int? = null,
     /** 共享使用Activity中的VM*/
-    private val sharedViewModel: Boolean = false
+    private val sharedViewModel: Boolean = false,
 ): Fragment(), IView<V, VM>, IResultFinishCallback{
 
     protected lateinit var mBinding: V
@@ -44,11 +44,20 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
+        //由于某些原因, 屏幕旋转后 Fragment 的重建, 会导致框架对 Fragment 的自定义适配参数失去效果
+        //所以如果您的 Fragment 允许屏幕旋转, 则请在 onCreateView 手动调用一次 AutoSize.autoConvertDensity()
+        //如果您的 Fragment 不允许屏幕旋转, 则可以将下面调用 AutoSize.autoConvertDensity() 的代码删除掉
+//        AutoSize.autoConvertDensity(activity, 375F, true)
+        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())//如果没有自定义需求用这个方法
         mBinding = initDatabinding(inflater, container)
         return mBinding.root
     }
+
+//    override fun isBaseOnWidth(): Boolean = false
+//
+//    override fun getSizeInDp(): Float = 375F
 
     override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =
         DataBindingUtil.inflate(inflater, mLayoutId, container, false)
@@ -156,13 +165,15 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     /** 页面跳转动画：打开动画*/
     override fun startPageAnim(){
         if (GlobalConfig.Anim.gIsOpenPageAnim) {
-            activity?.overridePendingTransition(GlobalConfig.Anim.gPageOpenIn, GlobalConfig.Anim.gPageOpenOut)
+            activity?.overridePendingTransition(GlobalConfig.Anim.gPageOpenIn,
+                GlobalConfig.Anim.gPageOpenOut)
         }
     }
     /** 页面跳转动画： 关闭动画*/
     override fun finishPageAnim(){
         if (GlobalConfig.Anim.gIsOpenPageAnim) {
-            activity?.overridePendingTransition(GlobalConfig.Anim.gPageCloseIn, GlobalConfig.Anim.gPageCloseOut)
+            activity?.overridePendingTransition(GlobalConfig.Anim.gPageCloseIn,
+                GlobalConfig.Anim.gPageCloseOut)
         }
     }
 
@@ -174,7 +185,7 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
     fun startActivity(
         clz: Class<out Activity>?,
         map: ArrayMap<String, *>? = null,
-        bundle: Bundle? = null
+        bundle: Bundle? = null,
     ) {
         startActivity(Utils.getIntentByMapOrBundle(context, clz, map, bundle))
         startPageAnim()
@@ -185,7 +196,7 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
      */
     fun startActivityRouter(
         activityPath: String,
-        block: (postcard: Postcard) -> Postcard
+        block: (postcard: Postcard) -> Postcard,
     ) {
         RouterUtil.startActivity(activityPath){
             block(it)
@@ -193,7 +204,5 @@ abstract class BaseSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out BaseM
         //动画
         startPageAnim()
     }
-
-
 
 }
