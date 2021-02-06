@@ -16,7 +16,11 @@ data class MaterialCostEntity(
  */
 data class MaterialCostDetailEntity(
     var id: String = "",
-    var fabricList: ArrayList<MaterialCostItemEntity> = arrayListOf()
+    var fabricList: ArrayList<MaterialCostItemEntity> = arrayListOf(),
+    /** 工艺总金额*/
+    var technologyPrice: String = "",
+    /** 物料总金额*/
+    var materialPrice: String = "",
 ):Serializable
 
 /**
@@ -66,7 +70,9 @@ data class MaterialCostItemEntity(
  * 工艺信息
  */
 data class MaterialCostCraftInfoEntity(
-    var technology: ArrayList<CraftInfoEntity> = arrayListOf()
+    var technology: ArrayList<CraftInfoEntity> = arrayListOf(),
+    /** 总价格*/
+    var technologyPrice: String = "",
 ): Serializable
 
 /**
@@ -74,4 +80,12 @@ data class MaterialCostCraftInfoEntity(
  */
 data class CraftInfoEntity(
     var id: String = "",
+    /** 工艺名*/
+    var technology: String = "",
+    /** 价格*/
+    var price: String = "",
+    /** 提供方*/
+    var provider: String = "",
+    /** 单位*/
+    var unit: String = "",
 ): Serializable

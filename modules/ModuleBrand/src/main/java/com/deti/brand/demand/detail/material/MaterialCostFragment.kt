@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentCostMaterialBinding
+import com.deti.brand.demand.detail.entity.MaterialCostCraftInfoEntity
 import com.deti.brand.demand.detail.entity.MaterialCostDetailEntity
 import com.deti.brand.demand.detail.entity.MaterialCostItemEntity
 import com.safmvvm.bus.LiveDataBus
@@ -16,6 +17,10 @@ import com.test.common.ui.adapter.tab.IAdapterTabEntity
 import com.test.common.ui.adapter.tab.TabAdapter
 import com.test.common.ui.item.infodetail.ItemChoose
 import com.test.common.ui.item.infodetail.ItemChooseEntity
+import com.test.common.ui.item.infotitle.ItemInfoTitle
+import com.test.common.ui.item.infotitle.ItemInfoTitleEntity
+import com.test.common.ui.item.line.ItemTransparentLine
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 
 /**
  * 物料成本
@@ -31,6 +36,11 @@ class MaterialCostFragment :
         const val LIVE_TAB_INFO = "live_tab_info"
     }
 
+    /** 工艺总金额*/
+    var technologyPrice: String = ""
+    /** 物料总金额*/
+    var materialPrice: String = ""
+
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
         //懒加载数据
@@ -38,7 +48,9 @@ class MaterialCostFragment :
 
         //物料信息适配器
         var infoAdapter = BaseBinderAdapter().apply {
+            addItemBinder(ItemInfoTitleEntity::class.java, ItemInfoTitle())
             addItemBinder(ItemChooseEntity::class.java, ItemChoose())
+            addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
         }
         //tab 点击事件
         var tabAdapter = TabAdapter { adapter: BaseQuickAdapter<*, *>, view: View, position: Int, data: IAdapterTabEntity ->
@@ -58,13 +70,12 @@ class MaterialCostFragment :
             rvContent.apply {
                 layoutManager = GridLayoutManager(context, 2).apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return if(position <= 11){
+                        override fun getSpanSize(position: Int): Int =
+                            if(position <= 11){
                                 1
                             }else{
                                 2
                             }
-                        }
                     }
                 }
                 adapter = infoAdapter
@@ -73,6 +84,12 @@ class MaterialCostFragment :
 
         LiveDataBus.observe<MaterialCostDetailEntity>(this, LIVE_TAB_INFO, {
             tabAdapter.setList(it.fabricList)
+            if(it.fabricList.size > 0) {
+                var data = it.fabricList[0] as MaterialCostItemEntity
+                switchMaterialInfo(infoAdapter, data)
+            }
+            technologyPrice = it.technologyPrice
+            materialPrice = it.materialPrice
         }, false)
 
     }
@@ -95,8 +112,21 @@ class MaterialCostFragment :
             ItemChooseEntity("", "总用量",data.totalQuantity),
             ItemChooseEntity("", "单价",data.unitPrice, "元"),
             ItemChooseEntity("", "总金额",data.totalPrice, "元"),
-            ItemChooseEntity("", "物料金额合计","待定。。", "元"),
+            ItemChooseEntity("", "物料金额合计",materialPrice, "元"),
         )
+        //工艺列表
+        var craftList = arrayListOf<Any>()
+        craftList.apply {
+            add(ItemTransparentLineEntity(context, 10F))
+            add(ItemInfoTitleEntity("", "工艺", false))
+            data.attributes.technology.forEach {
+                add(ItemChooseEntity("", it.provider, it.price, "元"))
+            }
+            add(ItemChooseEntity("", "总金额", data.attributes.technologyPrice, "元"))
+            add(ItemTransparentLineEntity(context, 10F))
+            add(ItemChooseEntity("", "特殊工艺金额合计", technologyPrice, "元"))
+        }
+        infoList.addAll(craftList)
         infoAdapter.setList(infoList)
     }
 }

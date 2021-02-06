@@ -29,7 +29,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
         var headers: ArrayMap<String, String> = arrayMapOf()
 //        headers.put("token", userInfoToken())
         //TODO 不能及时更换
-        headers.put("token", "a684f94a202d4595bc43a858434f40f5")
+        headers.put("token", "ed3403d875734af8bf9730520cd61e33")
         headers.put("X-Requested-With", "XMLHttpRequest")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
