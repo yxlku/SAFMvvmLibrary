@@ -42,4 +42,6 @@ data class TotalCostResultEntity(
     var valueAddTax: String = "",
     /** 报价时间*/
     var quoteTime: String = "",
+    /** 特殊工艺*/
+    var technologyPrice: String = "",
 ): Serializable
