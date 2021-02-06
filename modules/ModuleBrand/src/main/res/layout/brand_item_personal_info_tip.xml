@@ -17,7 +17,7 @@
         android:id="@+id/ll_top_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20mm"
+        android:paddingTop="20mm"
         android:background="@drawable/brand_demand_create_info_tip"
         android:orientation="horizontal"
         android:padding="10mm"

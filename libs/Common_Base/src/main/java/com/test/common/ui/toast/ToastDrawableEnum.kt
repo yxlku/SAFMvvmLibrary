@@ -3,7 +3,7 @@ package com.test.common.ui.toast
 import androidx.annotation.DrawableRes
 import com.safmvvm.ui.toast.ToastEnumInterface
 import com.safmvvm.utils.DensityUtil
-import com.safmvvm.utils.weight.TextViewDrawableEnum
+import com.safmvvm.ext.TextViewDrawableEnum
 import com.test.common.R
 
 enum class ToastDrawableEnum(

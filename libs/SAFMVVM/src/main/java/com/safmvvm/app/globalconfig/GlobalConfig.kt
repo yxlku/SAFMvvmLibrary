@@ -1,6 +1,5 @@
 package com.safmvvm.app.globalconfig
 
-import android.graphics.Color
 import android.view.Gravity
 import androidx.annotation.*
 import com.safmvvm.R
@@ -11,8 +10,6 @@ import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
 import com.safmvvm.ui.toast.DefToastEnumInterface
 import com.safmvvm.ui.toast.ToastEnumInterface
-import com.safmvvm.utils.DensityUtil
-import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 

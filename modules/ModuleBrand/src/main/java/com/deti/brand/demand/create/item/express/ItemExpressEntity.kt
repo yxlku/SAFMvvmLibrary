@@ -1,9 +1,8 @@
 package com.deti.brand.demand.create.item.express
 
 import androidx.databinding.ObservableField
+import com.deti.brand.demand.create.item.IItemIsShow
 
-class ItemExpressEntity(
-
-    /** 是否显示此布局*/
-    var isShow: ObservableField<Boolean> = ObservableField(true)
-)
+data class ItemExpressEntity(
+    var id: String = "",
+): IItemIsShow()

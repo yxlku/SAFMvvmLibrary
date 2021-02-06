@@ -5,6 +5,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.ucloud.ufile.UfileClient
 import cn.ucloud.ufile.api.`object`.GenerateObjectPrivateUrlApi
@@ -16,12 +18,14 @@ import cn.ucloud.ufile.exception.UfileClientException
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPicChooseBinding
 import com.deti.brand.demand.create.CreateDemandFragment
 import com.deti.brand.demand.create.CreateDemandViewModel
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.ext.rvIsGone
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.ext.photoAlbum
@@ -51,9 +55,11 @@ class ItemPicChoose(
         data: ItemPicChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding.apply {
+        binding?.apply {
             entity = data
             viewModel = mViewModel
+            //控制显示隐藏，并刷新高度
+            holder.itemView.rvIsGone(!data.isShow)
             executePendingBindings()
         }
 

@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
+import com.deti.brand.demand.create.item.IItemIsShow
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
 import com.deti.brand.demand.create.item.express.ItemExpress
@@ -182,6 +183,15 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             //服务
             itemEntityService,
 
+            //样衣
+            itemEntitySamplelothes,
+            //图片
+            itemEntityPic,
+            //面料
+            itemEntityFabric,
+            //制版文件
+            itemEntityPlate,
+
             //分组标题 //请填写服务详细信息
             ItemGroupTitleEntity("请填写服务详细信息"),
             //分割线
@@ -239,10 +249,8 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
     var itemEntityPic = ItemPicChooseEntity()
     //面料信息
     var itemEntityFabric = ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
-    //样衣 TODO 还没有在Vm中设置值
+    //样衣
     var itemEntitySamplelothes = ItemExpressEntity()
-    //设计稿 TODO 还没有在Vm中设置值
-    var itemEntityDesignDraft = ItemUploadFileEntity(FILE_DESIGN, "请上传设计稿", "(选填)", "上传设计稿")
     //制版文件
     var itemEntityPlate = ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
 
@@ -260,7 +268,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
             "fabric" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
             "sample" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
-            "layout" -> addOrRemove(itemEntityDesignDraft, checkEntity.isSelected, pos)                  //设计稿
             "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
         }
     }
@@ -269,12 +276,14 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
     /**
      * 添加或删除item
      */
-    fun addOrRemove(item: Any, isShow: Boolean, pos: Int = 0){
-        if (isShow) {
-            mAdapter.addData(pos, item)
-        }else{
-            mAdapter.remove(item)
-        }
+    fun addOrRemove(item: IItemIsShow, isShow: Boolean, pos: Int = 0){
+        item.isShow = isShow
+        mAdapter.notifyDataSetChanged()
+//        if (isShow) {
+//            mAdapter.addData(pos, item)
+//        }else{
+//            mAdapter.remove(item)
+//        }
     }
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()

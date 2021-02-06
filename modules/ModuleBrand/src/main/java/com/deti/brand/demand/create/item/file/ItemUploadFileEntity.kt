@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create.item.file
 
 import androidx.databinding.ObservableField
+import com.deti.brand.demand.create.item.IItemIsShow
 
 /**
  * 上传文件
@@ -12,9 +13,9 @@ data class ItemUploadFileEntity(
     var btnText: String = "",
     /** 文件地址*/
     var filePath: ObservableField<String> = ObservableField<String>(),
-    /** 是否显示此布局*/
-    var isShow: ObservableField<Boolean> = ObservableField(true)
-)
+//    /** 是否显示此布局*/
+//    var isShow: ObservableField<Boolean> = ObservableField(true)
+): IItemIsShow()
 
 /**
  * 上传文件类型

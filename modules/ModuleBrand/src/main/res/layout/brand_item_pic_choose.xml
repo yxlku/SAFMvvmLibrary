@@ -14,11 +14,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="@{entity.isShow == true? View.VISIBLE: View.GONE}"
-        android:layout_marginTop="20mm"
-        android:background="#00000000">
+        android:paddingTop="20mm">
 
 
         <TextView

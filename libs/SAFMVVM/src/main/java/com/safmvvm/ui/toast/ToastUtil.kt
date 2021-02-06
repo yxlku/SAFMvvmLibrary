@@ -1,20 +1,16 @@
 package com.safmvvm.ui.toast
 
-import android.R
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import com.safmvvm.app.BaseApp
 import com.safmvvm.app.globalconfig.GlobalConfig
-import com.safmvvm.utils.weight.TextViewDrawableEnum
-import com.safmvvm.utils.weight.TextViewUtil
+import com.safmvvm.ext.setDrawableImg
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -145,8 +141,7 @@ object ToastUtil {
                     tvMsg.text = msg
                     if (toastEnumInterface.iconId() != 0) {
                         //设置文字drawable图片
-                        TextViewUtil.setDrawableImg(
-                            tvMsg,              //控件
+                        tvMsg.setDrawableImg(
                             toastEnumInterface.iconId(),            //图片id
                             toastEnumInterface.drawablePadding(),   //图片与文字间距
                             toastEnumInterface.drawableDirection()  //方向

@@ -64,7 +64,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 快递单号*/
     var mExpressNum = ObservableField<String>()
     /** 快递单号输入监听*/
-    var consumerExpressNum = BindingConsumer<String> { t -> mExpressNum.set(t) }
+//    var consumerExpressNum = BindingConsumer<String> { t -> mExpressNum.set(t) }
 
     /** 面料文件地址*/
     var mFilePathFabric = ""
@@ -325,6 +325,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
+        LogUtil.d("快递单号：${mExpressNum.get()}")
         //提交前的限制 和 提醒
         if(mChooseTypes.size <= 0){
             ToastUtil.showShortToast("请先选择需求类型")

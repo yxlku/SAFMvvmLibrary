@@ -1,7 +1,7 @@
 package com.safmvvm.ui.toast
 
 import androidx.annotation.DrawableRes
-import com.safmvvm.utils.weight.TextViewDrawableEnum
+import com.safmvvm.ext.TextViewDrawableEnum
 
 /**
  * 实现类： 枚举、普通类都可以

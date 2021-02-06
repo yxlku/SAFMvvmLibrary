@@ -7,11 +7,8 @@ import com.safmvvm.app.GlobalConfigCreator
 import com.safmvvm.component.app.ComponentBaseApp
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.autosize.AutoSizeUtil
-import com.safmvvm.utils.DensityUtil
-import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.test.common.base.ProjectConfigListener
 import com.test.common.loading.CusLoadStatePage
-import me.jessyan.autosize.AutoSize
 
 open class CommonAppApplication : ComponentBaseApp() {
 

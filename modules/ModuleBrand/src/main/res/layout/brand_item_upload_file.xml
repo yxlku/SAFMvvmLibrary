@@ -16,9 +16,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="20mm"
+        android:paddingTop="20mm"
         android:layout_width="match_parent"
-        android:visibility="@{entity.isShow == true? View.VISIBLE: View.GONE}"
         android:layout_height="wrap_content"
         android:paddingStart="16mm"
         android:paddingEnd="16mm">

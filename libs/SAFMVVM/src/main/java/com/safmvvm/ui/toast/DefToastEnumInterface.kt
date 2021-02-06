@@ -1,6 +1,6 @@
 package com.safmvvm.ui.toast
 
-import com.safmvvm.utils.weight.TextViewDrawableEnum
+import com.safmvvm.ext.TextViewDrawableEnum
 
 /**
  * 默认自定义Toast显示图片

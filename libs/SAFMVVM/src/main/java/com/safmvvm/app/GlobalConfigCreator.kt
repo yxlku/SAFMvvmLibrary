@@ -8,7 +8,6 @@ import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.toast.ToastEnumInterface
-import com.safmvvm.utils.weight.TextViewDrawableEnum
 import com.zy.multistatepage.MultiState
 
 /**

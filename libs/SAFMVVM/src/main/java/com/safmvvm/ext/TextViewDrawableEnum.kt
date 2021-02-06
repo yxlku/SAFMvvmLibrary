@@ -1,4 +1,4 @@
-package com.safmvvm.utils.weight
+package com.safmvvm.ext
 
 enum class TextViewDrawableEnum {
 

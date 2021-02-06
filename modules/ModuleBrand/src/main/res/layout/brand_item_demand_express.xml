@@ -17,10 +17,9 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginTop="20mm"
+        android:paddingTop="20mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="@{entity.isShow == true? View.VISIBLE: View.GONE}"
         android:layout_marginStart="16mm"
         android:layout_marginEnd="16mm"
         android:orientation="vertical">
@@ -116,8 +115,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                app:textChanged="@{viewModel.consumerExpressNum}"
                 android:hint="请输入快递单号"
+                android:text="@{viewModel.mExpressNum}"
                 android:paddingStart="10mm"
                 android:paddingTop="15mm"
                 android:paddingEnd="10mm"
