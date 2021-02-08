@@ -17,7 +17,7 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:paddingTop="20mm"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16mm"
@@ -25,6 +25,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginTop="20mm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
