@@ -1,8 +1,10 @@
 package com.deti.brand.demand.create
 
 import android.app.Application
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_CHOOSE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
@@ -12,9 +14,18 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COU
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
+import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
+import com.deti.brand.demand.create.item.file.ItemUploadFileEnum
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseType
+import com.deti.brand.demand.create.item.form.ItemFormInputEntity
+import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
+import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity
+import com.deti.brand.demand.create.item.pic.ItemPicChooseEntity
+import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity
+import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
+import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.putValue
@@ -30,6 +41,8 @@ import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.item.line.ItemGrayLineEntity
+import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorDataBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,31 +51,147 @@ import java.lang.Exception
 import java.util.*
 
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
 
-    /** 类型选择*/
-    var mChooseTypes = arrayListOf<BaseMultipleChoiceEntity>()
+    //完善个人信息
+    var itemEntityPersonal = ItemPersonalInfoEntity()
 
-    /** 服务类型*/    //TODO 统一改到Item中赋值
-    var mServiceProduce = ObservableField<BaseSingleChoiceEntity>()
-    /** 对应服务*/
-    var mServiceType = ObservableField<BaseSingleChoiceEntity>()
+    //类型选择
+    var itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
+
+    //图片
+    var itemEntityPic = ItemPicChooseEntity()
+    //面料信息
+    var itemEntityFabric = ItemUploadFileEntity(ItemUploadFileEnum.FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
+    //样衣
+    var itemEntitySamplelothes = ItemExpressEntity()
+    //制版文件
+    var itemEntityPlate = ItemUploadFileEntity(ItemUploadFileEnum.FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
+
+    /** 款式分类*/
+    var itemEntityFormStyle = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_STYLE,"款式分类", false, "请选择款式分类")
+    //尺码类型
+    var itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
+    //颜色选择
+    var itemEntityFormColor = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色")
+    //尺码数量
+    var itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
+
+    /** 单价*/
+    var itemEntityInputPrice = ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元")
+    /** 交期*/
+    var itemEntityFormTime = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天")
+    /** 备注*/
+    var itemEntityInputRemark = ItemRemarkEntity()
+    /** 下单按钮*/
+    var itemEntityPlaceOrder = ItemPlaceOrderEntity()
+
+    var itemListEntitys = arrayListOf<Any>()
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        //初始化列表 - 列表添加顺序为显示属性
+        itemListEntitys = arrayListOf(
+            /** 个人信息*/
+            itemEntityPersonal,
+
+            //选择需求类型
+            itemEntityTypeChoose,
+
+            //服务
+            ItemTransparentLineEntity(),
+            itemEntityService,
+
+            //样衣
+            itemEntitySamplelothes,
+            //图片
+            itemEntityPic,
+            //面料
+            itemEntityFabric,
+            //制版文件
+            itemEntityPlate,
+
+            //分组标题 //请填写服务详细信息
+            ItemGroupTitleEntity("请填写服务详细信息"),
+            //款式分类
+            ItemGrayLineEntity(),
+            itemEntityFormStyle,
+
+            //尺码类型
+            ItemGrayLineEntity(),
+            itemEntityFormSizeType,
+            //颜色选择
+            ItemGrayLineEntity(),
+            itemEntityFormColor,
+            //尺码数量
+            ItemGrayLineEntity(),
+            itemEntityFormSizeCount,
+
+            //单价
+//            ItemTransparentLineEntity(),
+//            itemEntityInputPrice,
+
+            //设置交期
+            ItemGrayLineEntity(),
+            itemEntityFormTime,
+
+            //备注
+//            ItemTransparentLineEntity(),
+//            itemEntityInputRemark,
+
+            //下单按钮
+            ItemTransparentLineEntity(),
+            itemEntityPlaceOrder,
+            ItemTransparentLineEntity(),
+        )
+    }
 
     /** 样衣 - 快递选择信息 -- 最后的数据信息 */
     var mExpressSingleChoiceEntity = ObservableField<BaseSingleChoiceEntity>()
-    /** 快递单号*/
-    var mExpressNum = ObservableField<String>()
-    /** 快递单号输入监听*/
-//    var consumerExpressNum = BindingConsumer<String> { t -> mExpressNum.set(t) }
 
-    /** 面料文件地址*/
-    var mFilePathFabric = ""
-    /** 制版文件地址*/
-    var mFilePathPlate = ""
-    /** 设计稿*/
-    var mFilePathDesign = ""
+    /**
+     * 获取快递列表
+     */
+    fun clickRequestExpressList(view: View) {
+        launchRequest {
+            mModel.requestExpressList()
+                .flowDataDeal(
+                    loadingModel = LoadingModel.NULL,
+                    onSuccess = {
+                        var baseSingleChoiceEntitys = arrayListOf<BaseSingleChoiceEntity>()
+                        it?.data?.dataDictionaryList?.forEach { dataDictionaryEntity ->
+                            baseSingleChoiceEntitys.add(
+                                BaseSingleChoiceEntity(
+                                    dataDictionaryEntity.code,
+                                    dataDictionaryEntity.text
+                                )
+                            )
+                        }
+                        if(baseSingleChoiceEntitys.size > 0){
+                            //TODO 需要加载一次，不能每次都请求
+                            var pos = baseSingleChoiceEntitys.indexOf(mExpressSingleChoiceEntity.get())
+                            DIALOG_EXPRESS_LIST.putValue(Pair(baseSingleChoiceEntitys, pos))
+                        }
+                    }
+                )
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /** 款式分类一*/
     var mStyleList = arrayListOf<TypesViewDataBean?>()
@@ -94,72 +223,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 图片列表*/
     var mPicListDatas = arrayListOf<String>("", "", "", "", "")
 
-    /**
-     * 类型选择
-     */
-    fun clickChooseTypeDialog(view: View, entity: ItemDeamandTypeChooseEntity){
-        DIALOG_CHOOSE_TYPE.putValue(entity)
-    }
-    /**
-     * 服务类型
-     */
-    fun clickServiceProduce(view: View){
-        var datas = arrayListOf(
-            BaseSingleChoiceEntity("fob", "包工包料"),
-            BaseSingleChoiceEntity("cmt", "纯加工"),
-        )
-        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_PRODUCE, datas)
-    }
-    /**
-     * 对应服务
-     */
-    fun clickServiceType(view: View){
-        var datas = arrayListOf(
-            BaseSingleChoiceEntity("sample_bulk", "打版 + 生产"),
-            BaseSingleChoiceEntity("bulk", "仅生产"),
-        )
-        LiveDataBus.send(CreateDemandFragment.DIALOG_SERVICE_TYPE, datas)
-    }
-    /**
-     * 地址弹窗
-     */
-    fun clickAddress(view: View){
-        LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
-    }
-    /**
-     * 获取快递列表
-     */
-    fun clickRequestExpressList(view: View) {
-        LogUtil.d("快递单号：${mExpressNum.get()}")
-        launchRequest {
-            mModel.requestExpressList()
-                .flowDataDeal(
-                    loadingModel = LoadingModel.NULL,
-                    onSuccess = {
-                        var baseSingleChoiceEntitys = arrayListOf<BaseSingleChoiceEntity>()
-                        it?.data?.dataDictionaryList?.forEach { dataDictionaryEntity ->
-                            baseSingleChoiceEntitys.add(
-                                BaseSingleChoiceEntity(
-                                    dataDictionaryEntity.code,
-                                    dataDictionaryEntity.text
-                                )
-                            )
-                        }
-                        if(baseSingleChoiceEntitys.size > 0){
-                            var pos = baseSingleChoiceEntitys.indexOf(mExpressSingleChoiceEntity.get())
-                            LiveDataBus.send(DIALOG_EXPRESS_LIST, Pair(baseSingleChoiceEntitys, pos))
-                        }
-                    }
-                )
-        }
-    }
-
-    /**
-     * 上传文件
-     */
-    fun clickUploadFile(view: View, entity: ItemUploadFileEntity){
-        LiveDataBus.send(UPLOAD_FILE, entity)
-    }
+    //服务
+    var itemEntityService = ItemServiceEntity()
 
     /**
      * 表单 - 选择
@@ -314,20 +379,33 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
-        LogUtil.d("快递单号：${mExpressNum.get()}")
+//        LogUtil.d("快递单号：${itemEntitySamplelothes.mExpressNum.get()}")
+//        LogUtil.d("服务类型：${itemEntityService.mServiceType.get()?.text}, 对应服务：${itemEntityService.mServiceProduce.get()?.text}")
+//        var sb = StringBuilder()
+//        itemEntityTypeChoose.mChooseTypes.forEach {
+//            sb.append(it.id).append("、")
+//        }
+//        LogUtil.d("选择类型：${sb}")
+        
+        LogUtil.d("面料信息：${itemEntityFabric.filePath.get()}")
+        LogUtil.d("制版信息：${itemEntityPlate.filePath.get()}")
+
+
+
+
         //提交前的限制 和 提醒
-        if(mChooseTypes.size <= 0){
-            ToastUtil.showShortToast("请先选择需求类型")
-            return
-        }
-        if(mServiceProduce.get() == null || mServiceProduce.get()?.id.isNullOrEmpty()){
-            ToastUtil.showShortToast("请先选择服务类型")
-            return
-        }
-        if(mServiceType.get() == null || mServiceType.get()?.id.isNullOrEmpty()){
-            ToastUtil.showShortToast("请先选择对应服务")
-            return
-        }
+//        if(mChooseTypes.size <= 0){
+//            ToastUtil.showShortToast("请先选择需求类型")
+//            return
+//        }
+//        if(mServiceProduce.get() == null || mServiceProduce.get()?.id.isNullOrEmpty()){
+//            ToastUtil.showShortToast("请先选择服务类型")
+//            return
+//        }
+//        if(mServiceType.get() == null || mServiceType.get()?.id.isNullOrEmpty()){
+//            ToastUtil.showShortToast("请先选择对应服务")
+//            return
+//        }
         //TODO 正面图片判断
 
         if(mStyleList.size <= 0){

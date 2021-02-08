@@ -117,13 +117,13 @@ class MaterialCostFragment :
         //工艺列表
         var craftList = arrayListOf<Any>()
         craftList.apply {
-            add(ItemTransparentLineEntity(context, 10F))
+            add(ItemTransparentLineEntity(10F))
             add(ItemInfoTitleEntity("", "工艺", false))
             data.attributes.technology.forEach {
                 add(ItemChooseEntity("", it.provider, it.price, "元"))
             }
             add(ItemChooseEntity("", "总金额", data.attributes.technologyPrice, "元", isShowLine = false))
-            add(ItemTransparentLineEntity(context, 10F))
+            add(ItemTransparentLineEntity(10F))
             add(ItemChooseEntity("", "特殊工艺金额合计", technologyPrice, "元"))
         }
         infoList.addAll(craftList)

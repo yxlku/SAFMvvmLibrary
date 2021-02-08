@@ -15,9 +15,6 @@ import com.deti.brand.demand.create.item.express.ItemExpress
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFile
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
-import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_DESIGN
-import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_FABRIC
-import com.deti.brand.demand.create.item.file.ItemUploadFileEnum.FILE_PLATE
 import com.deti.brand.demand.create.item.form.*
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitle
 import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
@@ -33,7 +30,6 @@ import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.loper7.date_time_picker.StringUtils
-import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.SingleLiveEvent
@@ -47,9 +43,6 @@ import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
-import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
-import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
-import com.test.common.ui.popup.multiple.createDialogSelectedMultiple
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
@@ -62,11 +55,13 @@ import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.custom.tip.createDialogTitleTip
 import com.test.common.ui.popup.custom.tip.createDialogTitleTipBottom
-import com.test.common.ui.popup.dialogBottomSingle
-import com.test.common.ui.popup.time.dialogTimeWheel
 import com.test.common.ui.popup.custom.type.createDialogLevelTypes
+import com.test.common.ui.popup.dialogBottomSingle
+import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
+import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
+import com.test.common.ui.popup.multiple.createDialogSelectedMultiple
+import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
-import me.jessyan.autosize.utils.AutoSizeUtils
 import java.util.*
 
 /**
@@ -80,13 +75,8 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         /** 类型选择*/
         val DIALOG_CHOOSE_TYPE = SingleLiveEvent<ItemDeamandTypeChooseEntity>()
 
-
-        /** 服务类型弹窗*/
-        const val DIALOG_SERVICE_TYPE = "dialog_service_type"
-        /** 对应服务弹窗*/
-        const val DIALOG_SERVICE_PRODUCE = "dialog_service_produce"
         /** 快递列表弹窗*/
-        const val DIALOG_EXPRESS_LIST = "dialog_express_list"
+        val DIALOG_EXPRESS_LIST = SingleLiveEvent<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>()
         /** 地址弹窗*/
         const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
 
@@ -107,34 +97,9 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         const val FORM_TIME = "form_time"
     }
 
-    /** item - 图片*/
-    val ITEM_TYPE_PICTURE = "item_type_picture"
-    /** item - 面料信息*/
-    val ITEM_TYPE_FABRIC = "item_type_fabric"
-    /** item - 样衣*/
-    val ITEM_TYPE_SAMPLE = "item_type_sample"
-    /** item - 设计稿*/
-    val ITEM_TYPE_LAYOUT = "item_type_layout"
-    /** item - 制版文件*/
-    val ITEM_TYPE_PRODUCTION_STANDARD= "item_type_production_standard"
-    /** item显示类型*/
-    var mItemTypeChooseDatas = arrayListOf(
-        BaseMultipleChoiceEntity(ITEM_TYPE_PICTURE,"图片", true),
-        BaseMultipleChoiceEntity(ITEM_TYPE_FABRIC, "面料信息", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_SAMPLE, "样衣", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_LAYOUT, "设计稿", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_PRODUCTION_STANDARD, "制版文件", false),
-    )
 
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
-
-    /** 服务类型弹窗*/
-    var mDialogServiceType: BasePopupView? = null
-
-    /** 对应服务弹窗*/
-    var mDialogServiceProduce: BasePopupView? = null
-
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
@@ -166,13 +131,13 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity, mViewModel))
 
             //类型选择
-            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(mViewModel))
+            addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity, mViewModel))
             //服务
-            addItemBinder(ItemServiceEntity::class.java, ItemService(mViewModel))
+            addItemBinder(ItemServiceEntity::class.java, ItemService(activity, mViewModel))
             //快递
-            addItemBinder(ItemExpressEntity::class.java, ItemExpress(mViewModel))
+            addItemBinder(ItemExpressEntity::class.java, ItemExpress(activity, mViewModel))
             //上传文件
-            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(mViewModel))
+            addItemBinder(ItemUploadFileEntity::class.java, ItemUploadFile(activity as AppCompatActivity?, mViewModel))
             //分组标题
             addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
             //选择条目
@@ -192,179 +157,25 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
+        mAdapter.setList(mViewModel.itemListEntitys)
 
+////        //TODO 个人信息完善，需要判断显示 -- vm中判断显示
+//        addOrRemove(mViewModel.itemEntityPersonal, true)
     }
-
-    override fun onStart() {
-        super.onStart()
-        //VM
-        //初始化列表
-        var listInitItem = arrayListOf(
-
-            //选择需求类型
-            itemEntityTypeChoose,
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //服务
-            itemEntityService,
-
-            //样衣
-            itemEntitySamplelothes,
-            //图片
-            itemEntityPic,
-            //面料
-            itemEntityFabric,
-            //制版文件
-            itemEntityPlate,
-
-            //分组标题 //请填写服务详细信息
-            ItemGroupTitleEntity("请填写服务详细信息"),
-            //分割线
-            ItemGrayLineEntity(context),
-            //款式分类
-            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_STYLE,"款式分类", false, "请选择款式分类"),
-
-            //分割线
-            ItemGrayLineEntity(context),
-            //尺码类型
-            itemEntityFormSizeType,
-
-            //分割线
-            ItemGrayLineEntity(context),
-            //颜色选择
-            itemEntityFormColor,
-            //分割线
-            ItemGrayLineEntity(context),
-            //尺码数量
-            itemEntityFormSizeCount,
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元"),
-
-            //分割线
-            ItemGrayLineEntity(context),
-            //设置交期
-            ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天"),
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //备注
-            ItemRemarkEntity(),
-
-            //透明分割线
-            ItemTransparentLineEntity(context),
-            //下单按钮
-            ItemPlaceOrderEntity(),
-            ItemTransparentLineEntity(context),
-        )
-        mAdapter.setList(listInitItem)
-
-        //TODO 个人信息完善，需要判断显示
-        addOrRemove(itemEntityPersonal, true)
-    }
-    //完善个人信息
-    var itemEntityPersonal = ItemPersonalInfoEntity()
-    //服务
-    var itemEntityService = ItemServiceEntity()
-    //类型选择
-    var itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
-
-    //图片
-    var itemEntityPic = ItemPicChooseEntity()
-    //面料信息
-    var itemEntityFabric = ItemUploadFileEntity(FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
-    //样衣
-    var itemEntitySamplelothes = ItemExpressEntity()
-    //制版文件
-    var itemEntityPlate = ItemUploadFileEntity(FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
-
-    //尺码类型
-    var itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
-    //颜色选择
-    var itemEntityFormColor = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色")
-    //尺码数量
-    var itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
-
-
-    /**
-     * 添加或删除item
-     */
-    fun addOrRemove(item: IItemIsShow, isShow: Boolean){
-        item.isShow = isShow
-        mAdapter.notifyDataSetChanged()
-    }
-    /**
-     * 显示选中布局
-     */
-    fun chooseTypesShow(selectedDatas: ArrayList<BaseMultipleChoiceEntity>){
-        selectedDatas.forEach {
-            when (it.id) {
-                ITEM_TYPE_PICTURE, ITEM_TYPE_LAYOUT -> addOrRemove(itemEntityPic, true)//图片、设计稿
-                ITEM_TYPE_FABRIC -> addOrRemove(itemEntityFabric, true)               //面料信息
-                ITEM_TYPE_SAMPLE -> addOrRemove(itemEntitySamplelothes, true)         //样衣
-                ITEM_TYPE_PRODUCTION_STANDARD -> addOrRemove(itemEntityPlate, true)   //制版文件
-            }
-        }
-    }
-
-    /**
-     * 清空所有类型样式
-     */
-    fun chooseTypesClear(){
-        addOrRemove(itemEntityPic, false)           //图片
-        addOrRemove(itemEntityFabric, false)        //面料信息
-        addOrRemove(itemEntitySamplelothes, false)  //样衣
-        addOrRemove(itemEntityPlate, false)         //制版文件
-    }
-
-    /**
-     * 选择类型 - 显示
-     */
-    fun showChooseType(entity: ItemDeamandTypeChooseEntity){
-        activity?.apply {
-            if(mPopupChooseType == null){
-                mPopupChooseType = mItemTypeChooseDatas.createDialogSelectedMultiple(
-                    this, "请选择服务类型",
-                    isShowTip = true,
-                    tipBlock = { basePopupView: BasePopupView, view: View ->
-                        activity?.apply {
-                            "选择您目前有的信息给我们，根据已有信息提供报价。".createDialogTitleTipBottom(this, view).show()
-                        }
-                    },
-                    sureBlock = {basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter ->
-                        //选中后
-                        //1、清空所有类型布局
-                        chooseTypesClear()
-                        //2、显示选中类型布局
-                        chooseTypesShow(selectedData)
-                        //3、赋值到vm中
-                        mViewModel.mChooseTypes = selectedData
-                        //4、显示选中类型的文字
-                        var showTextSb = StringBuilder()
-                        selectedData.forEach {
-                            showTextSb.append(it.text).append(" / ")
-                        }
-                        //类型布局显示的文字
-                        entity.showText.set(showTextSb.toString())
-                        //5、关闭弹窗
-                        basePopupView.dismiss()
-                    }
-                )
-            }
-            mPopupChooseType?.show()
-        }
-    }
-
-
 
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
-        /** 类型选择 -- 只能发送一次*/
-        DIALOG_CHOOSE_TYPE.observe(this){
-            it?.apply { showChooseType(this)}
-        }
+        /** 样衣 - 快递列表*/
+        DIALOG_EXPRESS_LIST.observe(this, {
+            activity?.apply {
+                it?.first?.dialogBottomSingle(this, "请选择快递", it?.second, callback = { data, position->
+                    mViewModel.mExpressSingleChoiceEntity.set(data)
+                })?.show()
+            }
+        })
+
+
+
 
 
         LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, PIC_CHOOSE, {
@@ -377,70 +188,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
 
-        /** 选择服务类型*/
-        LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
-            DIALOG_SERVICE_PRODUCE,
-            {
-                activity?.apply {
-                    if (mDialogServiceType == null) {
-                        mDialogServiceType = it.dialogBottomSingle(this, "请选择服务类型", callback = { data, position->
-                            mViewModel.mServiceProduce.set(data)
-                        })
-                    }
-                    mDialogServiceType?.show()
-                }
-            },
-            false)
-        /** 对应服务*/
-        LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
-            DIALOG_SERVICE_TYPE,
-            {
-                activity?.apply {
-                    if (mDialogServiceProduce == null) {
-                        mDialogServiceProduce = it.dialogBottomSingle(this, "请选择对应服务", callback = { data, position->
-                            mViewModel.mServiceType.set(data)
-                        })
-                    }
-                    mDialogServiceProduce?.show()
-                }
-            },
-            false)
-        /** 地址提示弹窗*/
-        LiveDataBus.observe<Pair<View, String>>(this, DIALOG_TIP_ADDRESS, {
-            activity?.apply {
-                it.second.createDialogTitleTip(this, it.first).show()
-            }
-        }, false)
-
-        /** 样衣 - 快递列表*/
-        LiveDataBus.observe<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>(this,
-            DIALOG_EXPRESS_LIST,
-            {
-                activity?.apply {
-                    it.first.dialogBottomSingle(this, "请选择快递", it.second, callback = { data, position->
-                        mViewModel.mExpressSingleChoiceEntity.set(data)
-                    }).show()
-                }
-            },
-            false)
-        /** 上传文件*/
-        LiveDataBus.observe<ItemUploadFileEntity>(this, UPLOAD_FILE, {
-            chooseFile(activity as AppCompatActivity?){ filePath ->
-                it.filePath.set(filePath)
-                when (it.tag) {
-                    //TODO 这里选择后应该是请求接口
-                    FILE_FABRIC -> { //面料信息
-                        mViewModel.mFilePathFabric  = filePath
-                    }
-                    FILE_PLATE -> { //制版文件
-                        mViewModel.mFilePathPlate  = filePath
-                    }
-                    FILE_DESIGN -> { //设计稿
-                        mViewModel.mFilePathDesign = filePath
-                    }
-                }
-            }
-        }, false)
         /** 款式分类*/
         LiveDataBus.observe<Pair<TypesTreeViewEntity, ItemFormChooseEntity>>(this, FORM_STYLE_TYPE, {
             activity?.apply {
@@ -576,8 +323,8 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             mPopupTime?.show()
         }, false)
     }
-    /** 弹窗： 类型选择*/
-    var mPopupChooseType: BasePopupView? = null
+//    /** 弹窗： 类型选择*/
+//    var mPopupChooseType: BasePopupView? = null
     /** 弹窗：款式分类*/
     var mPopupStyle: BasePopupView? = null
     /** 弹窗：尺码类型*/
@@ -592,21 +339,21 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
 
     /** 清除信息：尺码类型*/
     fun clearInfoSizeType(){
-        mViewModel.mSizeTypeData = null
-        mPopupSizeType = null
-        itemEntityFormSizeType.contentText.set("")
+//        mViewModel.mSizeTypeData = null
+//        mPopupSizeType = null
+//        itemEntityFormSizeType.contentText.set("")
     }
 
     /** 清除信息：选择的颜色*/
     fun clearInfoColors(){
-        mViewModel.mSelectColorDatas = arrayListOf()
-        mPopupColor = null
-        itemEntityFormColor.contentText.set("")
+//        mViewModel.mSelectColorDatas = arrayListOf()
+//        mPopupColor = null
+//        itemEntityFormColor.contentText.set("")
     }
     /** 清除信息：尺码数量*/
     fun clearInfoSizeCount(){
-        //尺码数量
-        mPopupColorSizeCount = null
-        itemEntityFormSizeCount.contentText.set("")
+//        //尺码数量
+//        mPopupColorSizeCount = null
+//        itemEntityFormSizeCount.contentText.set("")
     }
 }

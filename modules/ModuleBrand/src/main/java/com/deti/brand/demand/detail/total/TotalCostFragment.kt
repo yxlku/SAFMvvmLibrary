@@ -60,7 +60,7 @@ class TotalCostFragment: BaseLazyFragment<BrandFragmentCostTotalBinding, TotalCo
                 ItemChooseEntity("", "利润", it.profit, "%"),
                 ItemChooseEntity("", "增值税", it.valueAddTax, "%"),
                 ItemChooseEntity("", "总成本合计", it.costPrice, "元", isShowLine = false),
-                ItemTransparentLineEntity(context, 10F),
+                ItemTransparentLineEntity(10F),
                 ItemInfoTitleEntity("", it.quoteTime, false),
                 ItemChooseEntity("", "0-100件", it.firstTieredPrice, "元"),
                 ItemChooseEntity("", "101-500件", it.secondTieredPrice, "元"),

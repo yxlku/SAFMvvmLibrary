@@ -149,7 +149,7 @@ class ItemMaterielType(
             add(ItemChooseEntity("supplierName", "供应商", info.supplierName))
             add(ItemChooseEntity("productName", "品名", info.productName))
             add(ItemChooseEntity("0", "编号", "123"))
-            add(ItemGrayLineEntity(context, 8F))
+            add(ItemGrayLineEntity(, 8F))
             add(ItemChooseEntity("0", "产地", "123"))
             add(ItemChooseEntity("0", "幅宽", "123", "cm"))
             add(ItemChooseEntity("0", "成分", "123"))

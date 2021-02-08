@@ -51,9 +51,9 @@ class LogisticsActivity: BaseActivity<BrandActivityLogisticsBinding, LogisticsVi
         }
 
         var listData = arrayListOf(
-            ItemTransparentLineEntity(this, 16F),
+            ItemTransparentLineEntity(16F),
             ItemLogisticsProgressEntity(),
-            ItemTransparentLineEntity(this, 16F),
+            ItemTransparentLineEntity(16F),
             ItemLogisticsInfoEntity("需求单号", "X2020111314391496"),
             ItemLogisticsInfoEntity("服务", "样衣-打版+生产"),
             ItemLogisticsInfoEntity("款式", "女生-服装-上装-棉服"),

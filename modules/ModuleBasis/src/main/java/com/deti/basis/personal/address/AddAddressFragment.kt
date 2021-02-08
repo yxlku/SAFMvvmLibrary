@@ -75,15 +75,15 @@ class AddAddressFragment: BaseFragment<BasisFragmentAddAddressBinding, AddAddres
         var listData = arrayListOf(
             ItemTitlePersonalEntity(TITLE_ADD_ADDRESS, "收货地址信息"),
             ItemFormPersonalEntity(ITEM_ADD_ADDRESS_PERSON, "联系人", "","请输入子账号用户名"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemFormPersonalEntity(ITEM_ADD_ADDRESS_PHONE, "电话", "","请输入手机号码"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemChoosePersonalEntity(ITEM_ADD_ADDRESS_CITY, "选择 省/市/区", "","请选择 省/市/区"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemFormPersonalEntity(ITEM_ADD_ADDRESS_CITY_FORM, "地址详情", "","请输入地址详情"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemChoosePersonalEntity(ITEM_ADD_ADDRESS_SHIP, "发货方式", "","请选择发货方式"),
-            ItemTransparentLineEntity(context, 10F),
+            ItemTransparentLineEntity(10F),
 
             //得体地址
             ItemPersonalDetiAddressEntity("浙江省杭州市余杭区临平余杭商会大厦C座"),

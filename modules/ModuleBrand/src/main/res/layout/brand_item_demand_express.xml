@@ -39,10 +39,10 @@
                 android:textColor="#666666" />
 
             <TextView
+                android:id="@+id/tv_adress_deti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:onClick="@{viewModel.clickAddress}"
                 android:text="获取得体地址"
                 android:textColor="#4389F1" />
 
@@ -117,7 +117,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="请输入快递单号"
-                android:text="@{viewModel.mExpressNum}"
+                android:text="@={entity.mExpressNum}"
                 android:paddingStart="10mm"
                 android:paddingTop="15mm"
                 android:paddingEnd="10mm"

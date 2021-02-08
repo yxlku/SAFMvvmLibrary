@@ -83,47 +83,47 @@ class CreateDemandModel: BaseModel(){
     ): Flow<BaseNetEntity<CommoneEmpty>?>{
         //选择类型
         var provideList = arrayListOf<String>()
-        mViewModel.mChooseTypes.forEach {
-            provideList.add(it.id)
-        }
-        //正面照
-        var frontImage = mViewModel.mPicListDatas[0]
-        //背面照
-        var backImage = mViewModel.mPicListDatas[1]
-        //其他图片列表
-        var detailsImageList = mViewModel.mPicListDatas.slice(2..4)
+//        mViewModel.mChooseTypes.forEach {
+//            provideList.add(it.id)
+//        }
+//        //正面照
+//        var frontImage = mViewModel.mPicListDatas[0]
+//        //背面照
+//        var backImage = mViewModel.mPicListDatas[1]
+//        //其他图片列表
+//        var detailsImageList = mViewModel.mPicListDatas.slice(2..4)
 
         return flowOnIO {
             var body = hashMapOf<String, Any?>()
             body.apply {
-                put("sign", "2147483647")
-                put("token", userInfoToken())
-                put("timestamp", "2147483647")
-                put("demandIndent.provideList", provideList)        //选择的类型
-                put("demandIndent.serviceType", mViewModel.mServiceType.get()?.id)
-                put("demandIndent.productionType", mViewModel.mServiceProduce.get()?.id)
-                put("demandIndent.fabricInfo", mViewModel.mFilePathFabric)
-                put("demandIndent.sampleDressExpressType", mViewModel.mExpressSingleChoiceEntity.get()?.id)
-                put("demandIndent.sampleDressExpressId", mViewModel.mExpressNum.get())
-                put("demandIndent.makeFilePath", mViewModel.mFilePathPlate) //制版文件
-
-                put("demandIndent.frontImage", frontImage)          //图片
-                put("demandIndent.backImage", backImage)
-                put("demandIndent.detailsImageList", detailsImageList)
-
-                put("demandIndent.gender", mViewModel.mStyleList[0]?.code)        //款式分类
-                put("demandIndent.category", mViewModel.mStyleList[1]?.code)
-                put("demandIndent.suitType", mViewModel.mStyleList[2]?.code)
-                put("demandIndent.classify", mViewModel.mStyleList[3]?.code)
-
-                put("demandIndent.unitPrice", "99999")    //单价
-                put("demandIndent.deliveryDate", mViewModel.mTime)
-
-                put("demandIndent.comment", "bz") //备注
-                LogUtil.d("1钱：${mViewModel.mPrice.get()}，备注：${mViewModel.mRemark.get()}")
-                put("demandIndent.colorList", mViewModel.mColorSizeCountDatas)
-                //TODO 临时
-                put("demandIndent.sizeId", mViewModel.mSizeId)
+//                put("sign", "2147483647")
+//                put("token", userInfoToken())
+//                put("timestamp", "2147483647")
+//                put("demandIndent.provideList", provideList)        //选择的类型
+////                put("demandIndent.serviceType", mViewModel.mServiceType.get()?.id)
+////                put("demandIndent.productionType", mViewModel.mServiceProduce.get()?.id)
+//                put("demandIndent.fabricInfo", mViewModel.mFilePathFabric)
+//                put("demandIndent.sampleDressExpressType", mViewModel.mExpressSingleChoiceEntity.get()?.id)
+//                put("demandIndent.sampleDressExpressId", mViewModel.mExpressNum.get())
+//                put("demandIndent.makeFilePath", mViewModel.mFilePathPlate) //制版文件
+//
+//                put("demandIndent.frontImage", frontImage)          //图片
+//                put("demandIndent.backImage", backImage)
+//                put("demandIndent.detailsImageList", detailsImageList)
+//
+//                put("demandIndent.gender", mViewModel.mStyleList[0]?.code)        //款式分类
+//                put("demandIndent.category", mViewModel.mStyleList[1]?.code)
+//                put("demandIndent.suitType", mViewModel.mStyleList[2]?.code)
+//                put("demandIndent.classify", mViewModel.mStyleList[3]?.code)
+//
+//                put("demandIndent.unitPrice", "99999")    //单价
+//                put("demandIndent.deliveryDate", mViewModel.mTime)
+//
+//                put("demandIndent.comment", "bz") //备注
+//                LogUtil.d("1钱：${mViewModel.mPrice.get()}，备注：${mViewModel.mRemark.get()}")
+//                put("demandIndent.colorList", mViewModel.mColorSizeCountDatas)
+//                //TODO 临时
+//                put("demandIndent.sizeId", mViewModel.mSizeId)
             }
             return@flowOnIO mHttpDataSource?.requestDemandSubmit(body) as BaseNetEntity<CommoneEmpty>
         }

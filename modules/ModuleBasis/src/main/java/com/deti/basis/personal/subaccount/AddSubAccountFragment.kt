@@ -50,11 +50,11 @@ class AddSubAccountFragment: BaseFragment<BasisFragmentAddSubAccountBinding, Add
         var listData = arrayListOf(
             ItemTitlePersonalEntity(TITLE_ADD_SUB, "添加子账号"),
             ItemFormPersonalEntity(ITEM_ADD_SUB_USERNAME, "子账号用户名", "","请输入子账号用户名"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemFormPersonalEntity(ITEM_ADD_SUB_PHONE, "子账号手机号", "","请输入手机号码"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemFormPersonalEntity(ITEM_ADD_SUB_PWD, "初始密码", "123456","请填写初始密码"),
-            ItemTransparentLineEntity(context, 30F),
+            ItemTransparentLineEntity(30F),
 
        )
         mAdapter.setList(listData)

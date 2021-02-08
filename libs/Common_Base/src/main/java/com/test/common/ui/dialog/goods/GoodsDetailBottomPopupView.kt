@@ -51,23 +51,23 @@ class GoodsDetailBottomPopupView(
 
         var listData = arrayListOf(
             ItemInfoEntity(ItemInfoTagIds.OTHER, "单价：", "¥680.00"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemInfoEntity(ItemInfoTagIds.ID_GOODS_TIME, "货期：", "2020-12-11", R.drawable.base_icon_date),
 
             ItemPayModeTitleEntity(),
-            ItemTransparentLineEntity(context, 7F),
+            ItemTransparentLineEntity(7F),
             ItemPayModeTimeEntity("收款", "20%", 0, "2020-12-19"),
-            ItemTransparentLineEntity(context, 8F),
+            ItemTransparentLineEntity(8F),
             ItemPayModeTimeEntity("中期款", "50%", 0, ""),
-            ItemTransparentLineEntity(context, 8F),
+            ItemTransparentLineEntity(8F),
             ItemPayModeTimeEntity("尾款", "30%", 0, ""),
-            ItemTransparentLineEntity(context, 8F),
+            ItemTransparentLineEntity(8F),
 
 
             ItemInfoEntity(ItemInfoTagIds.OTHER, "货号：", "123456778899"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
             ItemInfoEntity(ItemInfoTagIds.OTHER, "颜色：", "黑色"),
-            ItemGrayLineEntity(context),
+            ItemGrayLineEntity(),
 
             ItemGoodsSizeCountEntity()
         )
