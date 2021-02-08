@@ -1,17 +1,32 @@
 package com.deti.brand.demand.create.entity
 
+import com.google.gson.annotations.SerializedName
+import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import java.io.Serializable
 
 /**
  * 创建需求：款式分类
  */
-data class DemandStyleTypeEntity(
+class DemandStyleTypeEntity(
     var tree: List<DemandStyleEntity>? = null,
-): Serializable
+): TypesTreeViewEntity(), Serializable{
+    override var childer: List<TypesViewDataBean>?
+        get() = tree
+        set(value) {}
+}
 
-data class DemandStyleEntity(
+class DemandStyleEntity(
     var name: String = "",
     var children: List<DemandStyleEntity>? = null,
-    var code: String = "",
-    var id: String = "",
-): Serializable
+): TypesViewDataBean(), Serializable{
+    override var childer: List<TypesViewDataBean>?
+        get() = children
+        set(value) {
+            children
+        }
+    override var text: String
+        get() = name
+        set(value) {}
+
+}

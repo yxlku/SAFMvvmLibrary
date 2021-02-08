@@ -1,6 +1,5 @@
 package com.deti.brand.demand.create
 
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
@@ -8,7 +7,6 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
-import com.deti.brand.demand.create.item.IItemIsShow
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamndTypeChoose
 import com.deti.brand.demand.create.item.express.ItemExpress
@@ -42,7 +40,6 @@ import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
-import com.test.common.ext.chooseFile
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
@@ -53,13 +50,8 @@ import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors
-import com.test.common.ui.popup.custom.tip.createDialogTitleTip
-import com.test.common.ui.popup.custom.tip.createDialogTitleTipBottom
 import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
-import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
-import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
-import com.test.common.ui.popup.multiple.createDialogSelectedMultiple
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
 import java.util.*
@@ -77,16 +69,12 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
 
         /** 快递列表弹窗*/
         val DIALOG_EXPRESS_LIST = SingleLiveEvent<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>()
-        /** 地址弹窗*/
-        const val DIALOG_TIP_ADDRESS = "dialog_tip_address"
+        /** 款式分类*/
+        val FORM_STYLE_TYPE = SingleLiveEvent<Pair<TypesTreeViewEntity, ItemFormChooseEntity>>()
 
         /** 选择图片布局中的删除*/
         const val PIC_CHOOSE = "pic_choose"
 
-        /** 上传文件*/
-        const val UPLOAD_FILE = "upload_file"
-        /** 款式分类*/
-        const val FORM_STYLE_TYPE = "form_style_type"
         /** 尺码类型*/
         const val FORM_SIZE_TYPE = "form_size_type"
         /** 选择尺码数量*/
@@ -173,7 +161,31 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                 })?.show()
             }
         })
-
+        /** 款式分类*/
+        FORM_STYLE_TYPE.observe(this, {
+            it?.first?.apply {
+                createDialogLevelTypes(this@CreateDemandFragment.requireActivity(), "请选择款式分类", this, 4) { datas ->
+                    var sb: StringBuilder = StringBuilder()
+                    //选择后的数据 - 待提交需求时使用
+                    mViewModel.mStyleList = datas
+                    //拼接展示使用
+                    for (i in 0 until datas.size) {
+                        var bean = datas[i]
+                        sb.append(bean?.text)
+                        if (i != datas.size - 1) {
+                            sb.append(" - ")
+                        }
+                    }
+                    it?.second?.contentText?.set(sb.toString())
+                    //1、清空尺码类型
+                    clearInfoSizeType()
+                    //2、清空颜色
+                    clearInfoColors()
+                    //3、清空尺码数量
+                    clearInfoSizeCount()
+                }.show()
+            }
+        })
 
 
 
@@ -186,35 +198,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             //请求后的地址
             entity.picPath.set(picFilePath)
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
-        }, false)
-
-        /** 款式分类*/
-        LiveDataBus.observe<Pair<TypesTreeViewEntity, ItemFormChooseEntity>>(this, FORM_STYLE_TYPE, {
-            activity?.apply {
-                if (mPopupStyle == null) {
-                    mPopupStyle = createDialogLevelTypes(this, "请选择款式分类", it.first, 4) { datas ->
-                        var sb: StringBuilder = StringBuilder()
-                        //选择后的数据 - 待提交需求时使用
-                        mViewModel.mStyleList = datas
-                        //拼接展示使用
-                        for(i in 0 until  datas.size){
-                            var bean = datas[i]
-                            sb.append(bean?.text)
-                            if (i != datas.size - 1) {
-                                sb.append(" - ")
-                            }
-                        }
-                        it.second.contentText.set(sb.toString())
-                        //1、清空尺码类型
-                        clearInfoSizeType()
-                        //2、清空颜色
-                        clearInfoColors()
-                        //3、清空尺码数量
-                        clearInfoSizeCount()
-                    }
-                }
-                mPopupStyle?.show()
-            }
         }, false)
         /** 尺码类型*/
         LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_TYPE, {

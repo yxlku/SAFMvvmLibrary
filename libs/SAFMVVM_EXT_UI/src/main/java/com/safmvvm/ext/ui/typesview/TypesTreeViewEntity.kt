@@ -1,27 +1,29 @@
 package com.safmvvm.ext.ui.typesview
 
+import java.io.Serializable
+
 /**
  * typesview的实体类，无论调用者什么对象都要转换为此对象
  */
-data class TypesTreeViewEntity(
+open class TypesTreeViewEntity(
     /**
      * 第一层如果为空，则显示空布局
      */
-    var childer: List<TypesViewDataBean>? = null
-)
+    open var childer: List<TypesViewDataBean>? = null
+):Serializable
 
 open class TypesViewDataBean(
     open var id: String = "",
     /**
      * 显示的文字
      */
-    var text: String = "",
+    open var text: String = "",
     /**
      * code
      */
-    var code: String = "",
+    open var code: String = "",
     /**
      * 子列表，这个层级控制有基层rv
      */
-    var childer: List<TypesViewDataBean>? = null
-)
+    open var childer: List<TypesViewDataBean>? = null
+):Serializable

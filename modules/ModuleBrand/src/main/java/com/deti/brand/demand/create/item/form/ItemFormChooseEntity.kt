@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create.item.form
 
 import androidx.databinding.ObservableField
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 
 /**
  * form选择类型
@@ -15,7 +16,7 @@ class ItemFormChooseEntity(
     /** 提示文字和选中*/
     var hintText: String = "请选择",
     /** 选择后的文字*/
-    var contentText: ObservableField<String> = ObservableField()
+    var contentText: ObservableField<String> = ObservableField(),
 )
 
 /**
