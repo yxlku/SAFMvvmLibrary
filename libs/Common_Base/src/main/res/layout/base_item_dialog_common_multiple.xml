@@ -7,10 +7,7 @@
 
         <variable
             name="entity"
-            type="com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity" />
-        <variable
-            name="viewModel"
-            type="com.test.common.ui.dialog.multiple.adapter.MultipleChoiceViewModel" />
+            type="com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -30,11 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:checked="@{viewModel.selectedPosition}"
+            android:checked="@{entity.selected}"
             android:drawableRight="@drawable/base_dialog_checkbox_selector"
             android:text="@{entity.text}"
-            android:textColor="#1B2643"
-            android:textSize="14mm" />
+            android:textColor="#1B2643" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

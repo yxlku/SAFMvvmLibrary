@@ -1,7 +1,6 @@
 package com.deti.brand.demand.create
 
 import android.view.View
-import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
@@ -34,8 +33,10 @@ import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.loper7.date_time_picker.StringUtils
+import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
@@ -46,12 +47,12 @@ import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ext.chooseFile
-import com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity
-import com.test.common.ui.dialog.multiple.createDialogSelectedMultiple
+import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
+import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
+import com.test.common.ui.popup.multiple.createDialogSelectedMultiple
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
-import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.item.line.ItemGrayLine
 import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLine
@@ -59,10 +60,13 @@ import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors
+import com.test.common.ui.popup.custom.tip.createDialogTitleTip
+import com.test.common.ui.popup.custom.tip.createDialogTitleTipBottom
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
-import com.test.common.ui.popup.type.createDialogLevelTypes
+import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.zlylib.fileselectorlib.utils.DateUtils
+import me.jessyan.autosize.utils.AutoSizeUtils
 import java.util.*
 
 /**
@@ -74,7 +78,9 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
 ) {
     companion object {
         /** 类型选择*/
-        const val DIALOG_CHOOSE_TYPE = "dialog_choose_type"
+        val DIALOG_CHOOSE_TYPE = SingleLiveEvent<ItemDeamandTypeChooseEntity>()
+
+
         /** 服务类型弹窗*/
         const val DIALOG_SERVICE_TYPE = "dialog_service_type"
         /** 对应服务弹窗*/
@@ -101,6 +107,25 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         const val FORM_TIME = "form_time"
     }
 
+    /** item - 图片*/
+    val ITEM_TYPE_PICTURE = "item_type_picture"
+    /** item - 面料信息*/
+    val ITEM_TYPE_FABRIC = "item_type_fabric"
+    /** item - 样衣*/
+    val ITEM_TYPE_SAMPLE = "item_type_sample"
+    /** item - 设计稿*/
+    val ITEM_TYPE_LAYOUT = "item_type_layout"
+    /** item - 制版文件*/
+    val ITEM_TYPE_PRODUCTION_STANDARD= "item_type_production_standard"
+    /** item显示类型*/
+    var mItemTypeChooseDatas = arrayListOf(
+        BaseMultipleChoiceEntity(ITEM_TYPE_PICTURE,"图片", true),
+        BaseMultipleChoiceEntity(ITEM_TYPE_FABRIC, "面料信息", false),
+        BaseMultipleChoiceEntity(ITEM_TYPE_SAMPLE, "样衣", false),
+        BaseMultipleChoiceEntity(ITEM_TYPE_LAYOUT, "设计稿", false),
+        BaseMultipleChoiceEntity(ITEM_TYPE_PRODUCTION_STANDARD, "制版文件", false),
+    )
+
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
 
@@ -109,6 +134,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
 
     /** 对应服务弹窗*/
     var mDialogServiceProduce: BasePopupView? = null
+
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
@@ -236,7 +262,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         mAdapter.setList(listInitItem)
 
         //TODO 个人信息完善，需要判断显示
-        addOrRemove(itemEntityPersonal, true, 0)
+        addOrRemove(itemEntityPersonal, true)
     }
     //完善个人信息
     var itemEntityPersonal = ItemPersonalInfoEntity()
@@ -261,32 +287,86 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
     //尺码数量
     var itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
 
-    /** 类型选择控制显示隐藏对应的布局*/
-    fun controlListFunction(checkEntity: BaseMultipleChoiceEntity){
-        var pos = mAdapter.getItemPosition(itemEntityTypeChoose) + 1
-        when (checkEntity.id) {
-            "picture" -> addOrRemove(itemEntityPic, checkEntity.isSelected, pos)                 //图片
-            "fabric" -> addOrRemove(itemEntityFabric, checkEntity.isSelected, pos)                  //面料信息
-            "sample" -> addOrRemove(itemEntitySamplelothes, checkEntity.isSelected, pos)                 //样衣
-            "production_standard" -> addOrRemove(itemEntityPlate, checkEntity.isSelected, pos)     //制版文件
-        }
-    }
-
 
     /**
      * 添加或删除item
      */
-    fun addOrRemove(item: IItemIsShow, isShow: Boolean, pos: Int = 0){
+    fun addOrRemove(item: IItemIsShow, isShow: Boolean){
         item.isShow = isShow
         mAdapter.notifyDataSetChanged()
-//        if (isShow) {
-//            mAdapter.addData(pos, item)
-//        }else{
-//            mAdapter.remove(item)
-//        }
     }
+    /**
+     * 显示选中布局
+     */
+    fun chooseTypesShow(selectedDatas: ArrayList<BaseMultipleChoiceEntity>){
+        selectedDatas.forEach {
+            when (it.id) {
+                ITEM_TYPE_PICTURE, ITEM_TYPE_LAYOUT -> addOrRemove(itemEntityPic, true)//图片、设计稿
+                ITEM_TYPE_FABRIC -> addOrRemove(itemEntityFabric, true)               //面料信息
+                ITEM_TYPE_SAMPLE -> addOrRemove(itemEntitySamplelothes, true)         //样衣
+                ITEM_TYPE_PRODUCTION_STANDARD -> addOrRemove(itemEntityPlate, true)   //制版文件
+            }
+        }
+    }
+
+    /**
+     * 清空所有类型样式
+     */
+    fun chooseTypesClear(){
+        addOrRemove(itemEntityPic, false)           //图片
+        addOrRemove(itemEntityFabric, false)        //面料信息
+        addOrRemove(itemEntitySamplelothes, false)  //样衣
+        addOrRemove(itemEntityPlate, false)         //制版文件
+    }
+
+    /**
+     * 选择类型 - 显示
+     */
+    fun showChooseType(entity: ItemDeamandTypeChooseEntity){
+        activity?.apply {
+            if(mPopupChooseType == null){
+                mPopupChooseType = mItemTypeChooseDatas.createDialogSelectedMultiple(
+                    this, "请选择服务类型",
+                    isShowTip = true,
+                    tipBlock = { basePopupView: BasePopupView, view: View ->
+                        activity?.apply {
+                            "选择您目前有的信息给我们，根据已有信息提供报价。".createDialogTitleTipBottom(this, view).show()
+                        }
+                    },
+                    sureBlock = {basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter ->
+                        //选中后
+                        //1、清空所有类型布局
+                        chooseTypesClear()
+                        //2、显示选中类型布局
+                        chooseTypesShow(selectedData)
+                        //3、赋值到vm中
+                        mViewModel.mChooseTypes = selectedData
+                        //4、显示选中类型的文字
+                        var showTextSb = StringBuilder()
+                        selectedData.forEach {
+                            showTextSb.append(it.text).append(" / ")
+                        }
+                        //类型布局显示的文字
+                        entity.showText.set(showTextSb.toString())
+                        //5、关闭弹窗
+                        basePopupView.dismiss()
+                    }
+                )
+            }
+            mPopupChooseType?.show()
+        }
+    }
+
+
+
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
+        /** 类型选择 -- 只能发送一次*/
+        DIALOG_CHOOSE_TYPE.observe(this){
+            it?.apply { showChooseType(this)}
+        }
+
+
         LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, PIC_CHOOSE, {
             var entity = it.first
             var picFilePath = it.second
@@ -296,47 +376,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             entity.picPath.set(picFilePath)
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
-        /** 类型选择*/
-        LiveDataBus.observe<ItemDeamandTypeChooseEntity>(this, DIALOG_CHOOSE_TYPE, {
-                activity?.apply {
-                    if(mPopupChooseType == null){
-                        mPopupChooseType = arrayListOf(
-                            BaseMultipleChoiceEntity("picture","图片", true),
-                            BaseMultipleChoiceEntity("fabric", "面料信息", false),
-                            BaseMultipleChoiceEntity("sample", "样衣", false),
-                            BaseMultipleChoiceEntity("layout", "设计稿", false),
-                            BaseMultipleChoiceEntity("production_standard", "制版文件", false),
-                        ).createDialogSelectedMultiple(
-                            this, "请选择服务类型",
-                            callback = { buttonView: CompoundButton?, isChecked: Boolean, checkEntity: BaseMultipleChoiceEntity ->
-                                //选中状态更新
-                                if (checkEntity.isSelected) {
-                                    if (!it.types.contains(checkEntity.text)) {
-                                        it.types.add(checkEntity.text)
-                                        mViewModel.mChooseTypes.add(checkEntity)
-                                        //控制布局
-                                        controlListFunction(checkEntity)
-                                    }
-                                }else{
-                                    if (it.types.contains(checkEntity.text)) {
-                                        it.types.remove(checkEntity.text)
-                                        mViewModel.mChooseTypes.remove(checkEntity)
-                                        //控制布局
-                                        controlListFunction(checkEntity)
-                                    }
-                                }
 
-                                var showTextSb = java.lang.StringBuilder()
-                                it.types.forEach {
-                                    showTextSb.append(it).append(" / ")
-                                }
-                                it.showText.set(showTextSb.toString())
-                            }
-                        )
-                    }
-                    mPopupChooseType?.show()
-                }
-        }, false)
         /** 选择服务类型*/
         LiveDataBus.observe<ArrayList<BaseSingleChoiceEntity>>(this,
             DIALOG_SERVICE_PRODUCE,
@@ -368,7 +408,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         /** 地址提示弹窗*/
         LiveDataBus.observe<Pair<View, String>>(this, DIALOG_TIP_ADDRESS, {
             activity?.apply {
-                it.second.createDialogTip(this, it.first).show()
+                it.second.createDialogTitleTip(this, it.first).show()
             }
         }, false)
 

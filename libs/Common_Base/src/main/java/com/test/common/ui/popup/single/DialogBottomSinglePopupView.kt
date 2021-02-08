@@ -4,21 +4,16 @@ import android.app.Activity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
-import com.safmvvm.bus.putValue
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.test.common.R
-import com.test.common.ui.dialog.single.adpater.SingleChoiceAdapter
-import com.test.common.ui.dialog.tip.createDialogTip
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
-import me.jessyan.autosize.utils.AutoSizeUtils
 
 /**
  * 通用底部单选弹窗

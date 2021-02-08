@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xujiaji.happybubble.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bl_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/base_tip_bg"
-    android:padding="10mm">
+    android:background="#00000000"
+    app:bubbleColor="#FFFFFF"
+    app:bubblePadding="8mm"
+    app:bubbleRadius="4mm"
+    app:lookAt="top"
+    app:bubbleArrowTopRightRadius="0mm"
+    app:bubbleArrowDownRightRadius="0mm"
+    app:bubbleArrowTopLeftRadius="0mm"
+    app:bubbleArrowDownLeftRadius="0mm"
+    app:lookLength="5mm"
+    app:lookWidth="8mm">
 
     <TextView
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="#999999"
-        android:textSize="12mm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.xujiaji.happybubble.BubbleLayout>

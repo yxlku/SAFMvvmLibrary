@@ -8,40 +8,9 @@
     android:background="#00000000"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/base_dialog_title_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20mm"
-            app:srcCompat="@drawable/base_dialog_title_close" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0mm"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="#999999"
-            android:textSize="16mm" />
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/iv_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20mm"
-            app:srcCompat="@drawable/base_dialog_tip" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.safmvvm.ui.titlebar.TitleBar
+        android:id="@+id/tb_title"
+        style="@style/popup_title_bottom"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_content"
@@ -57,15 +26,15 @@
         android:background="#F9F9F9" />
 
     <TextView
-        android:id="@+id/tv_close"
+        android:id="@+id/tv_sure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:gravity="center"
         android:paddingTop="16mm"
         android:paddingBottom="16mm"
-        android:text="取消"
-        android:textSize="16mm" />
+        android:text="确定"
+        android:textSize="14mm" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

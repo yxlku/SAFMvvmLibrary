@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemUploadFileBinding
 import com.deti.brand.demand.create.CreateDemandViewModel
-import com.safmvvm.ext.rvIsGone
+import com.safmvvm.ext.rvIsShow
 
 /**
  * 上传文件
@@ -22,7 +22,7 @@ class ItemUploadFile(
         binding?.apply {
             entity = data
             viewModel = mViewModel
-            holder.itemView.rvIsGone(!data.isShow)
+            holder.itemView.rvIsShow(data.isShow)
             executePendingBindings()
         }
     }

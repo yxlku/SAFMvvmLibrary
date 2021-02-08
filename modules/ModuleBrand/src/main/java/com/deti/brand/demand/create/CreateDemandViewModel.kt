@@ -1,9 +1,7 @@
 package com.deti.brand.demand.create
 
 import android.app.Application
-import android.util.Log
 import android.view.View
-import androidx.collection.ArraySet
 import androidx.databinding.ObservableField
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_CHOOSE_TYPE
@@ -13,37 +11,30 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.UPLOAD_FILE
-import com.deti.brand.demand.create.entity.DemandStyleEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseEntity
 import com.deti.brand.demand.create.item.form.ItemFormChooseType
-import com.deti.brand.demand.create.item.pic.ItemPicChooseItemEntity
 import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.putValue
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
-import com.safmvvm.utils.encrypt.base.TextUtils
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
-import com.test.common.ui.dialog.multiple.BaseMultipleChoiceEntity
+import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorDataBean
-import com.test.common.ui.popup.color.DemandColorListDataBean
-import com.test.common.ui.popup.color.DemandColorListEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.lang.Exception
-import java.lang.StringBuilder
-import java.sql.Types
 import java.util.*
 
 
@@ -107,7 +98,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 类型选择
      */
     fun clickChooseTypeDialog(view: View, entity: ItemDeamandTypeChooseEntity){
-        LiveDataBus.send(DIALOG_CHOOSE_TYPE, entity)
+        DIALOG_CHOOSE_TYPE.putValue(entity)
     }
     /**
      * 服务类型
@@ -134,8 +125,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickAddress(view: View){
         LiveDataBus.send(DIALOG_TIP_ADDRESS, Pair(view,"浙江省杭州市余杭区临平区余杭商会大厦C座 联系电话：123 4567 8910"))
-        LogUtil.d("面料地址：${mFilePathFabric}")
-        LogUtil.d("制版地址：${mFilePathPlate}")
     }
     /**
      * 获取快递列表

@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.multiple
+package com.test.common.ui.popup.multiple
 
 data class BaseMultipleChoiceEntity(
     var id: String = "",

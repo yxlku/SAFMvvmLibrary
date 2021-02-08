@@ -7,7 +7,5 @@ import androidx.databinding.ObservableField
  */
 data class ItemDeamandTypeChooseEntity(
     var showText: ObservableField<String> = ObservableField(),
-    /** 选择输入信息类型*/
-    var types: ArrayList<String> = arrayListOf()
 )
 

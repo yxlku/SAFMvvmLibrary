@@ -1,4 +1,4 @@
-package com.test.common.ui.popup.type
+package com.test.common.ui.popup.custom.type
 
 import android.app.Activity
 import android.view.View

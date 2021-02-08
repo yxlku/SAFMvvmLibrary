@@ -7,7 +7,6 @@ import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupType
 import com.safmvvm.app.BaseApp
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
-import com.test.common.ui.dialog.single.SingleStringPopupView
 import com.test.common.ui.popup.base.BaseDialogSingleEntity
 import com.test.common.ui.popup.single.DialogBottomSinglePopupView
 import com.test.common.ui.popup.single.DialogBubbleSinglePopupView

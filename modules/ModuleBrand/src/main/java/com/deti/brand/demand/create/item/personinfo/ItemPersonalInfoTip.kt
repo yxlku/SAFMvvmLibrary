@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemPersonalInfoTipBinding
-import com.safmvvm.ext.rvIsGone
+import com.safmvvm.ext.rvIsShow
 
 class ItemPersonalInfoTip(
     var activty: Activity?
@@ -20,7 +20,7 @@ class ItemPersonalInfoTip(
         binding?.apply {
             entity = data
             viewMolde = mViewMode
-            holder.itemView.rvIsGone(!data.isShow)
+            holder.itemView.rvIsShow(data.isShow)
             executePendingBindings()
         }
 

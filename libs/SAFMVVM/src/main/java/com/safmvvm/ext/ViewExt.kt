@@ -37,17 +37,26 @@ fun TextView.setDrawableImg(
 /**
  * adapter控制显示隐藏（会将view中的子View一并隐藏，然后重绘制view，从而到达，adapter中隐藏后不留白）
  * @param isGone 是否隐藏，true为隐藏
+ * @param defIsGone isGone为空时使用的值
  */
-fun View.rvIsGone(isGone: Boolean){
-    if (this is ViewGroup) {
-        for(i in 0 until this.childCount){
-            var v = this.getChildAt(i)
-            v.visibility = if (isGone) {
-                View.GONE
-            }else{
-                View.VISIBLE
+fun View.rvIsShow(isShow: Boolean?, defIsShow: Boolean = false){
+    isShow?.apply {
+        if (this@rvIsShow is ViewGroup) {
+            for(i in 0 until this@rvIsShow.childCount){
+                var v = this@rvIsShow.getChildAt(i)
+                v.visibility = if (this) {
+                    View.VISIBLE
+                }else{
+                    View.GONE
+                }
             }
+        }else{
+            //如果不是ViewGroup直接隐藏该View即可
+            this@rvIsShow.visibility = View.GONE
         }
+    } ?: apply {
+        //如果isGone为空则直接强制设置为false
+        rvIsShow(defIsShow)
     }
     requestLayout()
 

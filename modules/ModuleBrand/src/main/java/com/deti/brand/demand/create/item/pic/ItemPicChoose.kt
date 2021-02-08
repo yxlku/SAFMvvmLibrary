@@ -25,7 +25,7 @@ import com.deti.brand.demand.create.CreateDemandViewModel
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
-import com.safmvvm.ext.rvIsGone
+import com.safmvvm.ext.rvIsShow
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import com.test.common.ext.photoAlbum
@@ -59,7 +59,7 @@ class ItemPicChoose(
             entity = data
             viewModel = mViewModel
             //控制显示隐藏，并刷新高度
-            holder.itemView.rvIsGone(!data.isShow)
+            holder.itemView.rvIsShow(data.isShow)
             executePendingBindings()
         }
 
