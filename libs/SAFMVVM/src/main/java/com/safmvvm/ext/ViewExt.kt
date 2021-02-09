@@ -50,6 +50,7 @@ fun View.rvIsShow(isShow: Boolean?, defIsShow: Boolean = false){
                     View.GONE
                 }
             }
+            this@rvIsShow.visibility = if(this) View.VISIBLE else View.GONE
         }else{
             //如果不是ViewGroup直接隐藏该View即可
             this@rvIsShow.visibility = View.GONE

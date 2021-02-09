@@ -2,45 +2,49 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity" />
 
-        <variable
-            name="viewMolde"
-            type="com.deti.brand.demand.create.item.personinfo.ItemPersonalViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginStart="16mm"
-        android:layout_marginEnd="16mm"
-        android:id="@+id/ll_top_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20mm"
-        android:background="@drawable/brand_demand_create_info_tip"
-        android:orientation="horizontal"
-        android:padding="10mm"
-        android:visibility="visible">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/brand_textview4"
-            android:layout_width="0mm"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_top_tip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:lineSpacingMultiplier="1.2"
-            android:text="欢迎来到得体，不要忘记完善\n信息后再提交需求哦！~" />
+            android:layout_marginStart="16mm"
+            android:layout_marginTop="15mm"
+            android:layout_marginEnd="16mm"
+            android:background="@drawable/brand_demand_create_info_tip"
+            android:orientation="horizontal"
+            android:padding="10mm"
+            android:paddingTop="20mm"
+            android:visibility="visible">
 
-        <TextView
-            android:onClick="@{viewMolde.clickToPerfectPersonalPage}"
-            android:id="@+id/brand_textview5"
-            android:layout_width="wrap_content"
-            android:layout_height="34mm"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/base_btn_yellow_bg"
-            android:gravity="center"
-            android:paddingStart="10mm"
-            android:paddingEnd="10mm"
-            android:text="去完善信息" />
+            <TextView
+                android:id="@+id/brand_textview4"
+                android:layout_width="0mm"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingMultiplier="1.2"
+                android:text="欢迎来到得体，不要忘记完善\n信息后再提交需求哦！~" />
+
+            <TextView
+                android:id="@+id/tv_info_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="34mm"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/base_btn_yellow_bg_round"
+                android:gravity="center"
+                android:paddingStart="10mm"
+                android:paddingEnd="10mm"
+                android:text="去完善信息" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

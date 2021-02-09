@@ -29,7 +29,7 @@ class ProjectConfigListener: GlobalConfigInitListener {
         var headers: ArrayMap<String, String> = arrayMapOf()
 //        headers.put("token", userInfoToken())
         //TODO 不能及时更换
-        headers.put("token", "ed3403d875734af8bf9730520cd61e33")
+        headers.put("token", "fed81f3b5aeb4f4d994eec33684f8a55")
         headers.put("X-Requested-With", "XMLHttpRequest")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
@@ -41,9 +41,9 @@ class ProjectConfigListener: GlobalConfigInitListener {
      */
     override fun initInterceptor(): ArrayList<Interceptor> {
         var interceptors: ArrayList<Interceptor> = arrayListOf()
-        if (BuildConfig.DEBUG) {
-            interceptors.add(DebugInterceptor())
-        }
+//        if (BuildConfig.DEBUG) {
+//            interceptors.add(DebugInterceptor())
+//        }
         return interceptors
     }
     /**

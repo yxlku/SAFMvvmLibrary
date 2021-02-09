@@ -18,14 +18,6 @@ class ItemPersonalViewModel(
 ): BaseViewModel<BaseModel>(BaseApp.getInstance()) {
 
 
-    fun clickToPerfectPersonalPage(view: View){
-//        RouterUtil.startActivity(RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
 
-        activty?.apply {
-            createDialogGoodsDetail(this).show()
-        }
-
-
-    }
 
 }

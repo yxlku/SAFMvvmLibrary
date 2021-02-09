@@ -2,6 +2,9 @@ package com.deti.brand.demand.create.item.form
 
 import androidx.databinding.ObservableField
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
+import com.test.common.entity.CommonColorEntity
+import com.test.common.entity.CommonFindSizeDataBean
+import com.test.common.ui.popup.color.DemandColorDataBean
 
 /**
  * form选择类型
@@ -17,6 +20,21 @@ class ItemFormChooseEntity(
     var hintText: String = "请选择",
     /** 选择后的文字*/
     var contentText: ObservableField<String> = ObservableField(),
+
+
+    /** 款式分类一*/
+    var mStyleList: ArrayList<TypesViewDataBean?> = arrayListOf(),
+
+    /** 选中的尺码类型 -- 从当前字段获取选中的尺码组Id*/
+    var mSizeTypeData: CommonFindSizeDataBean? = null,
+
+    /** 选择的颜色*/
+    var mSelectColorDatas: ArrayList<DemandColorDataBean> = arrayListOf(),
+
+    /** 颜色-尺码-数量*/
+    var mColorSizeCountDatas: ArrayList<CommonColorEntity> = arrayListOf(),
+
+
 )
 
 /**

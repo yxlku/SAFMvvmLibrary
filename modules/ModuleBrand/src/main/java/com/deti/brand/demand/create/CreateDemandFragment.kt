@@ -29,9 +29,11 @@ import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.loper7.date_time_picker.StringUtils
 import com.lxj.xpopup.core.BasePopupView
+import com.lxj.xpopup.core.BottomPopupView
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.JsonUtil
@@ -40,6 +42,7 @@ import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
+import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
@@ -48,12 +51,14 @@ import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLine
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.popup.color.DemandColorDataBean
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
+import java.io.File.separator
 import java.util.*
 
 /**
@@ -64,23 +69,21 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
     BR.viewModel
 ) {
     companion object {
-        /** 类型选择*/
-        val DIALOG_CHOOSE_TYPE = SingleLiveEvent<ItemDeamandTypeChooseEntity>()
-
         /** 快递列表弹窗*/
         val DIALOG_EXPRESS_LIST = SingleLiveEvent<Pair<ArrayList<BaseSingleChoiceEntity>, Int>>()
         /** 款式分类*/
-        val FORM_STYLE_TYPE = SingleLiveEvent<Pair<TypesTreeViewEntity, ItemFormChooseEntity>>()
+        val FORM_STYLE_TYPE = SingleLiveEvent<TypesTreeViewEntity>()
+        /** 尺码类型*/
+        val FORM_SIZE_TYPE = SingleLiveEvent<List<BaseSingleChoiceEntity>>()
+        /** 选择颜色*/
+        val FORM_COLORS = SingleLiveEvent<DemandColorListEntity>()
+        /** 选择尺码数量*/
+        val FORM_SIZE_COUNT = SingleLiveEvent<ArrayList<FirstNodeEntity>>()
+
 
         /** 选择图片布局中的删除*/
         const val PIC_CHOOSE = "pic_choose"
 
-        /** 尺码类型*/
-        const val FORM_SIZE_TYPE = "form_size_type"
-        /** 选择尺码数量*/
-        const val FORM_SIZE_COUNT = "form_size_count"
-        /** 选择颜色*/
-        const val FORM_COLORS = "form_colors"
         /** 时间选择*/
         const val FORM_TIME = "form_time"
     }
@@ -157,26 +160,22 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         DIALOG_EXPRESS_LIST.observe(this, {
             activity?.apply {
                 it?.first?.dialogBottomSingle(this, "请选择快递", it?.second, callback = { data, position->
-                    mViewModel.mExpressSingleChoiceEntity.set(data)
+                    //数据赋值
+                    mViewModel.itemEntitySamplelothes.mExpressSingleChoiceEntity.set(data)
                 })?.show()
             }
         })
         /** 款式分类*/
         FORM_STYLE_TYPE.observe(this, {
-            it?.first?.apply {
-                createDialogLevelTypes(this@CreateDemandFragment.requireActivity(), "请选择款式分类", this, 4) { datas ->
-                    var sb: StringBuilder = StringBuilder()
+            it?.apply {
+                createDialogLevelTypes(this@CreateDemandFragment.requireActivity(), "请选择款式分类", this, 4) { result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String> ->
                     //选择后的数据 - 待提交需求时使用
-                    mViewModel.mStyleList = datas
-                    //拼接展示使用
-                    for (i in 0 until datas.size) {
-                        var bean = datas[i]
-                        sb.append(bean?.text)
-                        if (i != datas.size - 1) {
-                            sb.append(" - ")
-                        }
+                    mViewModel.itemEntityFormStyle.apply {
+                        //1、数据赋值
+                        mStyleList = result
+                        //2、选后显示文字
+                        contentText.set(resultTextList.joinToString ( separator = " - " ))
                     }
-                    it?.second?.contentText?.set(sb.toString())
                     //1、清空尺码类型
                     clearInfoSizeType()
                     //2、清空颜色
@@ -186,6 +185,67 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                 }.show()
             }
         })
+        /** 尺码类型*/
+        FORM_SIZE_TYPE.observe(this){
+            activity?.apply {
+                it?.apply {
+                    it?.dialogBottomSingle(this@CreateDemandFragment.requireActivity(), "选择尺码类型", callback = { data, position->
+                        //1、选中后的数据赋值
+                        mViewModel.itemEntityFormSizeType.apply {
+                            mSizeTypeData = mViewModel.cFindSizeEntityData?.list?.get(position)
+                            //2、控制显示到对应item上
+                            contentText.set(data.text)
+                        }
+                        //3、清空下方数据
+                        //1、清空颜色
+                        clearInfoColors()
+                        //2、清空尺码数量
+                        clearInfoSizeCount()
+                    }).show()
+                }
+            }
+        }
+        /** 颜色选择*/
+        FORM_COLORS.observe(this){
+            activity?.apply {
+                it?.run {
+                    dialogChooseColors(this@apply, "选择颜色", this) { selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView->
+                        //1、选中显示的文字
+                        mViewModel.itemEntityFormColor.contentText.set(selectDatasText.joinToString(" "))
+                        //2、选中的数据
+                        mViewModel.itemEntityFormColor.mSelectColorDatas = selectDatas
+                        //1、清空尺码数量
+                        clearInfoSizeCount()
+                        //关闭弹窗
+                        basePopupView.dismiss()
+                    }.show()
+                } ?: run {
+                    ToastUtil.showShortToast("暂无颜色")
+                }
+            }
+        }
+        /** 颜色对应尺码选择*/
+        FORM_SIZE_COUNT.observe(this){
+            activity?.apply {
+                if (mPopupColorSizeCount == null) {
+                    it?.run {
+                        mPopupColorSizeCount = createDialogSizeCount(this@apply, "选择尺码和设置数量", this){
+                                adapter: SizeCountAdapter,
+                                resultData:ArrayList<CommonColorEntity>,
+                                resultText: String,
+                                popupView: BottomPopupView ->
+                            //1、赋值
+                            mViewModel.itemEntityFormSizeCount.mColorSizeCountDatas = resultData
+                            //2、控制显示文字
+                            mViewModel.itemEntityFormSizeCount.contentText.set(resultText)
+                            //3、所有颜色都选了尺寸才会关闭弹窗
+                            popupView.dismiss()
+                        }
+                    }
+                }
+                mPopupColorSizeCount?.show()
+            }
+        }
 
 
 
@@ -199,98 +259,12 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             entity.picPath.set(picFilePath)
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
-        /** 尺码类型*/
-        LiveDataBus.observe<Pair<List<BaseSingleChoiceEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_TYPE, {
-            activity?.apply {
-//                if(mPopupSizeType == null) {
-                    mPopupSizeType = it.first.dialogBottomSingle(this, "选择尺码类型", callback = { data, position->
-                        mViewModel.mSizeTypeData = mViewModel.cFindSizeEntityData?.list?.get(position)
-                        it.second.contentText.set(data.text)
-                        //1、清空颜色
-                        clearInfoColors()
-                        //2、清空尺码数量
-                        clearInfoSizeCount()
-                    })
-//                }
-                mPopupSizeType?.show()
-            }
-        }, false)
-        /** 选择颜色*/
-        LiveDataBus.observe<Pair<ItemFormChooseEntity, DemandColorListEntity>>(this, FORM_COLORS, {
-            activity?.apply {
-                if (mPopupColor == null) {
-                    mPopupColor = dialogChooseColors(this, "选择颜色", it.second) { datas ->
-                        var sb = StringBuilder()
-                        datas.forEach {
-                            sb.append(it.name).append(" ")
-                        }
-                        it.first.contentText.set(sb.toString())
-                        mViewModel.mSelectColorDatas = datas
-                        //1、清空尺码数量
-                        clearInfoSizeCount()
-                    }
-                }
-                mPopupColor?.show()
-            }
-        }, false)
-        /** 尺码数量选择*/
-        LiveDataBus.observe<Pair<ArrayList<FirstNodeEntity>, ItemFormChooseEntity>>(this, FORM_SIZE_COUNT, {
-              activity?.apply {
-                  if (mPopupColorSizeCount == null) {
-                      mPopupColorSizeCount = createDialogSizeCount(this, "选择尺码和设置数量", it.first){datas: List<BaseNode>, popupView: BasePopupView ->
-                          var sb = StringBuilder()
-                          mViewModel.mColorSizeCountDatas.clear()
-                          datas.forEach {
-                              //1、点击的时候颜色数量不能为空
-                              if(it is FirstNodeEntity && it.count <= 0){
-                                  ToastUtil.showShortToast("${it.color} 未选择数量")
-                                  return@createDialogSizeCount
-                              }
-                              //尺码对应数量
-                              var sizeCountList = arrayListOf<CommonSizeCountEntity>()
-                              //2、所有颜色都不为空的时候，拼接所有已选择的数据，展示到布局上
-                              it.childNode?.forEach {
-                                  var secondEntity = it as SecondNodeEntity
-                                  if(secondEntity.count > 0) {
-                                      sizeCountList.add(
-                                          CommonSizeCountEntity(secondEntity.size, secondEntity.count)
-                                      )
-                                      sb.append("【")
-                                          .append(secondEntity.color)
-                                          .append(": ")
-                                          .append(secondEntity.size)
-                                          .append(": ")
-                                          .append(secondEntity.count)
-                                          .append("】 ")
-                                  }
-                              }
-                              //提交数据数据拼接
-                              mViewModel.mSizeId = mViewModel.mSizeTypeData?.id
-                              if (it is FirstNodeEntity) {
-                                  var colorEntity = CommonColorEntity(
-                                      mViewModel.mSizeTypeData?.id,
-                                      it.color,
-                                      it.colorCode,
-                                      sizeCountList
-                                  )
-                                  mViewModel.mColorSizeCountDatas.add(colorEntity)
 
-                                  LogUtil.d("colorsSizes: ${JsonUtil.toJson(mViewModel.mColorSizeCountDatas)}")
-                              }
-                          }
-                          it.second.contentText.set(sb.toString())
-                          //3、所有颜色都选了尺寸才会关闭弹窗
-                          popupView.dismiss()
-                      }
-                  }
-                  mPopupColorSizeCount?.show()
-              }
-        }, false)
+
         /** 时间选择*/
         LiveDataBus.observe<ItemFormChooseEntity>(this, FORM_TIME, {
-            if (mPopupTime == null) {
                 activity?.apply {
-                    mPopupTime = dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
+                    dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
                         var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
                         var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
                         if(day >= 14) {
@@ -300,22 +274,10 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                         }else{
                             ToastUtil.showShortToast("交期最低14天")
                         }
-                    }
+                    }.show()
                 }
-            }
-            mPopupTime?.show()
         }, false)
     }
-//    /** 弹窗： 类型选择*/
-//    var mPopupChooseType: BasePopupView? = null
-    /** 弹窗：款式分类*/
-    var mPopupStyle: BasePopupView? = null
-    /** 弹窗：尺码类型*/
-    var mPopupSizeType: BasePopupView? = null
-    /** 弹窗：时间*/
-    var mPopupTime: BasePopupView? = null
-    /** 弹窗：颜色*/
-    var mPopupColor: BasePopupView? = null
     /** 弹窗：尺寸数量*/
     var mPopupColorSizeCount: BasePopupView? = null
 

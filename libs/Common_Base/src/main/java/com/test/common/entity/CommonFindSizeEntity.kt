@@ -1,5 +1,6 @@
 package com.test.common.entity
 
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import java.io.Serializable
 
 /**
@@ -10,7 +11,7 @@ data class CommonFindSizeEntity(
 ): Serializable
 
 data class CommonFindSizeDataBean(
-    var id: String = "",
+//    var id: String = "",
     /** 二级类别*/
     var category: String = "",
     /** 一级类别*/
@@ -22,4 +23,8 @@ data class CommonFindSizeDataBean(
     var label: String = "",
     /** 尺码组*/
     var sizeRangeList: List<String> = arrayListOf(),
-): Serializable
+): BaseSingleChoiceEntity(), Serializable{
+    override var text: String
+        get() = label
+        set(value) {}
+}

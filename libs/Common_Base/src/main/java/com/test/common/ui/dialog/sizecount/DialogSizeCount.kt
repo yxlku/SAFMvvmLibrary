@@ -7,6 +7,8 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 import com.safmvvm.app.BaseApp
+import com.test.common.entity.CommonColorEntity
+import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.popup.createDialogBase
 
@@ -17,7 +19,7 @@ fun createDialogSizeCount(
     activity: Activity,
     title: String,
     datas: List<FirstNodeEntity> = arrayListOf(),
-    block: (nodes: List<BaseNode>, popupView: BottomPopupView)->Unit = { nodes: List<BaseNode>, popupView: BasePopupView ->}
+    block: (adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>, resultText: String, popupView: BottomPopupView)->Unit = {adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BottomPopupView ->}
 ): BasePopupView {
     return createDialogBase(
         SizeCountPopupView(activity, title, datas, block= block)

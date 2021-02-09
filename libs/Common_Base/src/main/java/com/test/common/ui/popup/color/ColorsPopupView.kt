@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.ui.titlebar.OnTitleBarListener
@@ -28,7 +29,7 @@ class ColorsPopupView(
     var datas: DemandColorListEntity,
     var mHeightMultiple: Float = 0.8F,
     /** 点击标题确定返回的结果*/
-    var resultBlock: (selectDatas: ArrayList<DemandColorDataBean>) -> Unit = {}
+    var resultBlock: (selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView) -> Unit = {selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView->}
 ) : BottomPopupView(mActivit) {
     var rv_selected: RecyclerView? = null
     var rv_left: RecyclerView? = null
@@ -65,8 +66,11 @@ class ColorsPopupView(
 
             override fun onRightClick(v: View?) {
                 //确定按钮
-                resultBlock(adapterSelected.data as ArrayList<DemandColorDataBean>)
-                dismiss()
+                var textList = ArrayList<String>()
+                adapterSelected.data.forEach {
+                    textList.add(it.name)
+                }
+                resultBlock(adapterSelected.data as ArrayList<DemandColorDataBean>, textList,this@ColorsPopupView)
             }
         })
 

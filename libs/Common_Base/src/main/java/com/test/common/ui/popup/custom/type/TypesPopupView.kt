@@ -20,7 +20,7 @@ class TypesPopupView(
     var levelCount: Int = 2,
     var autoDismiss: Boolean = true,
     /** 选择的结果*/
-    var selectResultBlock: (result: ArrayList<TypesViewDataBean?>) -> Unit = {}
+    var selectResultBlock: (result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>) -> Unit = {result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>->}
 ) : BottomPopupView(mActivit){
     override fun getImplLayoutId(): Int = R.layout.base_dialog_types
 
@@ -34,7 +34,13 @@ class TypesPopupView(
             onClickResultListener = object : OnClickResultListener{
                 override fun onClickCompleteResult(resultData: ArrayList<TypesViewDataBean?>) {
                     //点击最后一条回调
-                    selectResultBlock(resultData)
+                    var sbList = ArrayList<String>()
+                    resultData.forEach {
+                        it?.apply {
+                            sbList.add(it.text)
+                        }
+                    }
+                    selectResultBlock(resultData, sbList)
                     if(autoDismiss){
                         dismiss()
                     }
@@ -59,7 +65,6 @@ class TypesPopupView(
                     }
                 }
 
-                ToastUtil.showShortToast("选中了:${s}")
             }
 
         })

@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create.entity
 
 import com.test.common.entity.CommonDataDictionaryEntity
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import java.io.Serializable
 
 /**
@@ -9,4 +10,4 @@ import java.io.Serializable
 data class DemandExpressListEntity(
     /** 快递列表*/
     var dataDictionaryList: ArrayList<CommonDataDictionaryEntity> = arrayListOf()
-): Serializable
+): Serializable{}

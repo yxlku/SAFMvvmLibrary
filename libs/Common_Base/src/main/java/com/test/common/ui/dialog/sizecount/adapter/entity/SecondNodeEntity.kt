@@ -1,14 +1,15 @@
 package com.test.common.ui.dialog.sizecount.adapter.entity
 
 import com.chad.library.adapter.base.entity.node.BaseNode
+import java.io.Serializable
 
-class SecondNodeEntity(
-    var id: Int = 0,
+open class SecondNodeEntity(
+    open var id: Int = 0,
     /** 尺寸*/
-    var size: String = "",
+    open var size: String = "",
     /** 数量*/
-    var count: Int,
+    open var count: Int = 0,
     /** 颜色*/
-    var color: String = "",
-    override val childNode: MutableList<BaseNode>? = null,
-) : BaseNode()
+    open var color: String = "",
+    override val childNode: MutableList<BaseNode> = mutableListOf()
+) : BaseNode(), Serializable

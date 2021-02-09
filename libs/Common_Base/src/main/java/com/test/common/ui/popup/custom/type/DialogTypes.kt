@@ -17,7 +17,7 @@ fun createDialogLevelTypes(
     levelCount: Int = 2,
     autoDismiss: Boolean = true,
     /** 选择的结果*/
-    selectResultBlock: (result: ArrayList<TypesViewDataBean?>) -> Unit = {}
+    selectResultBlock: (result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>) -> Unit = {result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>->}
 ): BasePopupView {
     return createDialogBase(
         TypesPopupView(activity, title, datas, levelCount,autoDismiss, selectResultBlock)
