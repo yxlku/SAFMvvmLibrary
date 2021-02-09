@@ -76,6 +76,8 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         /** 时间选择*/
         val FORM_TIME = SingleLiveEvent<ItemFormChooseEntity>()
 
+        /** 提交后清空列表数据*/
+        val CLEAR_LIST_DATA = SingleLiveEvent<Unit>()
         /** 选择图片布局中的删除*/
         const val PIC_CHOOSE = "pic_choose"
 
@@ -111,10 +113,8 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             addItemBinder(ItemGrayLineEntity::class.java, ItemGrayLine())
             //透明线
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
-
             //图片选择
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity, mViewModel))
-
             //类型选择
             addItemBinder(ItemDeamandTypeChooseEntity::class.java, ItemDeamndTypeChoose(activity, mViewModel))
             //服务
@@ -127,22 +127,20 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             addItemBinder(ItemGroupTitleEntity::class.java, ItemGroupTitle())
             //选择条目
             addItemBinder(ItemFormChooseEntity::class.java, ItemFormChoose(mViewModel))
-
-
+            //完善个人信息
             addItemBinder(ItemPersonalInfoEntity::class.java, ItemPersonalInfoTip(activity))
-
-
+            //单价
             addItemBinder(ItemFormInputEntity::class.java, ItemFormInput())
+            //备注
             addItemBinder(ItemRemarkEntity::class.java, ItemRemark())
+            //提交
             addItemBinder(ItemPlaceOrderEntity::class.java, ItemPlaceOrder(mViewModel))
-
         }
 
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
-        mAdapter.setList(mViewModel.itemListEntitys)
 
 ////        //TODO 个人信息完善，需要判断显示 -- vm中判断显示
 //        addOrRemove(mViewModel.itemEntityPersonal, true)
@@ -150,6 +148,10 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
 
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
+        /** 初始化列表 用处：1、第一次初始化列表 2、提交后清空数据*/
+        CLEAR_LIST_DATA.observe(this){
+            mAdapter.setList(mViewModel.itemListEntitys)
+        }
         /** 样衣 - 快递列表*/
         DIALOG_EXPRESS_LIST.observe(this, {
             activity?.apply {
@@ -240,7 +242,24 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                 mPopupColorSizeCount?.show()
             }
         }
-
+        /** 时间选择*/
+        FORM_TIME.observe(this){ _ ->
+            activity?.apply {
+                dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
+                    var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
+                    var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
+                    if(day >= 14) {
+                        //1、item显示
+                        mViewModel.itemEntityFormTime.contentText.set(time)
+                        //2、上传数据赋值
+                        mViewModel.itemEntityFormTime.mTime = time
+                        popupView.dismiss()
+                    }else{
+                        ToastUtil.showShortToast("交期最低14天")
+                    }
+                }.show()
+            }
+        }
 
 
 
@@ -253,24 +272,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             entity.picPath.set(picFilePath)
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
-        /** 时间选择*/
-        FORM_TIME.observe(this){ _ ->
-            activity?.apply {
-                dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
-                    var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
-                    var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
-                    if(day >= 14) {
-                        //1、item显示
-                        mViewModel.itemEntityFormTime.contentText.set(time)
-                        //2、上传数据赋值
-                        mViewModel.mTime = time
-                        popupView.dismiss()
-                    }else{
-                        ToastUtil.showShortToast("交期最低14天")
-                    }
-                }.show()
-            }
-        }
+
     }
     /** 弹窗：尺寸数量*/
     var mPopupColorSizeCount: BasePopupView? = null

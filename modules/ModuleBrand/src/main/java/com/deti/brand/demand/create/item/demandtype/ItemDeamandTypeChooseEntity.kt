@@ -13,3 +13,5 @@ data class ItemDeamandTypeChooseEntity(
     var mChooseTypes: ArrayList<BaseMultipleChoiceEntity> = arrayListOf<BaseMultipleChoiceEntity>()
 )
 
+
+

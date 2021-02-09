@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemDemandServiceBinding
 import com.deti.brand.demand.create.CreateDemandViewModel
+import com.test.common.dictionary.DictionaryServiceCorresponde
+import com.test.common.dictionary.DictionaryServiceType
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.dialogBottomSingle
 
@@ -19,13 +21,13 @@ class ItemService(
 
     /** 服务类型*/
     var serviceTypeData = arrayListOf(
-        BaseSingleChoiceEntity("fob", "包工包料"),
-        BaseSingleChoiceEntity("cmt", "纯加工"),
+        BaseSingleChoiceEntity(DictionaryServiceType.PRODUCE.key, DictionaryServiceType.PRODUCE.value),
+        BaseSingleChoiceEntity(DictionaryServiceType.PRODUCE_PATTERN.key, DictionaryServiceType.PRODUCE_PATTERN.value),
     )
     /** 对应服务*/
     var serviceProduceData = arrayListOf(
-        BaseSingleChoiceEntity("sample_bulk", "打版 + 生产"),
-        BaseSingleChoiceEntity("bulk", "仅生产"),
+        BaseSingleChoiceEntity(DictionaryServiceCorresponde.PRODUCE_PATTERN.key, DictionaryServiceCorresponde.PRODUCE_PATTERN.value),
+        BaseSingleChoiceEntity(DictionaryServiceCorresponde.PRODUCE.key, DictionaryServiceCorresponde.PRODUCE.value),
     )
     override fun convert(
         holder: BinderDataBindingHolder<BrandItemDemandServiceBinding>,

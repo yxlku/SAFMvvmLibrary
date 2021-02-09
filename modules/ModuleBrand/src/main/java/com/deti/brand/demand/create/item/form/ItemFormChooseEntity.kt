@@ -25,7 +25,7 @@ class ItemFormChooseEntity(
     /** 款式分类一*/
     var mStyleList: ArrayList<TypesViewDataBean?> = arrayListOf(),
 
-    /** 选中的尺码类型 -- 从当前字段获取选中的尺码组Id*/
+    /** 选中的尺码类型 -- 从当前字段获取选中的尺码组Id -- sizeId*/
     var mSizeTypeData: CommonFindSizeDataBean? = null,
 
     /** 选择的颜色*/

@@ -9,6 +9,7 @@ import com.deti.brand.databinding.BrandItemDemandTypeChooseBinding
 import com.deti.brand.demand.create.CreateDemandViewModel
 import com.deti.brand.demand.create.item.IItemIsShow
 import com.lxj.xpopup.core.BasePopupView
+import com.test.common.dictionary.DictionaryDemandType
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.custom.tip.createDialogTitleTipBottom
 import com.test.common.ui.popup.dialogBottomSingle
@@ -31,23 +32,13 @@ class ItemDeamndTypeChoose(
     ): BrandItemDemandTypeChooseBinding  = BrandItemDemandTypeChooseBinding.inflate(layoutInflater, parent, false)
 
 
-    /** item - 图片*/
-    val ITEM_TYPE_PICTURE = "item_type_picture"
-    /** item - 面料信息*/
-    val ITEM_TYPE_FABRIC = "item_type_fabric"
-    /** item - 样衣*/
-    val ITEM_TYPE_SAMPLE = "item_type_sample"
-    /** item - 设计稿*/
-    val ITEM_TYPE_LAYOUT = "item_type_layout"
-    /** item - 制版文件*/
-    val ITEM_TYPE_PRODUCTION_STANDARD= "item_type_production_standard"
     /** item显示类型*/
     var mItemTypeChooseDatas = arrayListOf(
-        BaseMultipleChoiceEntity(ITEM_TYPE_PICTURE,"图片", true),
-        BaseMultipleChoiceEntity(ITEM_TYPE_FABRIC, "面料信息", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_SAMPLE, "样衣", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_LAYOUT, "设计稿", false),
-        BaseMultipleChoiceEntity(ITEM_TYPE_PRODUCTION_STANDARD, "制版文件", false),
+        BaseMultipleChoiceEntity(DictionaryDemandType.TYPE_PICTURE.key,DictionaryDemandType.TYPE_PICTURE.value, true),
+        BaseMultipleChoiceEntity(DictionaryDemandType.TYPE_FABRIC.key, DictionaryDemandType.TYPE_FABRIC.value, false),
+        BaseMultipleChoiceEntity(DictionaryDemandType.TYPE_SAMPLE.key, DictionaryDemandType.TYPE_SAMPLE.value, false),
+        BaseMultipleChoiceEntity(DictionaryDemandType.TYPE_LAYOUT.key, DictionaryDemandType.TYPE_LAYOUT.value, false),
+        BaseMultipleChoiceEntity(DictionaryDemandType.TYPE_PRODUCTION_STANDARD.key, DictionaryDemandType.TYPE_PRODUCTION_STANDARD.value, false),
     )
 
     override fun convert(
@@ -105,10 +96,10 @@ class ItemDeamndTypeChoose(
     fun chooseTypesShow(selectedDatas: ArrayList<BaseMultipleChoiceEntity>){
         selectedDatas.forEach {
             when (it.id) {
-                ITEM_TYPE_PICTURE, ITEM_TYPE_LAYOUT -> addOrRemove(mViewModel.itemEntityPic, true)//图片、设计稿
-                ITEM_TYPE_FABRIC -> addOrRemove(mViewModel.itemEntityFabric, true)               //面料信息
-                ITEM_TYPE_SAMPLE -> addOrRemove(mViewModel.itemEntitySamplelothes, true)         //样衣
-                ITEM_TYPE_PRODUCTION_STANDARD -> addOrRemove(mViewModel.itemEntityPlate, true)   //制版文件
+                DictionaryDemandType.TYPE_PICTURE.key, DictionaryDemandType.TYPE_LAYOUT.key -> addOrRemove(mViewModel.itemEntityPic, true)//图片、设计稿
+                DictionaryDemandType.TYPE_FABRIC.key -> addOrRemove(mViewModel.itemEntityFabric, true)               //面料信息
+                DictionaryDemandType.TYPE_SAMPLE.key -> addOrRemove(mViewModel.itemEntitySamplelothes, true)         //样衣
+                DictionaryDemandType.TYPE_PRODUCTION_STANDARD.key -> addOrRemove(mViewModel.itemEntityPlate, true)   //制版文件
             }
         }
     }

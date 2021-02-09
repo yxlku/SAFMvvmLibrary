@@ -5,11 +5,13 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.CLEAR_LIST_DATA
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
+import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_TIME
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
@@ -41,45 +43,88 @@ import kotlin.collections.ArrayList
 
 
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
+    /** 图片列表 TODO 还没搞完*/
+    var mPicListDatas = arrayListOf<String>("", "", "", "", "")
+    /** 列表实体类集合*/
+    var itemListEntitys = arrayListOf<Any>()
+    /** 尺码类型*/
+    /** 全局尺码组数据*/
+    var cFindSizeEntityData: CommonFindSizeEntity? = null
 
     //完善个人信息
-    var itemEntityPersonal = ItemPersonalInfoEntity()
-
+    lateinit var itemEntityPersonal : ItemPersonalInfoEntity
     //类型选择
-    var itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
+    lateinit var itemEntityTypeChoose: ItemDeamandTypeChooseEntity
     //服务
-    var itemEntityService = ItemServiceEntity()
+    lateinit var itemEntityService :ItemServiceEntity
 
     //图片
-    var itemEntityPic = ItemPicChooseEntity()
+    lateinit var itemEntityPic : ItemPicChooseEntity
     //面料信息
-    var itemEntityFabric = ItemUploadFileEntity(ItemUploadFileEnum.FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
+    lateinit var itemEntityFabric : ItemUploadFileEntity
     //样衣
-    var itemEntitySamplelothes = ItemExpressEntity()
+    lateinit var itemEntitySamplelothes : ItemExpressEntity
     //制版文件
-    var itemEntityPlate = ItemUploadFileEntity(ItemUploadFileEnum.FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
+    lateinit var itemEntityPlate : ItemUploadFileEntity
 
     /** 款式分类*/
-    var itemEntityFormStyle = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_STYLE,"款式分类", false, "请选择款式分类")
+    lateinit var itemEntityFormStyle : ItemFormChooseEntity
     //尺码类型
-    var itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
+    lateinit var itemEntityFormSizeType : ItemFormChooseEntity
     //颜色选择
-    var itemEntityFormColor = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色")
+    lateinit var itemEntityFormColor : ItemFormChooseEntity
     //尺码数量
-    var itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
+    lateinit var itemEntityFormSizeCount : ItemFormChooseEntity
 
     /** 单价*/
-    var itemEntityInputPrice = ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元")
+    lateinit var itemEntityInputPrice : ItemFormInputEntity
     /** 交期*/
-    var itemEntityFormTime = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天")
+    lateinit var itemEntityFormTime : ItemFormChooseEntity
     /** 备注*/
-    var itemEntityInputRemark = ItemRemarkEntity("", "请输入备注（选填）", ObservableField(""), "请输入更多备注信息")
+    lateinit var itemEntityInputRemark : ItemRemarkEntity
     /** 下单按钮*/
-    var itemEntityPlaceOrder = ItemPlaceOrderEntity()
+    lateinit var itemEntityPlaceOrder : ItemPlaceOrderEntity
 
-    var itemListEntitys = arrayListOf<Any>()
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
+    /**
+     * 清空所有数据
+     */
+    fun initInfoEntitys(){
+        //完善个人信息
+        itemEntityPersonal = ItemPersonalInfoEntity()
+        //类型选择
+        itemEntityTypeChoose = ItemDeamandTypeChooseEntity()
+        //服务
+        itemEntityService = ItemServiceEntity()
+
+        //图片
+        itemEntityPic = ItemPicChooseEntity()
+        //面料信息
+        itemEntityFabric = ItemUploadFileEntity(ItemUploadFileEnum.FILE_FABRIC, "请上传面料信息", "(选填)", "上传面料信息")
+        //样衣
+        itemEntitySamplelothes = ItemExpressEntity()
+        //制版文件
+        itemEntityPlate = ItemUploadFileEntity(ItemUploadFileEnum.FILE_PLATE, "请上传制版文件", "(选填)", "上传制版文件")
+
+        /** 款式分类*/
+        itemEntityFormStyle = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_STYLE,"款式分类", false, "请选择款式分类")
+        //尺码类型
+        itemEntityFormSizeType = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_TYPE, "尺码类型", false, "请选择所需要的尺码")
+        //颜色选择
+        itemEntityFormColor = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_COLOR, "颜色选择", false, "可设置多个颜色")
+        //尺码数量
+        itemEntityFormSizeCount = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_SIZE_COUNT, "尺码数量", false, "可设置多个")
+
+        /** 单价*/
+        itemEntityInputPrice = ItemFormInputEntity("预算单价", false, "请输入价格", unitText = "元")
+        /** 交期*/
+        itemEntityFormTime = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天")
+        /** 备注*/
+        itemEntityInputRemark = ItemRemarkEntity("", "请输入备注（选填）", ObservableField(""), "请输入更多备注信息")
+        /** 下单按钮*/
+        itemEntityPlaceOrder = ItemPlaceOrderEntity()
+    }
+
+    fun initInfoList(){
         //初始化列表 - 列表添加顺序为显示属性
         itemListEntitys = arrayListOf(
             /** 个人信息*/
@@ -138,9 +183,24 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         )
     }
 
-    /** 尺码类型*/
-    /** 全局尺码组数据*/
-    var cFindSizeEntityData: CommonFindSizeEntity? = null
+    /**
+     * 初始化或刷新UI
+     */
+    fun initInfoUI(){
+        //1、初始化数据
+        initInfoEntitys()
+        //2、列表
+        initInfoList()
+        //3、更新Ui
+        CLEAR_LIST_DATA.postValue(Unit)
+    }
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        //初始化列表UI
+        initInfoUI()
+    }
+
+
 
 
     /**
@@ -259,37 +319,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 交期*/
     fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
-        LiveDataBus.send(CreateDemandFragment.FORM_TIME, entity)
+        FORM_TIME.putValue(entity)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /** 交期*/
-    var mTime: String? = null
-
-
-    /** 图片列表*/
-    var mPicListDatas = arrayListOf<String>("", "", "", "", "")
-
-
-
-
-
-
-
-
 
 
 
@@ -297,78 +328,69 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
-        LogUtil.d("快递单号：${itemEntitySamplelothes.mExpressNum.get()}")
-        LogUtil.d("价格：${itemEntityInputPrice.contentText.get()}")
-        LogUtil.d("备注：${itemEntityInputRemark.contentText.get()}")
-//        LogUtil.d("服务类型：${itemEntityService.mServiceType.get()?.text}, 对应服务：${itemEntityService.mServiceProduce.get()?.text}")
-//        var sb = StringBuilder()
-//        itemEntityTypeChoose.mChooseTypes.forEach {
-//            sb.append(it.id).append("、")
-//        }
-//        LogUtil.d("选择类型：${sb}")
-        
-//        LogUtil.d("面料信息：${itemEntityFabric.filePath.get()}")
-//        LogUtil.d("制版信息：${itemEntityPlate.filePath.get()}")
-
-
-
-
         //提交前的限制 和 提醒
-//        if(mChooseTypes.size <= 0){
-//            ToastUtil.showShortToast("请先选择需求类型")
-//            return
-//        }
-//        if(mServiceProduce.get() == null || mServiceProduce.get()?.id.isNullOrEmpty()){
-//            ToastUtil.showShortToast("请先选择服务类型")
-//            return
-//        }
-//        if(mServiceType.get() == null || mServiceType.get()?.id.isNullOrEmpty()){
-//            ToastUtil.showShortToast("请先选择对应服务")
-//            return
-//        }
+        if(itemEntityTypeChoose.mChooseTypes.size <= 0){
+            ToastUtil.showShortToast("请先选择需求类型")
+            return
+        }
+        if(itemEntityService.mServiceType.get() == null || itemEntityService.mServiceType.get()?.id.isNullOrEmpty()){
+            ToastUtil.showShortToast("请先选择服务类型")
+            return
+        }
+        if(itemEntityService.mServiceProduce.get() == null || itemEntityService.mServiceProduce.get()?.id.isNullOrEmpty()){
+            ToastUtil.showShortToast("请先选择对应服务")
+            return
+        }
         //TODO 正面图片判断
 
-//        if(mStyleList.size <= 0){
-//            ToastUtil.showShortToast("请添加款式分类")
-//            return
-//        }
-//        if (mSizeTypeData == null) {
-//            ToastUtil.showShortToast("请选择尺码类型")
-//            return
-//        }
-//        if (mSelectColorDatas.size <= 0) {
-//            ToastUtil.showShortToast("请选择颜色")
-//            return
-//        }
-//        if(mColorSizeCountDatas.size <= 0){
-//            ToastUtil.showShortToast("请添加尺码数量")
-//            return
-//        }
+        if(itemEntityFormStyle.mStyleList.size <= 0){
+            ToastUtil.showShortToast("请添加款式分类")
+            return
+        }
+        if (itemEntityFormSizeType.mSizeTypeData == null) {
+            ToastUtil.showShortToast("请选择尺码类型")
+            return
+        }
+        if (itemEntityFormColor.mSelectColorDatas.size <= 0) {
+            ToastUtil.showShortToast("请选择颜色")
+            return
+        }
+        if(itemEntityFormSizeCount.mColorSizeCountDatas.size <= 0){
+            ToastUtil.showShortToast("请添加尺码数量")
+            return
+        }
 
-//        LogUtil.d("钱：${mPrice.get()}，备注：${mRemark.get()}")
-//        if (mPrice.get()?.isEmpty()) {
-//            ToastUtil.showShortToast("请输入预算单价")
-//            return
-//        }
-//        if (mTime.isNullOrEmpty()) {
-//            ToastUtil.showShortToast("请设置交期")
-//            return
-//        }
+        LogUtil.d("钱：${itemEntityInputPrice.contentText.get()}，备注：${itemEntityInputRemark.contentText.get()}")
+        if (itemEntityInputPrice.contentText.get()?.isEmpty() == true) {
+            ToastUtil.showShortToast("请输入预算单价")
+            return
+        }
+        if (itemEntityFormTime.mTime.isNullOrEmpty()) {
+            ToastUtil.showShortToast("请设置交期")
+            return
+        }
 
-//        launchRequest {
-//            try {
-//                mModel.requestDemandSubmit(
-//                    this@CreateDemandViewModel,
-//                ).flowDataDeal(
-//                    loadingModel = LoadingModel.LOADING,
-//                    onSuccess = {
-//                        ToastUtil.showShortToast("需求提交成功")
-//                    }
-//                )
-//            }catch (ex: Exception){
-//                ex.printStackTrace()
-//            }
-//        }
+        launchRequest {
+            try {
+                mModel.requestDemandSubmit(
+                    this@CreateDemandViewModel,
+                ).flowDataDeal(
+                    loadingModel = LoadingModel.LOADING,
+                    onSuccess = {
+                        //1、提交后清空页面UI数据
+                        initInfoUI()
+                        //2、提示成功
+                        ToastUtil.showShortToast("需求提交成功")
+                        //3、跳转到订单列表页面
+
+                    }
+                )
+            }catch (ex: Exception){
+                ex.printStackTrace()
+            }
+        }
+
+
     }
 
 }
