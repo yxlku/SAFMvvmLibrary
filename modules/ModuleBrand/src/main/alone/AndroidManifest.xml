@@ -9,16 +9,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/DetiAppTheme">
-        <activity android:name=".BrandIndexActivity" android:windowSoftInputMode="adjustResize|stateHidden">
+        <activity
+            android:name=".BrandIndexActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".demand.progress.generate.SampleClothesProgressActivity" />
-        <activity android:name=".demand.progress.logistics.LogisticsActivity" />
-        <activity android:name=".demand.detail.PriceDetailActivity" />
+        <activity
+            android:name=".demand.progress.generate.SampleClothesProgressActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".demand.progress.logistics.LogisticsActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".demand.detail.PriceDetailActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>

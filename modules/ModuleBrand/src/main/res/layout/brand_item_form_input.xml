@@ -45,7 +45,6 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:inputType="number"
-            android:focusable="true"
             android:paddingTop="17mm"
             android:paddingBottom="17mm"
             android:id="@+id/et_content"
@@ -53,6 +52,8 @@
             android:layout_width="0mm"
             android:layout_height="match_parent"
             android:layout_marginStart="5mm"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             android:gravity="right"
             android:hint="@{entity.hintText}"
             android:text="@={entity.contentText}"
@@ -62,7 +63,6 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_unit"
             app:layout_constraintStart_toEndOf="@id/tv_tip_x"
             app:layout_constraintTop_toTopOf="parent" >
-            <requestFocus/>
         </androidx.appcompat.widget.AppCompatEditText>
         <TextView
             android:id="@+id/tv_unit"

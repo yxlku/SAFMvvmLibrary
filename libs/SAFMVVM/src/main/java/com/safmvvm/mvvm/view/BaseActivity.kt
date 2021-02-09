@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -96,21 +97,11 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     override fun initUiChangeLiveData() {
         //软键盘显示隐藏
         mViewModel.mUiChangeLiveData.initInputKeyBoard()
-        LiveDataBus.observe<Boolean>(
-            this,
-            mViewModel.mUiChangeLiveData.inputKeyboard!!,
-            Observer {
-                it?.let {
-                    val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    if (it) {
-                        //显示
-                        imm.showSoftInput(mBinding.root, 0)
-                    } else {
-                        //隐藏键盘
-                        imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
-                    }
-                }
-        })
+        mViewModel.mUiChangeLiveData.inputKeyboard!!.observe(this){
+            it?.apply {
+                hideOrShowInputMethod(this)
+            }
+        }
 
         //页面控制接收
         mViewModel.mUiChangeLiveData.initStartAndFinishEvent()
@@ -188,6 +179,21 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         super.onDestroy()
         dialogView?.destroy()
     }
+
+    /**
+     * 显示或隐藏键盘
+     */
+    fun hideOrShowInputMethod(isShow: Boolean){
+        val imm: InputMethodManager = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (isShow) {
+            //显示
+            imm.showSoftInput(mBinding.root, 0)
+        } else {
+            //隐藏键盘
+            imm.hideSoftInputFromWindow(mBinding.root.windowToken, 0)
+        }
+    }
+
 
     /**
      * 设置自定义等待弹窗布局

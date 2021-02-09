@@ -2,18 +2,14 @@ package com.test.common.ui.dialog.sizecount
 
 import android.app.Activity
 import android.view.View
-import android.widget.TextView
-import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.LogUtil
 import com.test.common.R
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
@@ -26,7 +22,7 @@ class SizeCountPopupView(
     var mTitle: String = "",
     var datas: List<FirstNodeEntity> = arrayListOf(),
     var mHeightMultiple: Float = 0.7F,
-    var block: (adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BottomPopupView)->Unit = {adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BottomPopupView ->}
+    var block: (adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView) -> Unit = { adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView -> },
 ) : BottomPopupView(mActivit) {
     var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_sizecount_first)
 
@@ -38,7 +34,7 @@ class SizeCountPopupView(
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
 
         tb_title.title = mTitle
-        tb_title.setOnTitleBarListener(object : OnTitleBarListener{
+        tb_title.setOnTitleBarListener(object : OnTitleBarListener {
             override fun onLeftClick(v: View?) {
             }
 
@@ -50,7 +46,7 @@ class SizeCountPopupView(
                 //结果文字
                 var resultText = StringBuilder()
                 //结果数据
-                var resultData:ArrayList<CommonColorEntity> = arrayListOf()
+                var resultData: ArrayList<CommonColorEntity> = arrayListOf()
                 //处理数据
                 datas.forEach {
                     var sizeCountList = arrayListOf<CommonSizeCountEntity>()
@@ -62,7 +58,7 @@ class SizeCountPopupView(
                     //2、所有颜色都不为空的时候，拼接所有已选择的数据，展示到布局上
                     it.childNode?.forEach {
                         var secondEntity = it as SecondNodeEntity
-                        if(secondEntity.count > 0) {
+                        if (secondEntity.count > 0) {
                             sizeCountList.add(
                                 CommonSizeCountEntity(secondEntity.size, secondEntity.count)
                             )
@@ -85,7 +81,6 @@ class SizeCountPopupView(
                 }
 
                 block(mAdapter, resultData, resultText.toString(), this@SizeCountPopupView)
-
             }
 
         })

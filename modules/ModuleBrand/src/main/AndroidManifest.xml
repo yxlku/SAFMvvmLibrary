@@ -3,10 +3,10 @@
     package="com.deti.brand">
 
     <application>
-        <activity android:name=".BrandIndexActivity" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".demand.progress.generate.SampleClothesProgressActivity" />
-        <activity android:name=".demand.progress.logistics.LogisticsActivity" />
-        <activity android:name=".demand.detail.PriceDetailActivity" />
+        <activity android:name=".BrandIndexActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".demand.progress.generate.SampleClothesProgressActivity"  android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".demand.progress.logistics.LogisticsActivity"  android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".demand.detail.PriceDetailActivity"  android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

@@ -19,11 +19,13 @@ fun createDialogSizeCount(
     activity: Activity,
     title: String,
     datas: List<FirstNodeEntity> = arrayListOf(),
-    block: (adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>, resultText: String, popupView: BottomPopupView)->Unit = {adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BottomPopupView ->}
+    block: (adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView)->Unit = {adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BasePopupView ->}
 ): BasePopupView {
     return createDialogBase(
         SizeCountPopupView(activity, title, datas, block= block)
     ){
-
+//        it.autoOpenSoftInput(true)
+        //如果不加这个，评论弹窗会移动到软键盘上面
+        it.moveUpToKeyboard(false)
     }
 }

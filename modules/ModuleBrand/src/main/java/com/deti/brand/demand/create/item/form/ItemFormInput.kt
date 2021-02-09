@@ -11,7 +11,10 @@ class ItemFormInput: QuickDataBindingItemBinder<ItemFormInputEntity, BrandItemFo
         data: ItemFormInputEntity,
     ) {
         var binding = holder.dataBinding
-        binding.entity = data
+        binding.apply {
+            entity = data
+            executePendingBindings()
+        }
     }
 
     override fun onCreateDataBinding(

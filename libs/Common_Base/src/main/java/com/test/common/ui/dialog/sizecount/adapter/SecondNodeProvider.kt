@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.InputMethodUtil
 import com.test.common.R
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
@@ -28,6 +29,8 @@ class SecondNodeProvider : BaseNodeProvider(){
 
         et_count.setText(data.count.toString())
         tv_size.text = data.size
+
+        InputMethodUtil.closeInputMethod(et_count)
 
         iv_subtract.setOnClickListener {
             if(data.count > 0) {

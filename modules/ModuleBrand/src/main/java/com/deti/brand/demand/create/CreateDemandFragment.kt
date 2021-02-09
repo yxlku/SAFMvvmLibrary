@@ -229,7 +229,7 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                                 adapter: SizeCountAdapter,
                                 resultData:ArrayList<CommonColorEntity>,
                                 resultText: String,
-                                popupView: BottomPopupView ->
+                                popupView: BasePopupView ->
                             //1、赋值
                             mViewModel.itemEntityFormSizeCount.mColorSizeCountDatas = resultData
                             //2、控制显示文字
@@ -260,7 +260,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                 }.show()
             }
         }
-
 
 
         LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, PIC_CHOOSE, {
