@@ -21,31 +21,22 @@ import com.deti.brand.demand.create.item.grouptitle.ItemGroupTitleEntity
 import com.deti.brand.demand.create.item.personinfo.ItemPersonalInfoEntity
 import com.deti.brand.demand.create.item.pic.ItemPicChooseEntity
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity
-import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
+import com.test.common.ui.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
-import com.safmvvm.binding.command.BindingConsumer
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.putValue
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
-import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
-import com.test.common.entity.CommonColorEntity
-import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
-import com.test.common.ui.popup.color.DemandColorDataBean
 import com.test.common.ui.popup.color.DemandColorListEntity
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import java.lang.Exception
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -82,7 +73,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 交期*/
     var itemEntityFormTime = ItemFormChooseEntity(ItemFormChooseType.CHOOSE_TIME, "设置交期", false, "交期最低14天")
     /** 备注*/
-    var itemEntityInputRemark = ItemRemarkEntity()
+    var itemEntityInputRemark = ItemRemarkEntity("", "请输入备注（选填）", ObservableField(""), "请输入更多备注信息")
     /** 下单按钮*/
     var itemEntityPlaceOrder = ItemPlaceOrderEntity()
 
@@ -129,16 +120,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             itemEntityFormSizeCount,
 
             //单价
-//            ItemTransparentLineEntity(),
-//            itemEntityInputPrice,
+            ItemTransparentLineEntity(),
+            itemEntityInputPrice,
 
             //设置交期
             ItemGrayLineEntity(),
             itemEntityFormTime,
 
             //备注
-//            ItemTransparentLineEntity(),
-//            itemEntityInputRemark,
+            ItemTransparentLineEntity(),
+            itemEntityInputRemark,
 
             //下单按钮
             ItemTransparentLineEntity(),
@@ -266,7 +257,10 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         FORM_SIZE_COUNT.putValue(firstNode)
     }
 
-
+    /** 交期*/
+    fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
+        LiveDataBus.send(CreateDemandFragment.FORM_TIME, entity)
+    }
 
 
 
@@ -285,12 +279,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 交期*/
     var mTime: String? = null
 
-    /** 单价*/
-    var mPrice = ObservableField<String>()
-
-
-    /** 备注*/
-    var mRemark = ObservableField<String>()
 
     /** 图片列表*/
     var mPicListDatas = arrayListOf<String>("", "", "", "", "")
@@ -303,16 +291,15 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
 
 
-    /** 交期*/
-    fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
-        LiveDataBus.send(CreateDemandFragment.FORM_TIME, entity)
-    }
+
 
     /**
      * 提交需求
      */
     fun clickPlaceOrder(view: View){
-//        LogUtil.d("快递单号：${itemEntitySamplelothes.mExpressNum.get()}")
+        LogUtil.d("快递单号：${itemEntitySamplelothes.mExpressNum.get()}")
+        LogUtil.d("价格：${itemEntityInputPrice.contentText.get()}")
+        LogUtil.d("备注：${itemEntityInputRemark.contentText.get()}")
 //        LogUtil.d("服务类型：${itemEntityService.mServiceType.get()?.text}, 对应服务：${itemEntityService.mServiceProduce.get()?.text}")
 //        var sb = StringBuilder()
 //        itemEntityTypeChoose.mChooseTypes.forEach {
@@ -320,8 +307,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 //        }
 //        LogUtil.d("选择类型：${sb}")
         
-        LogUtil.d("面料信息：${itemEntityFabric.filePath.get()}")
-        LogUtil.d("制版信息：${itemEntityPlate.filePath.get()}")
+//        LogUtil.d("面料信息：${itemEntityFabric.filePath.get()}")
+//        LogUtil.d("制版信息：${itemEntityPlate.filePath.get()}")
 
 
 
@@ -358,7 +345,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 //            return
 //        }
 
-        LogUtil.d("钱：${mPrice.get()}，备注：${mRemark.get()}")
+//        LogUtil.d("钱：${mPrice.get()}，备注：${mRemark.get()}")
 //        if (mPrice.get()?.isEmpty()) {
 //            ToastUtil.showShortToast("请输入预算单价")
 //            return
@@ -368,20 +355,20 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 //            return
 //        }
 
-        launchRequest {
-            try {
-                mModel.requestDemandSubmit(
-                    this@CreateDemandViewModel,
-                ).flowDataDeal(
-                    loadingModel = LoadingModel.LOADING,
-                    onSuccess = {
-                        ToastUtil.showShortToast("需求提交成功")
-                    }
-                )
-            }catch (ex: Exception){
-                ex.printStackTrace()
-            }
-        }
+//        launchRequest {
+//            try {
+//                mModel.requestDemandSubmit(
+//                    this@CreateDemandViewModel,
+//                ).flowDataDeal(
+//                    loadingModel = LoadingModel.LOADING,
+//                    onSuccess = {
+//                        ToastUtil.showShortToast("需求提交成功")
+//                    }
+//                )
+//            }catch (ex: Exception){
+//                ex.printStackTrace()
+//            }
+//        }
     }
 
 }

@@ -34,6 +34,8 @@ class ItemFormChooseEntity(
     /** 颜色-尺码-数量*/
     var mColorSizeCountDatas: ArrayList<CommonColorEntity> = arrayListOf(),
 
+    /** 交期*/
+    var mTime: String = ""
 
 )
 

@@ -6,10 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.demand.create.item.remark.ItemRemarkEntity" />
-        <variable
-            name="viewModel"
-            type="com.deti.brand.demand.create.CreateDemandViewModel" />
+            type="com.test.common.ui.item.remark.ItemRemarkEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +20,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="请输入备注（选填）"
+            android:text="@{entity.title}"
             android:textColor="#999999"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,12 +31,12 @@
             android:layout_marginTop="15mm"
             android:background="@drawable/base_bg_white"
             android:gravity="top|left"
-            android:hint="请输入更多备注信息"
+            android:hint="@{entity.hintText}"
             android:minHeight="146mm"
             android:padding="16mm"
             android:textColor="#999999"
             android:textColorHint="#666666"
-            android:text="@={viewModel.mRemark}"
+            android:text="@={entity.contentText}"
             android:textSize="12mm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

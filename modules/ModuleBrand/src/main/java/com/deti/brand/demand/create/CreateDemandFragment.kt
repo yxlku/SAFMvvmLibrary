@@ -3,7 +3,6 @@ package com.deti.brand.demand.create
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
-import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentDemandCreateBinding
@@ -23,8 +22,8 @@ import com.deti.brand.demand.create.item.pic.ItemPicChooseEntity
 import com.deti.brand.demand.create.item.pic.ItemPicChooseItemEntity
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrder
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity
-import com.deti.brand.demand.create.item.remark.ItemRemark
-import com.deti.brand.demand.create.item.remark.ItemRemarkEntity
+import com.test.common.ui.item.remark.ItemRemark
+import com.test.common.ui.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemService
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.loper7.date_time_picker.StringUtils
@@ -36,15 +35,11 @@ import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.JsonUtil
-import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
-import com.test.common.entity.CommonSizeCountEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import com.test.common.ui.item.line.ItemGrayLine
 import com.test.common.ui.item.line.ItemGrayLineEntity
@@ -58,7 +53,6 @@ import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
-import java.io.File.separator
 import java.util.*
 
 /**
@@ -79,13 +73,13 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         val FORM_COLORS = SingleLiveEvent<DemandColorListEntity>()
         /** 选择尺码数量*/
         val FORM_SIZE_COUNT = SingleLiveEvent<ArrayList<FirstNodeEntity>>()
-
+        /** 时间选择*/
+        val FORM_TIME = SingleLiveEvent<ItemFormChooseEntity>()
 
         /** 选择图片布局中的删除*/
         const val PIC_CHOOSE = "pic_choose"
 
-        /** 时间选择*/
-        const val FORM_TIME = "form_time"
+
     }
 
 
@@ -259,24 +253,24 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
             entity.picPath.set(picFilePath)
             mViewModel.mPicListDatas[clickItemPos] = picFilePath
         }, false)
-
-
         /** 时间选择*/
-        LiveDataBus.observe<ItemFormChooseEntity>(this, FORM_TIME, {
-                activity?.apply {
-                    dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
-                        var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
-                        var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
-                        if(day >= 14) {
-                            it.contentText.set(time)
-                            mViewModel.mTime = time
-                            popupView.dismiss()
-                        }else{
-                            ToastUtil.showShortToast("交期最低14天")
-                        }
-                    }.show()
-                }
-        }, false)
+        FORM_TIME.observe(this){ _ ->
+            activity?.apply {
+                dialogTimeWheel(this,"请选择时间"){millisecond: Long, time: String , popupView: BasePopupView ->
+                    var time = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
+                    var day = DateUtils.calculateDifferentDay(System.currentTimeMillis(), millisecond)
+                    if(day >= 14) {
+                        //1、item显示
+                        mViewModel.itemEntityFormTime.contentText.set(time)
+                        //2、上传数据赋值
+                        mViewModel.mTime = time
+                        popupView.dismiss()
+                    }else{
+                        ToastUtil.showShortToast("交期最低14天")
+                    }
+                }.show()
+            }
+        }
     }
     /** 弹窗：尺寸数量*/
     var mPopupColorSizeCount: BasePopupView? = null

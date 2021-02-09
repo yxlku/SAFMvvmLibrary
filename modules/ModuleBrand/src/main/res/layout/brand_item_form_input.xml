@@ -55,7 +55,7 @@
             android:layout_marginStart="5mm"
             android:gravity="right"
             android:hint="@{entity.hintText}"
-            android:text="@={viewModel.mPrice}"
+            android:text="@={entity.contentText}"
             android:textColor="#F3B11C"
             android:textColorHint="#CCCCCC"
             app:layout_constraintBottom_toBottomOf="parent"
