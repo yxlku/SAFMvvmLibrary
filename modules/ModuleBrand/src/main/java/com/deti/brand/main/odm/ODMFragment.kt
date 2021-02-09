@@ -11,12 +11,14 @@ import com.deti.brand.databinding.BrandFragmentIndexOdmBinding
 import com.deti.brand.demand.create.CreateDemandFragment
 import com.deti.brand.demand.price.PriceDemandFragment
 import com.deti.brand.demand.sampleclothes.SimpleClothesFragment
+import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
+import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
@@ -26,17 +28,26 @@ class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>
     R.layout.brand_fragment_index_odm,
     BR.viewModel
 ), ITabTop {
+    companion object {
+        /** 跳转到需求报价列表*/
+        val ODM_LIVE_TO_ORDER_LIST =  SingleLiveEvent<Unit>()
+    }
     var titles = arrayListOf(
         "新建需求",
         "需求报价",
         "样衣打版",
         "大货订单"
     )
+    var createDemandFragment = CreateDemandFragment()
+    var priceDemandFragment = PriceDemandFragment()
+    var simpleClothesFragment = SimpleClothesFragment()
+    var priceDemandFragment2 = SimpleClothesFragment()
+
     var fragments = arrayListOf<Fragment>(
-        CreateDemandFragment(),
-        PriceDemandFragment(),
-        SimpleClothesFragment(),
-        PriceDemandFragment()
+        createDemandFragment,
+        priceDemandFragment,
+        simpleClothesFragment,
+        priceDemandFragment2
     )
 
     override fun initData() {
@@ -44,6 +55,11 @@ class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>
 
         initViewPager()
         initTab()
+
+        ODM_LIVE_TO_ORDER_LIST.observe(this){
+            switchPage(mBinding.miTab, mBinding.vpContent, 1)
+            priceDemandFragment.switchPageIndex(1)
+        }
     }
 
     private fun initViewPager() {

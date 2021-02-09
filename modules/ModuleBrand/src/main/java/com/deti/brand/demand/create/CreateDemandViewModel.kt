@@ -25,6 +25,7 @@ import com.deti.brand.demand.create.item.pic.ItemPicChooseEntity
 import com.deti.brand.demand.create.item.placeorder.ItemPlaceOrderEntity
 import com.test.common.ui.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
+import com.deti.brand.main.odm.ODMFragment.Companion.ODM_LIVE_TO_ORDER_LIST
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.putValue
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
@@ -382,7 +383,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         //2、提示成功
                         ToastUtil.showShortToast("需求提交成功")
                         //3、跳转到订单列表页面
-
+                        ODM_LIVE_TO_ORDER_LIST.putValue(Unit)
                     }
                 )
             }catch (ex: Exception){

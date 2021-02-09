@@ -25,7 +25,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator.MODE_EXACTLY
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
-class PriceDemandFragment: BaseLazyFragment<BrandFragmentDemandPriceBinding, PriceDemandViewModel>(
+class PriceDemandFragment(
+    var pageIndex: Int = 0,
+): BaseLazyFragment<BrandFragmentDemandPriceBinding, PriceDemandViewModel>(
     R.layout.brand_fragment_demand_price,
     BR.viewModel
 ), ITabTop{
@@ -46,6 +48,14 @@ class PriceDemandFragment: BaseLazyFragment<BrandFragmentDemandPriceBinding, Pri
 
         initViewPager()
         initTab()
+
+        //初始化显示页面
+        switchPageIndex(pageIndex)
+    }
+
+    fun switchPageIndex(pIndex: Int = 0){
+        //选择页面
+        switchPage(mBinding.miTab, mBinding.vpContent, pIndex)
     }
 
     private fun initTab() {

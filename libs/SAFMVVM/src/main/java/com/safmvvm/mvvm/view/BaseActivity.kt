@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
@@ -74,6 +75,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         if (dialogView == null) {
             dialogView =
                 XPopup.Builder(this)
+                    .popupAnimation(PopupAnimation.ScaleAlphaFromCenter)
+                    .hasShadowBg(false)
                     .dismissOnBackPressed(false) //返回键不能关闭
                     .asLoading(tipText, cusLayout)
         }
