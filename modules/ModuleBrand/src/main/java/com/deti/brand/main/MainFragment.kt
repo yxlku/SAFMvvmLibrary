@@ -12,6 +12,7 @@ import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.ui.autosize.setTextSizeAuto
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -61,8 +62,8 @@ class MainFragment: BaseLazyFragment<BrandFragmentMainBinding, MainViewModel>(
         titles: ArrayList<String>,
         tag: Int
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
-        setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
-        textSize = 16F
+//        setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
+        setTextSizeAuto(16F)
         text = titles[index]
         normalColor = Color.parseColor("#99FFFFFF")
         selectedColor = Color.parseColor("#FFFFFF")

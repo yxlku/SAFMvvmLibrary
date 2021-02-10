@@ -19,6 +19,7 @@ import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
@@ -98,6 +99,8 @@ class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>
 
     override fun createIndicator(context: Context?, tag: Int): IPagerIndicator? =
         WrapPagerIndicator(context).apply {
+            verticalPadding = AutoSizeUtils.mm2px(context, 6F)
+            horizontalPadding = AutoSizeUtils.mm2px(context, 10f)
             fillColor = Color.parseColor("#FCCE48")
             startInterpolator = OvershootInterpolator(1.0f)
             endInterpolator = OvershootInterpolator(1.0f)

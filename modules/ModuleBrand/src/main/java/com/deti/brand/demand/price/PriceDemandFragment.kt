@@ -17,6 +17,7 @@ import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.ui.autosize.setTextSizeAuto
 import me.jessyan.autosize.utils.AutoSizeUtils
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -87,7 +88,7 @@ class PriceDemandFragment(
         titles: ArrayList<String>,
         tab: Int
     ): IPagerTitleView = SimplePagerTitleView(context).apply {
-        textSize = 14F
+        setTextSizeAuto(14F)
         text = titles[index]
         normalColor = Color.parseColor("#333333")
         selectedColor = Color.parseColor("#333333")

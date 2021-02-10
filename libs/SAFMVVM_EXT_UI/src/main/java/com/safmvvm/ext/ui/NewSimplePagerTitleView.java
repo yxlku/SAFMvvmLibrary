@@ -10,6 +10,8 @@ import android.widget.TextView;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IMeasurablePagerTitleView;
 
+import me.jessyan.autosize.utils.AutoSizeUtils;
+
 
 /**
  * 带文本的指示器标题
@@ -27,7 +29,7 @@ public class NewSimplePagerTitleView extends TextView implements IMeasurablePage
 
     private void init(Context context) {
         setGravity(Gravity.CENTER);
-        int padding = UIUtil.dip2px(context, 10);
+        int padding = AutoSizeUtils.mm2px(context, 10f);
         setPadding(padding, 0, padding, 0);
         setSingleLine();
         setEllipsize(TextUtils.TruncateAt.END);
