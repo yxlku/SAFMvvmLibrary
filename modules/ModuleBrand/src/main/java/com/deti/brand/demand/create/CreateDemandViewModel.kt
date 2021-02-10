@@ -199,9 +199,31 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         super.onCreate(owner)
         //初始化列表UI
         initInfoUI()
+
     }
 
+    /** 清除信息：尺码类型*/
+    fun clearInfoSizeType(){
+        itemEntityFormSizeType.apply {
+            contentText.set("")
+            mSizeTypeData == null       //尺码类型清空
+        }
+    }
 
+    /** 清除信息：选择的颜色*/
+    fun clearInfoColors(){
+        itemEntityFormColor.apply {
+            contentText.set("")
+            mSelectColorDatas = arrayListOf()  //选中颜色数据
+        }
+    }
+    /** 清除信息：尺码数量*/
+    fun clearInfoSizeCount(){
+        itemEntityFormSizeCount.apply {
+            contentText.set("")
+            mColorSizeCountDatas = arrayListOf()
+        }
+    }
 
 
     /**
@@ -244,8 +266,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                 .flowDataDeal(
                     loadingModel = LoadingModel.LOADING,
                     onSuccess = {
+                        //操作UI
                         FORM_STYLE_TYPE.putValue(it?.data as TypesTreeViewEntity)
-                        LogUtil.d("请求成功")
                     },
                     onFaile = { code: String, msg: String ->
                         LogUtil.d("请求失败$code - $msg")
