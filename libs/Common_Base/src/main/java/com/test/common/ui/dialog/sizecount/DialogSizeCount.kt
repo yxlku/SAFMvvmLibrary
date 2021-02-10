@@ -2,6 +2,7 @@ package com.test.common.ui.dialog.sizecount
 
 
 import android.app.Activity
+import android.content.Context
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
@@ -27,5 +28,6 @@ fun createDialogSizeCount(
 //        it.autoOpenSoftInput(true)
         //如果不加这个，评论弹窗会移动到软键盘上面
         it.moveUpToKeyboard(false)
+        it.autoFocusEditText(false)
     }
 }

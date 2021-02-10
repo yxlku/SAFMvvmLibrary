@@ -39,7 +39,7 @@ class GoodsDetailBottomPopupView(
             addItemBinder(ItemPayModeTitleEntity::class.java, ItemPayModeTitle())
             addItemBinder(ItemPayModeTimeEntity::class.java, ItemPayModeTime(mActivity))
             addItemBinder(ItemInfoEntity::class.java, ItemInfo(mActivity))
-            addItemBinder(ItemGoodsSizeCountEntity::class.java, ItemGoodsSizeCount())
+            addItemBinder(ItemGoodsSizeCountEntity::class.java, ItemGoodsSizeCount(mActivity))
 
         }
         var rv_content = findViewById<RecyclerView>(R.id.rv_content)

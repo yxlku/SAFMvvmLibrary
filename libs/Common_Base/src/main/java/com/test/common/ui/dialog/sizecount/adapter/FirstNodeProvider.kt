@@ -1,5 +1,6 @@
 package com.test.common.ui.dialog.sizecount.adapter
 
+import android.app.Activity
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
@@ -16,6 +17,7 @@ import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
 class FirstNodeProvider(
+    var mActivity: Activity,
     @LayoutRes var mLayoutId : Int = R.layout.base_dialog_item_sizecount_first
 ) : BaseNodeProvider() {
 
@@ -30,7 +32,7 @@ class FirstNodeProvider(
 
         tv_color.text = data.color + "订单数量："
         tv_count.text = data.count.toString() + "件"
-        LiveDataBus.observe(this, data.color, Observer {
+        LiveDataBus.observe(mActivity, data.color, Observer {
             var count = 0
             data.childNode.forEach {
                 var childEntity = it as SecondNodeEntity

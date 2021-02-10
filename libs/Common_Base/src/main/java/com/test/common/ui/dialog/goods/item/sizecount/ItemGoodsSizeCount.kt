@@ -1,5 +1,6 @@
 package com.test.common.ui.dialog.goods.item.sizecount
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,9 @@ import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
-class ItemGoodsSizeCount: QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, BaseDialogItemGoodsSizeCountBinding>() {
+class ItemGoodsSizeCount(
+    var mActivity: Activity,
+): QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, BaseDialogItemGoodsSizeCountBinding>() {
 
     override fun onCreateViewBinding(
         layoutInflater: LayoutInflater,
@@ -25,7 +28,7 @@ class ItemGoodsSizeCount: QuickViewBindingItemBinder<ItemGoodsSizeCountEntity, B
     ) {
         var binding = holder.viewBinding
         binding.apply {
-            var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_goods_sizecount_first)
+            var mAdapter = SizeCountAdapter(mActivity, R.layout.base_dialog_item_goods_sizecount_first)
             rvContent.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = mAdapter

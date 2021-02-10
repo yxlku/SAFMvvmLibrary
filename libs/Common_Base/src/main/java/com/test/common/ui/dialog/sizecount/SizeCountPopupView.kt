@@ -1,11 +1,13 @@
 package com.test.common.ui.dialog.sizecount
 
 import android.app.Activity
+import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.BottomPopupView
+import com.lxj.xpopup.util.KeyboardUtils
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
@@ -24,9 +26,15 @@ class SizeCountPopupView(
     var mHeightMultiple: Float = 0.7F,
     var block: (adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView) -> Unit = { adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView -> },
 ) : BottomPopupView(mActivit) {
-    var mAdapter = SizeCountAdapter(R.layout.base_dialog_item_sizecount_first)
+    var mAdapter = SizeCountAdapter(mActivit, R.layout.base_dialog_item_sizecount_first)
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_size_count
+
+    override fun dismiss() {
+        super.dismiss()
+        //结果关闭弹窗后，键盘不关闭问题
+        KeyboardUtils.hideSoftInput(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -59,9 +67,11 @@ class SizeCountPopupView(
                     it.childNode?.forEach {
                         var secondEntity = it as SecondNodeEntity
                         if (secondEntity.count > 0) {
+                            //设置后的数据
                             sizeCountList.add(
                                 CommonSizeCountEntity(secondEntity.size, secondEntity.count)
                             )
+                            //拼接显示内容
                             resultText.append("【")
                                 .append(secondEntity.color)
                                 .append(": ")

@@ -24,9 +24,9 @@
         <!-- 解决 Android 5.1 及以上版本 Button 英文字符串自动变大写的问题 -->
         <item name="android:textAllCaps">false</item>
         <!-- 默认隐藏输入法，开启这个选项后会导致输入对话框在关闭之后不能关闭软键盘   -->
-        <!--<item name="android:windowSoftInputMode">stateHidden</item>-->
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
         <!-- 关闭 RecyclerView ScrollView ViewPager 水波纹效果 -->
-        <item name="android:overScrollMode">never</item>
+        <item name="android:overScrollMode">ifContentScrolls</item>
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
