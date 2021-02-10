@@ -38,7 +38,7 @@ class ItemMaterielType(
         data: ItemMaterielTypeEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
 
             var tabAdapter = TabAdapter()
@@ -93,7 +93,7 @@ class ItemMaterielType(
                             if (it.name == itemChooseEntity.id) {
                                 var type = it.genericType.toString()
                                 if("class java.lang.String" == type){
-                                    var name = it.name.substring(0, 1).toUpperCase() + it.name.substring(1);
+                                    var name = it.name.substring(0, 1).toUpperCase() + it.name.substring(1)
                                     var method = tabData::class.java.getMethod("set${name}", String::class.java)
                                     method.invoke(tabData, inputText)
                                 }

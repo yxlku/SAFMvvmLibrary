@@ -14,7 +14,7 @@ class ItemTitleCraft(
         data: ItemTitleCraftEntity,
     ) {
         var databinding = holder.dataBinding
-        databinding?.apply {
+        databinding.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()

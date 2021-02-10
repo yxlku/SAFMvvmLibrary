@@ -16,12 +16,12 @@ import com.safmvvm.ext.ui.R;
  * https://github.com/iwgang/CountdownView
  */
 public class CountDownAndUpView extends View {
-    private BaseCountdown mCountdown;
+    private final BaseCountdown mCountdown;
     private CustomCountDownTimer mCustomCountDownTimer;
     private OnCountdownEndListener mOnCountdownEndListener;
     private OnCountdownIntervalListener mOnCountdownIntervalListener;
 
-    private boolean isHideTimeBackground;
+    private final boolean isHideTimeBackground;
     private long mPreviousIntervalCallbackTime;
     private long mInterval;
     private long mRemainTime;

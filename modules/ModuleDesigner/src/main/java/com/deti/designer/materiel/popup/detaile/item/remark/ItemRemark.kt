@@ -11,7 +11,7 @@ class ItemRemark: QuickDataBindingItemBinder<ItemRemarksEntity, DesignerItemMate
         data: ItemRemarksEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             executePendingBindings()
         }

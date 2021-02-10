@@ -17,7 +17,7 @@ class ItemInputCraft(
         data: ItemInputCraftEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             executePendingBindings()

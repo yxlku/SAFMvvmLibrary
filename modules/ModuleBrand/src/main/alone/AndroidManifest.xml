@@ -25,6 +25,7 @@
             android:name=".demand.progress.logistics.LogisticsActivity" />
         <activity
             android:name=".demand.detail.PriceDetailActivity" />
+        <activity android:name=".demand.update.UpdateDemandActivity" />
     </application>
 
 </manifest>

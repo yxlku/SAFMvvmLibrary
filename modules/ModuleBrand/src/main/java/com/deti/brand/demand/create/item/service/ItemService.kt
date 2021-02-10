@@ -35,7 +35,7 @@ class ItemService(
         data: ItemServiceEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             viewModel = mViewModel
             entity = data
             //服务类型
@@ -46,8 +46,8 @@ class ItemService(
                         "请选择服务类型",
                         selectedBaseSingleChoiceEntity = data.mServiceType.get(),
                         callback = { selectData, position ->
-                        data.mServiceType.set(selectData)
-                    }).show()
+                            data.mServiceType.set(selectData)
+                        }).show()
                 }
             }
             //对应服务
@@ -58,8 +58,8 @@ class ItemService(
                         "请选择对应服务",
                         selectedBaseSingleChoiceEntity = data.mServiceProduce.get(),
                         callback = { selectData, position->
-                        data.mServiceProduce.set(selectData)
-                    }).show()
+                            data.mServiceProduce.set(selectData)
+                        }).show()
                 }
             }
 

@@ -15,9 +15,4 @@ import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 
 class ItemPersonalViewModel(
     var activty: Activity?
-): BaseViewModel<BaseModel>(BaseApp.getInstance()) {
-
-
-
-
-}
+): BaseViewModel<BaseModel>(BaseApp.getInstance())

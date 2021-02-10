@@ -11,5 +11,4 @@ import com.safmvvm.mvvm.view.bottom.BaseBottomFragment
 class VersionListFilterDialogFragment: BaseBottomFragment<DesignerPopupVersionListFilterBinding, VersionListFilterDialogViewModel>(
     R.layout.designer_popup_version_list_filter,
     BR.viewModel
-) {
-}
+)

@@ -30,6 +30,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
+import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.common.ConstantsFun
@@ -52,12 +53,13 @@ import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
+import java.io.Serializable
 import java.util.*
 
 /**
  * 创建需求
  */
-class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
+class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
@@ -80,15 +82,13 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         /** 选择图片布局中的删除*/
         const val PIC_CHOOSE = "pic_choose"
 
-
     }
-
 
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
 
-    override fun onFragmentFirstVisible() {
-        super.onFragmentFirstVisible()
+    override fun initData() {
+        super.initData()
         //TODO testLoginData
         ConstantsFun.User.logoutClearInfo()
         ConstantsFun.User.loginSaveInfo(
@@ -171,7 +171,9 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         /** 款式分类*/
         FORM_STYLE_TYPE.observe(this, {
             it?.apply {
-                if(mPopupViewStyle == null) {
+                mPopupViewStyle?.apply {
+                    show()
+                } ?: run{
                     mPopupViewStyle = createDialogLevelTypes(this@CreateDemandFragment.requireActivity(),
                         "请选择款式分类",
                         this,
@@ -192,8 +194,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                             mPopupViewColorSize = null
                         }
                     }.show()
-                }else{
-                    mPopupViewStyle?.show()
                 }
             }
         })
@@ -224,7 +224,9 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
         FORM_COLORS.observe(this) {
             activity?.apply {
                 it?.run {
-                    if(mPopupViewColor == null) {
+                    mPopupViewColor?.apply {
+                        show()
+                    } ?: run {
                         mPopupViewColor = dialogChooseColors(this@apply,
                             "选择颜色",
                             this) { selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView ->
@@ -238,8 +240,6 @@ class CreateDemandFragment : BaseLazyFragment<BrandFragmentDemandCreateBinding, 
                             mViewModel.clearInfoSizeCount()
                             mPopupViewColorSize = null
                         }.show()
-                    }else{
-                        mPopupViewColor?.show()
                     }
                 } ?: run {
                     ToastUtil.showShortToast("暂无颜色")

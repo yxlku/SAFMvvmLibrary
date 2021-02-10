@@ -17,14 +17,14 @@ import com.test.common.ui.item.line.ItemGrayLineEntity
 /**
  * 工艺详情信息
  */
-class ItemCraftType() :
+class ItemCraftType :
     QuickDataBindingItemBinder<ItemCraftEntity, DesignerItemCraftTypeDataBinding>() {
     override fun convert(
         holder: BinderDataBindingHolder<DesignerItemCraftTypeDataBinding>,
         data: ItemCraftEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
 
             var tabAdapter = TabAdapter()

@@ -55,7 +55,7 @@ class ItemPicChoose(
         data: ItemPicChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             //控制显示隐藏，并刷新高度

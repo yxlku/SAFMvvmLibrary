@@ -36,7 +36,7 @@ class OtherCostFragment: BaseLazyFragment<BrandFragmentCostOtherBinding, OtherCo
         mAdapter.apply {
             addItemBinder(ItemChooseEntity::class.java, ItemChoose())
         }
-        mBinding?.apply {
+        mBinding.apply {
             rvContent.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = mAdapter

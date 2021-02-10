@@ -15,7 +15,7 @@ class ItemInfoTitle: QuickDataBindingItemBinder<ItemInfoTitleEntity, BaseItemDet
         data: ItemInfoTitleEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             executePendingBindings()
         }

@@ -58,7 +58,7 @@ class MaterialCostFragment :
             switchMaterialInfo(infoAdapter, data)
         }
 
-        mBinding?.apply {
+        mBinding.apply {
             //tab
             rvTab.apply {
                 layoutManager = LinearLayoutManager(context).apply {
@@ -85,7 +85,7 @@ class MaterialCostFragment :
         LiveDataBus.observe<MaterialCostDetailEntity>(this, LIVE_TAB_INFO, {
             tabAdapter.setList(it.fabricList)
             if(it.fabricList.size > 0) {
-                var data = it.fabricList[0] as MaterialCostItemEntity
+                var data = it.fabricList[0]
                 switchMaterialInfo(infoAdapter, data)
             }
             technologyPrice = it.technologyPrice

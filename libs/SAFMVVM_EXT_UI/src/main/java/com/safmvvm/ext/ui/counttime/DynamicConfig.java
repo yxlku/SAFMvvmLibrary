@@ -6,7 +6,7 @@ package com.safmvvm.ext.ui.counttime;
  * https://github.com/iwgang/CountdownView
  */
 public class DynamicConfig {
-    private Builder mBuilder;
+    private final Builder mBuilder;
 
     private DynamicConfig(final Builder builder) {
         mBuilder = builder;

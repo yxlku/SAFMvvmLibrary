@@ -10,4 +10,4 @@ import java.io.Serializable
 data class DemandExpressListEntity(
     /** 快递列表*/
     var dataDictionaryList: ArrayList<CommonDataDictionaryEntity> = arrayListOf()
-): Serializable{}
+): Serializable

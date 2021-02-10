@@ -64,7 +64,7 @@ class SizeCountPopupView(
                         return
                     }
                     //2、所有颜色都不为空的时候，拼接所有已选择的数据，展示到布局上
-                    it.childNode?.forEach {
+                    it.childNode.forEach {
                         var secondEntity = it as SecondNodeEntity
                         if (secondEntity.count > 0) {
                             //设置后的数据

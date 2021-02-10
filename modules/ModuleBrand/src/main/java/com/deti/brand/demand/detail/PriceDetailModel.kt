@@ -7,8 +7,4 @@ import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity
 import kotlinx.coroutines.flow.Flow
 
-class PriceDetailModel: BaseModel() {
-
-
-
-}
+class PriceDetailModel: BaseModel()

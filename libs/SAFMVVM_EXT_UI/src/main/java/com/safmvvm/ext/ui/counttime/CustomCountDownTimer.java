@@ -91,7 +91,7 @@ public abstract class CustomCountDownTimer {
     public abstract void onTickUp(long millisUntilFinished);
 
 
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {

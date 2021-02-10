@@ -43,7 +43,7 @@ class TotalCostFragment: BaseLazyFragment<BrandFragmentCostTotalBinding, TotalCo
             addItemBinder(ItemInfoTitleEntity::class.java, ItemInfoTitle())
             addItemBinder(ItemTransparentLineEntity::class.java, ItemTransparentLine())
         }
-        mBinding?.apply {
+        mBinding.apply {
             rvContent.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = mAdapter

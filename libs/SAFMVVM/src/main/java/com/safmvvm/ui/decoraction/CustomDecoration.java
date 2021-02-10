@@ -22,7 +22,7 @@ public class CustomDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "DividerItem";
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
-    private boolean mIsShowBottomDivider;
+    private final boolean mIsShowBottomDivider;
     /**
      * Current orientation. Either {@link #HORIZONTAL} or {@link #VERTICAL}.
      */

@@ -100,7 +100,7 @@ class CreateDemandModel: BaseModel(){
                 put("demandIndent.frontImage", frontImage)          //图片
                 put("demandIndent.backImage", backImage)
                 put("demandIndent.detailsImageList", detailsImageList)
-                mViewModel?.apply {
+                mViewModel.apply {
                     put("demandIndent.productionType", itemEntityService.mServiceType.get()?.id)
                     put("demandIndent.serviceType", itemEntityService.mServiceProduce.get()?.id)
                     put("demandIndent.fabricInfo", itemEntityFabric.filePath.get()) // 面料信息

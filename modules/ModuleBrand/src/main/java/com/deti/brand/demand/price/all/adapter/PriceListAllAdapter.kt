@@ -1,6 +1,7 @@
 package com.deti.brand.demand.price.all.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +10,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPriceListAllBinding
+import com.deti.brand.demand.create.CreateDemandFragment
 import com.deti.brand.demand.price.all.entity.PriceListAllEntity
 import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
 import com.deti.brand.demand.progress.logistics.LogisticsActivity
+import com.deti.brand.demand.update.UpdateDemandActivity
 import com.safmvvm.ext.ui.counttime.CountDownAndUpView
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
@@ -287,7 +290,7 @@ class PriceListAllAdapter(
             }
             BTN_MODIFY -> {
                 //我要修改
-                ToastUtil.showShortToast("我要修改")
+                UpdateDemandActivity.startAction(mActivity)
             }
             BTN_SCHEDULE -> {
                 //查看进度

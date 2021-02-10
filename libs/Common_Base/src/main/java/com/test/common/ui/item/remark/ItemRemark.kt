@@ -13,7 +13,7 @@ class ItemRemark: QuickDataBindingItemBinder<ItemRemarkEntity, BaseItemRemarkBin
         holder: BinderDataBindingHolder<BaseItemRemarkBinding>,
         data: ItemRemarkEntity,
     ) {
-        holder.dataBinding?.apply {
+        holder.dataBinding.apply {
             entity = data
             executePendingBindings()
         }

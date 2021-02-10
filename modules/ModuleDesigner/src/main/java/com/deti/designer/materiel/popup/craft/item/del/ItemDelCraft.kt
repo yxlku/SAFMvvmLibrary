@@ -14,7 +14,7 @@ class ItemDelCraft(
         data: ItemDelCraftEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             tvDel.setOnClickListener {
                 mAdapter.setList(arrayListOf())

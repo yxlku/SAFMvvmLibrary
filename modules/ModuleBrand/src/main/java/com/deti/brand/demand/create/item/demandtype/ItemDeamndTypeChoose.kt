@@ -45,7 +45,7 @@ class ItemDeamndTypeChoose(
         holder: BinderDataBindingHolder<BrandItemDemandTypeChooseBinding>,
         data: ItemDeamandTypeChooseEntity,
     ) {
-        holder.dataBinding?.apply {
+        holder.dataBinding.apply {
             entity = data
             viewModel = mViewModel
             holder.itemView.setOnClickListener {

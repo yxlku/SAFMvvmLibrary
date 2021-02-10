@@ -3,5 +3,7 @@
     package="com.test.common">
 
 
-
+    <application>
+        <activity android:name=".page.activity.FragmentActivity" />
+    </application>
 </manifest>

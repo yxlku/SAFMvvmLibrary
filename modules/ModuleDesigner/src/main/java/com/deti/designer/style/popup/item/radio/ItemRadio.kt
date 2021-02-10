@@ -12,7 +12,7 @@ class ItemRadio: QuickDataBindingItemBinder<ItemRadioEntity, DesignerItemStyleEd
         data: ItemRadioEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             //radio选项
             var radioAdapter = ItemRadioAdapter()

@@ -29,7 +29,7 @@ class ItemPersonalInfoTip(
         data: ItemPersonalInfoEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             holder.itemView.rvIsShow(data.isShow)
             tvInfoBtn.setOnClickListener {

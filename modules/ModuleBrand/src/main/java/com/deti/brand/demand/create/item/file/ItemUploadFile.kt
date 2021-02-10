@@ -29,7 +29,7 @@ class ItemUploadFile(
         data: ItemUploadFileEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             viewModel = mViewModel
             //是否显示当前item
@@ -39,15 +39,15 @@ class ItemUploadFile(
             tvUploadBtn.setOnClickListener {
                 chooseFile(activity){ filePath ->
                     data.filePath.set(filePath)
-//                    when (it.tag) {
-//                        //TODO 这里选择后应该是请求接口
-//                        FILE_FABRIC -> { //面料信息
-//                            data.mFilePathFabric.set(filePath)
-//                        }
-//                        FILE_PLATE -> { //制版文件
-//                            data.mFilePathPlate.set(filePath)
-//                        }
-//                    }
+    //                    when (it.tag) {
+    //                        //TODO 这里选择后应该是请求接口
+    //                        FILE_FABRIC -> { //面料信息
+    //                            data.mFilePathFabric.set(filePath)
+    //                        }
+    //                        FILE_PLATE -> { //制版文件
+    //                            data.mFilePathPlate.set(filePath)
+    //                        }
+    //                    }
                 }
             }
             executePendingBindings()

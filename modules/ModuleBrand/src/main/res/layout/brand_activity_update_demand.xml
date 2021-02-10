@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.deti.brand.demand.update.UpdateDemandViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.safmvvm.ui.titlebar.TitleBar
+            app:title="修改"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <FrameLayout
+            android:id="@+id/fl_layout"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0mm"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -14,7 +14,7 @@ class ItemChoose: QuickDataBindingItemBinder<ItemChooseEntity, BaseItemDetailCho
         data: ItemChooseEntity,
     ) {
         var binding = holder.dataBinding
-        binding?.apply {
+        binding.apply {
             entity = data
             executePendingBindings()
         }
