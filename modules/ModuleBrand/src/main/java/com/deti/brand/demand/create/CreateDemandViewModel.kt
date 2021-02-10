@@ -5,13 +5,6 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import com.chad.library.adapter.base.entity.node.BaseNode
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.CLEAR_LIST_DATA
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.DIALOG_EXPRESS_LIST
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_COLORS
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COUNT
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_TYPE
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
-import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_TIME
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
@@ -29,6 +22,7 @@ import com.test.common.ui.item.remark.ItemRemarkEntity
 import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.deti.brand.main.odm.ODMFragment.Companion.ODM_LIVE_TO_ORDER_LIST
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
@@ -47,6 +41,25 @@ import kotlin.collections.ArrayList
 
 
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
+
+    /** 快递列表弹窗*/
+    val DIALOG_EXPRESS_LIST = SingleLiveEvent<java.util.ArrayList<BaseSingleChoiceEntity>>()
+    /** 款式分类*/
+    val FORM_STYLE_TYPE = SingleLiveEvent<TypesTreeViewEntity>()
+    /** 尺码类型*/
+    val FORM_SIZE_TYPE = SingleLiveEvent<List<BaseSingleChoiceEntity>>()
+    /** 选择颜色*/
+    val FORM_COLORS = SingleLiveEvent<DemandColorListEntity>()
+    /** 选择尺码数量*/
+    val FORM_SIZE_COUNT = SingleLiveEvent<java.util.ArrayList<FirstNodeEntity>>()
+    /** 时间选择*/
+    val FORM_TIME = SingleLiveEvent<ItemFormChooseEntity>()
+
+    /** 提交后清空列表数据*/
+    val CLEAR_LIST_DATA = SingleLiveEvent<Unit>()
+    /** 选择图片布局中的删除*/
+    val PIC_CHOOSE = "pic_choose"
+
     /** 图片列表 TODO 还没搞完*/
     var mPicListDatas = arrayListOf<String>("", "", "", "", "")
 

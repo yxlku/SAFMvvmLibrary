@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.binder.QuickDataBindingItemBinder
 import com.deti.brand.databinding.BrandItemPersonalInfoTipBinding
+import com.deti.brand.demand.update.UpdateDemandActivity
 import com.safmvvm.ext.rvIsShow
 import com.test.common.ui.dialog.goods.createDialogGoodsDetail
 
@@ -45,7 +46,8 @@ class ItemPersonalInfoTip(
 //        RouterUtil.startActivity(RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
 
         activty?.apply {
-            createDialogGoodsDetail(this).show()
+//            createDialogGoodsDetail(this).show()
+            UpdateDemandActivity.startAction(this)
         }
     }
 

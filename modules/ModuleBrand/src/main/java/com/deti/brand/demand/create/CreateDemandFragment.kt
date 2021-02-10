@@ -63,26 +63,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
-    companion object {
-        /** 快递列表弹窗*/
-        val DIALOG_EXPRESS_LIST = SingleLiveEvent<ArrayList<BaseSingleChoiceEntity>>()
-        /** 款式分类*/
-        val FORM_STYLE_TYPE = SingleLiveEvent<TypesTreeViewEntity>()
-        /** 尺码类型*/
-        val FORM_SIZE_TYPE = SingleLiveEvent<List<BaseSingleChoiceEntity>>()
-        /** 选择颜色*/
-        val FORM_COLORS = SingleLiveEvent<DemandColorListEntity>()
-        /** 选择尺码数量*/
-        val FORM_SIZE_COUNT = SingleLiveEvent<ArrayList<FirstNodeEntity>>()
-        /** 时间选择*/
-        val FORM_TIME = SingleLiveEvent<ItemFormChooseEntity>()
-
-        /** 提交后清空列表数据*/
-        val CLEAR_LIST_DATA = SingleLiveEvent<Unit>()
-        /** 选择图片布局中的删除*/
-        const val PIC_CHOOSE = "pic_choose"
-
-    }
 
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
@@ -153,11 +133,11 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
         /** 初始化列表 用处：1、第一次初始化列表 2、提交后清空数据*/
-        CLEAR_LIST_DATA.observe(this) {
+        mViewModel.CLEAR_LIST_DATA.observe(this) {
             mAdapter.setList(mViewModel.itemListEntitys)
         }
         /** 样衣 - 快递列表*/
-        DIALOG_EXPRESS_LIST.observe(this, {
+        mViewModel.DIALOG_EXPRESS_LIST.observe(this, {
             activity?.apply {
                 it?.dialogBottomSingle(this,
                     "请选择快递",
@@ -169,7 +149,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         })
         /** 款式分类*/
-        FORM_STYLE_TYPE.observe(this, {
+        mViewModel.FORM_STYLE_TYPE.observe(this, {
             it?.apply {
                 mPopupViewStyle?.apply {
                     show()
@@ -198,7 +178,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         })
         /** 尺码类型*/
-        FORM_SIZE_TYPE.observe(this) {
+        mViewModel.FORM_SIZE_TYPE.observe(this) {
             activity?.apply {
                 it?.dialogBottomSingle(this@apply,
                     "选择尺码类型",
@@ -221,7 +201,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         }
         /** 颜色选择*/
-        FORM_COLORS.observe(this) {
+        mViewModel.FORM_COLORS.observe(this) {
             activity?.apply {
                 it?.run {
                     mPopupViewColor?.apply {
@@ -247,7 +227,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
         }
         /** 颜色对应尺码选择*/
-        FORM_SIZE_COUNT.observe(this) {
+        mViewModel.FORM_SIZE_COUNT.observe(this) {
             activity?.apply {
                 it?.run {
                     mPopupViewColorSize?.apply {
@@ -270,7 +250,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
                 }
             }
             /** 时间选择*/
-            FORM_TIME.observe(this) { _ ->
+            mViewModel.FORM_TIME.observe(this) { _ ->
                 activity?.apply {
                     dialogTimeWheel(this,
                         "请选择时间") { millisecond: Long, time: String, popupView: BasePopupView ->
@@ -291,7 +271,7 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
             }
 
 
-            LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, PIC_CHOOSE, {
+            LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, mViewModel.PIC_CHOOSE, {
                 var entity = it.first
                 var picFilePath = it.second
                 var clickItemPos = it.third

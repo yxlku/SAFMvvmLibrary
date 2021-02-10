@@ -136,7 +136,7 @@ class ItemPicChoose(
 //                        entity.picPath.set(path)
 //                        mViewModel.mPicListDatas[pos] = path
                         testpPic(path)
-                        LiveDataBus.send(CreateDemandFragment.PIC_CHOOSE, Triple(entity, path, pos))
+                        LiveDataBus.send(mViewModel.PIC_CHOOSE, Triple(entity, path, pos))
                     }
                 }
             },
@@ -155,7 +155,7 @@ class ItemPicChoose(
                     LogUtil.d("拍照: $path / ${it.fileName}")
 //                    entity.picPath.set(path)
 //                    mViewModel.mPicListDatas[pos] = path
-                    LiveDataBus.send(CreateDemandFragment.PIC_CHOOSE, Triple(entity, path, pos))
+                    LiveDataBus.send(mViewModel.PIC_CHOOSE, Triple(entity, path, pos))
                 }
             },
             cancel = {
