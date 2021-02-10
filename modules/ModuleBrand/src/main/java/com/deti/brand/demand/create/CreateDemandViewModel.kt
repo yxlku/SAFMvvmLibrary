@@ -12,6 +12,8 @@ import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_COU
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_SIZE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_STYLE_TYPE
 import com.deti.brand.demand.create.CreateDemandFragment.Companion.FORM_TIME
+import com.deti.brand.demand.create.entity.DemandExpressListEntity
+import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
@@ -40,17 +42,25 @@ import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorListEntity
+import com.test.common.ui.toast.ToastDrawableEnum
 import kotlin.collections.ArrayList
 
 
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
     /** 图片列表 TODO 还没搞完*/
     var mPicListDatas = arrayListOf<String>("", "", "", "", "")
-    /** 列表实体类集合*/
-    var itemListEntitys = arrayListOf<Any>()
+
     /** 尺码类型*/
     /** 全局尺码组数据*/
-    var cFindSizeEntityData: CommonFindSizeEntity? = null
+    var mFindSizeEntityData: CommonFindSizeEntity? = null
+
+    /** 请求数据：快递列表数据*/
+    var mNetDataExpressList: DemandExpressListEntity? = null
+    /** 请求数据：款式数据*/
+    var mNetDataStyleType: DemandStyleTypeEntity? = null
+
+    /** 列表实体类集合*/
+    var itemListEntitys = arrayListOf<Any>()
 
     //完善个人信息
     lateinit var itemEntityPersonal : ItemPersonalInfoEntity
@@ -207,6 +217,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         itemEntityFormSizeType.apply {
             contentText.set("")
             mSizeTypeData == null       //尺码类型清空
+            mDialogPositionSizeTypeData = -1
         }
     }
 
@@ -244,38 +255,42 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun clickRequestExpressList(view: View) {
         launchRequest {
-            mModel.requestExpressList()
-                .flowDataDeal(
-                    loadingModel = LoadingModel.NULL,
-                    onSuccess = {
-                        it?.data?.dataDictionaryList?.apply {
-                            //TODO 这里应该不用pos
-                            var pos = this.indexOf(itemEntitySamplelothes.mExpressSingleChoiceEntity.get())
-                            DIALOG_EXPRESS_LIST.putValue(Pair(this as ArrayList<BaseSingleChoiceEntity>, pos))
+            if (mNetDataExpressList == null) {
+                mModel.requestExpressList()
+                    .flowDataDeal(
+                        loadingModel = LoadingModel.NULL,
+                        onSuccess = {
+                            mNetDataExpressList = it?.data
+                            DIALOG_EXPRESS_LIST.putValue(mNetDataExpressList?.dataDictionaryList as ArrayList<BaseSingleChoiceEntity>)
                         }
-                    }
-                )
+                    )
+            }else{
+                DIALOG_EXPRESS_LIST.putValue(mNetDataExpressList?.dataDictionaryList as ArrayList<BaseSingleChoiceEntity>)
+            }
         }
     }
-
 
     /** 款式类型*/
     fun formClickChooseStyle(view: View, entity: ItemFormChooseEntity) {
         launchRequest {
-            mModel.requestStyleInfo()
-                .flowDataDeal(
-                    loadingModel = LoadingModel.LOADING,
-                    onSuccess = {
-                        //操作UI
-                        FORM_STYLE_TYPE.putValue(it?.data as TypesTreeViewEntity)
-                    },
-                    onFaile = { code: String, msg: String ->
-                        LogUtil.d("请求失败$code - $msg")
-                    },
-                    onError = {
-                        LogUtil.exception(ex = it)
-                    }
-                )
+            if (mNetDataStyleType == null) {
+                mModel.requestStyleInfo()
+                    .flowDataDeal(
+                        loadingModel = LoadingModel.LOADING,
+                        onSuccess = {
+                            mNetDataStyleType = it?.data
+                            FORM_STYLE_TYPE.putValue(mNetDataStyleType as TypesTreeViewEntity)
+                        },
+                        onFaile = { code: String, msg: String ->
+                            LogUtil.d("请求失败$code - $msg")
+                        },
+                        onError = {
+                            LogUtil.exception(ex = it)
+                        }
+                    )
+            }else{
+                FORM_STYLE_TYPE.putValue(mNetDataStyleType as TypesTreeViewEntity)
+            }
         }
     }
 
@@ -292,8 +307,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                 .flowDataDeal(
                     loadingModel = LoadingModel.LOADING,
                     onSuccess = {
-                        cFindSizeEntityData = it?.data
-                        cFindSizeEntityData?.list?.apply {
+                        mFindSizeEntityData = it?.data
+                        mFindSizeEntityData?.list?.apply {
                             FORM_SIZE_TYPE.putValue(this as ArrayList<BaseSingleChoiceEntity>)
                         }
                     }
@@ -303,7 +318,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择颜色*/
     fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
-        if (cFindSizeEntityData == null || itemEntityFormSizeType.mSizeTypeData == null) {
+        if (mFindSizeEntityData == null || itemEntityFormSizeType.mSizeTypeData == null) {
             ToastUtil.showShortToast("请选择尺码类型")
             return
         }
@@ -403,7 +418,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         //1、提交后清空页面UI数据
                         initInfoUI()
                         //2、提示成功
-                        ToastUtil.showShortToast("需求提交成功")
+                        ToastUtil.showShortToast("需求提交成功", toastEnumInterface = ToastDrawableEnum.TOP)
                         //3、跳转到订单列表页面
                         ODM_LIVE_TO_ORDER_LIST.putValue(Unit)
                     }

@@ -42,7 +42,10 @@ fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
 fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
     activity: Activity,
     title: String,
+    /** 选中位置，优先级大于selectedBaseSingleChoiceEntity*/
     selectedPosition: Int = -1,
+    /** 选中的实体类，传入后可以得到默认选中条目*/
+    selectedBaseSingleChoiceEntity: BaseSingleChoiceEntity? = BaseSingleChoiceEntity(),
     selectedIsDismiss: Boolean = true,
     block: () -> Unit = {},
     /** 选中条目点击回调*/
@@ -59,4 +62,4 @@ fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
 
 }.apply {
     block()
-}.asCustom(DialogBottomSinglePopupView(activity, title, this,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback, rightClick = rightClick))
+}.asCustom(DialogBottomSinglePopupView(activity, title, this,selectedBaseSingleChoiceEntity,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback, rightClick = rightClick))

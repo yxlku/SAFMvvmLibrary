@@ -18,7 +18,8 @@ class ItemService(
     var activity: Activity?,
     var mViewModel: CreateDemandViewModel? = null
 ): QuickDataBindingItemBinder<ItemServiceEntity, BrandItemDemandServiceBinding>() {
-
+    var mPositionServiceType: Int = 0
+    var mPositionServiceProduce: Int = 0
     /** 服务类型*/
     var serviceTypeData = arrayListOf(
         BaseSingleChoiceEntity(DictionaryServiceType.PRODUCE.key, DictionaryServiceType.PRODUCE.value),
@@ -40,7 +41,11 @@ class ItemService(
             //服务类型
             clServiceType.setOnClickListener {
                 activity?.apply {
-                    serviceTypeData.dialogBottomSingle(this, "请选择服务类型", callback = { selectData, position ->
+                    serviceTypeData.dialogBottomSingle(
+                        this,
+                        "请选择服务类型",
+                        selectedBaseSingleChoiceEntity = data.mServiceType.get(),
+                        callback = { selectData, position ->
                         data.mServiceType.set(selectData)
                     }).show()
                 }
@@ -48,7 +53,11 @@ class ItemService(
             //对应服务
             clServiceProduce.setOnClickListener {
                 activity?.apply {
-                    serviceProduceData.dialogBottomSingle(this, "请选择对应服务", callback = { selectData, position->
+                    serviceProduceData.dialogBottomSingle(
+                        this,
+                        "请选择对应服务",
+                        selectedBaseSingleChoiceEntity = data.mServiceProduce.get(),
+                        callback = { selectData, position->
                         data.mServiceProduce.set(selectData)
                     }).show()
                 }

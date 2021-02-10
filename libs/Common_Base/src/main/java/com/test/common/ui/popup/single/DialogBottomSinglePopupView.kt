@@ -22,7 +22,10 @@ class DialogBottomSinglePopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var mData: List<BaseSingleChoiceEntity> = arrayListOf(),
-    var selectedPosition: Int = 0,
+    /** 选中的实体类，传入后可以得到默认选中条目*/
+    var selectedBaseSingleChoiceEntity: BaseSingleChoiceEntity? = BaseSingleChoiceEntity(),
+    /** 优先级大于 传入实体类*/
+    var selectedPosition: Int = -1,
     @LayoutRes var listLayoutId: Int = R.layout.base_popup_list,
     @LayoutRes var itemLayoutId: Int = R.layout.base_item_dialog_common_single,
     var mHeightMultiple: Float = 0.7F,
@@ -59,6 +62,14 @@ class DialogBottomSinglePopupView(
         var tv_close: TextView = findViewById(R.id.tv_close)
         tv_close.setOnClickListener(this)
 
+        //默认选中的条目
+        mAdapter.selectedPosition =
+            if(selectedPosition == -1 && selectedBaseSingleChoiceEntity != null) {
+            mData.indexOf(selectedBaseSingleChoiceEntity)
+        }else{
+            selectedPosition
+        }
+
 
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
         rv_content.apply {
@@ -66,6 +77,8 @@ class DialogBottomSinglePopupView(
             adapter = mAdapter
         }
         mAdapter.setList(mData)
+
+
         mAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                 var mAdapter = adapter as DialogBottomSingleAdapter

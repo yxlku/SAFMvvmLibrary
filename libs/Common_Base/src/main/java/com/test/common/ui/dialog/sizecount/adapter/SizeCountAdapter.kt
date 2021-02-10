@@ -10,14 +10,18 @@ import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
 class SizeCountAdapter(
     var mActivity: Activity,
-    @LayoutRes var mLayoutId: Int = R.layout.base_dialog_item_sizecount_first
+    @LayoutRes var mLayoutId: Int = R.layout.base_dialog_item_sizecount_first,
 ) : BaseNodeAdapter() {
     companion object  {
         val EXPAND_COLLAPSE_PAYLOAD = 110
     }
     init {
-        addItemProvider(FirstNodeProvider(mActivity, mLayoutId))
-        addItemProvider(SecondNodeProvider())
+        var first = FirstNodeProvider(mActivity, mLayoutId)
+        addFullSpanNodeProvider(first)
+        addNodeProvider(SecondNodeProvider{
+            //子列表加减数据刷新列表，达到更新一级列表的数据-数量
+            notifyDataSetChanged()
+        })
     }
     override fun getItemType(data: List<BaseNode>, position: Int): Int {
         var node: BaseNode = data[position]

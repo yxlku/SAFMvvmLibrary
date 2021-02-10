@@ -31,17 +31,14 @@ class FirstNodeProvider(
         var tv_count = helper.getView<TextView>(R.id.tv_count)
 
         tv_color.text = data.color + "订单数量："
-        tv_count.text = data.count.toString() + "件"
-        LiveDataBus.observe(mActivity, data.color, Observer {
-            var count = 0
-            data.childNode.forEach {
-                var childEntity = it as SecondNodeEntity
-                count += childEntity.count
-            }
-            data.count = count
-            tv_count.text = data.count.toString() + "件"
-        }, true)
 
+        var count = 0
+        data.childNode.forEach {
+            var childEntity = it as SecondNodeEntity
+            count += childEntity.count
+        }
+        data.count = count
+        tv_count.text = data.count.toString() + "件"
     }
 
     override fun convert(helper: BaseViewHolder, item: BaseNode, payloads: List<Any>) {

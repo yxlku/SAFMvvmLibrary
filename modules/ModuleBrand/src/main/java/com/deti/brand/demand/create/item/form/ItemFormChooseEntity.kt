@@ -27,6 +27,7 @@ class ItemFormChooseEntity(
 
     /** 选中的尺码类型 -- 从当前字段获取选中的尺码组Id -- sizeId*/
     var mSizeTypeData: CommonFindSizeDataBean? = null,
+    var mDialogPositionSizeTypeData: Int = -1, //弹窗选中位置
 
     /** 选择的颜色*/
     var mSelectColorDatas: ArrayList<DemandColorDataBean> = arrayListOf(),

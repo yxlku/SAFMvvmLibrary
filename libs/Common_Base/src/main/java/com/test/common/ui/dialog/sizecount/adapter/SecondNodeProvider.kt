@@ -14,7 +14,9 @@ import com.safmvvm.utils.InputMethodUtil
 import com.test.common.R
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 
-class SecondNodeProvider : BaseNodeProvider(){
+class SecondNodeProvider(
+    var countUpdateBlock: () -> Unit = {}
+): BaseNodeProvider(){
     override val itemViewType: Int = 2
 
     override val layoutId: Int = R.layout.base_dialog_item_sizecount_second
@@ -30,19 +32,19 @@ class SecondNodeProvider : BaseNodeProvider(){
         et_count.setText(data.count.toString())
         tv_size.text = data.size
 
-        InputMethodUtil.closeInputMethod(et_count)
-
         iv_subtract.setOnClickListener {
             if(data.count > 0) {
                 data.count = data.count - 1
                 et_count.setText((data.count).toString())
-                LiveDataBus.send(data.color, "")
+//                LiveDataBus.send(data.color, "")
+                countUpdateBlock()
             }
         }
         iv_add.setOnClickListener {
             data.count = data.count + 1
             et_count.setText((data.count).toString())
-            LiveDataBus.send(data.color, "")
+//            LiveDataBus.send(data.color, "")
+            countUpdateBlock()
         }
 
         et_count.setOnEditorActionListener(object : TextView.OnEditorActionListener {
@@ -60,5 +62,6 @@ class SecondNodeProvider : BaseNodeProvider(){
 
         })
     }
+
 
 }
