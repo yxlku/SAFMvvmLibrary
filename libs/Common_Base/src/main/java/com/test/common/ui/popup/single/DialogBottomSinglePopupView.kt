@@ -63,11 +63,14 @@ class DialogBottomSinglePopupView(
         tv_close.setOnClickListener(this)
 
         //默认选中的条目
-        mAdapter.selectedPosition =
-            if(selectedPosition == -1 && selectedBaseSingleChoiceEntity != null) {
-            mData.indexOf(selectedBaseSingleChoiceEntity)
-        }else{
-            selectedPosition
+        if (selectedPosition == -1 && selectedBaseSingleChoiceEntity != null) {
+            mData.forEachIndexed { index, data ->
+                if (data.id == selectedBaseSingleChoiceEntity?.id) {
+                    mAdapter.selectedPosition = index
+                }
+            }
+        } else {
+            mAdapter.selectedPosition = selectedPosition
         }
 
 

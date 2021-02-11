@@ -13,6 +13,9 @@ import com.test.common.ui.popup.single.DialogBubbleSinglePopupView
 
 /****************************   项目中用到的所有单选弹窗    *******************************/
 
+/**
+ * 气泡单选
+ */
 fun List<BaseDialogSingleEntity>.dialogBubbleSingle(
     mActivity: Activity,
     v: View,
@@ -52,14 +55,10 @@ fun List<BaseSingleChoiceEntity>.dialogBottomSingle(
     callback: (entity: BaseSingleChoiceEntity, position: Int) -> Unit,
     /** 右侧按钮点击事件*/
     rightClick: (view: View?) -> Unit = {}
-): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
-    //如果不加这个，评论弹窗会移动到软键盘上面
-    moveUpToKeyboard(false)
-    //允许拖拽
-    enableDrag(true)
-    //对于只使用一次的弹窗，推荐设置这个
-    isDestroyOnDismiss(false)
-
-}.apply {
-    block()
-}.asCustom(DialogBottomSinglePopupView(activity, title, this,selectedBaseSingleChoiceEntity,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback, rightClick = rightClick))
+): BasePopupView {
+    return createDialogBase(
+        DialogBottomSinglePopupView(activity, title, this,selectedBaseSingleChoiceEntity,  selectedPosition, selectedIsDismiss = selectedIsDismiss, callback = callback, rightClick = rightClick)
+    ){
+        block()
+    }
+}

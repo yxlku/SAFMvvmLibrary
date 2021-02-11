@@ -29,6 +29,8 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
+import com.test.common.dictionary.dictionaryServiceCorrespondeKeyToValue
+import com.test.common.dictionary.dictionaryServiceTypeKeyToValue
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
@@ -258,11 +260,18 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         //一、模拟数据:
                         // 1、类型选择
                         provideList = arrayListOf("sample", "fabric", "picture") //样衣、图片
+                        // 2、服务
+                        serviceType = "bulk"
+                        // 3、快递
+                        
+
 
                         //二、布局控制
                         //1、类型选择
-                        LogUtil.d("这是啥：${provideList.size}")
                         itemEntityTypeChoose.mChooseTypes = provideList
+                        //2、服务
+                        itemEntityService.mServiceProduce.set(BaseSingleChoiceEntity(serviceType, serviceType.dictionaryServiceCorrespondeKeyToValue()))//对应服务
+                        itemEntityService.mServiceType.set(BaseSingleChoiceEntity(productionType, productionType.dictionaryServiceTypeKeyToValue()))//服务类型
 
                         //end 刷新列表
                         CLEAR_LIST_DATA.putValue(Unit)
