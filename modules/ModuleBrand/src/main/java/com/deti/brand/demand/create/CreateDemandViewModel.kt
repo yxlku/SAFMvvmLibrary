@@ -42,6 +42,7 @@ import kotlin.collections.ArrayList
 
 class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>(app) {
 
+    /*********************** LiveData - Start****************************/
     /** 快递列表弹窗*/
     val DIALOG_EXPRESS_LIST = SingleLiveEvent<java.util.ArrayList<BaseSingleChoiceEntity>>()
     /** 款式分类*/
@@ -59,6 +60,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     val CLEAR_LIST_DATA = SingleLiveEvent<Unit>()
     /** 选择图片布局中的删除*/
     val PIC_CHOOSE = "pic_choose"
+    /*********************** LiveData - End****************************/
+
+    /*********************** 其他 - Start****************************/
 
     /** 图片列表 TODO 还没搞完*/
     var mPicListDatas = arrayListOf<String>("", "", "", "", "")
@@ -72,6 +76,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 请求数据：款式数据*/
     var mNetDataStyleType: DemandStyleTypeEntity? = null
 
+
+    /*********************** RecyclerView - Start****************************/
     /** 列表实体类集合*/
     var itemListEntitys = arrayListOf<Any>()
 
@@ -108,7 +114,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     lateinit var itemEntityInputRemark : ItemRemarkEntity
     /** 下单按钮*/
     lateinit var itemEntityPlaceOrder : ItemPlaceOrderEntity
-
+    /*********************** RecyclerView - End****************************/
     /**
      * 清空所有数据
      */

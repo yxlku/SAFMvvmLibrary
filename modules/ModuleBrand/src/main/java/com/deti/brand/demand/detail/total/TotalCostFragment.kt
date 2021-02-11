@@ -53,7 +53,7 @@ class TotalCostFragment: BaseLazyFragment<BrandFragmentCostTotalBinding, TotalCo
         LiveDataBus.observe<TotalCostResultEntity>(this, LIVE_DATA_TOTAL_COST, {
             var listData = arrayListOf(
                 ItemChooseEntity("", "物料合计", it.materialPrice, "元"),
-                ItemChooseEntity("", "特殊工艺合计", "没找着。。。", "元"),
+                ItemChooseEntity("", "特殊工艺合计", it.technologyPrice, "元"),
                 ItemChooseEntity("", "其他费用", it.otherPrice, "元"),
                 ItemChooseEntity("", "测试标准", it.standard),
                 ItemChooseEntity("", "安全技术要求", it.safetyCategory),

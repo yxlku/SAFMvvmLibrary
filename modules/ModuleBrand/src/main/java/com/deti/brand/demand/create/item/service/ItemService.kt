@@ -18,8 +18,6 @@ class ItemService(
     var activity: Activity?,
     var mViewModel: CreateDemandViewModel? = null
 ): QuickDataBindingItemBinder<ItemServiceEntity, BrandItemDemandServiceBinding>() {
-    var mPositionServiceType: Int = 0
-    var mPositionServiceProduce: Int = 0
     /** 服务类型*/
     var serviceTypeData = arrayListOf(
         BaseSingleChoiceEntity(DictionaryServiceType.PRODUCE.key, DictionaryServiceType.PRODUCE.value),
