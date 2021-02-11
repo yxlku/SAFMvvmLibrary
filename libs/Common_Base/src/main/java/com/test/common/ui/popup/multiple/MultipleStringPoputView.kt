@@ -19,18 +19,18 @@ class MultipleStringPoputView(
     var mActivit: Activity,
     var mTitle: String = "",
     var mData: List<BaseMultipleChoiceEntity> = arrayListOf(),
+    /** 选中的数据*/
+    var mSelectIds: List<String> = arrayListOf(),
     var mHeightMultiple: Float = 0.7F,
     /** 是否显示标题栏tip*/
     var isShowTip: Boolean = false,
     /** 标题栏tip点击事件*/
     var tipBlock: (basePopupView: BasePopupView, view: View) -> Unit = {basePopupView: BasePopupView, view: View -> },
-    /** item选中的时间*/
-    var itemCallback: ((buttonView: CompoundButton?, isChecked: Boolean, entity: BaseMultipleChoiceEntity) -> Unit?)? = null,
     /** 确定按钮*/
     var sureBlock: (basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter) -> Unit = {basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter ->}
 ): BottomPopupView(mActivit), View.OnClickListener {
 
-    var mAdapter = MultipleChoiceAdapter(itemCallback)
+    var mAdapter = MultipleChoiceAdapter()
 
     override fun getImplLayoutId(): Int = R.layout.base_dialog_list
 
@@ -60,12 +60,23 @@ class MultipleStringPoputView(
             }
         })
 
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            var data = adapter.data[position] as BaseMultipleChoiceEntity
+            data.isSelected = !data.isSelected
+            adapter.notifyDataSetChanged()
+        }
+        mData.forEach {
+            if (mSelectIds.contains(it.id)) {
+                it.isSelected = true
+            }
+        }
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
         rv_content.apply {
             layoutManager = LinearLayoutManager(mActivit)
             adapter = mAdapter
         }
         mAdapter.setList(mData)
+
     }
 
 

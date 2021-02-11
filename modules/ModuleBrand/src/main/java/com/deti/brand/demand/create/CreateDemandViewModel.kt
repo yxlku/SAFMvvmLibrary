@@ -254,7 +254,25 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             mModel.requestFindDemandIndentInfo(pDemandId).flowDataDeal(
                 loadingModel = LoadingModel.LOADING,
                 onSuccess = {
-                    LogUtil.d("拉取信息成功！！！")
+                    it?.data?.demandIndent?.apply {
+                        //一、模拟数据:
+                        // 1、类型选择
+                        provideList = arrayListOf("sample", "fabric", "picture") //样衣、图片
+
+                        //二、布局控制
+                        //1、类型选择
+                        LogUtil.d("这是啥：${provideList.size}")
+                        itemEntityTypeChoose.mChooseTypes = provideList
+
+                        //end 刷新列表
+                        CLEAR_LIST_DATA.putValue(Unit)
+                    }
+                },
+                onError = {
+                    ToastUtil.showShortToast("选中了")
+                },
+                onFaile = {code: String, msg: String ->
+                    LogUtil.d("msg")
                 }
             )
         }

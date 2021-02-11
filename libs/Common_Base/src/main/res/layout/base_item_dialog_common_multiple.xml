@@ -11,27 +11,32 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-
+        android:paddingStart="20mm"
+        android:paddingEnd="20mm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:paddingStart="20mm"
+        <androidx.appcompat.widget.AppCompatTextView
             android:paddingTop="18mm"
             android:paddingEnd="20mm"
             android:paddingBottom="18mm"
             android:id="@+id/cb_item"
-            android:layout_width="match_parent"
+            android:layout_width="0mm"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:checked="@{entity.selected}"
-            android:drawableRight="@drawable/base_dialog_checkbox_selector"
             android:text="@{entity.text}"
             android:textColor="#1B2643" />
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_img"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

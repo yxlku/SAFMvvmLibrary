@@ -13,6 +13,7 @@ import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -115,7 +116,7 @@ abstract class BaseViewModel<M: BaseModel>(
         /** 请求成功但是返回错误*/
         onFaile: (code: String, msg: String) -> Unit = {code: String, msg: String ->},
         /** 错误状态、不能成功请求（无网络） */
-        onError: (ex: Throwable) -> Unit? = {}
+        onError: (ex: Throwable) -> Unit = {}
     ){
         //基类所有操作都是遵循：1、统一封装；2、调用回调函数到调用者返回去处理自定义操作
         this.onStart {
@@ -127,10 +128,11 @@ abstract class BaseViewModel<M: BaseModel>(
                 //异常处理
                 when(it){
                     is MalformedJsonException -> {
-                        LogUtil.exception("数据异常", it)
+                        LogUtil.exception("数据异常onError：", it)
                     }
                 }
                 //TODO 增加Msg字段，前台直接提示Msg
+                LogUtil.exception("数据异常onError：", it)
                 onError(it)
                 showLoadPageState(loadingModel, LoadState.ERROR)
             }

@@ -41,10 +41,10 @@ class CreateDemandModel: BaseModel(){
     /**
      * 款式分类
      */
-    fun requestStyleInfo(): Flow<BaseNetEntity<DemandStyleTypeEntity>?>{
+    fun requestStyleInfo(): Flow<BaseNetEntity<DemandStyleTypeEntity?>?>{
         return flowOnIO {
             var body = hashMapOf<String, String?>()
-            return@flowOnIO mHttpDataSource?.requestStyleInfo(body) as BaseNetEntity<DemandStyleTypeEntity>
+            return@flowOnIO mHttpDataSource?.requestStyleInfo(body)
         }
     }
 
@@ -85,7 +85,7 @@ class CreateDemandModel: BaseModel(){
         return flowOnIO {
             var body = hashMapOf<String, Any?>()
             body.put("entity.id", pDemandId)
-            mHttpDataSource?.requestFindDemandIndentInfo(body)
+            return@flowOnIO mHttpDataSource?.requestFindDemandIndentInfo(body)
         }
     }
 
@@ -96,10 +96,6 @@ class CreateDemandModel: BaseModel(){
         mViewModel: CreateDemandViewModel,
     ): Flow<BaseNetEntity<CommoneEmpty?>?> {
         //选择类型
-        var provideList = arrayListOf<String>()
-        mViewModel.itemEntityTypeChoose.mChooseTypes.forEach {
-            provideList.add(it.id)
-        }
         //正面照 TODO 还没搞
         var frontImage = mViewModel.mPicListDatas[0]
         //背面照
@@ -110,11 +106,11 @@ class CreateDemandModel: BaseModel(){
         return flowOnIO {
             var body = hashMapOf<String, Any?>()
             body.apply {
-                put("demandIndent.provideList", provideList)        //选择的类型
                 put("demandIndent.frontImage", frontImage)          //图片
                 put("demandIndent.backImage", backImage)
                 put("demandIndent.detailsImageList", detailsImageList)
                 mViewModel.apply {
+                    put("demandIndent.provideList", itemEntityTypeChoose.mChooseTypes)        //选择的类型
                     put("demandIndent.productionType", itemEntityService.mServiceType.get()?.id)
                     put("demandIndent.serviceType", itemEntityService.mServiceProduce.get()?.id)
                     put("demandIndent.fabricInfo", itemEntityFabric.filePath.get()) // 面料信息
@@ -134,7 +130,7 @@ class CreateDemandModel: BaseModel(){
                     put("demandIndent.colorList", itemEntityFormSizeCount.mColorSizeCountDatas) //颜色
                 }
             }
-            mHttpDataSource?.requestDemandSubmit(body)
+            return@flowOnIO mHttpDataSource?.requestDemandSubmit(body)
         }
     }
 

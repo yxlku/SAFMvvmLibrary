@@ -9,9 +9,7 @@ import com.test.common.R
 import com.test.common.databinding.BaseItemDialogCommonMultipleBinding
 import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
 
-class MultipleChoiceAdapter(
-    var callback: ((buttonView: CompoundButton?, isChecked: Boolean, entity: BaseMultipleChoiceEntity) -> Unit?)? = null,
-): BaseQuickAdapter<BaseMultipleChoiceEntity, BaseDataBindingHolder<BaseItemDialogCommonMultipleBinding>>(
+class MultipleChoiceAdapter: BaseQuickAdapter<BaseMultipleChoiceEntity, BaseDataBindingHolder<BaseItemDialogCommonMultipleBinding>>(
     R.layout.base_item_dialog_common_multiple
 ) {
     override fun convert(
@@ -21,9 +19,10 @@ class MultipleChoiceAdapter(
 
         holder.dataBinding?.apply {
             entity = item
-            cbItem.setOnCheckedChangeListener { buttonView, isChecked ->
-                item.isSelected = isChecked
-                callback?.let { it(buttonView, isChecked, item) }
+            if (item.isSelected) {
+                ivImg.setImageResource(R.drawable.base_dialog_checkbox_selected)
+            }else{
+                ivImg.setImageResource(R.drawable.base_dialog_checkbox_unselect)
             }
             executePendingBindings()
         }

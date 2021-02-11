@@ -9,21 +9,22 @@ import com.deti.brand.databinding.BrandItemDemandTypeChooseBinding
 import com.deti.brand.demand.create.CreateDemandViewModel
 import com.deti.brand.demand.create.item.IItemIsShow
 import com.lxj.xpopup.core.BasePopupView
+import com.safmvvm.bus.putValue
+import com.safmvvm.utils.LogUtil
 import com.test.common.dictionary.DictionaryDemandType
-import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.dictionary.dictionaryDemandTypeKeyToValue
 import com.test.common.ui.popup.custom.tip.createDialogTitleTipBottom
-import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.multiple.BaseMultipleChoiceEntity
 import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
 import com.test.common.ui.popup.multiple.createDialogSelectedMultiple
-import java.util.ArrayList
 
 /**
  * 服务类型选择
  */
 class ItemDeamndTypeChoose(
     var activity: Activity?,
-    var mViewModel: CreateDemandViewModel
+    var mViewModel: CreateDemandViewModel,
+    var scrollTop: () -> Unit = {}
 ): QuickDataBindingItemBinder<ItemDeamandTypeChooseEntity, BrandItemDemandTypeChooseBinding>() {
     override fun onCreateDataBinding(
         layoutInflater: LayoutInflater,
@@ -48,12 +49,33 @@ class ItemDeamndTypeChoose(
         holder.dataBinding.apply {
             entity = data
             viewModel = mViewModel
+            //弹出选择框
             holder.itemView.setOnClickListener {
                 //选择类型
                 showChooseType(data)
             }
             executePendingBindings()
         }
+    }
+
+
+    fun updateUIData(
+        entity: ItemDeamandTypeChooseEntity,
+        selectedIds: ArrayList<String>
+    ){
+        //1、清空所有类型布局
+        chooseTypesClear()
+        //2、显示选中类型布局
+        chooseTypesShow(selectedIds)
+        //3、赋值到实体中
+        entity.mChooseTypes = selectedIds
+        //4、显示选中类型的文字
+        var showTextSb = StringBuilder()
+        selectedIds.forEach {
+            showTextSb.append(it.dictionaryDemandTypeKeyToValue()).append(" / ")
+        }
+        //类型布局显示的文字
+        entity.showText.set(showTextSb.toString())
     }
 
     /**
@@ -64,24 +86,18 @@ class ItemDeamndTypeChoose(
             var mPopupChooseType = mItemTypeChooseDatas.createDialogSelectedMultiple(
                 this, "请选择服务类型",
                 isShowTip = true,
+                mSelectIds = entity.mChooseTypes,
                 tipBlock = { basePopupView: BasePopupView, view: View ->
                     "选择您目前有的信息给我们，根据已有信息提供报价。".createDialogTitleTipBottom(this, view).show()
                 },
                 sureBlock = { basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter ->
                     //选中后
-                    //1、清空所有类型布局
-                    chooseTypesClear()
-                    //2、显示选中类型布局
-                    chooseTypesShow(selectedData)
-                    //3、赋值到实体中
-                    entity.mChooseTypes = selectedData
-                    //4、显示选中类型的文字
-                    var showTextSb = StringBuilder()
+                    var ids = arrayListOf<String>()
                     selectedData.forEach {
-                        showTextSb.append(it.text).append(" / ")
+                        ids.add(it.id)
                     }
-                    //类型布局显示的文字
-                    entity.showText.set(showTextSb.toString())
+                    updateUIData(entity, ids)
+//                    mViewModel.CLEAR_LIST_DATA.putValue(Unit)
                     //5、关闭弹窗
                     basePopupView.dismiss()
                 }
@@ -93,15 +109,16 @@ class ItemDeamndTypeChoose(
     /**
      * 显示选中布局
      */
-    fun chooseTypesShow(selectedDatas: ArrayList<BaseMultipleChoiceEntity>){
+    fun chooseTypesShow(selectedDatas: ArrayList<String>){
         selectedDatas.forEach {
-            when (it.id) {
+            when (it) {
                 DictionaryDemandType.TYPE_PICTURE.key, DictionaryDemandType.TYPE_LAYOUT.key -> addOrRemove(mViewModel.itemEntityPic, true)//图片、设计稿
                 DictionaryDemandType.TYPE_FABRIC.key -> addOrRemove(mViewModel.itemEntityFabric, true)               //面料信息
                 DictionaryDemandType.TYPE_SAMPLE.key -> addOrRemove(mViewModel.itemEntitySamplelothes, true)         //样衣
                 DictionaryDemandType.TYPE_PRODUCTION_STANDARD.key -> addOrRemove(mViewModel.itemEntityPlate, true)   //制版文件
             }
         }
+
     }
 
     /**
@@ -119,5 +136,6 @@ class ItemDeamndTypeChoose(
     fun addOrRemove(item: IItemIsShow, isShow: Boolean){
         item.isShow = isShow
         adapter.notifyDataSetChanged()
+        scrollTop()
     }
 }

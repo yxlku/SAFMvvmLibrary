@@ -12,6 +12,8 @@ data class DemandInfoEntity(
 
 data class DemandIntentEntity(
     var brandId: String = "",
+    /** 类型*/
+    var provideList: ArrayList<String> = arrayListOf(),
     /** 对应服务 -- TODO 这两个字段名字是反的*/
     var serviceType: String = "",
     /** 服务类型*/
@@ -40,8 +42,8 @@ data class DemandIntentEntity(
     var classify: String = "",
     /** 单价*/
     var unitPrice: String = "",
-    /** 交期*/
-    var deliveryDate: String = "",
+//    /** 交期*/
+//    var deliveryDate: String = "",
     /** 备注*/
     var comment: String = "",
     /** 尺码组ID*/

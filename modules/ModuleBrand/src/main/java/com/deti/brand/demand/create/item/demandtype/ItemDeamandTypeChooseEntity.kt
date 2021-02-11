@@ -10,7 +10,7 @@ data class ItemDeamandTypeChooseEntity(
     /** 选中后显示的文字*/
     var showText: ObservableField<String> = ObservableField(),
     /** 类型选择*/
-    var mChooseTypes: ArrayList<BaseMultipleChoiceEntity> = arrayListOf<BaseMultipleChoiceEntity>()
+    var mChooseTypes: ArrayList<String> = arrayListOf()
 )
 
 

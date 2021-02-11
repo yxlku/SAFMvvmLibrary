@@ -1,6 +1,18 @@
 package com.test.common.dictionary
 
 /**
+ * 通过key找到value
+ */
+fun String.dictionaryDemandTypeKeyToValue(): String{
+    DictionaryDemandType::class.java.enumConstants?.forEach {
+        if (it.key == this) {
+            return it.value
+        }
+    }
+    return ""
+}
+
+/**
  * 需求类型
  */
 enum class DictionaryDemandType(val key: String, val value: String) {

@@ -6,6 +6,7 @@ import android.widget.CompoundButton
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.app.BaseApp
+import com.test.common.ui.popup.createDialogBase
 import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
 
 /**
@@ -14,23 +15,21 @@ import com.test.common.ui.popup.multiple.adapter.MultipleChoiceAdapter
 fun List<BaseMultipleChoiceEntity>.createDialogSelectedMultiple(
     activity: Activity,
     title: String,
-    block: () -> Unit = {},
+    /** 选中的数据*/
+    mSelectIds: List<String> = arrayListOf(),
+    block: (builder: XPopup.Builder) -> Unit = {},
     /** 是否显示标题栏tip*/
     isShowTip: Boolean = false,
     /** 标题栏tip点击事件*/
     tipBlock: (basePopupView: BasePopupView, view: View) -> Unit = { basePopupView: BasePopupView, view: View -> },
-    callback: ((buttonView: CompoundButton?, isChecked: Boolean, entity: BaseMultipleChoiceEntity) -> Unit?)? = null,
     sureBlock: (basePopupView: BasePopupView, selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter) -> Unit = {basePopupView: BasePopupView,  selectedData: ArrayList<BaseMultipleChoiceEntity>, unSelectedData: ArrayList<BaseMultipleChoiceEntity>, adapter: MultipleChoiceAdapter ->}
-): BasePopupView = XPopup.Builder(BaseApp.getInstance()).apply {
-    //如果不加这个，评论弹窗会移动到软键盘上面
-    moveUpToKeyboard(false)
-    //允许拖拽
-    enableDrag(true)
-    //对于只使用一次的弹窗，推荐设置这个
-    isDestroyOnDismiss(false)
-}.apply {
-    block()
-}.asCustom(MultipleStringPoputView(activity, title, this, isShowTip = isShowTip, tipBlock = tipBlock, itemCallback = callback, sureBlock = sureBlock))
+): BasePopupView {
+    return createDialogBase(
+        MultipleStringPoputView(activity, title, this, mSelectIds, isShowTip = isShowTip, tipBlock = tipBlock, sureBlock = sureBlock)
+    ){
+        block(it)
+    }
+}
 
 
 
