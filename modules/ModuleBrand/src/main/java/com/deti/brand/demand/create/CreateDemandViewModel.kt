@@ -29,6 +29,7 @@ import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
+import com.safmvvm.utils.format2DateString
 import com.test.common.dictionary.dictionaryServiceCorrespondeKeyToValue
 import com.test.common.dictionary.dictionaryServiceTypeKeyToValue
 import com.test.common.entity.CommonFindSizeEntity
@@ -259,12 +260,25 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                     it?.data?.demandIndent?.apply {
                         //一、模拟数据:
                         // 1、类型选择
-                        provideList = arrayListOf("sample", "fabric", "picture") //样衣、图片
+                        provideList = arrayListOf("sample", "fabric", "picture", "layout", "production_standard") //样衣、图片
                         // 2、服务
                         serviceType = "bulk"
                         // 3、快递
-                        
-
+                        sampleDressExpressId = "123333333"
+                        // 4、图片 TODO 统一处理
+                        // 5、面料信息
+                        fabricInfo = "file://test.apk"
+                        // 6、制版文件
+                        makeFilePath = "file://假制版文件地址.zip"
+                        // 7、款式分类
+                        // 8、尺码类型
+                        // 9、颜色选择
+                        // 10、尺码数量
+                        // 11、预算单价
+                        unitPrice = "888"
+                        // 12、设置交期
+                        // 13、备注
+                        comment += "：备注"
 
                         //二、布局控制
                         //1、类型选择
@@ -272,6 +286,27 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         //2、服务
                         itemEntityService.mServiceProduce.set(BaseSingleChoiceEntity(serviceType, serviceType.dictionaryServiceCorrespondeKeyToValue()))//对应服务
                         itemEntityService.mServiceType.set(BaseSingleChoiceEntity(productionType, productionType.dictionaryServiceTypeKeyToValue()))//服务类型
+                        //3、样衣快递
+                        itemEntitySamplelothes.apply {
+                            mExpressSingleChoiceEntity.set(BaseSingleChoiceEntity(sampleDressExpressType, sampleDressExpressType)) //快递类型
+                            mExpressNum.set(sampleDressExpressId) // 快递单号
+                        }
+                        //4、图片 TODO
+                        // 5、面料信息
+                        itemEntityFabric.filePath.set(fabricInfo)
+                        // 6、制版文件
+                        itemEntityPlate.filePath.set(makeFilePath)
+                        // 7、款式分类
+                        // 8、尺码类型
+                        // 9、颜色选择
+                        // 10、尺码数量
+                        // 11、预算单价
+                        itemEntityInputPrice.contentText.set(unitPrice)
+                        // 12、设置交期
+                        itemEntityFormTime.contentText.set(deliveryDate.time.format2DateString())
+                        // 13、备注
+                        itemEntityInputRemark.contentText.set(comment)
+
 
                         //end 刷新列表
                         CLEAR_LIST_DATA.putValue(Unit)

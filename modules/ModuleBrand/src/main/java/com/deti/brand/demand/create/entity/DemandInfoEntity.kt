@@ -1,6 +1,7 @@
 package com.deti.brand.demand.create.entity
 
 import com.test.common.entity.CommonColorEntity
+import com.test.common.entity.CommonDateEntity
 import java.io.Serializable
 
 /**
@@ -28,7 +29,7 @@ data class DemandIntentEntity(
     var makeFilePath: String = "",
     /** 正面图片*/
     var frontImage: String = ""
-    /** 背面图片*/,
+    /** 背面图片*/ ,
     var backImage: String = "",
     /** 详细图片列表*/
     var detailsImageList: List<String> = arrayListOf(),
@@ -43,7 +44,7 @@ data class DemandIntentEntity(
     /** 单价*/
     var unitPrice: String = "",
 //    /** 交期*/
-//    var deliveryDate: String = "",
+    var deliveryDate: CommonDateEntity = CommonDateEntity(),
     /** 备注*/
     var comment: String = "",
     /** 尺码组ID*/
