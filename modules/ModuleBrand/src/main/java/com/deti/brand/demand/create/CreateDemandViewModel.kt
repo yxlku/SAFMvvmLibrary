@@ -208,7 +208,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
             //下单按钮
             ItemTransparentLineEntity(),
-            itemEntityPlaceOrder,
+            itemEntityPlaceOrder.apply {
+                contentText.set("确认下单")
+            },
             ItemTransparentLineEntity(),
         )
     }
@@ -228,7 +230,34 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         super.onCreate(owner)
         //初始化列表UI
         initInfoUI()
+    }
 
+    /**
+     * 订单修改页面初始化
+     */
+    fun initUpdateDemand(pDemandId: String?){
+        pDemandId?.apply {
+            //1、修改订单时一定不显示完善个人信息，
+            itemEntityPersonal.isShow = false
+            //2、修改提交按钮文字为修改
+            itemEntityPlaceOrder.contentText.set("确认修改")
+            //3、请求要修改需求订单的数据 - 并展示数据
+            requestFindDemandIndentInfo(pDemandId)
+        }
+    }
+
+    /**
+     * 获取订单信息 - 只有修改信息页面中才会调用此方法
+     */
+    fun requestFindDemandIndentInfo(pDemandId: String){
+        launchRequest {
+            mModel.requestFindDemandIndentInfo(pDemandId).flowDataDeal(
+                loadingModel = LoadingModel.LOADING,
+                onSuccess = {
+                    LogUtil.d("拉取信息成功！！！")
+                }
+            )
+        }
     }
 
     /** 清除信息：尺码类型*/

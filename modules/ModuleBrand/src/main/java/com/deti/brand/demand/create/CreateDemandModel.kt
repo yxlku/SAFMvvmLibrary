@@ -2,6 +2,7 @@ package com.deti.brand.demand.create
 
 import com.deti.brand.BrandApiService
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
+import com.deti.brand.demand.create.entity.DemandInfoEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.model.BaseModel
@@ -76,11 +77,24 @@ class CreateDemandModel: BaseModel(){
     }
 
     /**
+     * 订单信息 - 修改订单前拉取信息
+     */
+    fun requestFindDemandIndentInfo(
+        pDemandId: String
+    ): Flow<BaseNetEntity<DemandInfoEntity?>?> {
+        return flowOnIO {
+            var body = hashMapOf<String, Any?>()
+            body.put("entity.id", pDemandId)
+            mHttpDataSource?.requestFindDemandIndentInfo(body)
+        }
+    }
+
+    /**
      * 提交需求
      */
     fun requestDemandSubmit(
         mViewModel: CreateDemandViewModel,
-    ): Flow<BaseNetEntity<CommoneEmpty>?>{
+    ): Flow<BaseNetEntity<CommoneEmpty?>?> {
         //选择类型
         var provideList = arrayListOf<String>()
         mViewModel.itemEntityTypeChoose.mChooseTypes.forEach {
@@ -120,9 +134,11 @@ class CreateDemandModel: BaseModel(){
                     put("demandIndent.colorList", itemEntityFormSizeCount.mColorSizeCountDatas) //颜色
                 }
             }
-            return@flowOnIO mHttpDataSource?.requestDemandSubmit(body) as BaseNetEntity<CommoneEmpty>
+            mHttpDataSource?.requestDemandSubmit(body)
         }
     }
+
+
 
 
 }

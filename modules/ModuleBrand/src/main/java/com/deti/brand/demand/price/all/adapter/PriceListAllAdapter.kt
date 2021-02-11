@@ -97,7 +97,7 @@ class PriceListAllAdapter(
         btnAdapter.setOnItemClickListener { adapter, view, position ->
             //按钮点击事件
             var data = adapter.data[position] as CommonListBtnsEntity
-            controlBtnsClick(data.id)
+            controlBtnsClick(data.id, item)
         }
         btnAdapter.setList(controlBtns(item))
     }
@@ -282,7 +282,7 @@ class PriceListAllAdapter(
      * 控制按钮点击事件
      * @param btnState 按钮状态
      */
-    fun controlBtnsClick(btnState: String){
+    fun controlBtnsClick(btnState: String, item: PriceListAllEntity){
         when (btnState) {
             BTN_LOGISTICS -> {
                 //查看物流
@@ -290,7 +290,11 @@ class PriceListAllAdapter(
             }
             BTN_MODIFY -> {
                 //我要修改
-                UpdateDemandActivity.startAction(mActivity)
+                if (item.indentId.isNotEmpty()) {
+                    UpdateDemandActivity.startAction(mActivity, item.indentId)
+                }else{
+                    ToastUtil.showShortToast("订单异常，请刷新列表")
+                }
             }
             BTN_SCHEDULE -> {
                 //查看进度

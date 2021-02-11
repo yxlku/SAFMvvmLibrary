@@ -46,8 +46,7 @@ class ItemPersonalInfoTip(
 //        RouterUtil.startActivity(RouterActivityPath.ModuleBasis.PAGE_PERFECT_PERSONAL)
 
         activty?.apply {
-//            createDialogGoodsDetail(this).show()
-            UpdateDemandActivity.startAction(this)
+            createDialogGoodsDetail(this).show()
         }
     }
 

@@ -33,6 +33,7 @@ import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.UserInfoEntity
@@ -53,16 +54,26 @@ import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
+import com.zlylib.fileselectorlib.utils.LogUtils
 import java.io.Serializable
 import java.util.*
 
 /**
  * 创建需求
  */
-class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
+class CreateDemandFragment(
+    /** 要修改的需求单ID*/
+    var pDemandId: String? = null,
+): BaseFragment<BrandFragmentDemandCreateBinding, CreateDemandViewModel>(
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
+    /** 弹窗：款式选择*/
+    var mPopupViewStyle: BasePopupView? = null
+    /** 弹窗：颜色选择*/
+    var mPopupViewColor: BasePopupView? = null
+    /** 弹窗：颜色对应尺寸数量*/
+    var mPopupViewColorSize: BasePopupView? = null
 
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
@@ -80,6 +91,8 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
         )
         //初始化列表
         initRecyclerView()
+        //修改订单
+        mViewModel.initUpdateDemand(pDemandId)
     }
 
     /**
@@ -123,12 +136,6 @@ class CreateDemandFragment : BaseFragment<BrandFragmentDemandCreateBinding, Crea
 ////        //TODO 个人信息完善，需要判断显示 -- vm中判断显示
 //        addOrRemove(mViewModel.itemEntityPersonal, true)
     }
-    /** 弹窗：款式选择*/
-    var mPopupViewStyle: BasePopupView? = null
-    /** 弹窗：颜色选择*/
-    var mPopupViewColor: BasePopupView? = null
-    /** 弹窗：颜色对应尺寸数量*/
-    var mPopupViewColorSize: BasePopupView? = null
 
     override fun initUiChangeLiveData() {
         super.initUiChangeLiveData()
