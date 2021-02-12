@@ -28,6 +28,7 @@ import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.DefaultDateFormat
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.format2DateString
 import com.test.common.dictionary.dictionaryServiceCorrespondeKeyToValue
@@ -47,7 +48,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /*********************** LiveData - Start****************************/
     /** 快递列表弹窗*/
-    val DIALOG_EXPRESS_LIST = SingleLiveEvent<java.util.ArrayList<BaseSingleChoiceEntity>>()
+    val DIALOG_EXPRESS_LIST = SingleLiveEvent<ArrayList<BaseSingleChoiceEntity>>()
     /** 款式分类*/
     val FORM_STYLE_TYPE = SingleLiveEvent<TypesTreeViewEntity>()
     /** 尺码类型*/
@@ -55,9 +56,9 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     /** 选择颜色*/
     val FORM_COLORS = SingleLiveEvent<DemandColorListEntity>()
     /** 选择尺码数量*/
-    val FORM_SIZE_COUNT = SingleLiveEvent<java.util.ArrayList<FirstNodeEntity>>()
+    val FORM_SIZE_COUNT = SingleLiveEvent<ArrayList<FirstNodeEntity>>()
     /** 时间选择*/
-    val FORM_TIME = SingleLiveEvent<ItemFormChooseEntity>()
+    val FORM_TIMES = SingleLiveEvent<Unit>()
 
     /** 提交后清空列表数据*/
     val CLEAR_LIST_DATA = SingleLiveEvent<Unit>()
@@ -296,14 +297,16 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         itemEntityFabric.filePath.set(fabricInfo)
                         // 6、制版文件
                         itemEntityPlate.filePath.set(makeFilePath)
+
                         // 7、款式分类
                         // 8、尺码类型
                         // 9、颜色选择
                         // 10、尺码数量
+
                         // 11、预算单价
                         itemEntityInputPrice.contentText.set(unitPrice)
                         // 12、设置交期
-                        itemEntityFormTime.contentText.set(deliveryDate.time.format2DateString())
+                        itemEntityFormTime.contentText.set(deliveryDate.time.format2DateString(DefaultDateFormat.DATE_YMD))
                         // 13、备注
                         itemEntityInputRemark.contentText.set(comment)
 
@@ -354,7 +357,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         when (entity.tag) {
             ItemFormChooseType.CHOOSE_STYLE -> formClickChooseStyle(view, entity) //款式选择
             ItemFormChooseType.CHOOSE_SIZE_TYPE -> formClickChooseSizeType(view, entity) //尺码类型
-            ItemFormChooseType.CHOOSE_TIME -> formClickChooseTime(view, entity) //尺码类型
+            ItemFormChooseType.CHOOSE_TIME -> formClickChooseTime(view, entity) //时间选择
             ItemFormChooseType.CHOOSE_COLOR -> formClickChooseColor(view, entity) //选择颜色
             ItemFormChooseType.CHOOSE_SIZE_COUNT -> formClickChooseSizeCount(view, entity) //选择尺码数量
         }
@@ -467,7 +470,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 交期*/
     fun formClickChooseTime(view: View, entity: ItemFormChooseEntity){
-        FORM_TIME.putValue(entity)
+        FORM_TIMES.putValue(Unit)
     }
 
 

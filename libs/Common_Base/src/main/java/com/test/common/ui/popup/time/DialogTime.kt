@@ -17,9 +17,7 @@ fun dialogTimeWheel(
 ): BasePopupView {
     return createDialogBase(
         DatePopupView(activity, title, block)
-    ){
-
-    }
+    )
 }
 
 @Deprecated("请使用 dialogTimeWheel() ")

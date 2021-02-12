@@ -247,7 +247,7 @@ class CreateDemandFragment(
                 it?.run {
                     mPopupViewColorSize?.apply {
                         this.show()
-                    } ?: run{
+                    } ?: run {
                         mPopupViewColorSize = createDialogSizeCount(this@apply, "选择尺码和设置数量", this) {
                                 adapter: SizeCountAdapter,
                                 resultData: ArrayList<CommonColorEntity>,
@@ -264,8 +264,10 @@ class CreateDemandFragment(
                     }
                 }
             }
-            /** 时间选择*/
-            mViewModel.FORM_TIME.observe(this) { _ ->
+        }
+        /** 时间选择*/
+        mViewModel.FORM_TIMES.observe(this) {
+                LogUtil.d("sssssssssssssssss")
                 activity?.apply {
                     dialogTimeWheel(this,
                         "请选择时间") { millisecond: Long, time: String, popupView: BasePopupView ->
@@ -285,8 +287,8 @@ class CreateDemandFragment(
                 }
             }
 
-
-            LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, mViewModel.PIC_CHOOSE, {
+        /** 图片选择 TODO 未完成 统一整理*/
+        LiveDataBus.observe<Triple<ItemPicChooseItemEntity, String, Int>>(this, mViewModel.PIC_CHOOSE, {
                 var entity = it.first
                 var picFilePath = it.second
                 var clickItemPos = it.third
@@ -296,6 +298,5 @@ class CreateDemandFragment(
                 mViewModel.mPicListDatas[clickItemPos] = picFilePath
             }, false)
 
-        }
     }
 }
