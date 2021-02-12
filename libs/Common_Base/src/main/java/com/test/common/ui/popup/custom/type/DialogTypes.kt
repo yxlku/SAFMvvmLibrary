@@ -13,6 +13,7 @@ fun createDialogLevelTypes(
     activity: Activity,
     title: String,
     datas: TypesTreeViewEntity,
+    defSelectedCodes: ArrayList<TypesViewDataBean?> = arrayListOf(),
     /** 目录层级*/
     levelCount: Int = 2,
     autoDismiss: Boolean = true,
@@ -20,7 +21,7 @@ fun createDialogLevelTypes(
     selectResultBlock: (result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>) -> Unit = {result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String>->}
 ): BasePopupView {
     return createDialogBase(
-        TypesPopupView(activity, title, datas, levelCount,autoDismiss, selectResultBlock)
+        TypesPopupView(activity, title, datas, defSelectedCodes, levelCount,autoDismiss, selectResultBlock)
     ){
 
     }
