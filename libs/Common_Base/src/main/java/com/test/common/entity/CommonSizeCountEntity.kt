@@ -8,6 +8,7 @@ import java.io.Serializable
 data class CommonSizeCountEntity(
     /** 尺码*/
     var size: String = "",
+    var sizeName: String = "",
     /** 数量*/
     var count: Int = 0
 ): Serializable

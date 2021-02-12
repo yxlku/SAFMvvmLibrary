@@ -23,6 +23,8 @@ class SizeCountPopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var datas: List<FirstNodeEntity> = arrayListOf(),
+    /** 选中的数据*/
+    var mColorSizeCountDatas: ArrayList<CommonColorEntity> = arrayListOf(),
     var mHeightMultiple: Float = 0.7F,
     var block: (adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView) -> Unit = { adapter: SizeCountAdapter, resultData: ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView -> },
 ) : BottomPopupView(mActivit) {
@@ -40,6 +42,22 @@ class SizeCountPopupView(
         super.onCreate()
         var tb_title: TitleBar = findViewById(R.id.tb_title)
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
+
+        //默认选中初始化
+//        datas.forEach { firstEntity ->
+//            mColorSizeCountDatas.forEach {
+//                if (it.colorCode == firstEntity.colorCode) {
+//                    it.sizeToCountList.forEach {
+//                        firstEntity.
+//                    }
+//                }
+//            }
+//        }
+        mColorSizeCountDatas.forEach {
+            //一级列表显示
+            //二级列表显示
+
+        }
 
         tb_title.title = mTitle
         tb_title.setOnTitleBarListener(object : OnTitleBarListener {
@@ -69,7 +87,8 @@ class SizeCountPopupView(
                         if (secondEntity.count > 0) {
                             //设置后的数据
                             sizeCountList.add(
-                                CommonSizeCountEntity(secondEntity.size, secondEntity.count)
+                                //TODO 需要改
+                                CommonSizeCountEntity(secondEntity.size, secondEntity.size, secondEntity.count)
                             )
                             //拼接显示内容
                             resultText.append("【")
@@ -101,6 +120,8 @@ class SizeCountPopupView(
         }
 
         mAdapter.setList(datas)
+
+
 
     }
     /**

@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
+import com.deti.brand.demand.create.entity.TypeChooseBean
 import com.deti.brand.demand.create.item.demandtype.ItemDeamandTypeChooseEntity
 import com.deti.brand.demand.create.item.express.ItemExpressEntity
 import com.deti.brand.demand.create.item.file.ItemUploadFileEntity
@@ -34,12 +35,15 @@ import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.format2DateString
 import com.test.common.dictionary.dictionaryServiceCorrespondeKeyToValue
 import com.test.common.dictionary.dictionaryServiceTypeKeyToValue
+import com.test.common.entity.CommonColorEntity
+import com.test.common.entity.CommonFindSizeDataBean
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
 import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.popup.base.BaseSingleChoiceEntity
+import com.test.common.ui.popup.color.DemandColorDataBean
 import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.toast.ToastDrawableEnum
 import kotlin.collections.ArrayList
@@ -256,24 +260,34 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
      */
     fun requestFindDemandIndentInfo(pDemandId: String){
         launchRequest {
-            mModel.requestFindDemandIndentInfo(pDemandId).flowDataDeal(
+            //TODO 调试时使用的id
+            mModel.requestFindDemandIndentInfo("40288a8b777f4763017780fb346a0029").flowDataDeal(
                 loadingModel = LoadingModel.LOADING,
                 onSuccess = {
                     it?.data?.demandIndent?.apply {
                         //一、模拟数据:
                         // 1、类型选择
-                        provideList = arrayListOf("sample", "fabric", "picture", "layout", "production_standard") //样衣、图片
+//                        provideList = arrayListOf("sample", "fabric", "picture", "layout", "production_standard") //样衣、图片
+                        provideList = arrayListOf(
+                            TypeChooseBean("sample", "样衣"),
+                            TypeChooseBean("fabric", "面料信息"),
+                            TypeChooseBean("picture", "图片"),
+                            TypeChooseBean("layout", "设计稿"),
+                            TypeChooseBean("production_standard", "制版文件"),
+                        ) //样衣、图片
                         // 2、服务
                         serviceType = "bulk"
                         // 3、快递
-                        sampleDressExpressId = "123333333"
+                        sampleDressExpressNumber = "123333333"
                         // 4、图片 TODO 统一处理
                         // 5、面料信息
                         fabricInfo = "file://test.apk"
                         // 6、制版文件
                         makeFilePath = "file://假制版文件地址.zip"
-                        // 7、款式分类
-                        // 8、尺码类型
+                        // 7、款式分类 -- 默认数据
+                        // 8、尺码类型 -- 默认数据
+                        sizeName = "TestSizeName"
+                        sizeId = "40288a8b7766998001776aff6b970036"
                         // 9、颜色选择
                         // 10、尺码数量
                         // 11、预算单价
@@ -284,14 +298,19 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
                         //二、布局控制
                         //1、类型选择
-                        itemEntityTypeChoose.mChooseTypes = provideList
+                        itemEntityTypeChoose.apply {
+                            //显示的文字
+                            showText.set(provideList.map { it.name }.joinToString(separator = " / " ))
+                            //选择后的类型
+                            mChooseTypes = provideList.map { it.code } as ArrayList<String>
+                        }
                         //2、服务
-                        itemEntityService.mServiceProduce.set(BaseSingleChoiceEntity(serviceType, serviceType.dictionaryServiceCorrespondeKeyToValue()))//对应服务
-                        itemEntityService.mServiceType.set(BaseSingleChoiceEntity(productionType, productionType.dictionaryServiceTypeKeyToValue()))//服务类型
+                        itemEntityService.mServiceProduce.set(BaseSingleChoiceEntity(serviceType, serviceTypeText))//对应服务
+                        itemEntityService.mServiceType.set(BaseSingleChoiceEntity(productionType, productionTypeText))//服务类型
                         //3、样衣快递
                         itemEntitySamplelothes.apply {
-                            mExpressSingleChoiceEntity.set(BaseSingleChoiceEntity(sampleDressExpressType, sampleDressExpressType)) //快递类型
-                            mExpressNum.set(sampleDressExpressId) // 快递单号
+                            mExpressSingleChoiceEntity.set(BaseSingleChoiceEntity(sampleDressExpressId, sampleDressExpressType)) //快递类型
+                            mExpressNum.set(sampleDressExpressNumber) // 快递单号
                         }
                         //4、图片 TODO
                         // 5、面料信息
@@ -311,9 +330,44 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                                 add(TypesViewDataBean("", classifyText, classify))
                             }
                         }
-                        // 8、尺码类型
+
+                        // 一、8、9、10的数据处理
+                        // 8、尺码类型、10、尺码数量
+                        if(colorList.size > 0){
+                            var listSizeData = colorList[0].sizeToCountList.map {entity -> entity.sizeName } as ArrayList<String> //尺码类型
+                            itemEntityFormSizeType.apply {
+                                //显示 - 尺码类型
+                                contentText.set(sizeName)
+                                mSizeTypeData = CommonFindSizeDataBean( gender, category, suitType, sizeName, listSizeData).apply { id = sizeId }
+                            }
+                            //10、尺码数量
+                            itemEntityFormSizeCount.apply {
+                                var text = StringBuilder() //显示选中的颜色-尺寸-数量文字
+                                colorList.forEach {
+                                    var colorName = it.name // 颜色名
+                                    it.sizeToCountList.forEach {
+                                        if(it.count > 0){
+                                            text.append("【$colorName: ${it.sizeName} : ${it.count}】")
+                                        }
+                                    }
+                                }
+                                contentText.set(text.toString())
+                                mColorSizeCountDatas = colorList
+                            }
+                        }
                         // 9、颜色选择
-                        // 10、尺码数量
+                        itemEntityFormColor.apply {
+                            contentText.set(colorList.map {
+                                it.name
+                            }.joinToString(separator = " "))
+                            mSelectColorDatas = colorList.map {
+                                DemandColorDataBean().apply {
+                                    this.name = it.name
+                                    this.code = it.colorCode
+                                    this.mIsCheck = true
+                                }
+                            } as ArrayList<DemandColorDataBean>
+                        }
 
                         // 11、预算单价
                         itemEntityInputPrice.contentText.set(unitPrice)
@@ -342,7 +396,6 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         itemEntityFormSizeType.apply {
             contentText.set("")
             mSizeTypeData == null       //尺码类型清空
-            mDialogPositionSizeTypeData = -1
         }
     }
 
@@ -371,7 +424,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
             ItemFormChooseType.CHOOSE_SIZE_TYPE -> formClickChooseSizeType(view, entity) //尺码类型
             ItemFormChooseType.CHOOSE_TIME -> formClickChooseTime(view, entity) //时间选择
             ItemFormChooseType.CHOOSE_COLOR -> formClickChooseColor(view, entity) //选择颜色
-            ItemFormChooseType.CHOOSE_SIZE_COUNT -> formClickChooseSizeCount(view, entity) //选择尺码数量
+            ItemFormChooseType.CHOOSE_SIZE_COUNT -> formClickChooseSizeCount() //选择尺码数量
         }
     }
 
@@ -443,7 +496,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
 
     /** 选择颜色*/
     fun formClickChooseColor(view: View, entity: ItemFormChooseEntity){
-        if (mFindSizeEntityData == null || itemEntityFormSizeType.mSizeTypeData == null) {
+        if (itemEntityFormSizeType.mSizeTypeData == null) {
             ToastUtil.showShortToast("请选择尺码类型")
             return
         }
@@ -461,7 +514,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         }
     }
     /** 选择尺码数量*/
-    fun formClickChooseSizeCount(view: View, entity: ItemFormChooseEntity){
+    fun formClickChooseSizeCount(){
         if (itemEntityFormColor.mSelectColorDatas == null || itemEntityFormColor.mSelectColorDatas.size <= 0) {
             ToastUtil.showShortToast("请选择颜色")
             return

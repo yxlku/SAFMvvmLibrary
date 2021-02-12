@@ -27,6 +27,8 @@ class ColorsPopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var datas: DemandColorListEntity,
+    /** 选中的颜色*/
+    var selectColors: List<DemandColorDataBean> = arrayListOf(),
     var mHeightMultiple: Float = 0.8F,
     /** 点击标题确定返回的结果*/
     var resultBlock: (selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView) -> Unit = {selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView->}
@@ -88,9 +90,14 @@ class ColorsPopupView(
             adapter = adapterSelected
         }
         //选中数据初始化
-        adapterSelected.setList(arrayListOf<DemandColorDataBean>())
+        adapterSelected.setList(arrayListOf())
         //左侧数据初始化
         adapterLeft.setList(datas.pageData)
+
+        //默认选中的数据
+        //1、选中列表
+        adapterSelected.setList(selectColors)
+
         adapterLeft.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                 var mAdapter = adapter as ColorsLeftAdapter

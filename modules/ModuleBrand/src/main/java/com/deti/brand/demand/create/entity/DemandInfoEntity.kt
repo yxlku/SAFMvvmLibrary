@@ -14,17 +14,21 @@ data class DemandInfoEntity(
 data class DemandIntentEntity(
     var brandId: String = "",
     /** 类型*/
-    var provideList: ArrayList<String> = arrayListOf(),
+    var provideList: ArrayList<TypeChooseBean> = arrayListOf(),
     /** 对应服务 -- TODO 这两个字段名字是反的*/
     var serviceType: String = "",
+    var serviceTypeText: String = "",
     /** 服务类型*/
     var productionType: String = "",
+    var productionTypeText: String = "",
     /** 面料信息*/
     var fabricInfo: String = "",
     /** 样衣快递类型*/
     var sampleDressExpressType: String = "",
-    /** 快递单单号*/
+    /** 快递类型Id*/
     var sampleDressExpressId: String = "",
+    /** 快递单号*/
+    var sampleDressExpressNumber: String = "",
     /** 制版文件*/
     var makeFilePath: String = "",
     /** 正面图片*/
@@ -53,6 +57,13 @@ data class DemandIntentEntity(
     var comment: String = "",
     /** 尺码组ID*/
     var sizeId: String = "",
+    /** 尺码组名称*/
+    var sizeName: String = "",
     /** 颜色列表*/
     var colorList: ArrayList<CommonColorEntity> = arrayListOf(),
 ) : Serializable
+
+data class TypeChooseBean(
+    var code: String = "",
+    var name: String = "",
+): Serializable

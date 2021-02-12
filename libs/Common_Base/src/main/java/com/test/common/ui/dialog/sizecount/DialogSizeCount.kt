@@ -20,6 +20,7 @@ fun createDialogSizeCount(
     activity: Activity,
     title: String,
     datas: List<FirstNodeEntity> = arrayListOf(),
+    colorSizeCountDatas: ArrayList<CommonColorEntity>,
     block: (adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>, resultText: String, popupView: BasePopupView)->Unit = {adapter: SizeCountAdapter, resultData:ArrayList<CommonColorEntity>,  resultText: String, popupView: BasePopupView ->}
 ): BasePopupView {
     return createDialogBase(

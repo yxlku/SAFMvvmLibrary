@@ -183,12 +183,11 @@ class CreateDemandFragment(
             activity?.apply {
                 it?.dialogBottomSingle(this@apply,
                     "选择尺码类型",
-                    mViewModel.itemEntityFormSizeType.mDialogPositionSizeTypeData,
+                    selectedBaseSingleChoiceEntity = mViewModel.itemEntityFormSizeType.mSizeTypeData,
                     callback = { data, position ->
                         //1、选中后的数据赋值
                         mViewModel.itemEntityFormSizeType.apply {
                             mSizeTypeData = mViewModel.mFindSizeEntityData?.list?.get(position)
-                            mDialogPositionSizeTypeData = position
                             //1、控制显示到对应item上
                             contentText.set(data.text)
                             //2、清空颜色 和 弹窗
@@ -210,7 +209,9 @@ class CreateDemandFragment(
                     } ?: run {
                         mPopupViewColor = dialogChooseColors(this@apply,
                             "选择颜色",
-                            this) { selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView ->
+                            this,
+                            mViewModel.itemEntityFormColor.mSelectColorDatas
+                        ) { selectDatas: ArrayList<DemandColorDataBean>, selectDatasText: ArrayList<String>, basePopupView: BasePopupView ->
                             //1、选中显示的文字
                             mViewModel.itemEntityFormColor.contentText.set(selectDatasText.joinToString(" "))
                             //2、选中的数据

@@ -13,5 +13,5 @@ data class CommonColorEntity(
     /** 颜色代码*/
     var colorCode: String = "",
     /** 尺码数量列表*/
-    var sizeToCountList: List<CommonSizeCountEntity> = arrayListOf(),
+    var sizeToCountList: ArrayList<CommonSizeCountEntity> = arrayListOf(),
 ): Serializable

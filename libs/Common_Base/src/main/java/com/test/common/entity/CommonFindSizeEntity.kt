@@ -12,10 +12,10 @@ data class CommonFindSizeEntity(
 
 data class CommonFindSizeDataBean(
 //    var id: String = "",
-    /** 二级类别*/
-    var category: String = "",
     /** 一级类别*/
     var gender: String = "",
+    /** 二级类别*/
+    var category: String = "",
     /** 三级类别*/
     var suitType: String = "",
 
