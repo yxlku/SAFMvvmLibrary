@@ -25,6 +25,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
+import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
 import com.safmvvm.ui.toast.ToastUtil
@@ -299,6 +300,17 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         itemEntityPlate.filePath.set(makeFilePath)
 
                         // 7、款式分类
+                        itemEntityFormStyle.apply {
+                            //显示内容、弹窗默认选中
+                            contentText.set("$genderText - $categoryText - $suitTypeText - $classifyText")
+                            //选中的数据
+                            mStyleList.apply {
+                                add(TypesViewDataBean("", genderText, gender))
+                                add(TypesViewDataBean("", categoryText, category))
+                                add(TypesViewDataBean("", suitTypeText, suitType))
+                                add(TypesViewDataBean("", classifyText, classify))
+                            }
+                        }
                         // 8、尺码类型
                         // 9、颜色选择
                         // 10、尺码数量

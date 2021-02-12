@@ -13,10 +13,14 @@ import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.R
 import kotlin.collections.ArrayList
 
+/**
+ * 类型
+ */
 class TypesPopupView(
     var mActivit: Activity,
     var mTitle: String = "",
     var datas: TypesTreeViewEntity,
+    var defSelectedCodes: ArrayList<TypesViewDataBean?> = arrayListOf(),
     var levelCount: Int = 2,
     var autoDismiss: Boolean = true,
     /** 选择的结果*/
@@ -30,7 +34,7 @@ class TypesPopupView(
         var ttv_types: TypesThreeView = findViewById(R.id.ttv_types)
 
         ttv_types.apply {
-            setTypesDatas(datas, levelCount)
+            setTypesDatas(datas, levelCount, defSelectedCodes = defSelectedCodes)
             onClickResultListener = object : OnClickResultListener{
                 override fun onClickCompleteResult(resultData: ArrayList<TypesViewDataBean?>) {
                     //点击最后一条回调

@@ -35,12 +35,16 @@ data class DemandIntentEntity(
     var detailsImageList: List<String> = arrayListOf(),
     /** 性别-款式分类一级*/
     var gender: String = "",
+    var genderText: String = "",
     /** 品类-款式分类二级*/
     var category: String = "",
+    var categoryText: String = "",
     /** 套装类型-款式分类三级*/
     var suitType: String = "",
+    var suitTypeText: String = "",
     /** 款式分类*/
     var classify: String = "",
+    var classifyText: String = "",
     /** 单价*/
     var unitPrice: String = "",
 //    /** 交期*/

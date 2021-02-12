@@ -27,18 +27,13 @@ import com.deti.brand.demand.create.item.service.ItemServiceEntity
 import com.loper7.date_time_picker.StringUtils
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.bus.LiveDataBus
-import com.safmvvm.bus.SingleLiveEvent
-import com.safmvvm.ext.ui.typesview.TypesTreeViewEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseFragment
-import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.UserInfoEntity
 import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
-import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
 import com.test.common.ui.dialog.sizecount.createDialogSizeCount
 import com.test.common.ui.item.line.ItemGrayLine
 import com.test.common.ui.item.line.ItemGrayLineEntity
@@ -46,16 +41,12 @@ import com.test.common.ui.item.line.ItemTransparentLine
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.item.remark.ItemRemark
 import com.test.common.ui.item.remark.ItemRemarkEntity
-import com.test.common.ui.popup.base.BaseSingleChoiceEntity
 import com.test.common.ui.popup.color.DemandColorDataBean
-import com.test.common.ui.popup.color.DemandColorListEntity
 import com.test.common.ui.popup.color.dialogChooseColors
 import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
 import com.zlylib.fileselectorlib.utils.DateUtils
-import com.zlylib.fileselectorlib.utils.LogUtils
-import java.io.Serializable
 import java.util.*
 
 /**
@@ -68,8 +59,6 @@ class CreateDemandFragment(
     R.layout.brand_fragment_demand_create,
     BR.viewModel
 ) {
-    /** 弹窗：款式选择*/
-    var mPopupViewStyle: BasePopupView? = null
     /** 弹窗：颜色选择*/
     var mPopupViewColor: BasePopupView? = null
     /** 弹窗：颜色对应尺寸数量*/
@@ -166,30 +155,27 @@ class CreateDemandFragment(
         /** 款式分类*/
         mViewModel.FORM_STYLE_TYPE.observe(this, {
             it?.apply {
-                mPopupViewStyle?.apply {
-                    show()
-                } ?: run{
-                    mPopupViewStyle = createDialogLevelTypes(this@CreateDemandFragment.requireActivity(),
-                        "请选择款式分类",
-                        this,
-                        4) { result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String> ->
-                        //选择后的数据 - 待提交需求时使用
-                        mViewModel.itemEntityFormStyle.apply {
-                            //1、数据赋值
-                            mStyleList = result
-                            //2、选后显示文字
-                            contentText.set(resultTextList.joinToString(separator = " - "))
-                            //3、清空尺码类型
-                            mViewModel.clearInfoSizeType()
-                            //4、清空颜色
-                            mViewModel.clearInfoColors()
-                            mPopupViewColor = null
-                            //5、清空尺码数量
-                            mViewModel.clearInfoSizeCount()
-                            mPopupViewColorSize = null
-                        }
-                    }.show()
-                }
+                createDialogLevelTypes(this@CreateDemandFragment.requireActivity(),
+                    "请选择款式分类",
+                    this,
+                    defSelectedCodes = mViewModel.itemEntityFormStyle.mStyleList,
+                    levelCount = 4) { result: ArrayList<TypesViewDataBean?>, resultTextList: ArrayList<String> ->
+                    //选择后的数据 - 待提交需求时使用
+                    mViewModel.itemEntityFormStyle.apply {
+                        //1、数据赋值
+                        mStyleList = result
+                        //2、选后显示文字
+                        contentText.set(resultTextList.joinToString(separator = " - "))
+                        //3、清空尺码类型
+                        mViewModel.clearInfoSizeType()
+                        //4、清空颜色
+                        mViewModel.clearInfoColors()
+                        mPopupViewColor = null
+                        //5、清空尺码数量
+                        mViewModel.clearInfoSizeCount()
+                        mPopupViewColorSize = null
+                    }
+                }.show()
             }
         })
         /** 尺码类型*/
@@ -267,7 +253,6 @@ class CreateDemandFragment(
         }
         /** 时间选择*/
         mViewModel.FORM_TIMES.observe(this) {
-                LogUtil.d("sssssssssssssssss")
                 activity?.apply {
                     dialogTimeWheel(this,
                         "请选择时间") { millisecond: Long, time: String, popupView: BasePopupView ->
