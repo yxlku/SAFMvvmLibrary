@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.sizecount.adapter
+package com.test.common.ui.popup.custom.sizecount.adapter
 
 import android.app.Activity
 import android.view.View
@@ -7,14 +7,12 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.safmvvm.bus.LiveDataBus
 import com.test.common.R
-import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.FirstNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.SecondNodeEntity
 
 class FirstNodeProvider(
     var mActivity: Activity,

@@ -1,4 +1,4 @@
-package com.test.common.ui.popup.color
+package com.test.common.ui.popup.custom.color
 
 import java.io.Serializable
 
@@ -35,7 +35,6 @@ data class DemandColorDataBean(
     var pinyin: String = "",
     /** 颜色系码*/
     var seriesCode: String = "",
-
     /** 是否被选中*/
     var mIsCheck: Boolean = false,
 ): Serializable

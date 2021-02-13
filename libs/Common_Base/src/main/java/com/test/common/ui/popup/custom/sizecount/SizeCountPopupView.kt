@@ -1,7 +1,6 @@
-package com.test.common.ui.dialog.sizecount
+package com.test.common.ui.popup.custom.sizecount
 
 import android.app.Activity
-import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +14,9 @@ import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.R
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonSizeCountEntity
-import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
-import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.SizeCountAdapter
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.FirstNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.SecondNodeEntity
 
 class SizeCountPopupView(
     var mActivit: Activity,
@@ -44,20 +43,24 @@ class SizeCountPopupView(
         var rv_content: RecyclerView = findViewById(R.id.rv_content)
 
         //默认选中初始化
-//        datas.forEach { firstEntity ->
-//            mColorSizeCountDatas.forEach {
-//                if (it.colorCode == firstEntity.colorCode) {
-//                    it.sizeToCountList.forEach {
-//                        firstEntity.
-//                    }
-//                }
-//            }
-//        }
-        mColorSizeCountDatas.forEach {
-            //一级列表显示
-            //二级列表显示
-
+        datas.forEach {firstEntity ->
+            //列表中的颜色
+            var firstColorCode = firstEntity.colorCode
+            mColorSizeCountDatas.forEach {selectColorEntity ->
+                if (selectColorEntity.colorCode == firstColorCode) {
+                    //如果默认数据和数据颜色相同，查找尺寸数据，修改count
+                    selectColorEntity.sizeToCountList.forEach {selectSizeCountEntity ->
+                        firstEntity.childNode.forEach {secondEntity ->
+                            var secEntity = secondEntity as SecondNodeEntity
+                            if (selectSizeCountEntity.size == secEntity.size && selectSizeCountEntity.count > 0) {
+                                secEntity.count = selectSizeCountEntity.count
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
         tb_title.title = mTitle
         tb_title.setOnTitleBarListener(object : OnTitleBarListener {
@@ -87,8 +90,7 @@ class SizeCountPopupView(
                         if (secondEntity.count > 0) {
                             //设置后的数据
                             sizeCountList.add(
-                                //TODO 需要改
-                                CommonSizeCountEntity(secondEntity.size, secondEntity.size, secondEntity.count)
+                                CommonSizeCountEntity(secondEntity.size, secondEntity.count)
                             )
                             //拼接显示内容
                             resultText.append("【")

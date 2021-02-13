@@ -1,14 +1,12 @@
-package com.test.common.ui.popup.color.adapter
+package com.test.common.ui.popup.custom.color.adapter
 
 import android.graphics.Color
 import android.view.View
-import androidx.collection.ArraySet
-import androidx.collection.arraySetOf
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.test.common.R
 import com.test.common.databinding.BaseDialogItemColorsRightBinding
-import com.test.common.ui.popup.color.DemandColorDataBean
+import com.test.common.ui.popup.custom.color.DemandColorDataBean
 
 class ColorsRightAdapter : BaseQuickAdapter<DemandColorDataBean, BaseDataBindingHolder<BaseDialogItemColorsRightBinding>>(
     R.layout.base_dialog_item_colors_right

@@ -10,7 +10,7 @@ import com.deti.brand.demand.price.all.entity.DemandIndentListApp
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.entity.CommoneEmpty
-import com.test.common.ui.popup.color.DemandColorListEntity
+import com.test.common.ui.popup.custom.color.DemandColorListEntity
 import retrofit2.http.Body
 import retrofit2.http.POST
 

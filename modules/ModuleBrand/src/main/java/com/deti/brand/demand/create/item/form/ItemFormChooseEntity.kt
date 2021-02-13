@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeDataBean
-import com.test.common.ui.popup.color.DemandColorDataBean
+import com.test.common.ui.popup.custom.color.DemandColorDataBean
 
 /**
  * form选择类型

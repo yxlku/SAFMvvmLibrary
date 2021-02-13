@@ -1,4 +1,4 @@
-package com.test.common.ui.popup.color.adapter
+package com.test.common.ui.popup.custom.color.adapter
 
 import android.graphics.Color
 import android.view.View
@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.test.common.R
 import com.test.common.databinding.BaseDialogItemColorsLeftBinding
-import com.test.common.ui.popup.color.DemandColorListDataBean
+import com.test.common.ui.popup.custom.color.DemandColorListDataBean
 
 class ColorsLeftAdapter(
     var selectedPosition : Int = -1

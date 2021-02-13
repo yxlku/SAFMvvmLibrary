@@ -1,12 +1,12 @@
-package com.test.common.ui.dialog.sizecount.adapter
+package com.test.common.ui.popup.custom.sizecount.adapter
 
 import android.app.Activity
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.test.common.R
-import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.FirstNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.SecondNodeEntity
 
 class SizeCountAdapter(
     var mActivity: Activity,

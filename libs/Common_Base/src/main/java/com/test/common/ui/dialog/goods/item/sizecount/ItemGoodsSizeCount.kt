@@ -5,12 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.binder.QuickViewBindingItemBinder
-import com.chad.library.adapter.base.entity.node.BaseNode
 import com.test.common.R
 import com.test.common.databinding.BaseDialogItemGoodsSizeCountBinding
-import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
-import com.test.common.ui.dialog.sizecount.adapter.entity.FirstNodeEntity
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.SizeCountAdapter
 
 class ItemGoodsSizeCount(
     var mActivity: Activity,

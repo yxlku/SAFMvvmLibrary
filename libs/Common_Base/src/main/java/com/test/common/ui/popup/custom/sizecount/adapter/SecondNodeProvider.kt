@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.sizecount.adapter
+package com.test.common.ui.popup.custom.sizecount.adapter
 
 import android.view.KeyEvent
 import android.widget.TextView
@@ -10,9 +10,8 @@ import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ui.toast.ToastUtil
-import com.safmvvm.utils.InputMethodUtil
 import com.test.common.R
-import com.test.common.ui.dialog.sizecount.adapter.entity.SecondNodeEntity
+import com.test.common.ui.popup.custom.sizecount.adapter.entity.SecondNodeEntity
 
 class SecondNodeProvider(
     var countUpdateBlock: () -> Unit = {}

@@ -1,4 +1,4 @@
-package com.test.common.ui.dialog.sizecount.adapter.entity
+package com.test.common.ui.popup.custom.sizecount.adapter.entity
 
 import com.chad.library.adapter.base.entity.node.BaseNode
 import java.io.Serializable

@@ -1,9 +1,7 @@
-package com.test.common.ui.popup.color
+package com.test.common.ui.popup.custom.color
 
 import android.app.Activity
 import android.view.View
-import androidx.collection.ArraySet
-import androidx.collection.arraySetOf
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,11 +12,10 @@ import com.lxj.xpopup.core.BottomPopupView
 import com.lxj.xpopup.util.XPopupUtils
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
-import com.safmvvm.utils.LogUtil
 import com.test.common.R
-import com.test.common.ui.popup.color.adapter.ColorsLeftAdapter
-import com.test.common.ui.popup.color.adapter.ColorsRightAdapter
-import com.test.common.ui.popup.color.adapter.ColorsSelectedAdapter
+import com.test.common.ui.popup.custom.color.adapter.ColorsLeftAdapter
+import com.test.common.ui.popup.custom.color.adapter.ColorsRightAdapter
+import com.test.common.ui.popup.custom.color.adapter.ColorsSelectedAdapter
 
 /**
  * 颜色选择弹窗
@@ -97,33 +94,14 @@ class ColorsPopupView(
         //默认选中的数据
         //1、选中列表
         adapterSelected.setList(selectColors)
+        //2、默认打卡左边第一条数据
+        if(adapterLeft.data.size > 0) {
+            showRightRvInfo(adapterLeft, 0)
+        }
 
         adapterLeft.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                var mAdapter = adapter as ColorsLeftAdapter
-                mAdapter.selectedPosition = position
-                mAdapter.notifyDataSetChanged()
-
-                var firstData = mAdapter.data[position]
-                var secondData = firstData.children
-                //展开子列表时整理一遍是否选中
-                for (i in secondData?.indices!!){
-                    var secItem = secondData[i]
-                    if(adapterSelected.data.size <= 0){
-                        secItem.mIsCheck = false
-                    }else{
-                        for (j in adapterSelected.data.indices){
-                            var sItem = adapterSelected.data[j]
-                            if (secItem.name == sItem.name) {
-                                secItem.mIsCheck = true
-                                break
-                            }else{
-                                secItem.mIsCheck = false
-                            }
-                        }
-                    }
-                }
-                adapterRight.setList(secondData)
+                showRightRvInfo(adapter, position)
             }
         })
         adapterRight.setOnItemClickListener(object : OnItemClickListener {
@@ -171,6 +149,42 @@ class ColorsPopupView(
                 mAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    /**
+     * 通过点击左侧列表 - 显示右侧数据
+     * 触发场景：
+     * 1、初始化显示第一条
+     * 2、点击左侧列表时调用
+     */
+    private fun showRightRvInfo(
+        adapter: BaseQuickAdapter<*, *>,
+        position: Int,
+    ) {
+        var mAdapter = adapter as ColorsLeftAdapter
+        mAdapter.selectedPosition = position
+        mAdapter.notifyDataSetChanged()
+
+        var firstData = mAdapter.data[position]
+        var secondData = firstData.children
+        //展开子列表时整理一遍是否选中
+        for (i in secondData?.indices!!) {
+            var secItem = secondData[i]
+            if (adapterSelected.data.size <= 0) {
+                secItem.mIsCheck = false
+            } else {
+                for (j in adapterSelected.data.indices) {
+                    var sItem = adapterSelected.data[j]
+                    if (secItem.name == sItem.name) {
+                        secItem.mIsCheck = true
+                        break
+                    } else {
+                        secItem.mIsCheck = false
+                    }
+                }
+            }
+        }
+        adapterRight.setList(secondData)
     }
 
 

@@ -33,16 +33,16 @@ import com.safmvvm.ui.toast.ToastUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.UserInfoEntity
-import com.test.common.ui.dialog.sizecount.adapter.SizeCountAdapter
-import com.test.common.ui.dialog.sizecount.createDialogSizeCount
+import com.test.common.ui.popup.custom.sizecount.adapter.SizeCountAdapter
+import com.test.common.ui.popup.custom.sizecount.createDialogSizeCount
 import com.test.common.ui.item.line.ItemGrayLine
 import com.test.common.ui.item.line.ItemGrayLineEntity
 import com.test.common.ui.item.line.ItemTransparentLine
 import com.test.common.ui.item.line.ItemTransparentLineEntity
 import com.test.common.ui.item.remark.ItemRemark
 import com.test.common.ui.item.remark.ItemRemarkEntity
-import com.test.common.ui.popup.color.DemandColorDataBean
-import com.test.common.ui.popup.color.dialogChooseColors
+import com.test.common.ui.popup.custom.color.DemandColorDataBean
+import com.test.common.ui.popup.custom.color.dialogChooseColors
 import com.test.common.ui.popup.custom.type.createDialogLevelTypes
 import com.test.common.ui.popup.dialogBottomSingle
 import com.test.common.ui.popup.time.dialogTimeWheel
@@ -235,12 +235,15 @@ class CreateDemandFragment(
                     mPopupViewColorSize?.apply {
                         this.show()
                     } ?: run {
-                        mPopupViewColorSize = createDialogSizeCount(this@apply, "选择尺码和设置数量", this) {
-                                adapter: SizeCountAdapter,
-                                resultData: ArrayList<CommonColorEntity>,
-                                resultText: String,
-                                popupView: BasePopupView,
-                            ->
+                        mPopupViewColorSize = createDialogSizeCount(
+                            this@apply,
+                            "选择尺码和设置数量",
+                            this,
+                            mViewModel.itemEntityFormSizeCount.mColorSizeCountDatas
+                        ) {adapter: SizeCountAdapter,
+                           resultData: ArrayList<CommonColorEntity>,
+                           resultText: String,
+                           popupView: BasePopupView, ->
                             //1、赋值
                             mViewModel.itemEntityFormSizeCount.mColorSizeCountDatas = resultData
                             //2、控制显示文字

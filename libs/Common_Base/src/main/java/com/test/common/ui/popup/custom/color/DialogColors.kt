@@ -1,7 +1,6 @@
-package com.test.common.ui.popup.color
+package com.test.common.ui.popup.custom.color
 
 import android.app.Activity
-import androidx.collection.ArraySet
 import com.lxj.xpopup.core.BasePopupView
 import com.test.common.ui.popup.createDialogBase
 

@@ -5,7 +5,7 @@
 
         <variable
             name="entity"
-            type="com.test.common.ui.popup.color.DemandColorListDataBean" />
+            type="com.test.common.ui.popup.custom.color.DemandColorListDataBean" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

@@ -10,10 +10,9 @@ import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity
 import com.test.common.common.userInfoToken
-import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.entity.CommoneEmpty
-import com.test.common.ui.popup.color.DemandColorListEntity
+import com.test.common.ui.popup.custom.color.DemandColorListEntity
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 import kotlin.collections.ArrayList

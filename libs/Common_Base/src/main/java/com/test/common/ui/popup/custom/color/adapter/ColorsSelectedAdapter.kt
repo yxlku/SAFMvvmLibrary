@@ -1,10 +1,10 @@
-package com.test.common.ui.popup.color.adapter
+package com.test.common.ui.popup.custom.color.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.test.common.R
 import com.test.common.databinding.BaseDialogItemColorsSelectedBinding
-import com.test.common.ui.popup.color.DemandColorDataBean
+import com.test.common.ui.popup.custom.color.DemandColorDataBean
 
 /**
  * 顶部选中颜色

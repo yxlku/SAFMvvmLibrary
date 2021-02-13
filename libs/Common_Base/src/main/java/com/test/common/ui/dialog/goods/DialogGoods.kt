@@ -1,11 +1,9 @@
 package com.test.common.ui.dialog.goods
 
 import android.app.Activity
-import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.safmvvm.app.BaseApp
-import com.test.common.ui.dialog.sizecount.SizeCountPopupView
 
 fun createDialogGoodsDetail(
     activity: Activity,
