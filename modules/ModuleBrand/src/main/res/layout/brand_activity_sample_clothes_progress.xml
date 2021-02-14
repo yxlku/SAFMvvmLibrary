@@ -75,6 +75,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_logistics_code"
                 android:layout_width="0mm"
+                android:textIsSelectable="true"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{viewModel.mExPressCode}"

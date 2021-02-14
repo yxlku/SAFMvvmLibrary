@@ -1,6 +1,7 @@
 package com.deti.brand.demand.progress.generate
 
 import android.app.Application
+import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import com.deti.brand.demand.progress.generate.entity.InfoListDataBean

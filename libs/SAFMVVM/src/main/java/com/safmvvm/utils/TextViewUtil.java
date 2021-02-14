@@ -1,5 +1,9 @@
 package com.safmvvm.utils;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -72,4 +76,5 @@ public class TextViewUtil {
         }
         return value;
     }
+
 }

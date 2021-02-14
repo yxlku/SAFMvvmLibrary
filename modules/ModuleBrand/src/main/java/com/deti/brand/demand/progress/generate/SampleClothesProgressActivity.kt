@@ -17,8 +17,10 @@ import com.luck.picture.lib.camera.listener.ClickListener
 import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.ext.ui.progressview.PorgressStepView
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.TextViewUtil
 import com.safmvvm.utils.Utils.callPhone
+import com.safmvvm.utils.Utils.textToClipboard
 import com.test.common.ui.popup.comfirm.dialogComfirmAndCancel
 
 
@@ -52,6 +54,11 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
         super.initData()
 
         mBinding.stepView.setSteps(mStepsList)
+        mBinding.tvLogisticsCopy.setOnClickListener {
+            //快递单号复制到剪切板中
+            mViewModel.mExPressCode.get()?.textToClipboard(this)
+            ToastUtil.showShortToast("快递单号已复制到剪切板")
+        }
         //刷新状态布局
         mViewModel.PROGRESS_UPDATE_UI_STATE.observe(this){
             it?.apply {
@@ -76,6 +83,9 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
                                     dialogComfirmAndCancel(
                                         this@SampleClothesProgressActivity,
                                         mContent = "是否拨打：$phoneNum",
+                                        mLeftClickBlock = {view: View, pop: CenterPopupView ->
+                                          pop.dismiss()
+                                        },
                                         mRightClickBlock = {view: View, pop: CenterPopupView ->
                                             //打电话
                                             startActivity(phoneNum.callPhone())

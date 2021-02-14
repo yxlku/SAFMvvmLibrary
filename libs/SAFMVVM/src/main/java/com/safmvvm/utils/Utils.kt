@@ -1,6 +1,8 @@
 package com.safmvvm.utils
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -80,6 +82,18 @@ object Utils {
     }
 
     /**
+     * 文本存放到剪切板中
+     * @param activity
+     * @param text
+     */
+    fun String.textToClipboard(activity: Activity?) {
+        if (activity != null) {
+            val cmb = activity
+                .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            cmb.setPrimaryClip(ClipData.newPlainText(null, this))
+        }
+    }
+    /**
      * 打电话
      */
     fun String.callPhone(): Intent{
@@ -109,7 +123,7 @@ object Utils {
         context: Context? = null,
         clz: Class<out Activity>? = null,
         map: ArrayMap<String, *>? = null,
-        bundle: Bundle? = null
+        bundle: Bundle? = null,
     ): Intent {
         val intent =
             if (context != null && clz != null)
