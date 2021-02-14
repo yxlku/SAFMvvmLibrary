@@ -7,13 +7,13 @@ import java.io.Serializable
  */
 data class SapmleClothesLogisticsEntity(
     /** 样衣进度 0（全灰） 、1 、2，3*/
-    var status: String = "",
+    var status: String = "0",
     /** 快递名称*/
     var expressName: String = "",
     /** 快递编号*/
     var expressCode: String = "",
     /** 快递进度*/
-    var infoList: List<InfoListDataBean> = arrayListOf(),
+    var infoList: ArrayList<InfoListDataBean> = arrayListOf(),
 ): Serializable
 
 data class InfoListDataBean(

@@ -3,13 +3,23 @@ package com.deti.brand.demand.progress.generate
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.text.TextPaint
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.TextView
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandActivitySampleClothesProgressBinding
+import com.deti.brand.demand.progress.generate.entity.InfoListDataBean
 import com.deti.brand.demand.progress.generate.entity.SapmleClothesLogisticsEntity
+import com.luck.picture.lib.camera.listener.ClickListener
+import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.ext.ui.progressview.PorgressStepView
 import com.safmvvm.mvvm.view.BaseActivity
+import com.safmvvm.utils.TextViewUtil
+import com.safmvvm.utils.Utils.callPhone
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancel
 
 
 /**
@@ -49,33 +59,39 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
                 mBinding.stepView.go(it, true)
             }
         }
+        mViewModel.PROGRESS_UPDATE_UI_LOGISTICS.observe(this){
+            it?.apply {
+                mBinding.psvLogisticsProgress.apply {
+                    setDatas(it)
+                    setBindViewListener(object : PorgressStepView.BindViewListener{
+                        override fun onBindView(itemMsg: TextView?, itemDate: TextView?, data: Any?) {
+                            var entity = data as InfoListDataBean
+                            itemDate?.text = entity.time
+                            itemMsg?.apply {
+                                text = TextViewUtil.formatPhoneNumber(
+                                    this,
+                                    entity.context,
+                                    Color.parseColor("#3f8de2")
+                                ) { textView, phoneNum ->
+                                    dialogComfirmAndCancel(
+                                        this@SampleClothesProgressActivity,
+                                        mContent = "是否拨打：$phoneNum",
+                                        mRightClickBlock = {view: View, pop: CenterPopupView ->
+                                            //打电话
+                                            startActivity(phoneNum.callPhone())
+                                            pop.dismiss()
+                                        }
+                                    ).show()
+                                }
+                            }
 
-        mBinding.psvLogisticsProgress.apply {
-            setDatas(testData())
-            setBindViewListener(object : PorgressStepView.BindViewListener{
-                override fun onBindView(itemMsg: TextView?, itemDate: TextView?, data: Any?) {
-                    var entity = data as SapmleClothesLogisticsEntity
-//                    itemMsg?.text = entity.
-//                    itemDate?.text = entity.date
+                        }
+                    })
                 }
-
-            })
+            }
         }
-    }
 
-    fun testData():List<SapmleClothesLogisticsEntity> {
-        var datas = arrayListOf<SapmleClothesLogisticsEntity>()
-        for (i in 0..29) {
-            val data = SapmleClothesLogisticsEntity()
-//            if (i % 2 == 0) {
-//                data.msg = "[北京市] 包裹已到达,北京市朝阳区 \n 联系电话:15912345678 "
-//            } else {
-//                data.msg = "[杭州市] 包裹已派发至转运中心,转运中心已发出。"
-//            }
-//            data.date = "2016年08月03日"
-            datas.add(data)
-        }
-        return datas
+
     }
 
 }

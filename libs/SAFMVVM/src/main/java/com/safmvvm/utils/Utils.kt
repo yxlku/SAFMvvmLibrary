@@ -3,6 +3,7 @@ package com.safmvvm.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
@@ -76,6 +77,17 @@ object Utils {
                 view.setTag(R.id.multiClickLastTime, System.currentTimeMillis())
             }
         }
+    }
+
+    /**
+     * 打电话
+     */
+    fun String.callPhone(): Intent{
+        var intent = Intent()
+        intent.action = Intent.ACTION_DIAL;
+        //设置数据 后面123456789是默认要拨打的电话
+        intent.data = Uri.parse("tel:$this");
+        return intent
     }
 
     /**

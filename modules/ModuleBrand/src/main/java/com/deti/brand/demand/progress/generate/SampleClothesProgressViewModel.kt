@@ -3,6 +3,7 @@ package com.deti.brand.demand.progress.generate
 import android.app.Application
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
+import com.deti.brand.demand.progress.generate.entity.InfoListDataBean
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
@@ -15,6 +16,8 @@ class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClot
      * @param 状态
      */
     val PROGRESS_UPDATE_UI_STATE = SingleLiveEvent<Int>()
+    /** 更新快递进度列表*/
+    val PROGRESS_UPDATE_UI_LOGISTICS = SingleLiveEvent<ArrayList<InfoListDataBean>>()
     /** 快递名称*/
     var mExPressName: ObservableField<String> = ObservableField("")
     /** 快递编号*/
@@ -40,12 +43,17 @@ class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClot
                 onSuccess = {
                     it?.data?.apply {
                         //0、样衣状态
-                        PROGRESS_UPDATE_UI_STATE.putValue(status.toInt() - 1)
+                        try {
+                            PROGRESS_UPDATE_UI_STATE.putValue(status.toInt() - 1)
+                        } catch (e: Exception) {
+                            PROGRESS_UPDATE_UI_STATE.putValue( - 1)
+                        }
                         //1、快递名称
                         mExPressName.set(expressName)
                         //2、快递单号
                         mExPressCode.set(expressCode)
                         //3、快递进度
+                        PROGRESS_UPDATE_UI_LOGISTICS.putValue(infoList)
                     }
                 }
             )
