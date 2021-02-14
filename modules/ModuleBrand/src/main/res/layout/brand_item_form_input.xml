@@ -7,9 +7,6 @@
         <variable
             name="entity"
             type="com.deti.brand.demand.create.item.form.ItemFormInputEntity" />
-        <variable
-            name="viewModel"
-            type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

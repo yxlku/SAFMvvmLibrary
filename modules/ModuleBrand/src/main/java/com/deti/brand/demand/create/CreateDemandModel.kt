@@ -6,6 +6,7 @@ import com.deti.brand.demand.create.entity.DemandInfoEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.utils.JsonUtil
 import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity
@@ -92,6 +93,7 @@ class CreateDemandModel: BaseModel(){
      * 提交需求
      */
     fun requestDemandSubmit(
+        pDemandId: String? = null,
         mViewModel: CreateDemandViewModel,
     ): Flow<BaseNetEntity<CommoneEmpty?>?> {
         //选择类型
@@ -129,7 +131,15 @@ class CreateDemandModel: BaseModel(){
                     put("demandIndent.colorList", itemEntityFormSizeCount.mColorSizeCountDatas) //颜色
                 }
             }
-            return@flowOnIO mHttpDataSource?.requestDemandSubmit(body)
+            return@flowOnIO if (pDemandId.isNullOrEmpty()) {
+                //报价Id为空时: 提交需求
+                mHttpDataSource?.requestDemandSubmit(body)
+            }else{
+                //报价Id不为空时：修改需求
+                body.put("demandId", pDemandId)
+                mHttpDataSource?.requestUpdateDemandIndentAPP(body)
+            }
+
         }
     }
 

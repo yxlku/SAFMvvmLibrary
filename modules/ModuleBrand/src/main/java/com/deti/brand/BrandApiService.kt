@@ -54,6 +54,14 @@ interface BrandApiService {
     suspend fun requestDemandSubmit(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
+
+    /**
+     * 需求单修改提交
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/updateDemandIndentAPP")
+    suspend fun requestUpdateDemandIndentAPP(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<CommoneEmpty?>
     /**
      * 品牌商侧-需求单详情(APP)
      */

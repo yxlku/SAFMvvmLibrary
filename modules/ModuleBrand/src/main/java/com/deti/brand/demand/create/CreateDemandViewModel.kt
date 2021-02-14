@@ -235,11 +235,11 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         //初始化列表UI
         initInfoUI()
     }
-
     /**
      * 订单修改页面初始化
      */
     fun initUpdateDemand(pDemandId: String?){
+        this.pDemandId = pDemandId
         pDemandId?.apply {
             //1、修改订单时一定不显示完善个人信息，
             itemEntityPersonal.isShow = false
@@ -375,8 +375,13 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
                         // 11、预算单价
                         itemEntityInputPrice.contentText.set(unitPrice)
                         // 12、设置交期
-                        itemEntityFormTime.contentText.set(deliveryDate.time.format2DateString(
-                            DefaultDateFormat.DATE_YMD))
+                        itemEntityFormTime.apply {
+                            var time = deliveryDate.time.format2DateString(DefaultDateFormat.DATE_YMD)
+                            //显示数据
+                            contentText.set(time)
+                            //需要提交的数据
+                            mTime = time
+                        }
                         // 13、备注
                         itemEntityInputRemark.contentText.set(comment)
 
@@ -542,7 +547,7 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         FORM_TIMES.putValue(Unit)
     }
 
-
+    var pDemandId: String? = null
 
     /**
      * 提交需求
@@ -593,16 +598,24 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         launchRequest {
             try {
                 mModel.requestDemandSubmit(
+                    pDemandId,
                     this@CreateDemandViewModel,
                 ).flowDataDeal(
                     loadingModel = LoadingModel.LOADING,
                     onSuccess = {
-                        //1、提交后清空页面UI数据
-                        initInfoUI()
-                        //2、提示成功
-                        ToastUtil.showShortToast("需求提交成功", toastEnumInterface = ToastDrawableEnum.TOP)
-                        //3、跳转到订单列表页面
-                        ODM_LIVE_TO_ORDER_LIST.putValue(Unit)
+                        pDemandId?.apply {
+                            //修改
+                            finish()
+                            ToastUtil.showShortToast("需求修改成功", toastEnumInterface = ToastDrawableEnum.TOP)
+                        } ?: kotlin.run {
+                            //提交
+                            //1、提交后清空页面UI数据
+                            initInfoUI()
+                            //2、提示成功
+                            ToastUtil.showShortToast("需求提交成功", toastEnumInterface = ToastDrawableEnum.TOP)
+                            //3、跳转到订单列表页面
+                            ODM_LIVE_TO_ORDER_LIST.putValue(Unit)
+                        }
                     }
                 )
             }catch (ex: Exception){
