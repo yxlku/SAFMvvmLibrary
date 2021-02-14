@@ -17,10 +17,7 @@
         <com.safmvvm.ui.titlebar.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:leftIcon="@drawable/base_titlebar_close"
-            app:title="物流详情"
-            app:titleColor="#333333" />
+            app:title="物流详情" />
 
         <RelativeLayout
             android:background="#1B2643"
@@ -71,7 +68,7 @@
                 android:id="@+id/tv_logistics_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="顺丰快递："
+                android:text='@{viewModel.mExPressName+" : "}'
                 android:textColor="#666666"
                 android:textSize="12mm" />
 
@@ -80,7 +77,7 @@
                 android:layout_width="0mm"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="123123123121312312："
+                android:text="@{viewModel.mExPressCode}"
                 android:textColor="#666666"
                 android:textSize="12mm" />
 

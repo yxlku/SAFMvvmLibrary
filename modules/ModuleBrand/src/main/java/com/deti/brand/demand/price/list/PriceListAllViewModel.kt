@@ -71,7 +71,6 @@ class PriceListAllViewModel(app: Application): BaseViewModel<PriceListAllModel>(
                         } ?: run {
                             LiveDataBus.send("noData", this)
                         }
-                        LogUtil.d("it.data.toString()${it.data.toString()}")
                     }
                 )
         }

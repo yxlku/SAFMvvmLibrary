@@ -1,4 +1,4 @@
-package com.deti.brand.demand.progress.logistics.adapter2
+package com.deti.brand.demand.progress.logistics.adapter.state
 
 import android.app.Activity
 import android.graphics.Color
@@ -22,11 +22,9 @@ class LogisticsStateAdapter(
         holder: BaseDataBindingHolder<BrandItemLogisticsStateBinding>,
         item: LogisticsStateEntity,
     ) {
-        var mViewModel = LogisticsStateViewModel()
         var binding = holder.dataBinding
         binding?.apply {
             entity = item
-            viewModel = mViewModel
             binding.tivStatus.initLine(holder.itemViewType)
             initStatusUI(holder, binding, item)
             executePendingBindings()

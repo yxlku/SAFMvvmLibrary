@@ -1,4 +1,4 @@
-package com.deti.brand.demand.progress.logistics.adapter
+package com.deti.brand.demand.progress.logistics.adapter.logistics
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,8 +22,8 @@ class ItemLogisticsProgress: QuickDataBindingItemBinder<ItemLogisticsProgressEnt
                 setBindViewListener(object : PorgressStepView.BindViewListener {
                     override fun onBindView(itemMsg: TextView?, itemDate: TextView?, data: Any?) {
                         var entity = data as SapmleClothesLogisticsEntity
-                        itemMsg?.text = entity.msg
-                        itemDate?.text = entity.date
+//                        itemMsg?.text = entity.msg
+//                        itemDate?.text = entity.date
                     }
                 })
             }

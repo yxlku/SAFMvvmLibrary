@@ -7,6 +7,7 @@ import com.deti.brand.demand.detail.entity.MaterialCostEntity
 import com.deti.brand.demand.detail.entity.OtherCostEntity
 import com.deti.brand.demand.detail.entity.TotalCostEntity
 import com.deti.brand.demand.price.list.entity.DemandIndentListApp
+import com.deti.brand.demand.progress.generate.entity.SapmleClothesLogisticsEntity
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.entity.CommoneEmpty
@@ -104,5 +105,13 @@ interface BrandApiService {
     suspend fun lastQuoteInfo(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<TotalCostEntity?>
+
+    /**
+     * 快递查询
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/findExpressInfo")
+    suspend fun findExpressInfo(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<SapmleClothesLogisticsEntity?>
 
 }

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="entity"
-            type="com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgressEntity" />
+            type="com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsProgressEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +13,6 @@
         android:background="#FFFFFF"
         android:paddingStart="16mm"
         android:paddingEnd="16mm">
-
 
         <com.safmvvm.ext.ui.progressview.PorgressStepView
             android:id="@+id/psv_progress"

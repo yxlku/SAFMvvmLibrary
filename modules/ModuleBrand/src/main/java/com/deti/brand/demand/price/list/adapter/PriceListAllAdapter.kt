@@ -22,6 +22,9 @@ import com.test.common.ui.adapter.CommonListBtnsEntity
 import com.test.common.ui.item.listinfo.ItemListInfo
 import com.test.common.ui.item.listinfo.ItemListInfoEntity
 
+/**
+ * 报价列表
+ */
 class PriceListAllAdapter(
     var mActivity: Activity?
 ): BaseQuickAdapter<PriceListAllEntity, BaseDataBindingHolder<BrandItemPriceListAllBinding>>(
@@ -296,7 +299,7 @@ class PriceListAllAdapter(
         when (btnState) {
             BTN_LOGISTICS -> {
                 //查看物流
-                LogisticsActivity.startAction(mActivity)
+                SampleClothesProgressActivity.startAction(mActivity, item.indentId)
             }
             BTN_MODIFY -> {
                 //我要修改
@@ -308,7 +311,7 @@ class PriceListAllAdapter(
             }
             BTN_SCHEDULE -> {
                 //查看进度
-                SampleClothesProgressActivity.startAction(mActivity)
+                LogisticsActivity.startAction(mActivity)
             }
             BTN_OFFER_CONFIRM -> {
                 //确认报价

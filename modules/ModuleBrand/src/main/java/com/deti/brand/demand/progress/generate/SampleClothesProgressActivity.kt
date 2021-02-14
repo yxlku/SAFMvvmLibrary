@@ -21,29 +21,33 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
 ) {
 
     companion object{
-        fun startAction(activity: Activity?){
+        fun startAction(activity: Activity?, demandId: String){
             activity?.apply {
                 var intent = Intent(this, SampleClothesProgressActivity::class.java)
+                intent.putExtra("demandId", demandId)
                 startActivity(intent)
             }
         }
     }
 
-    val stepsList = arrayListOf(
+    val mStepsList = arrayListOf(
         "样衣发货",
         "样衣运输",
         "样衣签收"
     )
 
+    /** 订单Id*/
+
     override fun initData() {
         super.initData()
 
-        mBinding.stepView.apply {
-            setSteps(stepsList)
-            setOnStepClickListener {
-                go(it, true)
+        mBinding.stepView.setSteps(mStepsList)
+        //刷新状态布局
+        mViewModel.PROGRESS_UPDATE_UI_STATE.observe(this){
+            it?.apply {
+                //状态
+                mBinding.stepView.go(it, true)
             }
-            go(2, true)
         }
 
         mBinding.psvLogisticsProgress.apply {
@@ -51,8 +55,8 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
             setBindViewListener(object : PorgressStepView.BindViewListener{
                 override fun onBindView(itemMsg: TextView?, itemDate: TextView?, data: Any?) {
                     var entity = data as SapmleClothesLogisticsEntity
-                    itemMsg?.text = entity.msg
-                    itemDate?.text = entity.date
+//                    itemMsg?.text = entity.
+//                    itemDate?.text = entity.date
                 }
 
             })
@@ -63,12 +67,12 @@ class SampleClothesProgressActivity: BaseActivity<BrandActivitySampleClothesProg
         var datas = arrayListOf<SapmleClothesLogisticsEntity>()
         for (i in 0..29) {
             val data = SapmleClothesLogisticsEntity()
-            if (i % 2 == 0) {
-                data.msg = "[北京市] 包裹已到达,北京市朝阳区 \n 联系电话:15912345678 "
-            } else {
-                data.msg = "[杭州市] 包裹已派发至转运中心,转运中心已发出。"
-            }
-            data.date = "2016年08月03日"
+//            if (i % 2 == 0) {
+//                data.msg = "[北京市] 包裹已到达,北京市朝阳区 \n 联系电话:15912345678 "
+//            } else {
+//                data.msg = "[杭州市] 包裹已派发至转运中心,转运中心已发出。"
+//            }
+//            data.date = "2016年08月03日"
             datas.add(data)
         }
         return datas

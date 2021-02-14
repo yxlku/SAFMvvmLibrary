@@ -1,4 +1,4 @@
-package com.deti.brand.demand.progress.logistics.adapter
+package com.deti.brand.demand.progress.logistics.adapter.logistics
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

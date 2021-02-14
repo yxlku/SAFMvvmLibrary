@@ -68,7 +68,7 @@ public class SAFStepView extends View {
     private static final int ANIMATE_STEP_TRANSITION = 0;
     private static final int IDLE = 1;
 
-    private static final int START_STEP = 0;
+    private static final int START_STEP = -1;
     @DisplayMode
     private int displayMode = DISPLAY_MODE_WITH_TEXT;
     private final List<String> steps = new ArrayList<>();

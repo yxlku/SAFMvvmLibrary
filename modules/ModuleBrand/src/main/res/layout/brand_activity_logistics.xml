@@ -14,12 +14,9 @@
         android:layout_height="match_parent">
 
         <com.safmvvm.ui.titlebar.TitleBar
-            app:leftIcon="@drawable/base_titlebar_close"
             android:layout_height="wrap_content"
             app:title="需求订单详情"
-            app:titleColor="#333333"
-            android:layout_width="match_parent"
-            android:background="#FFFFFF" />
+            android:layout_width="match_parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_content"

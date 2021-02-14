@@ -1,4 +1,4 @@
-package com.deti.brand.demand.progress.logistics.adapter2
+package com.deti.brand.demand.progress.logistics.adapter.state
 
 import androidx.annotation.DrawableRes
 import com.deti.brand.demand.progress.OrderStatus

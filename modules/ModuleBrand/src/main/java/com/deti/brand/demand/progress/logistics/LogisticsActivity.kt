@@ -1,17 +1,16 @@
 package com.deti.brand.demand.progress.logistics
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseBinderAdapter
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandActivityLogisticsBinding
-import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfo
-import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfoEntity
-import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgress
-import com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsProgressEntity
+import com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsInfo
+import com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsInfoEntity
+import com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsProgress
+import com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsProgressEntity
 import com.safmvvm.mvvm.view.BaseActivity
 import com.test.common.ui.item.line.ItemTransparentLine
 import com.test.common.ui.item.line.ItemTransparentLineEntity

@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.demand.progress.logistics.adapter.ItemLogisticsInfoEntity" />
+            type="com.deti.brand.demand.progress.logistics.adapter.logistics.ItemLogisticsInfoEntity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
