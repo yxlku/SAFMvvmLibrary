@@ -2,6 +2,7 @@ package com.deti.brand.demand.progress.generate
 
 import android.app.Application
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
 import com.deti.brand.demand.progress.generate.entity.InfoListDataBean
@@ -9,6 +10,7 @@ import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.bus.putValue
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.ui.toast.ToastUtil
 
 class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClothesProgressModel>(app){
 
@@ -29,7 +31,7 @@ class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClot
         var demandId = getArgumentsIntent()?.getStringExtra("demandId")
         if (!demandId.isNullOrEmpty()) {
             //TODO 都痛了再删除这里
-            demandId = "lixtext1"
+            demandId = "40288a8b7786002a01778aee89060072"
             requestFindExpressInfo(demandId)
         }
     }
@@ -56,6 +58,10 @@ class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClot
                         //3、快递进度
                         PROGRESS_UPDATE_UI_LOGISTICS.putValue(infoList)
                     }
+                },
+                onFaile = {code: String, msg: String ->
+                    ToastUtil.showShortToast(msg)
+                    finish()
                 }
             )
         }
