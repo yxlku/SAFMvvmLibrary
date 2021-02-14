@@ -1,4 +1,4 @@
-package com.deti.brand.demand.price.all.entity
+package com.deti.brand.demand.price.list.entity
 
 import com.test.common.entity.CommonDeamndImageEntity
 import java.io.Serializable

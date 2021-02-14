@@ -1,4 +1,4 @@
-package com.deti.brand.demand.price.all
+package com.deti.brand.demand.price.list
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,20 +8,21 @@ import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentPriceListAllBinding
 import com.deti.brand.demand.detail.PriceDetailActivity
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter
-import com.deti.brand.demand.price.all.entity.PriceListAllEntity
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter
+import com.deti.brand.demand.price.list.entity.PriceListAllEntity
 import com.safmvvm.bus.LiveDataBus
-import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 
 /**
  * 报价全部列表
  */
-class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, PriceListAllViewModel>(
+class PriceListAllFragment(
+    /** 列表状态*/
+    var mPriceListState: String = PRICE_LIST_ALL,
+): BaseLazyFragment<BrandFragmentPriceListAllBinding, PriceListAllViewModel>(
     R.layout.brand_fragment_price_list_all,
     BR.viewModel
 ) {
-
 
     companion object{
         /** 全部*/
@@ -45,15 +46,8 @@ class PriceListAllFragment: BaseLazyFragment<BrandFragmentPriceListAllBinding, P
             adapter = mAdapter
         }
 
-        mAdapter.setOnItemClickListener(object : OnItemClickListener{
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                //报价详情
-                PriceDetailActivity.startAction(activity)
-            }
-        })
-
         //第一显示的时候才会请求数据
-        mViewModel.requestFindDemandIndentListAPP(PRICE_LIST_ALL)
+        mViewModel.requestFindDemandIndentListAPP(mPriceListState)
 
         //刷新数据
         LiveDataBus.observe<ArrayList<PriceListAllEntity>>(this, DATA_ADD, {

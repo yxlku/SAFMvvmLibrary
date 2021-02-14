@@ -6,7 +6,7 @@
 
         <variable
             name="entity"
-            type="com.deti.brand.demand.price.all.entity.PriceListAllEntity" />
+            type="com.deti.brand.demand.price.list.entity.PriceListAllEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,13 +106,14 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_order_time" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="16mm"
             android:id="@+id/rv_info"
-            android:layout_height="wrap_content"
-            android:minHeight="96mm"
-            app:layout_constraintStart_toEndOf="@id/iv_img"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0mm"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16mm"
+            android:minHeight="96mm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toEndOf="@id/iv_img"
             app:layout_constraintTop_toTopOf="@id/iv_img" />
 
         <View

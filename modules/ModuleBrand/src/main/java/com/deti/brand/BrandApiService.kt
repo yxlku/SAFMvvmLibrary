@@ -6,7 +6,7 @@ import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
 import com.deti.brand.demand.detail.entity.MaterialCostEntity
 import com.deti.brand.demand.detail.entity.OtherCostEntity
 import com.deti.brand.demand.detail.entity.TotalCostEntity
-import com.deti.brand.demand.price.all.entity.DemandIndentListApp
+import com.deti.brand.demand.price.list.entity.DemandIndentListApp
 import com.test.common.base.BaseNetEntity
 import com.test.common.entity.CommonFindSizeEntity
 import com.test.common.entity.CommoneEmpty

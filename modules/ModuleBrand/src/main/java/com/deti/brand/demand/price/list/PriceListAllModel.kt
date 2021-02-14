@@ -1,7 +1,7 @@
-package com.deti.brand.demand.price.all
+package com.deti.brand.demand.price.list
 
 import com.deti.brand.BrandApiService
-import com.deti.brand.demand.price.all.entity.DemandIndentListApp
+import com.deti.brand.demand.price.list.entity.DemandIndentListApp
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.utils.coroutines.flowOnIO
 import com.test.common.base.BaseNetEntity

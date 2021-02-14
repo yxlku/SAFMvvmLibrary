@@ -1,16 +1,15 @@
-package com.deti.brand.demand.price.all
+package com.deti.brand.demand.price.list
 
 import android.app.Application
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_CONFIRMED
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_CONFIRMED_WAIT
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_DEMAND_CLOSE
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_NO_SAMPLE
-import com.deti.brand.demand.price.all.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_SECOND
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_CONFIRMED
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_CONFIRMED_WAIT
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_DEMAND_CLOSE
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_NO_SAMPLE
+import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_SECOND
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.utils.LogUtil
-import com.test.common.dictionary.dictionaryServiceTypeKeyToValue
 
 /**
  * 报价列表

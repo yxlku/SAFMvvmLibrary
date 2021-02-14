@@ -1,7 +1,6 @@
-package com.deti.brand.demand.price.all.adapter
+package com.deti.brand.demand.price.list.adapter
 
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPriceListAllBinding
-import com.deti.brand.demand.create.CreateDemandFragment
-import com.deti.brand.demand.price.all.entity.PriceListAllEntity
+import com.deti.brand.demand.detail.PriceDetailActivity
+import com.deti.brand.demand.price.list.entity.PriceListAllEntity
 import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
 import com.deti.brand.demand.progress.logistics.LogisticsActivity
 import com.deti.brand.demand.update.UpdateDemandActivity
@@ -75,6 +74,10 @@ class PriceListAllAdapter(
             initInfoList(this, holder, item)
             //按钮适配器，通过不同状态显示按钮
             initBtns(this, holder, item)
+            holder.itemView.setOnClickListener {
+                //报价详情
+                clickToDetaile(item)
+            }
             executePendingBindings()
         }
     }
@@ -117,6 +120,10 @@ class PriceListAllAdapter(
         binding.rvInfo.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = infoAdapter
+            infoAdapter.setOnItemClickListener { adapter, view, position ->
+                //跳转到详情，犹豫 - BaseBinderAdapter() 内部实现了OnClick事件，会把父级item点击事件拦截所以此处重写点击事件
+                clickToDetaile(item)
+            }
         }
         infoAdapter.setList(controlInfos(item))
     }
@@ -153,12 +160,6 @@ class PriceListAllAdapter(
         var tm = (time - (System.currentTimeMillis() / 1000)) * 1000
         LogUtil.d("剩余时间：$tm 、 初始时间：${time}、 当前时间： ${(System.currentTimeMillis() / 1000)}")
         cvTime.start(tm)
-//        if(tm > 0){
-//            //倒计时
-//
-//        }else{
-//            //正计时 - 超时
-//        }
     }
 
     /**
@@ -278,6 +279,15 @@ class PriceListAllAdapter(
         return btns
     }
 
+    /**
+     * 跳转到详情页面
+     *  TODO 还没有传入id，目前查询id都是写死的
+     */
+    private fun clickToDetaile(item: PriceListAllEntity) {
+//        PriceDetailActivity.startAction(mActivity, item.indentId, item.quoteId)
+
+        PriceDetailActivity.startAction(mActivity)
+    }
     /**
      * 控制按钮点击事件
      * @param btnState 按钮状态

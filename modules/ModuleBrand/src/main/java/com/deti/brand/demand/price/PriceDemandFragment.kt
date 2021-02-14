@@ -9,13 +9,9 @@ import androidx.viewpager.widget.ViewPager
 import com.deti.brand.R
 import com.deti.brand.BR
 import com.deti.brand.databinding.BrandFragmentDemandPriceBinding
-import com.deti.brand.demand.create.CreateDemandFragment
-import com.deti.brand.demand.price.all.PriceListAllFragment
-import com.deti.brand.demand.price.pricelist.PriceListFragment
-import com.deti.brand.main.odm.ODMFragment
+import com.deti.brand.demand.price.list.PriceListAllFragment
 import com.safmvvm.ext.ui.tab.ITabTop
 import com.safmvvm.ext.ui.viewpager.createViewPager
-import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
 import com.safmvvm.ui.autosize.setTextSizeAuto
 import me.jessyan.autosize.utils.AutoSizeUtils
@@ -39,10 +35,10 @@ class PriceDemandFragment(
         "已关闭",
     )
     var fragments = arrayListOf<Fragment>(
-        PriceListAllFragment(),
-        PriceListFragment(1),
-        PriceListFragment(2),
-        PriceListFragment(3),
+        PriceListAllFragment(PriceListAllFragment.PRICE_LIST_ALL), // 全部列表
+        PriceListAllFragment(PriceListAllFragment.PRICE_LIST_UNCONFIRMED), // 未确认列表
+        PriceListAllFragment(PriceListAllFragment.PRICE_LIST_CONFIRMED), // 已确认列表
+        PriceListAllFragment(PriceListAllFragment.PRICE_LIST_CLOSED), // 已关闭列表
     )
     override fun initData() {
         super.initData()
