@@ -10,10 +10,13 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandItemPriceListAllBinding
 import com.deti.brand.demand.detail.PriceDetailActivity
+import com.deti.brand.demand.price.PriceDemandViewModel
+import com.deti.brand.demand.price.list.PriceListAllViewModel
 import com.deti.brand.demand.price.list.entity.PriceListAllEntity
 import com.deti.brand.demand.progress.generate.SampleClothesProgressActivity
 import com.deti.brand.demand.progress.logistics.LogisticsActivity
 import com.deti.brand.demand.update.UpdateDemandActivity
+import com.lxj.xpopup.core.CenterPopupView
 import com.safmvvm.ext.ui.counttime.CountDownAndUpView
 import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
@@ -21,12 +24,16 @@ import com.test.common.ui.adapter.CommonListBtnsAdapter
 import com.test.common.ui.adapter.CommonListBtnsEntity
 import com.test.common.ui.item.listinfo.ItemListInfo
 import com.test.common.ui.item.listinfo.ItemListInfoEntity
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelRemark
+import com.test.common.ui.popup.comfirm.dialogComfirmAndCancelRemarkSingle
+import com.test.common.ui.popup.comfirm.single.SingleEntity
 
 /**
  * 报价列表
  */
 class PriceListAllAdapter(
-    var mActivity: Activity?
+    var mActivity: Activity?,
+    var mViewModel: PriceListAllViewModel,
 ): BaseQuickAdapter<PriceListAllEntity, BaseDataBindingHolder<BrandItemPriceListAllBinding>>(
     R.layout.brand_item_price_list_all
 ) {
@@ -318,9 +325,71 @@ class PriceListAllAdapter(
             }
             BTN_OFFER_REFUSE -> {
                 //拒绝报价
+                showDialogRefuse(item)
             }
             BTN_OFFER_LOOK -> {
                 //查看报价
+            }
+        }
+    }
+
+    /**
+     * 拒绝报价
+     */
+    private fun showDialogRefuse(item: PriceListAllEntity) {
+        mActivity?.apply {
+            if (!item.isSecond) {
+                //一次拒绝报价
+                arrayListOf(
+                    SingleEntity("0", "拒绝本次报价，并将信息反馈给得体， 待得体再次报价"),
+                    SingleEntity("1", "不需要再次报价，关闭需求"),
+                ).dialogComfirmAndCancelRemarkSingle(
+                    this,
+                    mTitle = "拒绝报价",
+                    mTipOne = "选择想要执行的操作：",
+                    mTipTwo = "拒绝报价原因",
+                    mRemarkHint = "拒绝本次报价的原因都可以写在这里哦， 还可以提出可接受的价格。",
+                    mLeftBtnColor = Color.parseColor("#333333"),
+                    mRightBtnColor = Color.parseColor("#F3B11C"),
+                    mLeftClickBlock = { view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity ->
+                        pop.dismiss()
+                    },
+                    mRightClickBlock = { view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity ->
+                        var isClose = singleEntity.id == "1" //==1 关闭报价
+                        if (inputText.isNotEmpty()) {
+                            mViewModel.requestRefuseQuote(
+                                item.quoteId,
+                                inputText,
+                                isClose
+                            )
+                            pop.dismiss()
+                        } else {
+                            ToastUtil.showShortToast("请输入拒绝报价原因")
+                        }
+                    },
+                ).show()
+            }else{
+                //二次拒绝报价
+                dialogComfirmAndCancelRemark(
+                    this,
+                    mTitle = "拒绝报价",
+                    mTipOne = "温馨提示：二次拒绝报价，需求将自动关闭",
+                    mTipTwo = "拒绝报价原因（选填）",
+                    mLeftBtnColor = Color.parseColor("#333333"),
+                    mRightBtnColor = Color.parseColor("#F3B11C"),
+                    mLeftClickBlock = { view: View, pop: CenterPopupView, inputText: String ->
+                        pop.dismiss()
+                    },
+                    mRightClickBlock = { view: View, pop: CenterPopupView, inputText: String ->
+                        mViewModel.requestRefuseQuote(
+                            item.quoteId,
+                            inputText,
+                            true
+                        )
+                        pop.dismiss()
+                    },
+                ).show()
+
             }
         }
     }

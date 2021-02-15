@@ -107,6 +107,15 @@ interface BrandApiService {
     ):BaseNetEntity<TotalCostEntity?>
 
     /**
+     * 拒绝报价
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/refuseQuote")
+    suspend fun refuseQuote(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<CommoneEmpty?>
+
+
+    /**
      * 快递查询
      */
     @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/findExpressInfo")

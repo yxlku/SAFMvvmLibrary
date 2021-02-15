@@ -65,6 +65,10 @@ data class PriceListAllEntity(
     var prompt: String = "",
 
     /** 图片列表*/
-    var images: List<CommonDeamndImageEntity> = arrayListOf()
+    var images: List<CommonDeamndImageEntity> = arrayListOf(),
+
+    /** 是否是第二次报价*/
+    var isSecond: Boolean = false
+
 ):Serializable
 

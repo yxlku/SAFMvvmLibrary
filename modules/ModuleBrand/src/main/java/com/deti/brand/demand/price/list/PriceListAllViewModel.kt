@@ -9,6 +9,8 @@ import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.ST
 import com.deti.brand.demand.price.list.adapter.PriceListAllAdapter.Companion.STATE_OFFER_WAIT_SECOND
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
+import com.safmvvm.ui.load.LoadingModel
+import com.safmvvm.ui.toast.ToastUtil
 import com.safmvvm.utils.LogUtil
 
 /**
@@ -16,6 +18,33 @@ import com.safmvvm.utils.LogUtil
  */
 class PriceListAllViewModel(app: Application): BaseViewModel<PriceListAllModel>(app){
     var pageIndex = 1
+
+    /**
+     * 拒绝报价
+     */
+    fun requestRefuseQuote(
+        quoteId: String = "",
+        replyMessage: String = "",
+        isClose: Boolean = false,
+    ){
+        launchRequest {
+            mModel.refuseQuote(
+                quoteId, replyMessage, isClose
+            ).flowDataDeal(
+                loadingModel = LoadingModel.LOADING,
+                onSuccess = {
+                    it?.apply {
+                        //TODO 刷新列表要不然多次拒绝
+                        ToastUtil.showShortToast(message)
+                    }
+                },
+                onFaile = {code: String, msg: String ->
+                    ToastUtil.showShortToast(msg)
+                }
+            )
+        }
+    }
+
     /**
      * 获取报价列表
      */

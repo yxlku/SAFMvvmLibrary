@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.View
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.core.CenterPopupView
+import com.test.common.ui.popup.comfirm.single.SingleEntity
 import com.test.common.ui.popup.createDialogBase
 
 
@@ -93,6 +94,42 @@ fun dialogComfirmAndCancelRemark(
             mTitle,
             mTipOne,
             mTipTwo,
+            mLeftText,
+            mRightText,
+            mLeftBtnColor,
+            mRightBtnColor,
+            mLeftClickBlock,
+            mRightClickBlock
+        )
+    )
+}
+/**
+ * 确定取消按钮弹窗
+ */
+fun ArrayList<SingleEntity>.dialogComfirmAndCancelRemarkSingle(
+    mActivity: Activity,
+    mTitle: String? = "温馨提示",
+    mTipOne: String? = "",
+    mTipTwo: String? = "",
+    /** 文本框hint*/
+    mRemarkHint: String = "",
+    mLeftText: String? = "取消",
+    mRightText: String? = "确定",
+    /** 左侧文字颜色*/
+    mLeftBtnColor: Int = Color.parseColor("#333333"),
+    /** 右侧文字颜色*/
+    mRightBtnColor: Int = Color.parseColor("#1A97FF"),
+    mLeftClickBlock:  (view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity) -> Unit = { view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity ->},
+    mRightClickBlock:  (view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity) -> Unit = {view: View, pop: CenterPopupView, inputText: String, singleEntity: SingleEntity ->},
+): BasePopupView {
+    return createDialogBase(
+        ComfirmAndCancelRemarkSinglePopupView(
+            mActivity,
+            mTitle,
+            mTipOne,
+            mTipTwo,
+            this,
+            mRemarkHint,
             mLeftText,
             mRightText,
             mLeftBtnColor,

@@ -31,7 +31,8 @@ class SampleClothesProgressViewModel(app: Application): BaseViewModel<SampleClot
         var demandId = getArgumentsIntent()?.getStringExtra("demandId")
         if (!demandId.isNullOrEmpty()) {
             //TODO 都痛了再删除这里
-            demandId = "40288a8b7786002a01778aee89060072"
+            demandId = "lixtext1"
+//            demandId = "40288a8b7786002a01778aee89060072"
             requestFindExpressInfo(demandId)
         }
     }

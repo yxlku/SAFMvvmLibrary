@@ -40,7 +40,7 @@ class PriceListAllFragment(
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
-        var mAdapter = PriceListAllAdapter(activity)
+        var mAdapter = PriceListAllAdapter(activity, mViewModel)
         mBinding.rvContent.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter

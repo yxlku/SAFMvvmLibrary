@@ -34,26 +34,49 @@
             android:layout_marginTop="20mm"
             android:layout_marginEnd="24mm"
             android:text="温馨提示：二次拒绝报价，需求将自动关闭"
-            android:textColor="#333333"
+            android:textColor="#999999"
             android:textSize="12mm"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_tip_two"
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24mm"
-            android:layout_marginTop="20mm"
+            android:layout_marginTop="9mm"
             android:layout_marginEnd="24mm"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip_one" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tip_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24mm"
+            android:layout_marginTop="15mm"
             android:text="拒绝报价原因（选填）"
             android:textColor="#999999"
             android:textSize="12mm"
-            app:layout_constraintTop_toBottomOf="@id/tv_tip_one"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_content"
+            app:layout_goneMarginTop="15mm" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tip_two_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2mm"
+            android:text="*"
+            android:textColor="#F74B60"
+            android:textSize="12mm"
+            app:layout_constraintBottom_toBottomOf="@id/tv_tip_two"
+            app:layout_constraintStart_toEndOf="@id/tv_tip_two"
+            app:layout_constraintTop_toTopOf="@id/tv_tip_two"
             app:layout_goneMarginTop="15mm" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_content"
             android:layout_width="0mm"
-            android:gravity="left"
             android:layout_height="wrap_content"
             android:layout_marginStart="24mm"
             android:layout_marginTop="10mm"
@@ -61,9 +84,9 @@
             android:layout_marginBottom="45mm"
             android:background="@drawable/base_et_gray_bg"
             android:minHeight="96mm"
+            android:gravity="left"
             android:padding="10mm"
             android:textColor="#333333"
-            android:textSize="14mm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_tip_two" />
@@ -91,8 +114,8 @@
             android:layout_width="1mm"
             android:layout_height="48mm"
             android:background="#E5E5E5"
-            app:layout_constraintStart_toEndOf="@id/tv_btn_left"
             app:layout_constraintEnd_toStartOf="@id/tv_btn_right"
+            app:layout_constraintStart_toEndOf="@id/tv_btn_left"
             app:layout_constraintTop_toTopOf="@id/tv_btn_left" />
 
         <androidx.appcompat.widget.AppCompatTextView
