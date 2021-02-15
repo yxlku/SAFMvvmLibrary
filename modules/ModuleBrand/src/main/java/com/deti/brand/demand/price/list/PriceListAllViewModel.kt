@@ -46,6 +46,30 @@ class PriceListAllViewModel(app: Application): BaseViewModel<PriceListAllModel>(
     }
 
     /**
+     * 同意报价
+     */
+    fun requestAcceptQuote(
+        quoteId: String = "",
+    ){
+        launchRequest {
+            mModel.acceptQuote(
+                quoteId
+            ).flowDataDeal(
+                loadingModel = LoadingModel.LOADING,
+                onSuccess = {
+                    it?.apply {
+                        //TODO 刷新列表更新状态
+                        ToastUtil.showShortToast(message)
+                    }
+                },
+                onFaile = {code: String, msg: String ->
+                    ToastUtil.showShortToast(msg)
+                }
+            )
+        }
+    }
+
+    /**
      * 获取报价列表
      */
     fun requestFindDemandIndentListAPP(status: String){

@@ -113,6 +113,13 @@ interface BrandApiService {
     suspend fun refuseQuote(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
+    /**
+     * 同意报价
+     */
+    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/acceptQuote")
+    suspend fun acceptQuote(
+        @Body body: HashMap<String, Any?>,
+    ):BaseNetEntity<CommoneEmpty?>
 
 
     /**

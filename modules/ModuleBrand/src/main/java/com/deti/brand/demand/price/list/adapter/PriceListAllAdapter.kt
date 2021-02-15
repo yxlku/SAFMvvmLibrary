@@ -84,10 +84,6 @@ class PriceListAllAdapter(
             initInfoList(this, holder, item)
             //按钮适配器，通过不同状态显示按钮
             initBtns(this, holder, item)
-            holder.itemView.setOnClickListener {
-                //报价详情
-                clickToDetaile(item)
-            }
             executePendingBindings()
         }
     }
@@ -130,10 +126,6 @@ class PriceListAllAdapter(
         binding.rvInfo.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = infoAdapter
-            infoAdapter.setOnItemClickListener { adapter, view, position ->
-                //跳转到详情，犹豫 - BaseBinderAdapter() 内部实现了OnClick事件，会把父级item点击事件拦截所以此处重写点击事件
-                clickToDetaile(item)
-            }
         }
         infoAdapter.setList(controlInfos(item))
     }
@@ -290,15 +282,6 @@ class PriceListAllAdapter(
     }
 
     /**
-     * 跳转到详情页面
-     *  TODO 还没有传入id，目前查询id都是写死的
-     */
-    private fun clickToDetaile(item: PriceListAllEntity) {
-//        PriceDetailActivity.startAction(mActivity, item.indentId, item.quoteId)
-
-        PriceDetailActivity.startAction(mActivity)
-    }
-    /**
      * 控制按钮点击事件
      * @param btnState 按钮状态
      */
@@ -322,6 +305,7 @@ class PriceListAllAdapter(
             }
             BTN_OFFER_CONFIRM -> {
                 //确认报价
+                mViewModel.requestAcceptQuote(item.quoteId)
             }
             BTN_OFFER_REFUSE -> {
                 //拒绝报价
@@ -329,10 +313,19 @@ class PriceListAllAdapter(
             }
             BTN_OFFER_LOOK -> {
                 //查看报价
+                clickToDetaile(item)
             }
         }
     }
+    /**
+     * 跳转到详情页面
+     *  TODO 还没有传入id，目前查询id都是写死的
+     */
+    private fun clickToDetaile(item: PriceListAllEntity) {
+//        PriceDetailActivity.startAction(mActivity, item.indentId, item.quoteId)
 
+        PriceDetailActivity.startAction(mActivity)
+    }
     /**
      * 拒绝报价
      */

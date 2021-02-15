@@ -48,6 +48,17 @@ class PriceListAllModel: BaseModel(){
             return@flowOnIO mHttpDataSource?.refuseQuote(body)
         }
     }
-
+    /**
+     * 同意报价
+     */
+    fun acceptQuote(
+        quoteId: String = "",
+    ): Flow<BaseNetEntity<CommoneEmpty?>?>{
+        return flowOnIO {
+            var body = hashMapOf<String, Any?>()
+            body.put("quoteId", quoteId) //报价id
+            return@flowOnIO mHttpDataSource?.acceptQuote(body)
+        }
+    }
 
 }
