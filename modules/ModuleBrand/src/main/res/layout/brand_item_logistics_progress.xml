@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:paddingStart="16mm"
-        android:paddingEnd="16mm">
+        android:layout_marginStart="16mm"
+        android:layout_marginEnd="16mm">
 
         <com.safmvvm.ext.ui.progressview.PorgressStepView
             android:id="@+id/psv_progress"
@@ -21,8 +21,8 @@
             app:defaultDotColor="#E9E9E9"
             app:dotPosition="top"
             app:defaultTextColor="#999999"
-            app:highTextColor="#FCCE48"
-            app:highDotColor="#FCCE48"
+            app:highTextColor="#1B2643"
+            app:highDotColor="#999999"
             app:lineColor="#E9E9E9"
             app:lineWidth="2mm"
             app:radius="5mm" />

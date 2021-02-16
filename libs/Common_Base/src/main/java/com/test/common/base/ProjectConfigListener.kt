@@ -22,17 +22,22 @@ import kotlin.system.exitProcess
 class ProjectConfigListener: GlobalConfigInitListener {
 
     /**
-     * 项目中用到的头信息
+     * 项目中用到的头信息 -- 不会每次请求调用
      */
     override fun initHeader(): ArrayMap<String, String> {
         LogUtil.d("头信息token")
         var headers: ArrayMap<String, String> = arrayMapOf()
-//        headers.put("token", userInfoToken())
-        //TODO 不能及时更换
-        headers.put("token", "fed81f3b5aeb4f4d994eec33684f8a55")
         headers.put("X-Requested-With", "XMLHttpRequest")
 //        headers.put("UUID", UUIDUtil.getPhoneSign())
 //        headers.put("User-Agent", "")
+        return headers
+    }
+    /**
+     * 网络请求头信息 -- 每次请求都会调用此处 - 动态更新的 - 如果key相同也会覆盖头信息
+     */
+    override fun initHeaderDynamic(): ArrayMap<String, String?> {
+        var headers: ArrayMap<String, String?> = arrayMapOf()
+        headers.put("token", userInfoToken())
         return headers
     }
 

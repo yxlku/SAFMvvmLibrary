@@ -16,6 +16,11 @@ interface GlobalConfigInitListener {
     fun initHeader(): ArrayMap<String, String>
 
     /**
+     * 网络请求头信息 - 动态更新的 - 如果key相同也会覆盖头信息
+     */
+    fun initHeaderDynamic(): ArrayMap<String, String?>
+
+    /**
      * 动态添加拦截器
      */
     fun initInterceptor(): ArrayList<Interceptor>

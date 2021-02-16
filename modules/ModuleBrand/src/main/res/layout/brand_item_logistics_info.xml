@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="16mm"
-        android:layout_marginEnd="16mm"
+        android:paddingStart="16mm"
+        android:paddingEnd="16mm"
         tools:ignore="MissingDefaultResource">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -32,6 +32,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_content"
             android:layout_width="0mm"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:paddingTop="15mm"
