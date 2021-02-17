@@ -233,8 +233,17 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
     }
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
+//        Handler().postDelayed(object : Runnable{
+//            override fun run() {
+//                //初始化列表UI
+//                initInfoUI()
+//            }
+//
+//        }, 500)
+
         //初始化列表UI
         initInfoUI()
+
     }
 
 
