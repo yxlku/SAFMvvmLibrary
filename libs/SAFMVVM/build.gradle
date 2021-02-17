@@ -53,6 +53,7 @@ dependencies {
     // 这两个是创建项目默认就有的库
     api Deps.kotlinStdLib
     api Deps.kotlinKTX
+    api Deps.startup
     // 兼容库
     api Deps.appcompat
     // 约束布局

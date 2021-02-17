@@ -12,23 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.safmvvm.ui.viewpager.CustomViewPager
-            android:id="@+id/vp_content"
+        <FrameLayout
+            android:id="@+id/fl_content"
             android:layout_width="match_parent"
             android:layout_height="0mm"
-            app:layout_constraintBottom_toTopOf="@id/pnv_tab"
+            app:layout_constraintBottom_toTopOf="@id/bnv_tab"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <me.majiajie.pagerbottomtabstrip.PageNavigationView
-            android:id="@+id/pnv_tab"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_tab"
             android:layout_width="match_parent"
             android:layout_height="60mm"
             android:background="#FFFFFF"
+            app:itemTextColor="@drawable/brand_tab_text_selector"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/brand_menu_index"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vp_content" />
+            app:layout_constraintTop_toBottomOf="@id/fl_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

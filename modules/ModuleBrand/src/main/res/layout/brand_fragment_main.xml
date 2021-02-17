@@ -33,8 +33,8 @@
 
         </com.safmvvm.ui.titlebar.TitleBar>
 
-        <com.safmvvm.ui.viewpager.CustomViewPager
-            android:id="@+id/vp_content"
+        <FrameLayout
+            android:id="@+id/fl_content"
             android:layout_width="match_parent"
             android:layout_height="0mm"
             app:layout_constraintBottom_toBottomOf="parent"

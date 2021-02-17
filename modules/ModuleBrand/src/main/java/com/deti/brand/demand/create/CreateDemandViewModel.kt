@@ -4,6 +4,7 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.whenResumed
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.deti.brand.demand.create.entity.DemandExpressListEntity
 import com.deti.brand.demand.create.entity.DemandStyleTypeEntity
@@ -235,6 +236,8 @@ class CreateDemandViewModel(app: Application) : BaseViewModel<CreateDemandModel>
         //初始化列表UI
         initInfoUI()
     }
+
+
     /**
      * 订单修改页面初始化
      */

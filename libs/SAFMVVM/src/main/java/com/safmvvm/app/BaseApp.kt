@@ -65,24 +65,8 @@ open class BaseApp : Application(), CameraXConfig.Provider {
         @JvmStatic
         fun initApp(app: Application) {
             Companion.app = app
-            //屏幕适配
+
             AutoSizeUtil.init()
-            //初始化路由框架
-            RouterUtil.initARouter(app)
-            //主题初始化
-            ThemeUtil.init(app)
-            //滑动返回
-            SwipebacklayoutUtil.init(app)
-            //日志初始化
-            LogUtil.initLog()
-            //等待布局初始化
-            LoadSirUtil.init()
-            //开启全局日常捕获
-            CrashHandlerUtil.init()
-            //初始化下载器
-            AwesomeDownloader.init(app)
-            //缓存开启
-            KVCacheUtil.init(app)
         }
 
         private fun initResource(app: Application) {

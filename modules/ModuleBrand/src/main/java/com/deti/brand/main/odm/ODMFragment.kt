@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.deti.brand.BR
 import com.deti.brand.R
@@ -14,6 +15,7 @@ import com.deti.brand.demand.sampleclothes.SimpleClothesFragment
 import com.safmvvm.bus.SingleLiveEvent
 import com.safmvvm.ext.ui.NewSimplePagerTitleView
 import com.safmvvm.ext.ui.tab.ITabTop
+import com.safmvvm.ext.ui.tab.ITabTopHideShow
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
@@ -25,10 +27,10 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator
 
-class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
+class ODMFragment : BaseFragment<BrandFragmentIndexOdmBinding, ODMViewModel>(
     R.layout.brand_fragment_index_odm,
     BR.viewModel
-), ITabTop {
+), ITabTopHideShow {
     companion object {
         /** 跳转到需求报价列表*/
         val ODM_LIVE_TO_ORDER_LIST =  SingleLiveEvent<Unit>()
@@ -44,57 +46,51 @@ class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>
     var simpleClothesFragment = SimpleClothesFragment()
     var priceDemandFragment2 = SimpleClothesFragment()
 
-    var fragments = arrayListOf<Fragment>(
+    override fun initFragments(): ArrayList<Fragment> = arrayListOf<Fragment>(
         createDemandFragment,
         priceDemandFragment,
         simpleClothesFragment,
         priceDemandFragment2
     )
 
+    override fun frameLayout(): Int = mBinding.flContent.id
+
     override fun initData() {
         super.initData()
 
-        initViewPager()
         initTab()
 
         ODM_LIVE_TO_ORDER_LIST.observe(this){
-            switchPage(mBinding.miTab, mBinding.vpContent, 1)
+            //跳转到为确认页面
+            childFragmentManager.switchPage(mBinding.miTab, 1)
             priceDemandFragment.switchPageIndex(1)
         }
     }
 
-    private fun initViewPager() {
-        fragments.createViewPager(
-            childFragmentManager,
-            mBinding.vpContent
-        )
-    }
-
     private fun initTab() {
-        initTabTop(context,
+        childFragmentManager.initTabTop(context,
             mBinding.miTab,
-            mBinding.vpContent,
             titles,
             true
         )
     }
 
-    override fun createTitleItemView(
+    override fun FragmentManager.createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager?,
         index: Int,
         titles: ArrayList<String>,
-        tag: Int,
-    ): IPagerTitleView = NewSimplePagerTitleView(context).apply {
+        tab: Int
+    ): IPagerTitleView= NewSimplePagerTitleView(context).apply {
         setTextSizeAuto(14F)
         text = titles[index]
         selectedColor = Color.parseColor("#1F2438")
         normalColor = Color.parseColor("#CCFFFFFF")
         setOnClickListener {
-            switchPage(magicIndicator, viewPager, index)
+            switchPage(magicIndicator, index)
         }
     }
+
 
 
     override fun createIndicator(context: Context?, tag: Int): IPagerIndicator? =
@@ -105,14 +101,5 @@ class ODMFragment : BaseLazyFragment<BrandFragmentIndexOdmBinding, ODMViewModel>
             startInterpolator = OvershootInterpolator(1.0f)
             endInterpolator = OvershootInterpolator(1.0f)
         }
-
-    override fun switchPage(
-        magicIndicator: MagicIndicator,
-        viewPager: ViewPager?,
-        index: Int,
-    ) {
-        //滑动动画
-        viewPager?.setCurrentItem(index, false)
-    }
 
 }

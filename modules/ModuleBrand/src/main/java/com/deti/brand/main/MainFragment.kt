@@ -3,12 +3,14 @@ package com.deti.brand.main
 import android.content.Context
 import android.graphics.Color
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.deti.brand.BR
 import com.deti.brand.R
 import com.deti.brand.databinding.BrandFragmentMainBinding
 import com.deti.brand.main.odm.ODMFragment
 import com.safmvvm.ext.ui.tab.ITabTop
+import com.safmvvm.ext.ui.tab.ITabTopHideShow
 import com.safmvvm.ext.ui.viewpager.createViewPager
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
@@ -19,32 +21,26 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 
-class MainFragment: BaseLazyFragment<BrandFragmentMainBinding, MainViewModel>(
+class MainFragment: BaseFragment<BrandFragmentMainBinding, MainViewModel>(
     R.layout.brand_fragment_main,
     BR.viewModel
-), ITabTop {
+), ITabTopHideShow {
 //    var titles = arrayListOf("OEM", "ODM")
 //    var fragments = arrayListOf<Fragment>(OEMFragment(), ODMFragment())
     var titles = arrayListOf("ODM")
-    var fragments = arrayListOf<Fragment>(ODMFragment())
+    override fun initFragments(): ArrayList<Fragment> = arrayListOf<Fragment>(ODMFragment())
 
-    override fun onFragmentFirstVisible() {
-        super.onFragmentFirstVisible()
-        initViewPager()
+    override fun frameLayout(): Int = mBinding.flContent.id
+
+    override fun initData() {
+        super.initData()
         initTab()
     }
 
-    private fun initViewPager() {
-        fragments.createViewPager(
-            childFragmentManager,
-            mBinding.vpContent
-        )
-    }
     private fun initTab() {
-        initTabTop(
+        childFragmentManager.initTabTop(
             context,
             mBinding.miTab,
-            mBinding.vpContent,
             titles,
         )
     }
@@ -54,10 +50,9 @@ class MainFragment: BaseLazyFragment<BrandFragmentMainBinding, MainViewModel>(
      *
      * 不写就是方法内默认样式
      */
-    override fun createTitleItemView(
+    override fun FragmentManager.createTitleItemView(
         context: Context,
         magicIndicator: MagicIndicator,
-        viewPager: ViewPager?,
         index: Int,
         titles: ArrayList<String>,
         tag: Int
@@ -68,9 +63,10 @@ class MainFragment: BaseLazyFragment<BrandFragmentMainBinding, MainViewModel>(
         normalColor = Color.parseColor("#99FFFFFF")
         selectedColor = Color.parseColor("#FFFFFF")
         setOnClickListener {
-            switchPage(magicIndicator, viewPager, index)
+            switchPage(magicIndicator, index)
         }
     }
+
 
 
     /**

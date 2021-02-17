@@ -30,6 +30,7 @@ import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.ext.ui.typesview.TypesViewDataBean
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.ui.toast.ToastUtil
+import com.safmvvm.utils.LogUtil
 import com.test.common.common.ConstantsFun
 import com.test.common.entity.CommonColorEntity
 import com.test.common.entity.UserInfoEntity
@@ -83,13 +84,17 @@ class CreateDemandFragment(
         //修改订单
         mViewModel.initUpdateDemand(pDemandId)
     }
-    lateinit var itemTypeChoose: ItemDeamndTypeChoose
+    var itemTypeChoose: ItemDeamndTypeChoose? = null
+
+
     /**
      * 初始化列表
      */
     private fun initRecyclerView() {
-        itemTypeChoose = ItemDeamndTypeChoose(activity, mViewModel){
-            mBinding.rvContent.scrollToPosition(0)
+        if (itemTypeChoose == null) {
+            itemTypeChoose = ItemDeamndTypeChoose(activity, mViewModel){
+                mBinding.rvContent.scrollToPosition(0)
+            }
         }
         mAdapter.apply {
             //灰色线
@@ -99,7 +104,7 @@ class CreateDemandFragment(
             //图片选择
             addItemBinder(ItemPicChooseEntity::class.java, ItemPicChoose(activity, mViewModel))
             //类型选择
-            addItemBinder(ItemDeamandTypeChooseEntity::class.java, itemTypeChoose)
+            addItemBinder(ItemDeamandTypeChooseEntity::class.java, itemTypeChoose!!)
             //服务
             addItemBinder(ItemServiceEntity::class.java, ItemService(activity, mViewModel))
             //快递
@@ -134,7 +139,7 @@ class CreateDemandFragment(
         /** 初始化列表 用处：1、第一次初始化列表 2、提交后清空数据 3、更新选中布局*/
         mViewModel.CLEAR_LIST_DATA.observe(this) {
             //1、类型选择刷新
-            mViewModel.itemEntityTypeChoose?.apply { itemTypeChoose.updateUIData(this, this.mChooseTypes) }
+            mViewModel.itemEntityTypeChoose?.apply { itemTypeChoose?.updateUIData(this, this.mChooseTypes) }
             //2、刷新后制定
             mBinding.rvContent.scrollToPosition(0)
             //3、刷新布局

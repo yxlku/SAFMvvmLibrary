@@ -19,6 +19,7 @@ ext {
             appcompat                 : "androidx.appcompat:appcompat:1.2.0",
             recyclerView              : "androidx.recyclerview:recyclerview:1.1.0",
             material                  : "com.google.android.material:material:1.2.0",
+            startup                   : "androidx.startup:startup-runtime:1.0.0",
 
             activity                  : 'androidx.activity:activity:1.2.0-alpha07',
             activityKTX               : 'androidx.activity:activity-ktx:1.2.0-alpha07',

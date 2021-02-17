@@ -7,11 +7,17 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.mvvm.view.BaseFragment
 import com.safmvvm.mvvm.view.BaseLazyFragment
+import com.safmvvm.utils.LogUtil
 
 class MsgFragment: BaseLazyFragment<BrandFragmentMsgBinding, MsgViewModel>(
     R.layout.brand_fragment_msg,
     BR.viewModel
 ){
+
+    override fun initData() {
+        super.initData()
+        LogUtil.d("sssssssssssssssssssssss2")
+    }
 
     override fun onFragmentFirstVisible() {
         super.onFragmentFirstVisible()
