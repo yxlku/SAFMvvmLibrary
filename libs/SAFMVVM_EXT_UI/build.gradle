@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.SAFMvvmLibraryUI'
 android {
     compileSdkVersion AndroidApp.compileSdkVersion
 
@@ -62,8 +64,8 @@ android {
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
     // 这两个是创建项目默认就有的库
-    implementation project(':libs:SAFMVVM')
-
+//    implementation project(':libs:SAFMVVM')
+    implementation 'com.github.yxlku:SAFMvvmLibrary:1.0.0'
     //顶部Tab指示器
     api 'com.github.hackware1993:MagicIndicator:1.7.0'
     //底部Tab
