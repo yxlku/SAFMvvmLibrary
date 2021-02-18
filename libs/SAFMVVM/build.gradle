@@ -68,7 +68,8 @@ dependencies {
     // RecycylerView
     api "androidx.recyclerview:recyclerview:1.1.0"
     // material
-    api "com.google.androistartupd.material:material:1.2.0"
+//    api "com.google.androistartupd.material:material:1.2.0"
+    api "com.google.android.material:material:1.2.0"
 
     // 以下三个是为了使用最新的特性
     api 'androidx.activity:activity:1.2.0-alpha07'
