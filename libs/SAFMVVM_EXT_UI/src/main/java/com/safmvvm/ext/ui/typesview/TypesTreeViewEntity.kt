@@ -5,7 +5,7 @@ import java.io.Serializable
 /**
  * typesview的实体类，无论调用者什么对象都要转换为此对象
  */
-open class TypesTreeViewEntity(
+open class TypesTreeViewEntity (
     /**
      * 第一层如果为空，则显示空布局
      */
