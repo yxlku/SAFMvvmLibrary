@@ -44,8 +44,8 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-//    api project(':libs:SAFMVVM')
-    api 'com.github.yxlku:SAFMvvmLibrary:1.0.0'
+    api project(':libs:SAFMVVM')
+//    api 'com.github.yxlku:SAFMvvmLibrary:1.0.0'
     api project(':libs:SAFMVVM_EXT_UI')
     api project(':libs:Common_Res')
     //分布指示器
