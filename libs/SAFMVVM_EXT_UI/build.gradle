@@ -61,6 +61,11 @@ android {
 
 }
 
+task copyLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}
+
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
     // 这两个是创建项目默认就有的库

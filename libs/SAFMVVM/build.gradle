@@ -49,10 +49,10 @@ android {
         }
 
     }
-    task copyLibs(type: Copy) {
-        from configurations.compile
-        into 'libs'
-    }
+}
+task copyLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
 }
 
 dependencies {
