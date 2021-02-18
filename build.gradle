@@ -7,8 +7,6 @@ buildscript {
     apply from: "config.gradle"
     ext {
         kotlin_version = '1.4.20'
-        Versions.kotlinVersion = '1.4.20'
-        Versions.kotlinVersion = '1.4.30-M1'
     }
 
     //远程仓库
