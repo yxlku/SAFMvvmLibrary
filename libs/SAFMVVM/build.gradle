@@ -49,6 +49,11 @@ android {
         }
 
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 task copyLibs(type: Copy) {
     from configurations.compile

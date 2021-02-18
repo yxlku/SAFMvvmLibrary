@@ -58,7 +58,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 task copyLibs(type: Copy) {
@@ -72,20 +76,12 @@ dependencies {
     implementation project(':libs:SAFMVVM')
 //    implementation 'com.github.yxlku:SAFMvvmLibrary:1.0.0'
     //顶部Tab指示器
-    api ('com.github.hackware1993:MagicIndicator:1.7.0'){
-        transitive = true
-    }
+    api 'com.github.hackware1993:MagicIndicator:1.7.0'
     //底部Tab
-    api ('me.majiajie:pager-bottom-tab-strip:2.3.0X'){
-        transitive = true
-    }
+    api 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
     //倒计时
-    api ('com.github.iwgang:countdownview:2.1.6'){
-        transitive = true
-    }
+    api 'com.github.iwgang:countdownview:2.1.6'
 
-    api ("biz.laenger.android:vpbs:0.0.6"){
-        transitive = true
-    }
+    api "biz.laenger.android:vpbs:0.0.6"
 
 }
