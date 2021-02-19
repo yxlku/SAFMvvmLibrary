@@ -33,13 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug {
-            ext.enableCrashlytics = false
-            ext.alwaysUpdateBuildId = false
-            aaptOptions {
-                cruncherEnabled false
-            }
-        }
         /**
          * 建议提测用这个构建类型，并使用 BuildConfig.BUILD_TYPE 判断是否等于 beta，作为
          * 开启动态修改 Url，动态打开日志等功能的标记。
@@ -58,6 +51,15 @@ android {
 task copyLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+// 源代码一起打包
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+artifacts {
+    archives androidSourcesJar
 }
 
 dependencies {
