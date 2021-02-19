@@ -231,7 +231,7 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
 
     override fun show(manager: FragmentManager, tag: String?) {
         super.show(manager, tag)
-        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())//如果没有自定义需求用这个方法
+//        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())//如果没有自定义需求用这个方法
     }
 
 }

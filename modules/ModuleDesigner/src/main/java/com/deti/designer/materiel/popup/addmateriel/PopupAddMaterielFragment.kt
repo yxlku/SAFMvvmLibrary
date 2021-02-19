@@ -81,7 +81,7 @@ class PopupAddMaterielFragment : BaseBottomFragment<DesignerPopupMaterielAddBind
             add(ItemChooseEntity("0", "品名", "请选择品名"))
             add(ItemChooseEntity("0", "编号", "请选择编号", "", false))
 
-            add(ItemGrayLineEntity(, 10.0F, Color.parseColor("#F8F8F8")))
+            add(ItemGrayLineEntity(10.0F, Color.parseColor("#F8F8F8")))
             add(ItemInputEntity("0", "成分", "请输入成分")) //4
             add(ItemInputEntity("0", "产地", "请输入产地"))
             add(ItemChooseEntity("0", "颜色", "请选择颜色"))
@@ -91,7 +91,7 @@ class PopupAddMaterielFragment : BaseBottomFragment<DesignerPopupMaterielAddBind
             add(ItemInputEntity("0", "缩率", "请输入缩率", "", false))
             add(ItemInputEntity("0", "单价/元", "请输入单价", "", false)) //11
 
-            add(ItemGrayLineEntity(, 10.0F, Color.parseColor("#F8F8F8")))
+            add(ItemGrayLineEntity(10.0F, Color.parseColor("#F8F8F8")))
             add(ItemChooseEntity("0", "版本编号", "请选择供应商"))
             add(ItemChooseEntity("0", "提供方", "请选择品名", "", false))
 
