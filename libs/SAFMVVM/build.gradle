@@ -42,24 +42,7 @@ android {
         }
 
     }
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
-}
-task copyLibs(type: Copy) {
-    from configurations.compile
-    into 'libs'
-}
 
-// 源代码一起打包
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.sourceFiles
-}
-artifacts {
-    archives androidSourcesJar
 }
 
 dependencies {
@@ -176,5 +159,33 @@ dependencies {
     // debug log弹窗
 //    debugImplementation Deps.appLogcat
 
+}
 
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// 打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set("sources")
+}
+
+task javadoc(type: Javadoc) {
+    failOnError  false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
