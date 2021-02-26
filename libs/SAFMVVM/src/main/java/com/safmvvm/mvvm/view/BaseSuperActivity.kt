@@ -59,8 +59,9 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
 
     var mTitleBar: TitleBar? = null
-
+    open 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
         super.onCreate(savedInstanceState)
         //添加setRequestedOrientation方法实现锁定横屏（portrait为保持竖屏，landscape为保持横屏）
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -92,7 +93,7 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     /** 初始化状态栏 */
     private fun initTitleBar(){
-        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(window.decorView)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)

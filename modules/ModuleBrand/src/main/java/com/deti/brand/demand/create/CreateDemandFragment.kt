@@ -86,7 +86,6 @@ class CreateDemandFragment(
     }
     var itemTypeChoose: ItemDeamndTypeChoose? = null
 
-
     /**
      * 初始化列表
      */
