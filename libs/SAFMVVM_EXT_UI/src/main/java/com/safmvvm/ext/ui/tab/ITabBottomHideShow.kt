@@ -34,14 +34,14 @@ interface ITabBottomHideShow {
         initBlock(bottomNavigationView, menuItemViews)
 
         //默认选中的页面
-        this.switchPage(defPage)
+        switchPage(this, defPage)
 
         bottomNavigationView.itemIconTintList = null
         bottomNavigationView.setOnNavigationItemSelectedListener {
             bottomNavigationView.menu.forEachIndexed { index, item ->
                 if (item.itemId == it.itemId) {
                     if (clickBlock(index, it, menuItemViews)) {
-                        this.switchPage(index)
+                        switchPage(this, index)
                     }
                 }
             }
@@ -50,13 +50,13 @@ interface ITabBottomHideShow {
 
     }
 
-    fun FragmentManager.switchPage(position: Int){
-        val transaction = this.beginTransaction()
-        this.executePendingTransactions()
-        this.hideFragments(transaction)
+    fun switchPage(fragmentManager: FragmentManager, position: Int){
+        val transaction = fragmentManager.beginTransaction()
+        fragmentManager.executePendingTransactions()
+        fragmentManager.hideFragments(transaction)
         if (position >= 0 && position < initFragments().size) {
             var currFragment = initFragments()[position]
-            this.findFragmentByTag(currFragment::class.java.simpleName)?.apply {
+            fragmentManager.findFragmentByTag(currFragment::class.java.simpleName)?.apply {
                 transaction.show(this)
             } ?: transaction.add(frameLayout(), currFragment, currFragment::class.java.simpleName)
         }
@@ -69,7 +69,7 @@ interface ITabBottomHideShow {
     /**
      *  隐藏所有的Fragment
      */
-    private fun FragmentManager.hideFragments(transaction: FragmentTransaction) {
+    fun FragmentManager.hideFragments(transaction: FragmentTransaction) {
         this.fragments.forEach {
             transaction.hide(it)
         }

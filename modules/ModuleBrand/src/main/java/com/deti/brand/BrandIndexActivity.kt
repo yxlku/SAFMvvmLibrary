@@ -2,6 +2,7 @@ package com.deti.brand
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.deti.brand.databinding.BrandActivityIndexBinding
 import com.deti.brand.demand.create.CreateDemandFragment
