@@ -71,7 +71,7 @@ interface ITabTop {
                     }
 
                 })
-                ViewPagerHelper.bind(magicIndicator, it)
+//                ViewPagerHelper.bind(magicIndicator, it)
             }
         }
     }
