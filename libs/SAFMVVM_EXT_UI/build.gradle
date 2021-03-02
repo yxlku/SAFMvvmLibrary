@@ -58,27 +58,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
 }
-
-task copyLibs(type: Copy) {
-    from configurations.compile
-    into 'libs'
-}
-
-// 源代码一起打包
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.sourceFiles
-}
-artifacts {
-    archives androidSourcesJar
-}
-
 
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
@@ -94,4 +74,19 @@ dependencies {
 
     api "biz.laenger.android:vpbs:0.0.6"
 
+}
+
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// 打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set("sources")
+}
+
+artifacts {
+    archives sourcesJar
 }

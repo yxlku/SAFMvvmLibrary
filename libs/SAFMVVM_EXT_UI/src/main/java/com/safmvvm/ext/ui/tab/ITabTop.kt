@@ -44,37 +44,37 @@ interface ITabTop {
 
                     override fun getTitleWeight(context: Context?, index: Int): Float =
                         createTitleWeight(context, index)
+
                 }
+
             }
             magicIndicator.navigator = commonNavigator
             viewPager?.let {
+                it.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int,
+                    ) {
+                        magicIndicator.onPageScrolled(position,
+                            positionOffset,
+                            positionOffsetPixels)
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        magicIndicator.onPageSelected(position)
+                        switchPage(magicIndicator, it, position)
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+                        magicIndicator.onPageScrollStateChanged(state)
+                    }
+
+                })
                 ViewPagerHelper.bind(magicIndicator, it)
             }
         }
     }
-
-//    /**
-//     * 2、实现此方法，来自定义titleItemView
-//     *
-//     * 不写就是方法内默认样式
-//     */
-//    fun createTitleItemView(
-//        context: Context,
-//        magicIndicator: MagicIndicator,
-//        viewPager: ViewPager? = null,
-//        index: Int,
-//        titles: ArrayList<String>,
-//        tab: Int
-//    ): IPagerTitleView = SimplePagerTitleView(context).apply {
-//        setPadding(AutoSizeUtils.mm2px(context, 30f), 0, AutoSizeUtils.mm2px(context, 30f), 0)
-//        textSize = AutoSizeUtils.mm2px(context, 14F).toFloat()
-//        text = titles[index]
-//        normalColor = Color.parseColor("#999999")
-//        selectedColor = Color.parseColor("#333333")
-//        setOnClickListener {
-//            switchPage(magicIndicator, viewPager, index)
-//        }
-//    }
 
     /**
      * 2、实现此方法，来自定义titleItemView
