@@ -50,7 +50,7 @@ object StatusBarUtil {
             transparentStatusBar()
             navigationBarColor(android.R.color.transparent) //导航栏颜色，不写默认黑色
             //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
-            keyboardEnable(true)
+            keyboardEnable(false)
             //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度
             statusBarDarkFont(isDark, 0.2f)
             init()
