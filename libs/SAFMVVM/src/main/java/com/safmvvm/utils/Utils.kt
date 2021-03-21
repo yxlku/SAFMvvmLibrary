@@ -98,9 +98,9 @@ object Utils {
      */
     fun String.callPhone(): Intent{
         var intent = Intent()
-        intent.action = Intent.ACTION_DIAL;
+        intent.action = Intent.ACTION_DIAL
         //设置数据 后面123456789是默认要拨打的电话
-        intent.data = Uri.parse("tel:$this");
+        intent.data = Uri.parse("tel:$this")
         return intent
     }
 

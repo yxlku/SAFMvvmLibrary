@@ -14,9 +14,9 @@ import com.safmvvm.utils.LogUtil
 
 interface ITabBottomHideShow {
 
-    abstract fun initFragments(): ArrayList<Fragment>
+    fun initFragments(): ArrayList<Fragment>
 
-    abstract fun frameLayout(): Int
+    fun frameLayout(): Int
 
     fun FragmentManager.initBottomNavigation(
         bottomNavigationView: BottomNavigationView,

@@ -138,7 +138,7 @@ class CreateDemandFragment(
         /** 初始化列表 用处：1、第一次初始化列表 2、提交后清空数据 3、更新选中布局*/
         mViewModel.CLEAR_LIST_DATA.observe(this) {
             //1、类型选择刷新
-            mViewModel.itemEntityTypeChoose?.apply { itemTypeChoose?.updateUIData(this, this.mChooseTypes) }
+            mViewModel.itemEntityTypeChoose.apply { itemTypeChoose?.updateUIData(this, this.mChooseTypes) }
             //2、刷新后制定
             mBinding.rvContent.scrollToPosition(0)
             //3、刷新布局

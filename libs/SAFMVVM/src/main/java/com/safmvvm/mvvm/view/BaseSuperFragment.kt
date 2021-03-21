@@ -9,22 +9,22 @@ import androidx.annotation.LayoutRes
 import androidx.collection.ArrayMap
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
+import com.gyf.immersionbar.ImmersionBar
+import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.mvvm.view.immersionbar.SimpleImmersionFragment
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
 import com.safmvvm.utils.Utils
-import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeCompat
-import me.jessyan.autosize.internal.CustomAdapt
 
 /**
  * 所有Fragment的基类
@@ -34,7 +34,7 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
     private val mViewModelId: Int? = null,
     /** 共享使用Activity中的VM*/
     private val sharedViewModel: Boolean = false,
-): Fragment(), IView<V, VM>, IResultFinishCallback{
+): SimpleImmersionFragment(), IView<V, VM>, IResultFinishCallback{
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
@@ -62,6 +62,9 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
     override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =
         DataBindingUtil.inflate(inflater, mLayoutId, container, false)
 
+    override fun initImmersionBar() {
+        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,7 +107,6 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
 
     /** 初始化状态栏 */
     private fun initTitleBar(view: View){
-        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
         if (mTitleBar == null) mTitleBar = StatusBarUtil.obtainTitleBar(view)
         mTitleBar?.let {
             StatusBarUtil.immersionPageView(this, it)
@@ -165,15 +167,19 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
     /** 页面跳转动画：打开动画*/
     override fun startPageAnim(){
         if (GlobalConfig.Anim.gIsOpenPageAnim) {
-            activity?.overridePendingTransition(GlobalConfig.Anim.gPageOpenIn,
-                GlobalConfig.Anim.gPageOpenOut)
+            activity?.overridePendingTransition(
+                GlobalConfig.Anim.gPageOpenIn,
+                GlobalConfig.Anim.gPageOpenOut
+            )
         }
     }
     /** 页面跳转动画： 关闭动画*/
     override fun finishPageAnim(){
         if (GlobalConfig.Anim.gIsOpenPageAnim) {
-            activity?.overridePendingTransition(GlobalConfig.Anim.gPageCloseIn,
-                GlobalConfig.Anim.gPageCloseOut)
+            activity?.overridePendingTransition(
+                GlobalConfig.Anim.gPageCloseIn,
+                GlobalConfig.Anim.gPageCloseOut
+            )
         }
     }
 
@@ -204,5 +210,4 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
         //动画
         startPageAnim()
     }
-
 }

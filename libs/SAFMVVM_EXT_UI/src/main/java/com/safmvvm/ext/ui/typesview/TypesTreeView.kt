@@ -144,12 +144,12 @@ class TypesThreeView : LinearLayoutCompat {
         //2、设置选中结果
         resultData[adapter.levelNum] = typesViewDataBean
         //3、最后一条数据点击回调
-        if (typesViewDataBean?.childer == null || adapter.levelNum == mLevelCount - 1) {
+        if (typesViewDataBean.childer == null || adapter.levelNum == mLevelCount - 1) {
             onClickResultListener?.apply {
                 this.onClickCompleteResult(resultData)
             }
         }
-        typesViewDataBean?.childer?.apply {
+        typesViewDataBean.childer?.apply {
             //4、更新下一级数据
             if (adapter.levelNum < mLevelCount - 1) {
                 for (i in mLevelCount - 1 downTo adapter.levelNum + 1) {

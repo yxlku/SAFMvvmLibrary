@@ -81,8 +81,8 @@ dependencies {
     }else{
         //壳的时候
         //TestA模块
-        implementation project(':modules:ModuleTestA')
-        implementation project(':modules:testapplication')
+//        implementation project(':modules:ModuleTestA')
+//        implementation project(':modules:testapplication')
 
         implementation project(':modules:ModuleBrand')
         implementation project(':modules:ModuleBasis')

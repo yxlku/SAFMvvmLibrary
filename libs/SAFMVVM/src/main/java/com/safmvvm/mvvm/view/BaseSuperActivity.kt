@@ -25,6 +25,7 @@ import com.billy.android.swipe.SwipeConsumer
 import com.billy.android.swipe.consumer.ActivitySlidingBackConsumer
 import com.billy.android.swipe.listener.SimpleSwipeListener
 import com.billy.android.swipe.listener.SwipeListener
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.gyf.immersionbar.ImmersionBar
 import com.safmvvm.R
 import com.safmvvm.app.BaseApp
@@ -59,9 +60,10 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
 
     var mTitleBar: TitleBar? = null
-    open 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+        window.sharedElementsUseOverlay = false
+        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
         super.onCreate(savedInstanceState)
         //添加setRequestedOrientation方法实现锁定横屏（portrait为保持竖屏，landscape为保持横屏）
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

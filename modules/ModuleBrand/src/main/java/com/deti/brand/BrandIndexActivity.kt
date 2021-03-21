@@ -32,7 +32,6 @@ class BrandIndexActivity : BaseActivity<BrandActivityIndexBinding, BrandIndexVie
     override fun initData() {
         //取消侧滑返回
         cleanSwipeback()
-
         supportFragmentManager.initBottomNavigation(mBinding.bnvTab) {
                 bottomNavigationView: BottomNavigationView, menuItemViews: ArrayList<View> ->
         }

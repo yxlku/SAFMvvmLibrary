@@ -22,9 +22,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 
 interface ITabTopHideShow {
 
-    abstract fun initFragments(): ArrayList<Fragment>
+    fun initFragments(): ArrayList<Fragment>
 
-    abstract fun frameLayout(): Int
+    fun frameLayout(): Int
 
     /**
      * 1、初始调用位置
