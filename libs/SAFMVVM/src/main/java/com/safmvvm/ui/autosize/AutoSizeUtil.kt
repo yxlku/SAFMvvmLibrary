@@ -46,7 +46,7 @@ object AutoSizeUtil {
      */
     fun customAdaptForExternal(){
         var manager = AutoSizeConfig.getInstance().externalAdaptManager
-        LogUtil.d("size: ${GlobalConfig.AutoSize.gCustomAdapter?.size}")
+//        LogUtil.d("size: ${GlobalConfig.AutoSize.gCustomAdapter?.size}")
         GlobalConfig.AutoSize.gCustomAdapter?.forEach {
             manager.addExternalAdaptInfoOfActivity(it.first, ExternalAdaptInfo(it.second, it.third))
         }
