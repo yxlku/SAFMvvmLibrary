@@ -10,6 +10,10 @@
             type="com.deti.brand.demand.create.CreateDemandViewModel" />
     </data>
 
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        app:srlEnableOverScrollDrag="true"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_content"
@@ -21,4 +25,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
 </layout>

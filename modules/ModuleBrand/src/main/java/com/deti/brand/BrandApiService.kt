@@ -20,7 +20,7 @@ interface BrandApiService {
     /**
      * 获取创建需求快递列表
      */
-    @POST("client/system/findAvailableDataDictionaryList")
+    @POST("http://192.168.10.11/client/system/findAvailableDataDictionaryList")
     suspend fun requestExpressList(
         @Body body: HashMap<String, String?>,
     ): BaseNetEntity<DemandExpressListEntity?>
@@ -51,7 +51,7 @@ interface BrandApiService {
     /**
      * 需求单下单
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/saveDemandIndentAPP")
+    @POST("http://192.168.10.11/DETI-Demand/client/demandIndent/saveDemandIndentAPP")
     suspend fun requestDemandSubmit(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
@@ -59,14 +59,14 @@ interface BrandApiService {
     /**
      * 需求单修改提交
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/updateDemandIndentAPP")
+    @POST("http://192.168.10.11/DETI-Demand/client/demandIndent/updateDemandIndentAPP")
     suspend fun requestUpdateDemandIndentAPP(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
     /**
      * 品牌商侧-需求单详情(APP)
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/findDemandIndentInfo")
+    @POST("http://192.168.10.11/DETI-Demand/client/demandIndent/findDemandIndentInfo")
     suspend fun requestFindDemandIndentInfo(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<DemandInfoEntity?>
@@ -74,7 +74,7 @@ interface BrandApiService {
     /**
      * 品牌商侧-获取需求单列表(APP)
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/findQuotePageApp")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/findQuotePageApp")
     suspend fun findDemandIndentListAPP(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<DemandIndentListApp?>
@@ -84,7 +84,7 @@ interface BrandApiService {
     /**
      * 品牌商侧-获取需求单列表(APP)
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/findFabricList")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/findFabricList")
     suspend fun findFabricList(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<MaterialCostEntity?>
@@ -92,7 +92,7 @@ interface BrandApiService {
     /**
      * 其他费用
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/otherQuoteInfo")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/otherQuoteInfo")
     suspend fun otherQuoteInfo(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<OtherCostEntity?>
@@ -101,7 +101,7 @@ interface BrandApiService {
     /**
      * 合计报价
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/lastQuoteInfo")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/lastQuoteInfo")
     suspend fun lastQuoteInfo(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<TotalCostEntity?>
@@ -109,14 +109,14 @@ interface BrandApiService {
     /**
      * 拒绝报价
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/refuseQuote")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/refuseQuote")
     suspend fun refuseQuote(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
     /**
      * 同意报价
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/quote/acceptQuote")
+    @POST("http://192.168.10.11/DETI-Demand/client/quote/acceptQuote")
     suspend fun acceptQuote(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<CommoneEmpty?>
@@ -125,7 +125,7 @@ interface BrandApiService {
     /**
      * 快递查询
      */
-    @POST("http://192.168.10.11:9002/DETI-Demand/client/demandIndent/findExpressInfo")
+    @POST("http://192.168.10.11/DETI-Demand/client/demandIndent/findExpressInfo")
     suspend fun findExpressInfo(
         @Body body: HashMap<String, Any?>,
     ):BaseNetEntity<SapmleClothesLogisticsEntity?>

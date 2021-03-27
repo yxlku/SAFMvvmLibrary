@@ -7,6 +7,7 @@ import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.http.converter.SAFGsonConverterFactory
 import com.safmvvm.http.cookie.CookieJarImpl
 import com.safmvvm.http.cookie.store.PersistentCookieStore
+import com.safmvvm.http.interceptor.BtReplaceUrlInterceptor
 import com.safmvvm.http.interceptor.FormDataInterceptor
 import com.safmvvm.http.interceptor.GetDataInterceptor
 import com.safmvvm.http.interceptor.HeaderInterceptor
@@ -102,6 +103,7 @@ object RetrofitClient{
             .addInterceptor(HeaderInterceptor(headers))     //头信息拦截器
             .addInterceptor(FormDataInterceptor())     //Form请求拦截
             .addInterceptor(GetDataInterceptor())     //Get请求拦截
+            .addInterceptor(BtReplaceUrlInterceptor())     //请求动态替换地址拦截器
             .addNetworkInterceptor(LogUtil.configLogInterceptor()) //日志拦截器
             .connectTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)          //连接超时时间
             .writeTimeout(GlobalConfig.Request.DEFAULT_TIMEOUT, TimeUnit.SECONDS)            //读取超时时间

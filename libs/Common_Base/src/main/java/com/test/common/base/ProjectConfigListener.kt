@@ -71,6 +71,29 @@ class ProjectConfigListener: GlobalConfigInitListener {
         exitProcess(0)
     }
 
+    /**
+     * 动态替换Url地址，比如： -> (不要在这里搞针对Url追加参数，追加参数的可以在对应的方法中加，全局统一加参数也在对应方法加)
+     * 1、针对某个地址，完全替换
+     * 2、针对一系列规则的地址，进行修改
+     *
+     * @param oldUrl 原始url完整地址
+     *
+     * @return 返回更改的url - 如果返回null则代表不修改
+     */
+    override fun requestBtReplaceUrl(oldUrl: String?): String? {
+        oldUrl?.apply {
+            when {
+                this.contains("/DETI-System") -> {
+                    return this.replace("/DETI-System", ":9001/DETI-System", ignoreCase = true)
+                }
+                this.contains("/DETI-Demand") -> {
+                    return this.replace("/DETI-Demand", ":9002/DETI-Demand", ignoreCase = true)
+                }
+            }
+        }
+        return null
+    }
+
     override fun dateParseException(isJson: Boolean, msg: String, ex: Exception) {
         //解析异常
         LogUtil.e(msg)

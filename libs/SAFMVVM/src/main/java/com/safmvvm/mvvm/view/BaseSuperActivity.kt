@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +74,7 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         initDatabinding(layoutInflater, null)
         //初始化view
         setContentView(mBinding.root)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         initSwipeBack()
         //初始化viewModel
         initViewModel()

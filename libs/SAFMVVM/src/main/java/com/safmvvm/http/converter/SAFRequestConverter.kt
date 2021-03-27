@@ -23,16 +23,16 @@ import retrofit2.Converter
  *
  * 以下是使用Body（）方法请求，由于@Field的字段注解方式不会调用convert方法，所以才会在设置OkHttpClient的时候添加自定义Interceptor,使用Converter：
  */
-class SAFRequestConverter<T>(
+class SAFRequestConverter<T: Any>(
     var gson: Gson,
     var adapter: TypeAdapter<T>
 ): Converter<T, RequestBody> {
 
     private val MEDIA_TYPE: MediaType? = "application/json; charset=UTF-8".toMediaTypeOrNull()
-    override fun convert(value: T): RequestBody? {
+    override fun convert(value: T): RequestBody {
         //value类型和传入参数有关系
         //明文数据
-        var dataPlaintext: String = JsonUtil.toJson(value!!)
+        var dataPlaintext: String = JsonUtil.toJson(value)
         //在此处做加密请求 -- 如果子Module中没有修改这个方法或返回null则直接用明文来处理
         var dataDealResult:String = dataPlaintext
 

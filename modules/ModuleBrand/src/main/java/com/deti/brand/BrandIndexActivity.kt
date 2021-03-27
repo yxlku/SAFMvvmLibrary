@@ -1,6 +1,10 @@
 package com.deti.brand
 
+import android.graphics.Rect
+import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.Window
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route

@@ -56,4 +56,5 @@ dependencies {
     api 'co.lujun:androidtagview:1.1.7'
 
     api 'cn.ucloud.ufile:ufile-client-java:2.6.4'
+
 }

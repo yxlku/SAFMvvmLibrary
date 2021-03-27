@@ -38,6 +38,17 @@ interface GlobalConfigInitListener {
     fun initCrashHandlerDeal(thread: Thread?, ex: Throwable?)
 
     /**
+     * 动态替换Url地址，比如： -> (不要在这里搞针对Url追加参数，追加参数的可以在对应的方法中加，全局统一加参数也在对应方法加)
+     * 1、针对某个地址，完全替换
+     * 2、针对一系列规则的地址，进行修改
+     *
+     * @param oldUrl 原始url完整地址
+     *
+     * @return 返回更改的url - 如果返回null则代表不修改
+     */
+    fun requestBtReplaceUrl(oldUrl: String?): String?
+
+    /**
      * 网络请求解析
      * @param isJson 是否是Json，具体操作自行处理即可
      */
