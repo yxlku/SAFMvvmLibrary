@@ -1,6 +1,5 @@
 package com.safmvvm.http.interceptor
 
-import androidx.core.net.toUri
 import com.safmvvm.app.globalconfig.GlobalConfig
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -19,13 +18,12 @@ class BtReplaceUrlInterceptor: Interceptor {
         val oldHttpUrl: HttpUrl = request.url
         var newHttpUrl: HttpUrl = oldHttpUrl
         //公共接口对参数进行处理，如果不处理则直接用单独请求方式
-        GlobalConfig.App.gGlobalConfigInitListener?.let {
-            //防止将原数据清空
-            val newUrl: String = GlobalConfig.App.gGlobalConfigInitListener?.requestBtReplaceUrl(oldHttpUrl.toString()) ?: oldHttpUrl.toString()
-            newUrl.toHttpUrlOrNull()?.apply {
-                newHttpUrl = this
+        //防止将原数据清空
+        GlobalConfig.App.gGlobalConfigInitListener?.requestBtReplaceUrl(oldHttpUrl.toString())?.apply {
+                this.toHttpUrlOrNull()?.apply {
+                    newHttpUrl = this
+                }
             }
-        }
         val newBuilder: HttpUrl.Builder = newHttpUrl.newBuilder()
         //构建新的Requst
         request = request.newBuilder()
