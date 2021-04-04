@@ -34,7 +34,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
 ) : BaseSuperActivity<V, VM>(mLayoutId, mViewModelId), ILoad {
 
     //状态：弹窗模式
-    protected var dialogView: LoadingPopupView? = null
+    var dialogView: LoadingPopupView? = null
     /** 等待弹窗自定义布局，默认为全局配置项，如果配置项不设置则使用控件自带的布局*/
     protected var  mLoadingLayoutId: Int = GlobalConfig.Loading.LOADING_LAYOUT_ID
     /** 等待等待弹窗提示信息，默认为全局配置项，如果配置项不设置，则使用控件自带的文字*/
