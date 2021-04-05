@@ -91,7 +91,7 @@ dependencies {
     //图片选择
     api "com.github.LuckSiege.PictureSelector:picture_library:v2.6.0"
     //文件选择器
-    api "com.github.ZLYang110:FileSelector:2.0.0"
+    api "com.github.ZLYang110:FileSelector:2.1.1"
 
     // 网络，默认使用 gson 解析 json
     api "com.squareup.retrofit2:retrofit:2.9.0"
@@ -101,7 +101,8 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:2.7.2"
 
     // 图片，使用 glide
-    api "com.github.bumptech.glide:glide:4.11.0"
+    // api "com.github.bumptech.glide:glide:4.11.0"
+    api "com.github.bumptech.glide:glide:4.8.0"
     //圆角图片
     api 'com.github.xiaofeidev:round:1.1.1'
 
