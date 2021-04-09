@@ -23,6 +23,8 @@
             <option value="$PROJECT_DIR$/modules/ModuleDesigner" />
             <option value="$PROJECT_DIR$/modules/ModuleTestA" />
             <option value="$PROJECT_DIR$/modules/testapplication" />
+            <option value="$PROJECT_DIR$/thirds" />
+            <option value="$PROJECT_DIR$/thirds/fileselectorlib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

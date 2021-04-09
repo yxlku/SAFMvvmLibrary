@@ -1,11 +1,12 @@
-include ':modules:ModuleBrand'
+rootProject.name = "SAFMvvmLibrary"
+include ':app'
 include ':libs:SAFMVVM_EXT_UI'
-include ':modules:ModuleBasis'
+include ':libs:SAFMVVM'
 include ':libs:Common_Res'
 include ':libs:Common_Base'
-include ':libs:SAFMVVM'
-include ':app'
+include ':thirds:fileselectorlib'
+include ':modules:ModuleBrand'
+include ':modules:ModuleBasis'
 include ':modules:testapplication'
 include ':modules:ModuleTestA'
-rootProject.name = "SAFMvvmLibrary"
 include ':modules:ModuleDesigner'
