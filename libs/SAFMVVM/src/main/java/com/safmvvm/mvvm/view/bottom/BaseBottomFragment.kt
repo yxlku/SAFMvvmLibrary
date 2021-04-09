@@ -37,6 +37,9 @@ abstract class BaseBottomFragment<V : ViewDataBinding, VM : BaseViewModel<out Ba
     private var  mLoadingLayoutId: Int = GlobalConfig.Loading.LOADING_LAYOUT_ID
     /** 等待等待弹窗提示信息，默认为全局配置项，如果配置项不设置，则使用控件自带的文字*/
     private var mLoadingTipText: String = GlobalConfig.Loading.LOADING_TEXT
+    override fun initBigPic() {
+
+    }
     /**
      * 初始化等待弹窗
      */
