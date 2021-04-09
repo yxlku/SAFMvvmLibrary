@@ -34,7 +34,7 @@ open class AppInitializer : Initializer<Unit> {
         }
         ARouter.init(context.applicationContext as Application)
 
-        var app = context as Application
+        val app = context as Application
         //屏幕适配
         AutoSizeUtil.init()
         //初始化路由框架

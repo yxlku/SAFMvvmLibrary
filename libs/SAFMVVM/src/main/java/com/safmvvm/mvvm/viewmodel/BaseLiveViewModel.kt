@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.MainThread
 import androidx.collection.ArrayMap
@@ -21,6 +22,7 @@ import com.safmvvm.ui.load.LoadState
 import com.safmvvm.ui.load.LoadingModel
 import com.zy.multistatepage.MultiState
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  *
@@ -99,6 +101,10 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
     fun showLoadSir(entity: LoadSirUpdateMsgEntity?) {
         mUiChangeLiveData.loadPageStateEvent?.putValue(entity)
     }
+    /** 大图展示*/
+    fun showBigPic(view: View?, position: Int, imgPaths: List<String>){
+        mUiChangeLiveData.bigPicEvent?.putValue(Triple(view, position, imgPaths))
+    }
 
     /**
      * 控制键盘是否显示
@@ -152,6 +158,8 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         var loadPageStateEvent: SingleLiveEvent<LoadSirUpdateMsgEntity?>? = null
         /** loading */
         var loadDialogEvent: SingleLiveEvent<Boolean>? = null
+        /** 大图展示*/
+        var bigPicEvent: SingleLiveEvent<Triple<View?, Int, List<String>>>? = null
         /** 键盘显示隐藏*/
         var inputKeyboard: SingleLiveEvent<Boolean>? = null
 
@@ -179,6 +187,10 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
         /** 初始化等待弹窗*/
         fun initLoadDialogEvent(){
             loadDialogEvent = SingleLiveEvent()
+        }
+        /** 大图展示*/
+        fun initBigPicEvent(){
+            bigPicEvent = SingleLiveEvent()
         }
         /** 初始化键盘控制*/
         fun initInputKeyBoard(){

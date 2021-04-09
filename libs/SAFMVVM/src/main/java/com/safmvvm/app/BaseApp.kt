@@ -2,27 +2,27 @@ package com.safmvvm.app
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
-import com.jiang.awesomedownloader.downloader.AwesomeDownloader
-import com.safmvvm.component.RouterUtil
+import com.luck.picture.lib.app.IApp
+import com.luck.picture.lib.app.PictureAppMaster
+import com.luck.picture.lib.engine.PictureSelectorEngine
 import com.safmvvm.ui.autosize.AutoSizeUtil
-import com.safmvvm.ui.load.LoadSirUtil
-import com.safmvvm.ui.swipebacklayout.SwipebacklayoutUtil
-import com.safmvvm.ui.theme.ThemeUtil
+import com.safmvvm.ui.bigPic.PictureSelectorEngineImp
 import com.safmvvm.utils.AppUtil
-import com.safmvvm.utils.KVCacheUtil
-import com.safmvvm.utils.LogUtil
 
 /**
  * 所有子Module都要继承此BaseApp
  * 所有统一初始化的工具都放到此处
  */
-open class BaseApp : Application(), CameraXConfig.Provider {
+open class BaseApp : Application(), CameraXConfig.Provider, IApp{
 
     override fun onCreate() {
         super.onCreate()
+
+        PictureAppMaster.getInstance().app = this
 
         onMainPorcessInitBefore()
 
@@ -71,7 +71,8 @@ open class BaseApp : Application(), CameraXConfig.Provider {
 
         private fun initResource(app: Application) {
             // 监听所有 Activity 的创建和销毁
-            app.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            app.registerActivityLifecycleCallbacks(object :
+                    ActivityLifecycleCallbacks {
                 override fun onActivityCreated(
                     activity: Activity,
                     savedInstanceState: Bundle?
@@ -79,7 +80,10 @@ open class BaseApp : Application(), CameraXConfig.Provider {
                     AppActivityManager.add(activity)
                 }
 
-                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                override fun onActivitySaveInstanceState(
+                    activity: Activity,
+                    outState: Bundle
+                ) {
                 }
 
                 override fun onActivityStarted(activity: Activity) {
@@ -108,5 +112,9 @@ open class BaseApp : Application(), CameraXConfig.Provider {
 
     override fun getCameraXConfig(): CameraXConfig = Camera2Config.defaultConfig()
 
+    override fun getAppContext(): Context = this
+
+    override fun getPictureSelectorEngine(): PictureSelectorEngine =
+        PictureSelectorEngineImp()
 
 }

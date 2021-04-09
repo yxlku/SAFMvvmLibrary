@@ -63,6 +63,11 @@ interface IView<V: ViewDataBinding, VM: BaseLiveViewModel<out BaseModel>>: IArgu
     fun initLoadDialog()
 
     /**
+     * 2.5 大图浏览
+     */
+    fun initBigPic()
+
+    /**
      * 3.1 开启页面动画（注意：这里是在开启下个Activity时调用的，）
      */
     fun startPageAnim()

@@ -92,7 +92,8 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
         initLoadSir()
         //初始化等待弹窗
         initLoadDialog()
-
+        //大图浏览
+        initBigPic()
     }
 
     /** 初始化状态栏 */

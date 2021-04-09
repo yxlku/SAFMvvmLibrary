@@ -3,25 +3,30 @@ package com.safmvvm.mvvm.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.Postcard
+import com.hitomi.tilibrary.style.index.NumberIndexIndicator
+import com.hitomi.tilibrary.style.progress.ProgressBarIndicator
+import com.hitomi.tilibrary.transfer.TransferConfig
+import com.hitomi.tilibrary.transfer.Transferee
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.impl.LoadingPopupView
+import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
 import com.safmvvm.ui.load.state.ILoadPageState
-import com.safmvvm.utils.LogUtil
-import com.zy.multistatepage.MultiStatePage
+import com.vansz.glideimageloader.GlideImageLoader
 import com.zy.multistatepage.MultiStatePage.bindMultiState
 import com.zy.multistatepage.OnNotifyListener
 
@@ -33,6 +38,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     private val mViewModelId: Int? = null
 ) : BaseSuperActivity<V, VM>(mLayoutId, mViewModelId), ILoad {
 
+    /** 大图浏览*/
+    var mTransferee: Transferee? = null
     //状态：弹窗模式
     var dialogView: LoadingPopupView? = null
     /** 等待弹窗自定义布局，默认为全局配置项，如果配置项不设置则使用控件自带的布局*/
@@ -49,20 +56,24 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         }
         //初始化LoadSir事件
         mViewModel.mUiChangeLiveData.initLoadSirEvent()
-        mViewModel.mUiChangeLiveData.loadPageStateEvent?.observe(this, Observer {
-            if (it?.state != null) {
-                multiStateContainer.show(it.state, OnNotifyListener { state ->
-                    if (it.isModify && state is ILoadPageState) {
-                        state.setMsg(it.msg)
-                        state.setSubMsg(it.subMsg)
-                        state.setIcon(it.icon)
-                    }
-                })
-            } else {
-                //错误了，直接隐藏全部的遮盖
-                multiStateContainer.show(GlobalConfig.Loading.STATE_SUCCESS)
-            }
-        })
+        mViewModel.mUiChangeLiveData.loadPageStateEvent?.observe(
+            this,
+            Observer {
+                if (it?.state != null) {
+                    multiStateContainer.show(
+                        it.state,
+                        OnNotifyListener { state ->
+                            if (it.isModify && state is ILoadPageState) {
+                                state.setMsg(it.msg)
+                                state.setSubMsg(it.subMsg)
+                                state.setIcon(it.icon)
+                            }
+                        })
+                } else {
+                    //错误了，直接隐藏全部的遮盖
+                    multiStateContainer.show(GlobalConfig.Loading.STATE_SUCCESS)
+                }
+            })
     }
 
     /**
@@ -70,9 +81,9 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
      */
     override fun initLoadDialog() {
         //提示文字
-        var tipText: String = if(mLoadingTipText.isNotEmpty()) mLoadingTipText else ""
+        val tipText: String = if(mLoadingTipText.isNotEmpty()) mLoadingTipText else ""
         //布局选项 如果子Module没有配置则调用控件中的布局
-        var cusLayout: Int = if(mLoadingLayoutId != 0) mLoadingLayoutId else 0
+        val cusLayout: Int = if(mLoadingLayoutId != 0) mLoadingLayoutId else 0
         if (dialogView == null) {
             dialogView =
                 XPopup.Builder(this)
@@ -89,6 +100,45 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
                 dialogView?.dismiss()
             }
         })
+    }
+
+    /**
+     * 大图浏览
+     */
+    override fun initBigPic() {
+        mTransferee = Transferee.getDefault(this)
+        mViewModel.mUiChangeLiveData.initBigPicEvent()
+        mViewModel.mUiChangeLiveData.bigPicEvent?.observe(this, {
+            it?.apply {
+                val builder = configBigPicBuilder()
+                    .setNowThumbnailIndex(this.second)
+                    .setSourceUrlList(this.third)
+                val view = this.first
+                val viewParent = view?.parent
+                when {
+                    viewParent is RecyclerView -> builder.bindRecyclerView(viewParent, R.id.iv_thum)
+                    view is ImageView -> builder.bindImageView(view)
+                    else -> builder.create()
+                }
+//                mTransferee?.apply(builder)?.show()
+            }
+        })
+    }
+
+    /**
+     * 配置拓展
+     */
+    fun configBigPicBuilder(
+        configExpand: (builder: TransferConfig.Builder) -> Unit = {}
+    ): TransferConfig.Builder{
+        return TransferConfig.build()
+            .setProgressIndicator(ProgressBarIndicator())
+            .setIndexIndicator(NumberIndexIndicator())
+            .enableDragPause(true)
+            .enableJustLoadHitPage(true)
+            .setImageLoader(GlideImageLoader.with(applicationContext)).apply {
+                configExpand(this)
+            }
     }
 
     /**
@@ -133,7 +183,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             },
             true
         )
-        LiveDataBus.observe<Pair<Class<out Activity>, ArrayMap<String, *>>>(this,
+        LiveDataBus.observe<Pair<Class<out Activity>, ArrayMap<String, *>>>(
+            this,
             mViewModel.mUiChangeLiveData.startActivityWithMapEvent!!,
             Observer {
                 startActivity(it?.first, it?.second)
@@ -141,7 +192,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             true
         )
         // vm 可以启动界面，并携带 Bundle，接收方可调用 getBundle 获取
-        LiveDataBus.observe<Pair<Class<out Activity>, Bundle?>>(this,
+        LiveDataBus.observe<Pair<Class<out Activity>, Bundle?>>(
+            this,
             mViewModel.mUiChangeLiveData.startActivityEventWithBundle!!,
             Observer {
                 startActivity(it?.first, bundle = it?.second)
@@ -154,8 +206,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             this,
             mViewModel.mUiChangeLiveData.startActivityEventRouter!!,
             Observer {
-                it?.let{
-                    startActivityRouter(it){
+                it?.let {
+                    startActivityRouter(it) {
                         return@startActivityRouter it
                     }
                 }
@@ -163,11 +215,11 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             true
         )
         //Router跳转带返回参数
-        LiveDataBus.observe<Pair<String, (postcard: Postcard)->Postcard>>(
+        LiveDataBus.observe<Pair<String, (postcard: Postcard) -> Postcard>>(
             this,
             mViewModel.mUiChangeLiveData.startActivityEventRouterPostcard!!,
             Observer {
-                it?.let{
+                it?.let {
                     startActivityRouter(it.first, it.second)
                 }
             },
@@ -178,6 +230,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     override fun onDestroy() {
         super.onDestroy()
         dialogView?.destroy()
+        mTransferee?.destroy()
     }
 
     /**
