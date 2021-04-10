@@ -13,16 +13,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
 import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.component.RouterUtil
 import com.safmvvm.mvvm.args.IResultFinishCallback
 import com.safmvvm.mvvm.model.BaseModel
+import com.safmvvm.mvvm.view.immersionbar.ImmersionFragment
 import com.safmvvm.mvvm.view.immersionbar.SimpleImmersionFragment
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.theme.StatusBarUtil
 import com.safmvvm.ui.titlebar.OnTitleBarListener
 import com.safmvvm.ui.titlebar.TitleBar
+import com.safmvvm.utils.LogUtil
 import com.safmvvm.utils.Utils
 import me.jessyan.autosize.AutoSizeCompat
 
@@ -34,7 +37,7 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
     private val mViewModelId: Int? = null,
     /** 共享使用Activity中的VM*/
     private val sharedViewModel: Boolean = false,
-): SimpleImmersionFragment(), IView<V, VM>, IResultFinishCallback{
+): ImmersionFragment(), IView<V, VM>, IResultFinishCallback{
 
     protected lateinit var mBinding: V
     protected lateinit var mViewModel: VM
@@ -62,8 +65,19 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
     override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =
         DataBindingUtil.inflate(inflater, mLayoutId, container, false)
 
+    /** 状态栏文字图标颜色: true 为黑色，false为白色，null为通用配置*/
+    open fun statusBarIsDark(): Boolean? = null
+    /** 是否开启键盘和沉浸式状态栏冲突问题*/
+    open fun statusBarKeyboardEnable(): Boolean? = null
+    /** 是否开启沉浸式状态栏*/
+    open fun isOpenImmersionBar(): Boolean = true
+
     override fun initImmersionBar() {
-        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+        if (isOpenImmersionBar()) {
+            val statusBarIsDark = statusBarIsDark() ?: GlobalConfig.App.gIsStatusBarIsDark
+            val keyboardEnable = statusBarKeyboardEnable() ?: true
+            StatusBarUtil.init(this, statusBarIsDark, keyboardEnable)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

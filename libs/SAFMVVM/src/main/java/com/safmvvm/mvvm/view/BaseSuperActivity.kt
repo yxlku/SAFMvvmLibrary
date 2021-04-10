@@ -59,10 +59,28 @@ abstract class BaseSuperActivity<V : ViewDataBinding, VM : BaseViewModel<out Bas
     protected lateinit var mViewModel: VM
 
     private lateinit var mStartActivityForResult: ActivityResultLauncher<Intent>
+    override fun onResume() {
+        super.onResume()
 
+    }
+    /** 状态栏文字图标颜色: true 为黑色，false为白色，null为通用配置*/
+    open fun statusBarIsDark(): Boolean? = null
+    /** 是否开启键盘和沉浸式状态栏冲突问题*/
+    open fun statusBarKeyboardEnable(): Boolean? = null
+    /** 是否开启沉浸式状态栏*/
+    open fun isOpenImmersionBar(): Boolean = true
+
+    open fun initImmersionBar() {
+        if (isOpenImmersionBar()) {
+            val statusBarIsDark = statusBarIsDark() ?: GlobalConfig.App.gIsStatusBarIsDark
+            val keyboardEnable = statusBarKeyboardEnable() ?: false
+            StatusBarUtil.init(this, statusBarIsDark, keyboardEnable)
+        }
+    }
     var mTitleBar: TitleBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        StatusBarUtil.init(this, GlobalConfig.App.gIsStatusBarIsDark)
+        //沉浸式
+        initImmersionBar()
         window.sharedElementsUseOverlay = false
         setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
         super.onCreate(savedInstanceState)

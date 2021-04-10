@@ -8,52 +8,23 @@
             name="viewModel"
             type="com.deti.brand.BrandIndexViewModel" />
     </data>
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:orientation="vertical"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/fl_content"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="0mm" />
+            android:layout_height="0mm"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:background="@color/white"
-            android:visibility="visible"
+        <me.majiajie.pagerbottomtabstrip.PageNavigationView
+            android:id="@+id/pnv_tab"
             android:layout_width="match_parent"
-            android:layout_height="60mm">
-            <TextView
-                android:gravity="center"
-                android:text="首页"
-                android:layout_weight="1"
-                android:layout_width="0mm"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:gravity="center"
-                android:text="首页"
-                android:layout_weight="1"
-                android:layout_width="0mm"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:gravity="center"
-                android:text="首页"
-                android:layout_weight="1"
-                android:layout_width="0mm"
-                android:layout_height="match_parent"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="55mm"
+            android:background="#FFFFFF" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_gravity="bottom"
-            android:visibility="gone"
-            android:id="@+id/bnv_tab"
-            android:layout_width="match_parent"
-            android:layout_height="60mm"
-            android:background="#FFFFFFFF"
-            app:itemTextColor="@drawable/brand_tab_text_selector"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/brand_menu_index" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

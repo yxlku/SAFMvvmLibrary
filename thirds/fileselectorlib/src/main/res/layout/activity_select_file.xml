@@ -5,7 +5,6 @@
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <com.zlylib.titlebarlib.ActionBarCommon
@@ -15,19 +14,19 @@
         app:ab_statusBarVisible="auto"
         app:abc_leftIconRes="@drawable/ic_back"
         app:abc_rightTextPaddingLeft="0dp"
-        app:abc_rightTextPaddingRight="15dp"
+        app:abc_rightTextPaddingRight="15mm"
         app:abc_rightText="选择"
         app:abc_titleText="文件选择" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="33dp"
+        android:layout_height="33mm"
         android:background="@color/Grey200"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imb_select_sdcard"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="36mm"
+            android:layout_height="36mm"
             android:layout_gravity="center_vertical"
             android:background="?android:attr/selectableItemBackground"
             android:rotation="90"
@@ -40,7 +39,7 @@
             android:id="@+id/breadcrumbs_view"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:paddingRight="10dp" />
+            android:paddingRight="10mm" />
     </LinearLayout>
 
 

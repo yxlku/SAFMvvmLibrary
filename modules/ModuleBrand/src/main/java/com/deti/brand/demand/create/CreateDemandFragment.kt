@@ -74,6 +74,9 @@ class CreateDemandFragment(
     /** 主页适配器*/
     var mAdapter = BaseBinderAdapter()
 
+    override fun statusBarIsDark(): Boolean = false
+    override fun statusBarKeyboardEnable(): Boolean = true
+    override fun isOpenImmersionBar(): Boolean = false
     override fun initData() {
         super.initData()
         //TODO testLoginData

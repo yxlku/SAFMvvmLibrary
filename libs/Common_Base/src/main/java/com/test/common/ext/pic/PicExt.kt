@@ -26,7 +26,7 @@ fun Activity.takePhoto(
         .openCamera(PictureMimeType.ofAll())
         .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
         .theme(R.style.picture_default_style)
-        .isUseCustomCamera(true)// 是否使用自定义相机
+        .isUseCustomCamera(false)// 是否使用自定义相机
         .minSelectNum(1)// 最小选择数量
         .maxSelectNum(1)// 最大图片选择数量
         .isEnableCrop(true)// 是否裁剪
