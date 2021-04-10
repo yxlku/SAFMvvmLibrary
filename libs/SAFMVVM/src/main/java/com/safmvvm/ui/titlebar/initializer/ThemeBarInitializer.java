@@ -66,6 +66,11 @@ public class ThemeBarInitializer extends BaseBarInitializer {
 
     @Override
     public Drawable getBackgroundDrawable(Context context) {
-        return new ColorDrawable(ContextCompat.getColor(context, R.color.navigationBg));
+        if (GlobalConfig.TitleBar.gTitleBarBg != null) {
+            return getDrawableResources(context, GlobalConfig.TitleBar.gTitleBarBg);
+        }else{
+            return new ColorDrawable(ContextCompat.getColor(context, R.color.navigationBg));
+        }
+
     }
 }

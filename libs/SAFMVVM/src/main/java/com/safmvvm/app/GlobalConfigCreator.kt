@@ -60,6 +60,14 @@ class GlobalConfigCreator {
         return this
     }
 
+    /**
+     * 默认标题栏背景图片
+     */
+    fun titleBarBg(@DrawableRes titleBarBg: Int): GlobalConfigCreator{
+        GlobalConfig.TitleBar.gTitleBarBg = titleBarBg
+        return this
+    }
+
     /************************************ Toast初始化配置 *******************************************/
 
     /**

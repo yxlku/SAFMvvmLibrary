@@ -34,10 +34,14 @@ internal object GlobalConfig {
         var gIsStatusBarIsDark: Boolean = false
     }
 
+    /** 这里为全局配置，如果需要设置，可以通过titleBar属性来控制*/
     object TitleBar{
-        /** 默认返回按钮*/
+        /** 其次：全局：默认返回按钮*/
         @JvmField
         @DrawableRes var gTitleBarBackIcon: Int = R.drawable.bar_arrows_left_black
+        /** 优先：全局：标题栏背景 如果不设置或者为null，则使用默认颜色*/
+        @JvmField
+        @DrawableRes var gTitleBarBg: Int? = null
     }
 
     /**
