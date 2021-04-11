@@ -22,6 +22,7 @@ import com.lxj.xpopup.impl.LoadingPopupView
 import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.ext.configBigPicBuilder
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
@@ -111,34 +112,18 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
         mViewModel.mUiChangeLiveData.bigPicEvent?.observe(this, {
             it?.apply {
                 val builder = configBigPicBuilder()
-                    .setNowThumbnailIndex(this.second)
-                    .setSourceUrlList(this.third)
+                    .setNowThumbnailIndex(this.second) //位置
+                    .setSourceUrlList(this.third) //url列表
                 val view = this.first
                 val viewParent = view?.parent
-                when {
+                val config = when {
                     viewParent is RecyclerView -> builder.bindRecyclerView(viewParent, R.id.iv_thum)
                     view is ImageView -> builder.bindImageView(view)
                     else -> builder.create()
                 }
-//                mTransferee?.apply(builder)?.show()
+                mTransferee?.apply(config)?.show()
             }
         })
-    }
-
-    /**
-     * 配置拓展
-     */
-    fun configBigPicBuilder(
-        configExpand: (builder: TransferConfig.Builder) -> Unit = {}
-    ): TransferConfig.Builder{
-        return TransferConfig.build()
-            .setProgressIndicator(ProgressBarIndicator())
-            .setIndexIndicator(NumberIndexIndicator())
-            .enableDragPause(true)
-            .enableJustLoadHitPage(true)
-            .setImageLoader(GlideImageLoader.with(applicationContext)).apply {
-                configExpand(this)
-            }
     }
 
     /**

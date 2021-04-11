@@ -11,10 +11,8 @@ import com.safmvvm.ui.autosize.AutoSizeUtil
 import com.safmvvm.ui.load.LoadSirUtil
 import com.safmvvm.ui.swipebacklayout.SwipebacklayoutUtil
 import com.safmvvm.ui.theme.ThemeUtil
-import com.safmvvm.utils.AppUtil
 import com.safmvvm.utils.KVCacheUtil
 import com.safmvvm.utils.LogUtil
-import com.tencent.mmkv.MMKV
 
 open class AppInitializer : Initializer<Unit> {
 

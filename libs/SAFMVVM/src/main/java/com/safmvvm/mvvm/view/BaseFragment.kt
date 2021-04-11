@@ -6,18 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.Postcard
+import com.hitomi.tilibrary.transfer.Transferee
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.impl.LoadingPopupView
+import com.safmvvm.R
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.bus.LiveDataBus
+import com.safmvvm.ext.configBigPicBuilder
 import com.safmvvm.mvvm.model.BaseModel
 import com.safmvvm.mvvm.viewmodel.BaseViewModel
 import com.safmvvm.ui.load.ILoad
@@ -32,6 +37,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     private val mViewModelId: Int? = null
 ) : BaseSuperFragment<V, VM>(mLayoutId, mViewModelId), ILoad{
 
+    /** 大图浏览*/
+    var mTransferee: Transferee? = null
     //状态：弹窗模式
     var dialogView: LoadingPopupView? = null
     /** 等待弹窗自定义布局，默认为全局配置项，如果配置项不设置则使用控件自带的布局*/
@@ -39,9 +46,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     /** 等待等待弹窗提示信息，默认为全局配置项，如果配置项不设置，则使用控件自带的文字*/
     protected var mLoadingTipText: String = GlobalConfig.Loading.LOADING_TEXT
 
-    override fun initBigPic() {
-
-    }
     /**
      * 初始化等待弹窗
      */
@@ -89,6 +93,28 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             } else {
                 //错误了，直接隐藏全部的遮盖
                 multiStateContainer.show(GlobalConfig.Loading.STATE_SUCCESS)
+            }
+        })
+    }
+    /**
+     * 大图浏览
+     */
+    override fun initBigPic() {
+        mTransferee = Transferee.getDefault(context)
+        mViewModel.mUiChangeLiveData.initBigPicEvent()
+        mViewModel.mUiChangeLiveData.bigPicEvent?.observe(this, {
+            it?.apply {
+                val builder = configBigPicBuilder()
+                    .setNowThumbnailIndex(this.second)
+                    .setSourceUrlList(this.third)
+                val view = this.first
+                val viewParent = view?.parent
+                val config = when {
+                    viewParent is RecyclerView -> builder.bindRecyclerView(viewParent, R.id.iv_thum)
+                    view is ImageView -> builder.bindImageView(view)
+                    else -> builder.create()
+                }
+                mTransferee?.apply(config)?.show()
             }
         })
     }

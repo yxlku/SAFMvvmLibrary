@@ -49,8 +49,9 @@ object StatusBarUtil {
     ){
         activity.immersionBar{
             //透明状态栏和导航栏，不写transparentBar默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
-            transparentBar()
-//            transparentStatusBar()
+//            transparentBar()
+//            fullScreen(true)
+            transparentStatusBar()
 //            navigationBarColor(R.color.white) //导航栏颜色，不写默认黑色
             //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
             keyboardEnable(isKeyBoardEnable)
