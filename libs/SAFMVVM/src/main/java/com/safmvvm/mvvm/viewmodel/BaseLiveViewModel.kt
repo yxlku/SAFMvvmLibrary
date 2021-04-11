@@ -155,13 +155,13 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
      */
     class UiChangeLiveData {
         /** LoadPageState */
-        var loadPageStateEvent: SingleLiveEvent<LoadSirUpdateMsgEntity?>? = null
+        var loadPageStateEvent: SingleLiveEvent<LoadSirUpdateMsgEntity?> = SingleLiveEvent()
         /** loading */
-        var loadDialogEvent: SingleLiveEvent<Boolean>? = null
+        var loadDialogEvent: SingleLiveEvent<Boolean> = SingleLiveEvent()
         /** 大图展示*/
-        var bigPicEvent: SingleLiveEvent<Triple<View?, Int, List<String>>>? = null
+        var bigPicEvent: SingleLiveEvent<Triple<View?, Int, List<String>>> = SingleLiveEvent()
         /** 键盘显示隐藏*/
-        var inputKeyboard: SingleLiveEvent<Boolean>? = null
+        var inputKeyboard: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
         /** 打开Activity页面*/
         var startActivityEvent: String? = null
@@ -182,19 +182,15 @@ abstract class BaseLiveViewModel<M: BaseModel>(app: Application): AndroidViewMod
 
         /** 初始化异步操作状态页面*/
         fun initLoadSirEvent(){
-            loadPageStateEvent = SingleLiveEvent()
         }
         /** 初始化等待弹窗*/
         fun initLoadDialogEvent(){
-            loadDialogEvent = SingleLiveEvent()
         }
         /** 大图展示*/
         fun initBigPicEvent(){
-            bigPicEvent = SingleLiveEvent()
         }
         /** 初始化键盘控制*/
         fun initInputKeyBoard(){
-            inputKeyboard = SingleLiveEvent()
         }
 
         /** 原生调用前初始化*/

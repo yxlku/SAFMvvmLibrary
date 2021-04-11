@@ -4,6 +4,7 @@ import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import com.hitomi.tilibrary.loader.ImageLoader
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
@@ -364,6 +365,14 @@ class GlobalConfigCreator {
      */
     fun imageResError(@DrawableRes imageResError: Int): GlobalConfigCreator{
         GlobalConfig.ImageView.gImageResError = imageResError
+        return this
+    }
+
+    /**
+     * 大图展示所需加载器
+     */
+    fun imageBigPicImageLoad(bigPicImageLoad: ImageLoader): GlobalConfigCreator{
+        GlobalConfig.ImageView.gBigPicImageLoad = bigPicImageLoad
         return this
     }
 

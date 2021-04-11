@@ -2,7 +2,9 @@ package com.safmvvm.app.globalconfig
 
 import android.view.Gravity
 import androidx.annotation.*
+import com.hitomi.tilibrary.loader.ImageLoader
 import com.safmvvm.R
+import com.safmvvm.app.BaseApp
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
@@ -10,6 +12,7 @@ import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
 import com.safmvvm.ui.toast.DefToastEnumInterface
 import com.safmvvm.ui.toast.ToastEnumInterface
+import com.vansz.glideimageloader.GlideImageLoader
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 
@@ -185,6 +188,8 @@ internal object GlobalConfig {
         @DrawableRes var gImageResPlaceholder: Int? = null
         /** 加载错误时的图片*/
         @DrawableRes var gImageResError: Int? = null
+        /** 加载大图所需的加载器 - 默认使用Glide的加载器*/
+        var gBigPicImageLoad: ImageLoader = GlideImageLoader.with(BaseApp.getInstance())
     }
 
     object Click{
