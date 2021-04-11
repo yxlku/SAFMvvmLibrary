@@ -104,6 +104,8 @@ abstract class BaseBottomSuperFragment<V: ViewDataBinding, VM: BaseViewModel<out
         initData()
         //等待弹窗初始化
         initLoadDialog()
+        //大图展示
+        initBigPic()
         dialog.setContentView(mBinding.root)
     }
     override fun initDatabinding(inflater: LayoutInflater, container: ViewGroup?): V =

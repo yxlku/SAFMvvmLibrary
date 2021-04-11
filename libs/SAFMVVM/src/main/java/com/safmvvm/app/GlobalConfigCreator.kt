@@ -5,6 +5,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.hitomi.tilibrary.loader.ImageLoader
+import com.hitomi.tilibrary.style.IIndexIndicator
+import com.hitomi.tilibrary.style.IProgressIndicator
 import com.safmvvm.app.globalconfig.GlobalConfig
 import com.safmvvm.app.globalconfig.GlobalConfigInitListener
 import com.safmvvm.db.MigrationManager
@@ -373,6 +375,21 @@ class GlobalConfigCreator {
      */
     fun imageBigPicImageLoad(bigPicImageLoad: ImageLoader): GlobalConfigCreator{
         GlobalConfig.ImageView.gBigPicImageLoad = bigPicImageLoad
+        return this
+    }
+
+    /**
+     * 大图加载时动画
+     */
+    fun imageBigProgress(bigPicProgress: IProgressIndicator): GlobalConfigCreator{
+        GlobalConfig.ImageView.gBigPicProgress = bigPicProgress
+        return this
+    }
+    /**
+     * 大图展示指示器
+     */
+    fun imageBigPicIndexIndicator(bigPicIndexIndicator: IIndexIndicator): GlobalConfigCreator{
+        GlobalConfig.ImageView.gBigPicIndexIndicator = bigPicIndexIndicator
         return this
     }
 

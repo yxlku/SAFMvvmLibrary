@@ -1,5 +1,7 @@
 package com.test.common.base
 
+import android.content.Context
+import android.widget.ImageView
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import com.safmvvm.app.AppActivityManager
@@ -20,6 +22,20 @@ import java.lang.Exception
 import kotlin.system.exitProcess
 
 class ProjectConfigListener: GlobalConfigInitListener {
+    /**
+     * 全局大图长按功能
+     * @param imageView 当前ImageView
+     * @param imageUrl 图片真实地址
+     * @param rv中的位置 或者 iv的位置 通常只有rv才有点用
+     */
+    override fun initBigPicLongClick(
+        context: Context?,
+        imageView: ImageView,
+        imageUrl: String,
+        pos: Int
+    ) {
+
+    }
 
     /**
      * 项目中用到的头信息 -- 不会每次请求调用

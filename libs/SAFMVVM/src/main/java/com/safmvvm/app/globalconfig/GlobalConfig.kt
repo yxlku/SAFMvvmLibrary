@@ -1,10 +1,14 @@
 package com.safmvvm.app.globalconfig
 
 import android.view.Gravity
-import androidx.annotation.*
+import androidx.annotation.AnimRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import com.hitomi.tilibrary.loader.ImageLoader
+import com.hitomi.tilibrary.style.IIndexIndicator
+import com.hitomi.tilibrary.style.IProgressIndicator
 import com.safmvvm.R
-import com.safmvvm.app.BaseApp
 import com.safmvvm.db.MigrationManager
 import com.safmvvm.ui.load.state.DefaultEmptyPageState
 import com.safmvvm.ui.load.state.DefaultErrorPageState
@@ -12,7 +16,6 @@ import com.safmvvm.ui.load.state.DefaultFailPageState
 import com.safmvvm.ui.load.state.DefaultLoadingPageState
 import com.safmvvm.ui.toast.DefToastEnumInterface
 import com.safmvvm.ui.toast.ToastEnumInterface
-import com.vansz.glideimageloader.GlideImageLoader
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.state.SuccessState
 
@@ -190,6 +193,10 @@ internal object GlobalConfig {
         @DrawableRes var gImageResError: Int? = null
         /** 加载大图所需的加载器 - 默认使用Glide的加载器*/
         var gBigPicImageLoad: ImageLoader? = null
+        /** 资源加载进度指示器, 可以实现 IProgressIndicator 扩展*/
+        var gBigPicProgress: IProgressIndicator? = null
+        /** 指示器*/
+        var gBigPicIndexIndicator: IIndexIndicator? = null
     }
 
     object Click{
@@ -205,7 +212,7 @@ internal object GlobalConfig {
          */
         var gIsClickInterval = false
 
-        /**
+        /**i
          * 点击事件时间间隔
          */
         var gClickIntervalMilliseconds = 500

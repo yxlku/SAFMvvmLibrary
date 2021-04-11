@@ -96,17 +96,23 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
             }
         })
     }
+
     /**
      * 大图浏览
      */
     override fun initBigPic() {
         mTransferee = Transferee.getDefault(context)
-        mViewModel.mUiChangeLiveData.initBigPicEvent()
-        mViewModel.mUiChangeLiveData.bigPicEvent?.observe(this, {
+        mViewModel.mUiChangeLiveData.bigPicEvent.observe(this, {
             it?.apply {
                 val builder = configBigPicBuilder()
-                    .setNowThumbnailIndex(this.second)
-                    .setSourceUrlList(this.third)
+                    .setNowThumbnailIndex(this.second) //位置
+                    .setSourceUrlList(this.third) //url列表
+                    .setOnLongClickListener { imageView, imageUri, pos ->
+                        //如果当前页面中没有自定义大图尝试事件，则使用全局大图长按功能
+                        if (!bigPicLongClick(imageView, imageUri, pos)) {
+                            GlobalConfig.App.gGlobalConfigInitListener?.initBigPicLongClick(context, imageView, imageUri, pos)
+                        }
+                    }
                 val view = this.first
                 val viewParent = view?.parent
                 val config = when {
@@ -240,5 +246,13 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out BaseMode
     fun setCustomDialog(@LayoutRes layoutId: Int = 0, tipText: String = ""){
         mLoadingLayoutId = if(layoutId != 0) layoutId else GlobalConfig.Loading.LOADING_LAYOUT_ID
         mLoadingTipText = if(tipText.isNotEmpty()) tipText else GlobalConfig.Loading.LOADING_TEXT
+    }
+
+    /**
+     * 大图长按功能
+     * @return 返回false使用全局通用大图长按功能
+     */
+    open fun bigPicLongClick(imageView: ImageView, imageUrl: String, pos: Int): Boolean {
+        return false
     }
 }

@@ -1,5 +1,7 @@
 package com.safmvvm.app.globalconfig
 
+import android.content.Context
+import android.widget.ImageView
 import androidx.collection.ArrayMap
 import com.safmvvm.http.ssl.SSLFactory
 import okhttp3.Interceptor
@@ -9,6 +11,14 @@ import java.lang.Exception
  * 初始化接口，配合一些库需要通过自定义方法来自定义初始化
  */
 interface GlobalConfigInitListener {
+
+    /**
+     * 全局大图长按功能
+     * @param imageView 当前ImageView
+     * @param imageUrl 图片真实地址
+     * @param rv中的位置 或者 iv的位置 通常只有rv才有点用
+     */
+    fun initBigPicLongClick(context: Context?, imageView: ImageView, imageUrl: String, pos: Int)
 
     /**
      * 网络请求头信息

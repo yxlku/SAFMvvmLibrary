@@ -98,6 +98,8 @@ abstract class BaseSuperFragment<V : ViewDataBinding, VM : BaseViewModel<out Bas
         initData()
         //等待弹窗初始化
         initLoadDialog()
+        //大图展示
+        initBigPic()
     }
 
     /**
