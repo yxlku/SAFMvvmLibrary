@@ -189,7 +189,7 @@ internal object GlobalConfig {
         /** 加载错误时的图片*/
         @DrawableRes var gImageResError: Int? = null
         /** 加载大图所需的加载器 - 默认使用Glide的加载器*/
-        var gBigPicImageLoad: ImageLoader = GlideImageLoader.with(BaseApp.getInstance())
+        var gBigPicImageLoad: ImageLoader? = null
     }
 
     object Click{

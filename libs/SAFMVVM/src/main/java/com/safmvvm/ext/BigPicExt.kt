@@ -19,7 +19,7 @@ fun configBigPicBuilder(
 		.setIndexIndicator(NumberIndexIndicator())
 		.enableDragPause(true)
 		.enableJustLoadHitPage(true)
-		.setImageLoader(GlobalConfig.ImageView.gBigPicImageLoad).apply {
+		.setImageLoader(GlobalConfig.ImageView.gBigPicImageLoad ?: GlideImageLoader.with(BaseApp.getInstance())).apply {
 			configExpand(this)
 		}
 }
