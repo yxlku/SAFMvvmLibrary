@@ -9,16 +9,15 @@
         android:name=".AppApplication"
         android:supportsRtl="true"
         android:theme="@style/DetiAppTheme">
-        <!--        <activity android:name="com.example.moduletesta.TestAMainActivity"-->
-                <activity android:name="com.deti.basis.splash.SplashActivity"
-        android:screenOrientation="portrait"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <activity
+                    android:name="com.example.moduletesta.TestAMainActivity"
+                    android:screenOrientation="portrait">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
 
     </application>
 

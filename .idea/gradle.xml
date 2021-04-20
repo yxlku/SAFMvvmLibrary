@@ -18,9 +18,6 @@
             <option value="$PROJECT_DIR$/libs/SAFMVVM" />
             <option value="$PROJECT_DIR$/libs/SAFMVVM_EXT_UI" />
             <option value="$PROJECT_DIR$/modules" />
-            <option value="$PROJECT_DIR$/modules/ModuleBasis" />
-            <option value="$PROJECT_DIR$/modules/ModuleBrand" />
-            <option value="$PROJECT_DIR$/modules/ModuleDesigner" />
             <option value="$PROJECT_DIR$/modules/ModuleTestA" />
             <option value="$PROJECT_DIR$/modules/testapplication" />
             <option value="$PROJECT_DIR$/thirds" />
