@@ -43,6 +43,8 @@ class AInitializer: AppInitializer() {
             .toastCustomToastGravity(Gravity.CENTER)
             //标题栏通用返回按钮
             .titleBarBackIcon(R.mipmap.base_title_back)
+            //状态栏文字黑色
+            .appIsStatusBarIsDark(true)
 
             .loadingLayoutText("加载中")
             .loadingLayoutId(R.layout.saf_loading_layout)
