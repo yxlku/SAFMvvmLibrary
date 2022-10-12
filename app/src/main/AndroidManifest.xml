@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/DetiAppTheme">
                 <activity
-                    android:name="com.interview.moduletesta.TestAMainActivity"
+                    android:name="com.example.moduletesta.TestAMainActivity"
                     android:screenOrientation="portrait">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN" />

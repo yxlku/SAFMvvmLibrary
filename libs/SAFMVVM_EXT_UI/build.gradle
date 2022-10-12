@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.SAFMvvmLibraryFile'
+//apply plugin: 'com.github.dcendents.android-maven'
+//group='com.github.SAFMvvmLibraryFile'
 android {
     compileSdkVersion AndroidApp.compileSdkVersion
 
